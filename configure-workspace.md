@@ -85,12 +85,8 @@ Exporting a workspace saves a copy of all workspace data in a JSON file. Use thi
 
 Copying a workspace makes a complete copy of the workspace within the same service instance. Use this option if you want to adapt an existing workspace while preserving the original version.
 
-- To export an existing workspace to a JSON file, click the menu icon in the workspace tile and then select **Download as JSON**:
-
-    ![Screen capture showing Download as JSON menu choice](images/workspace_export.png)
-- To create a copy of an existing workspace within the same service instance, click the menu icon in the workspace tile and then select **Duplicate**:
-
-    ![Screen capture showing Duplicate menu choice](images/workspace_duplicate.png)
+- To export an existing workspace to a JSON file, click the menu icon in the workspace tile and then select **Download as JSON**.
+- To create a copy of an existing workspace within the same service instance, click the menu icon in the workspace tile and then select **Duplicate**.
 
     Specify the name, description, and language for the new workspace. All data (including intents, entities, and dialog) is included in the copy.
 
@@ -101,11 +97,11 @@ After you create the service instance, you can give other people access to it. T
 
 **Important**: Only one person can edit an intent, entity, or a dialog node at a time. If multiple people work on the same item at the same time, then the changes made by the person who saves their changes last are the only changes applied. Changes that are made during the same time frame by someone else and are saved first are not retained. Coordinate the updates that you plan to make with your team members to prevent anyone from losing their work.
 
-To share a workspace with other people, you must give them access to the service instance that hosts the workspace. If the instance you share hosts other workspaces that you do not want others to edit, then be sure to make that clear to anyone that you invite.
+To share a workspace with other people, you must give them developer access to the service instance that hosts the workspace. If the instance you share hosts other workspaces that you do not want others to edit, then be sure to make that clear to anyone you invite.
 
 1.  Go to the {{site.data.keyword.watson}} Developer Console [Projects ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.{DomainName}/developer/watson/projects) page, and log in. Click **Manage > Account > Users** from the menu.
 1.  Click **Invite users**, and then enter the email addresses of the people on your team to whom you want to give access.
-1.  In the *Cloud Foundry access* section, choose your organization from the **Organization** list.
+1.  In the *Cloud Foundry access* section, choose your organization from the *Organization* list.
 
     The *Organization roles* field is automatically filled with *Auditor*. You can keep the default value in the field.
 1.  Optionally, limit the access you are granting to the workspaces in a single region and space.
@@ -116,4 +112,4 @@ To share a workspace with other people, you must give them access to the service
 
 When people you invited next log in to {{site.data.keyword.cloud_notm}}, they will see your organization available from their list of accounts.
 
-With more people editing a workspace, unintended changes can occur, including a workspace deletion. Consider creating backup copies of your workspace on a regular basis, so you can roll back to an earlier version if necessary. To create a backup, simply export the workspace as a JSON file.
+With more people contributing to workspace development, unintended changes can occur, including a workspace deletion. Consider creating backup copies of your workspace on a regular basis, so you can roll back to an earlier version if necessary. To create a backup, simply export the workspace as a JSON file.
