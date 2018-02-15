@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-25"
+lastupdated: "2018-02-15"
 
 ---
 
@@ -183,6 +183,8 @@ To make a programmatic call from a dialog node, complete the following steps:
       {: codeblock}
 
       While testing the dialog, you can temporarily set the `$private.my_credentials` context variable with your real {{site.data.keyword.openwhisk_short}} username and password values by clicking **Manage context** from the "Try it out" pane in the tooling.
+
+      ![Shows how the $private.my_credentials context variable is defined in the Try it out context management interface](images/testing-creds.png)
 
 ## Creating a {{site.data.keyword.openwhisk_short}} action
 {: #create-action}

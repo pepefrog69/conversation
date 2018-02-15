@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-02"
+lastupdated: "2018-02-15"
 
 ---
 
@@ -236,7 +236,7 @@ To delete a context variable, set the variable to null.
 ```json
 {
   "context": {
-    "order_form": "null"
+    "order_form": null
   }
 }
 ```

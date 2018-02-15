@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-14"
+lastupdated: "2018-02-15"
 
 ---
 
@@ -110,6 +110,6 @@ To share a workspace with other people, you must give them developer access to t
     See [Cloud Foundry roles ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.bluemix.net/docs/iam/cfaccess.html#cfroles) for more information about the roles.
 1.  Click **Invite users**.
 
-When people you invited next log in to {{site.data.keyword.cloud_notm}}, they will see your organization available from their list of accounts.
+When the people you invite next log in to {{site.data.keyword.cloud_notm}}, your organization will be included in their list of accounts.
 
-With more people contributing to workspace development, unintended changes can occur, including a workspace deletion. Consider creating backup copies of your workspace on a regular basis, so you can roll back to an earlier version if necessary. To create a backup, simply export the workspace as a JSON file.
+With more people contributing to workspace development, unintended changes can occur, including workspace deletions. Consider creating backup copies of your workspace on a regular basis, so you can roll back to an earlier version if necessary. To create a backup, simply export the workspace as a JSON file.
