@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-15"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -48,8 +48,8 @@ Existing models that you have trained will not be immediately impacted, but expi
 
 The following new features and changes to the service are available.
 
-### 15 February 2018
-{: #15February2018}
+### 16 February 2018
+{: #16February2018}
 
 - **Dialog node tracing**: When you use the "Try it out" pane to test a dialog, a location icon is displayed next to each response. You can click the icon to highlight the path that the service traversed through the dialog tree to arrive at the response. See [Building a dialog](dialog-build.html#test) for details.
 
