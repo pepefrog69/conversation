@@ -81,7 +81,7 @@ Using slots produces a more natural dialog flow between the user and the service
 
       - **Found**: Displayed after the user provides the expected information.
 
-      - **Not found**: Displayed if the information provided by the user is not understood, or is not provided in the expected format. If the slot is filled successfully, or the user input is understood and handled by a node-level handler, then this statement is never displayed.
+      - **Not found**: Displayed if the information provided by the user is not understood, or is not provided in the expected format. If the slot is filled successfully, or the user input is understood and handled by a slot handler, then this statement is never displayed.
 
       For information about how to define conditions and associated actions for Found and Not found responses, see [Adding conditions to Found and Not found responses](dialog-slots.html#slot-handler-next-steps).
 
@@ -137,7 +137,7 @@ Using slots produces a more natural dialog flow between the user and the service
 
       You can condition on the value of a context variable from an earlier slot because the order in which the slots are listed is the order in which they are evaluated. However, only condition on a slot context variable value that you can be confident will exist when this slot is evaluated. Make sure the earlier slot is required, for example.
     {: tip}
-1.  **Keep users on track**. You can optionally define node-level handlers that provide responses to questions users might ask during the interaction that are tangential to the purpose of the node.
+1.  **Keep users on track**. You can optionally define slot handlers that provide responses to questions users might ask during the interaction that are tangential to the purpose of the node.
 
     For example, the user might ask about the tomato sauce recipe or where you get your ingredients. To handle such off-topic questions, click the **Manage handlers** link and add a condition and response for each anticipated question.
 
@@ -145,7 +145,7 @@ Using slots produces a more natural dialog flow between the user and the service
 
     After responding to the off-topic question, the prompt associated with the current empty slot is displayed.
 
-    This condition is triggered if the user provides input that matches the handler conditions at any time during the dialog node flow up until the node-level response is displayed. See [Handling requests to exit a process](dialog-slots.html#slots-node-level-handler) for more ways to use the node-level handler.
+    This condition is triggered if the user provides input that matches the slot handler conditions at any time during the dialog node flow up until the node-level response is displayed. See [Handling requests to exit a process](dialog-slots.html#slots-node-level-handler) for more ways to use the slot handler.
 1.  **Add a node-level response**. The node-level response is not executed until after all of the required slots are filled. You can add a response that summarizes the information you collected. For example, `A $size pizza is scheduled for delivery at $time. Enjoy!`
 
     If you want to define different responses based on certain conditions, click **Customize**, and then click the **Multiple responses** toggle to turn it **On**. For information about conditional responses, see [Conditional responses](dialog-overview.html#multiple).
@@ -167,7 +167,7 @@ The following slot properties can help you check and set values in slot context 
 | `all_slots_filled`     | Evaluates to true only if all of the context variables for all of the slots in the node have been set. See [Preventing a Found response from displaying when it is not needed](dialog-slots.html#slots-stifle-found-responses) for a usage example. |
 | `event.current_value`  | Current value of the context variable for this slot. See [Replacing a slot context variable value](dialog-slots.html#slots-found-handler-event-properties) for a usage example for this property and the event.previous_value property. |
 | `event.previous_value` | Previous value of the context variable for this slot. |
-| `has_skipped_slots`    | True if any of the slots or node-level handlers that are configured with a next step option that skips slots was processed. See [Adding conditions to Found and Not found responses](dialog-slots.html#slot-handler-next-steps) for more information about next step options for slots and [Handling requests to exit a process](dialog-slots.html#slots-node-level-handler) for information about next step options for node-level handlers. |
+| `has_skipped_slots`    | True if any of the slots or slot handlers that are configured with a next step option that skips slots was processed. See [Adding conditions to Found and Not found responses](dialog-slots.html#slot-handler-next-steps) for more information about next step options for slots and [Handling requests to exit a process](dialog-slots.html#slots-node-level-handler) for information about next step options for slot handlers. |
 | `slot_in_focus`        | Forces the slot condition to be applied to the current slot only. See [Getting confirmation](dialog-slots.html#slots-get-confirmation) for more details. |
 {: caption="Slot properties" caption-side="top"}
 
@@ -444,9 +444,9 @@ To prevent Found responses from being displayed, you can do one of the following
 ### Handling requests to exit a process
 {: #slots-node-level-handler}
 
-Add at least one node-level handler that can recognize it when a user wants to exit the node.
+Add at least one slot handler that can recognize it when a user wants to exit the node.
 
-For example, in a node that collects information to schedule a pet grooming appointment, you can add a node-level handler that conditions on the #cancel intent, which recognizes utterances such as, <q>Forget it. I changed my mind.</q>
+For example, in a node that collects information to schedule a pet grooming appointment, you can add a slot handler that conditions on the #cancel intent, which recognizes utterances such as, <q>Forget it. I changed my mind.</q>
 
 1.  In the JSON editor for the handler, fill all of the slot context variables with dummy values to prevent the node from continuing to ask for any that are missing. And in the handler response, add a message such as, `Ok, we'll stop there. No appointment will be scheduled.`
 1.  Choose what action you want the service to take next from the following options:
@@ -457,7 +457,7 @@ For example, in a node that collects information to schedule a pet grooming appo
 
 1.  In the node-level response, add a condition that checks for a dummy value in one of the slot context variables. If found, show a final message such as, `If you decide to make an appointment later, I'm here to help.` If not found, it displays the standard summary message for the node, such as `I am making a grooming appointment for your $animal at $time on $date.`
 
-Here's a sample of JSON that defines a node-level handler for the pizza example. Note that, as described earlier, the context variables are all being set to dummy values. In fact, the `$size` context variable is being set to `dummy`. This $size value triggers the node-level response to show the appropriate message and exit the slots node.
+Here's a sample of JSON that defines a slot handler for the pizza example. Note that, as described earlier, the context variables are all being set to dummy values. In fact, the `$size` context variable is being set to `dummy`. This $size value triggers the node-level response to show the appropriate message and exit the slots node.
 
 ```json
 {
@@ -479,13 +479,13 @@ Here's a sample of JSON that defines a node-level handler for the pizza example.
 ```
 {: codeblock}
 
-**Important**: Take into account the logic used in conditions that are evaluated before this node-level handler so you can build distinct conditions into them. When a user input is received, the conditions are evaluated in the following order:
+**Important**: Take into account the logic used in conditions that are evaluated before this one so you can build distinct conditions into them. When a user input is received, the conditions are evaluated in the following order:
 
 - Current slot level Found conditions.
-- Node-level handlers in the order they are listed.
+- Slot handlers in the order they are listed.
 - Current slot level Not found conditions.
 
-Be careful about adding conditions that always evaluate to true (such as the special conditions, `true` or `anything_else`) as node-level handlers. Per slot, if the node-level handler evaluates to true, then the Not found condition is skipped entirely. So, using a node-level handler that always evaluates to true effectively prevents the Not found condition for every slot from being evaluated.
+Be careful about adding conditions that always evaluate to true (such as the special conditions, `true` or `anything_else`) as slot handlers. Per slot, if the slot handler evaluates to true, then the Not found condition is skipped entirely. So, using a slot handler that always evaluates to true effectively prevents the Not found condition for every slot from being evaluated.
 {: tip}
 
 For example, you groom all animals except cats. For the Animal slot, you might be tempted to use the following slot condition to prevent `cat` from being saved in the Animal slot:
@@ -502,7 +502,7 @@ If @animal:cat then, "I'm sorry. We do not groom cats."
 ```
 {: codeblock}
 
-While logical, if you also define a node-level exit request handler, then - given the order of condition evaluation - this Not found condition will likely never get triggered. Instead, you can use this slot condition:
+While logical, if you also define an #exit slot handler, then - given the order of condition evaluation - this Not found condition will likely never get triggered. Instead, you can use this slot condition:
 
 ```json
 Check for @animal, then save it as $animal.
