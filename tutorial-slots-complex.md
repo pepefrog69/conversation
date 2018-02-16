@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-26"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -468,7 +468,7 @@ You might have noticed that before each test, you must clear the context variabl
 ## Step 6: Give users a way to exit the process
 {: #handler}
 
-Adding a node with slots is powerful because it keeps users on track with providing the information you need to give them a meaningful response or perform an action on their behalf. However, there might be times when a user is in the middle of providing reservation details, but decides to not go through with placing the reservation. You must give users a way to exit the process gracefully. You can do so by adding a node-level handler that can detect a user's desire to exit the process, and exit the node without saving any values that were collected.
+Adding a node with slots is powerful because it keeps users on track with providing the information you need to give them a meaningful response or perform an action on their behalf. However, there might be times when a user is in the middle of providing reservation details, but decides to not go through with placing the reservation. You must give users a way to exit the process gracefully. You can do so by adding a slot handler that can detect a user's desire to exit the process, and exit the node without saving any values that were collected.
 
 1.  You must teach the dialog to be able to recognize an #exit intent in the user input first.
 
@@ -533,7 +533,7 @@ Adding a node with slots is powerful because it keeps users on track with provid
     </tr>
     </table>
 
-    The `has_skipped_slots` condition checks the properties of the slots node to see if any of the slots were skipped. The `#exit` node-level handler skips all remaining slots to go directly to the node response. So, when the `has_skipped_slots` property is present, you know the `#exit` intent was triggered, and the dialog can display an alternate response.
+    The `has_skipped_slots` condition checks the properties of the slots node to see if any of the slots were skipped. The `#exit` handler skips all remaining slots to go directly to the node response. So, when the `has_skipped_slots` property is present, you know the `#exit` intent was triggered, and the dialog can display an alternate response.
 
     **Note**: If you configure more than one slot to skip other slots, or configure another node-level event handler to skip slots, then you must use a different approach to check whether the #exit intent was triggered. See [Handling requests to exit a process](dialog-slots.html#slots-node-level-handler) for an alternate way to do so.
 
