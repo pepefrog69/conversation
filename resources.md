@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-15"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -31,6 +31,7 @@ Links to resources, videos, tutorials, and articles that can help you to get sta
 - [Pizza ordering chatbot using slots ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/code/journey/assemble-a-pizza-ordering-chatbot-dialog/){: new_window}
 - [Building an Amazon Alexa Skill with {{site.data.keyword.conversationshort}} ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/IBM/alexa-skill-watson-conversation){: new_window}
 - [Adding a chatbot to Wordpress with Conversation ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://wordpress.org/plugins/conversation-watson/){: new_window}
+- [Tutorial: Build a database-driven Slackbot ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.bluemix.net/docs/tutorials/slack-chatbot-database-watson.html#build-a-database-driven-slackbot)
 
 ## Building with Watson videos
 
@@ -63,13 +64,11 @@ These videos are available in the documentation and on YouTube.
 - *Gathering information with slots* page:
     - [{{site.data.keyword.conversationshort}} Slots](dialog-slots.html)
 
-## Tutorials and articles
-
-### IBM Watson Academy
+## IBM Watson Academy
 
 - [{{site.data.keyword.conversationshort}} courses ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.watson-academy.info/course/index.php?categoryid=29){: new_window}
 
-### Simon Burns on Medium
+## Simon Burns on Medium
 
 A set of posts by Simon Burns, User Experience Developer at {{site.data.keyword.ibmwatson}}
 
