@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-09"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -26,7 +26,7 @@ API requests require a version parameter that takes a date in the format `versio
 
 Send the version parameter with every API request. The service uses the API version for the date you specify, or the most recent version before that date. Don't default to the current date. Instead, specify a date that matches a version that is compatible with your app, and don't change it until your app is ready for a later version.
 
-The current version is `2017-05-26`.
+The current version is `2018-02-16`.
 
 The "Try it out" pane in the {{site.data.keyword.conversationshort}} tooling uses the latest API version.
 
@@ -47,6 +47,17 @@ Existing models that you have trained will not be immediately impacted, but expi
 {: #change-log}
 
 The following new features and changes to the service are available.
+
+### 16 February 2018
+{: #16February2018}
+
+- **Dialog node tracing**: When you use the "Try it out" pane to test a dialog, a location icon is displayed next to each response. You can click the icon to highlight the path that the service traversed through the dialog tree to arrive at the response. See [Building a dialog](dialog-build.html#test) for details.
+
+- **New API version**: The current API version is now `2018-02-16`. This version introduces the following changes:
+
+   - A new `include_audit` parameter is now supported on most GET requests. This is an optional boolean parameter that specifies whether the response should include the audit properties (`created` and `updated` timestamps). The default value is `false`. (If you are using an API version earlier than `2018-02-16`, the default value is `true`.) For more information, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/conversation/api/v1/){: new_window}.
+
+   - Responses from API calls using the new version include only properties with non-`null` values.
 
 ### 9 February 2018
 {: #9February2018}

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-12-18"
+  years: 2015, 2018
+lastupdated: "2018-02-13"
 
 ---
 
@@ -129,8 +129,9 @@ As you make changes to your dialog, you can test it at any time to see how it re
     The chat window indicates what intents and entities were recognized in the input:
 
     ![Screen capture of test dialog output](images/test_dialog_output.png)
+1.  If you want to know which node in the dialog tree triggered a response, click the **Location** ![Location](images/location.png) icon next to it. If you are not already in the Dialog tab, open it.
 
-    In the dialog editor pane, the currently active node is highlighted.
+    The source node is given focus and the route that the service traversed through the tree to get to it is highlighted. It remains highlighted until you perform another action, such as entering a new test input.
 1.  To check or set the value of a context variable, click the **Manage context** link.
 
     Any context variables that you defined in the dialog are displayed.
