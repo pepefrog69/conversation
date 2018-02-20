@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-02-20"
 
 ---
 
@@ -55,9 +55,14 @@ The following new features and changes to the service are available.
 
 - **New API version**: The current API version is now `2018-02-16`. This version introduces the following changes:
 
-   - A new `include_audit` parameter is now supported on most GET requests. This is an optional boolean parameter that specifies whether the response should include the audit properties (`created` and `updated` timestamps). The default value is `false`. (If you are using an API version earlier than `2018-02-16`, the default value is `true`.) For more information, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/conversation/api/v1/){: new_window}.
+  - A new `include_audit` parameter is now supported on most GET requests. This is an optional boolean parameter that specifies whether the response should include the audit properties (`created` and `updated` timestamps). The default value is `false`. (If you are using an API version earlier than `2018-02-16`, the default value is `true`.) For more information, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/conversation/api/v1/){: new_window}.
 
-   - Responses from API calls using the new version include only properties with non-`null` values.
+  - Responses from API calls using the new version include only properties with non-`null` values.
+
+  - The `output.nodes_visited` and `output.nodes_visited_details` properties of message responses now include nodes with the following types, which were previously omitted:
+
+    - Nodes with `type`=`response_condition`
+    - Nodes with `type`=`event_handler` and `event_name`=`input`
 
 ### 9 February 2018
 {: #9February2018}
