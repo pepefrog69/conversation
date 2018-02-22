@@ -167,7 +167,7 @@ Use the Search feature to find conditions and titles in your dialog.
 
 1.  Enter a search term or phrase.
 
-    **Note**: The first time you search, an index is created; you may see a message to wait while your contents are being indexed.
+    **Note**: The first time you search, an index is created; you might see a message to wait while your contents are being indexed.
 
 ### Results
 
