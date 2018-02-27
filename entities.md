@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-09"
+lastupdated: "2018-02-27"
 
 ---
 
@@ -85,6 +85,9 @@ Use the {{site.data.keyword.conversationshort}} tool to create entities.
       ![Screen capture of defining an entity](images/define_entity.png)
 
     - The **Patterns** field lets you define specific patterns for an entity value. A pattern **must** be entered as a regular expression in the field.
+
+      - For each entity value, there can be a maximum of up to 5 patterns.
+      - Each pattern (regular expression) is limited to 128 characters.
 
       ![Screen capture of defining a pattern entity](images/patternents1.png)
       {: #pattern-entities}
