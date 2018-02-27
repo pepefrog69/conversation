@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-20"
+lastupdated: "2018-02-27"
 
 ---
 
@@ -285,7 +285,7 @@ The following new features and changes to the service are available.
 ### 6 June 2017
 {: #6June2017}
 
-- **Learn**: A new *Learn about {{site.data.keyword.watson}} {{site.data.keyword.conversationshort}}* page is available that provides getting started information and links to service documentation and other useful resources. To open the page, click the ![i for information.](images/info.png) icon in the page header.
+- **Learn**: A new *Learn about {{site.data.keyword.conversationfull}}* page is available that provides getting started information and links to service documentation and other useful resources. To open the page, click the ![i for information.](images/info.png) icon in the page header.
 - **Bulk export and delete**: You can now simultaneously export a number of intents or entities to a CSV file, so you can then import and reuse them for another {{site.data.keyword.conversationshort}} application. You can also simultaneously select a number of entities or intents for deletion in bulk.
 - **Updates to Korean**: Korean tokenizers have been updated to address informal language support. IBM continues to work on improvements to entity recognition and classification.
 - **Emoji support**: Emojis added to intent examples, or as entity values, will now be correctly classified/extracted. **Note**: Only emojis that are included in your training data will be correctly and consistently identified; emoji support may not correctly classify similar emojis with different color tones or other variations.
