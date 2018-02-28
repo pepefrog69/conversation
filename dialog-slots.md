@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-24"
+lastupdated: "2018-02-27"
 
 ---
 
@@ -64,11 +64,11 @@ Using slots produces a more natural dialog flow between the user and the service
 
     - **Check for**: Identify the type of information you want to extract from the user's response to the slot prompt. In most cases, you check for entity values. In fact, the condition builder that is displayed suggests entities that you can check for. However, you can also check for an intent; just type the intent name into the field. You can use AND and OR operators here to define more complex conditions.
 
-      **Important**: The *Check for* value is first used as a condition, but then becomes the value of the context variable that you name in the *Save as* field. If you want to change how the value is saved, reformat it, for example, then add the expression that reformats the value directly to the **Check for** field.
+      **Important**: The *Check for* value is first used as a condition, but then becomes the value of the context variable that you name in the *Save as* field. If you want to change how the value is saved (reformat it, for example), then add the expression that reformats the value directly to the **Check for** field.
 
       For example, if the entity has regular expression patterns defined for it, then after adding the entity name, append `.literal` to it. After you choose `@email` from the list of defined entities, for example, edit the **Check for** field to contain `@email.literal`. By adding the `.literal` property, you indicate that you want to capture the exact text that was entered by the user and was identified as an email address based on its pattern. Make this syntax change directly in the **Check for** field.
 
-      **Warning** If you want to apply a complex expression to the value before you save it, then you can open the JSON editor to define the complex SpEL expression. However, the complex expression that you define in the JSON editor will not be reflected in the **Check for** field when you exit the JSON editor. And if you click the **Check for** field to give it focus at any time after you define the complex expression for it, the expression is removed.
+      **Warning** If you want to apply a complex expression to the value before you save the value, then you can open the JSON editor to define the complex SpEL expression. However, the complex expression that you define in the JSON editor will not be reflected in the **Check for** field when you exit the JSON editor. And if you click the **Check for** field to give the field focus at any time after you define the complex expression for the field, then the expression is removed.
 
       Avoid checking for context variable values. Because the value you check for is also the value that is saved, when you use a context variable in the condition, it can lead to unexpected behavior when it gets used in the context. Do not try to use an optional slot to display a response only if a given context variable is set. If the variable is set, then the slot Found response that you define for the optional slot will be displayed along with the response that is returned by every other slot, over and over again.
       {: tip}
@@ -77,7 +77,7 @@ Using slots produces a more natural dialog flow between the user and the service
 
     - **Prompt**: Write a statement that elicits the piece of the information you need from the user. After displaying this prompt, the conversation pauses and the service waits for the user to respond.
 
-    - If you want different follow-up statements to be shown based on whether the user provides the information you need in response to the initial slot prompt, you can edit the slot (by clicking the **Edit slot** ![Edit slot](images/edit-slot.png) icon) and define them:
+    - If you want different follow-up statements to be shown based on whether the user provides the information you need in response to the initial slot prompt, you can edit the slot (by clicking the **Edit slot** ![Edit slot](images/edit-slot.png) icon) and define the follow-up statements:
 
       - **Found**: Displayed after the user provides the expected information.
 
@@ -135,7 +135,7 @@ Using slots produces a more natural dialog flow between the user and the service
 
     - **Conditional**: If you want a slot to be enabled only under certain conditions, then you can add a condition to it. For example, if slot 1 asks for a meeting start time, slot 2 captures the meeting duration, and slot 3 captures the end time, then you might want to enable slot 3 (and ask for the meeting end time) only if a value for slot 2 is not provided. To make a slot conditional, edit the slot, and then from the **More** ![More icon](images/kabob.png) menu, select **Enable condition**. Define the condition that must be met for the slot to be enabled.
 
-      You can condition on the value of a context variable from an earlier slot because the order in which the slots are listed is the order in which they are evaluated. However, only condition on a slot context variable value that you can be confident will exist when this slot is evaluated. Make sure the earlier slot is required, for example.
+      You can condition on the value of a context variable from an earlier slot because the order in which the slots are listed is the order in which they are evaluated. However, only condition on a slot context variable that you can be confident will contain a value when this slot is evaluated. The earlier slot must be a required slot, for example.
     {: tip}
 1.  **Keep users on track**. You can optionally define slot handlers that provide responses to questions users might ask during the interaction that are tangential to the purpose of the node.
 
@@ -390,12 +390,13 @@ For each slot, you can use conditional responses with associated actions to help
 
 You can provide users with a way to exit a slot if they cannot answer it correctly after several attempts by using Not found conditional responses. In the catchall response, open the JSON editor to add a counter context variable that will keep track of the number of times the Not found response is returned. In an earlier node, be sure to set the initial counter context variable value to 0.
 
-In this example, the service asks for the pizza size. It lets the user answer the question incorrectly 3 times before applying a size (medium) to the variable for them. (You can include a confirmation slot where users can always correct the size when they are asked to confirm the order information.)
+In this example, the service asks for the pizza size. It lets the user answer the question incorrectly 3 times before applying a size (medium) to the variable for the user. (You can include a confirmation slot where users can always correct the size when they are asked to confirm the order information.)
 
-```json
 Check for: @size
 Save as: $size
-Catchall Not found condition:
+Not found catchall condition:
+
+```json
 {
   "output": {
     "text": {
@@ -429,7 +430,7 @@ To respond differently after 3 attempts, add another Not found condition like th
   ```
   {: codeblock}
 
-This condition is more precise than the true condition of the catchall response, so you must move this response so it comes before the original conditional response or it will never be triggered. Select the conditional response and use the up arrow to move it up.
+This Not found condition is more precise than the Not found catchall condition, which defaults to `true`. Therefore, you must move this response so it comes before the original conditional response or it will never be triggered. Select the conditional response and use the up arrow to move it up.
 
 ### Preventing a Found response from displaying when it is not needed
 {: #slots-stifle-found-responses}
@@ -479,7 +480,7 @@ Here's a sample of JSON that defines a slot handler for the pizza example. Note 
 ```
 {: codeblock}
 
-**Important**: Take into account the logic used in conditions that are evaluated before this one so you can build distinct conditions into them. When a user input is received, the conditions are evaluated in the following order:
+**Important**: Take into account the logic used in conditions that are evaluated before this condition so you can build distinct conditions. When a user input is received, the conditions are evaluated in the following order:
 
 - Current slot level Found conditions.
 - Slot handlers in the order they are listed.
