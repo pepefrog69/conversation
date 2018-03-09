@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-08"
 
 ---
 
@@ -80,6 +80,23 @@ Result:
 }
 ```
 {: codeblock}
+
+### JSONArray.clear()
+
+This method clears all values from the array and returns null.
+
+Use the following expression in the output to define a field that clears an array that you saved to a context variable ($toppings_array) of its values.
+
+```json
+{
+  "output": {
+    "array_eraser": "<? $toppings_array.clear() ?>"
+  }
+}
+```
+{: codeblock}
+
+If you subsequently reference the $toppings_array context variable, it returns '[]' only.
 
 ### JSONArray.contains(object value)
 
@@ -688,6 +705,37 @@ You can use standard methods of the following classes also:
 
 ## Objects
 {: #objects}
+
+### JSONObject.clear()
+
+This method clears all values from the JSON object and returns null.
+
+For example, you want to clear the current values from the $user context variable.
+
+```json
+{
+  "context": {
+    "user": {
+      "first_name":"John",
+      "last_name":"Snow"
+    }
+  }
+}
+```
+{: codeblock}
+
+Use the following expression in the output to define a field that clears the object of its values.
+
+```json
+{
+  "output": {
+    "object_eraser": "<? $user.clear() ?>"
+  }
+}
+```
+{: codeblock}
+
+If you subsequently reference the $user context variable, it returns `{}` only.
 
 ### JSONObject.has(string)
 

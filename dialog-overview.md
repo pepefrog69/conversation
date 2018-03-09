@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-01"
+lastupdated: "2018-03-08"
 
 ---
 
@@ -142,6 +142,10 @@ You can use regular expressions to check for values to condition against.  To fi
   `entities['person']?.contains('O''Reilly')` and `context['person'] == 'O''Reilly'`
 
   **Note**: SpEL uses a second apostrophe to escape the single apostrophe in the name.
+
+- **Checking for multiple values**: If you want to check for more than one value, you can create a condition that uses OR operators (`||`) to list multiple values in the condition. For example, to define a condition that is true if the context variable `$state` contains the abbreviations for Massachusetts, Maine, or New Hampshire, you can use this expression:
+
+  `$state:MA || $state:ME || $state:NH`
 
 - **Checking for number values**: When using numeric variables, make sure the variables have values. If a variable does not have a value, it is treated as having a null value (0) in a numeric comparison.
 
