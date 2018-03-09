@@ -51,7 +51,7 @@ If you use {{site.data.keyword.Bluemix_dedicated_notm}}, create your service ins
 
 After you create a project that includes the {{site.data.keyword.conversationshort}} service, you'll land on the project details page. Launch the  {{site.data.keyword.conversationshort}} tool from here.
 
-Click **Launch Tool** for {{site.data.keyword.conversationshort}} under **Services**.
+Click **Launch Tool** for {{site.data.keyword.conversationshort}} under **Resources**.
 
 <!-- To do: Add screenshot for developer console -->
 
