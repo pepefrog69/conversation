@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-08"
+lastupdated: "2018-03-12"
 
 ---
 
@@ -522,12 +522,138 @@ Format follows the Java [SimpleDateFormat ![External link icon](../../icons/laun
 
 - Determines whether the date/time value is before or the same as the date/time argument.
 
+### today()
+
+Returns a string with the current date in the format `yyyy-MM-dd`.
+
+- Static function.
+- The other date methods can be invoked on date values that are returned by this function and it can be passed in as their argument.
+- If the context variable `$timezone` is set, this function returns dates in the client's time zone. Otherwise, the `GMT` time zone is used.
+
+Example of a dialog node with `today()` used in the output field:
+
+```json
+{
+  "conditions": "#what_day_is_it",
+  "output": {
+    "text": "Today's date is <? today() ?>."
+   }
+}
+```
+{: codeblock}
+
+Result: `Today's date is 2018-03-09.`
+
+## Date and time calculations
+
+Use the following methods to calculate a date.
+
+| Method                  | Description |
+|-------------------------|-------------|
+| `<date>.minusDays(n)`   | Returns the date of the day n number of days before the specified date. |
+| `<date>.minusMonths(n)` | Returns the date of the day n number of months before the specified date. |
+| `<date>.minusYears(n)`  | Returns the date of the day n number of years before the specified date. |
+| `<date>.plusDays(n)`   | Returns the date of the day n number of days after the specified date. |
+| `<date>.plusMonths(n)` | Returns the date of the day n number of months after the specified date. |
+| `<date>.plusYears(n)`  | Returns the date of the day n number of years after the specified date. |
+
+where `<date>` is specified in the format `yyyy-MM-dd` or `yyyy-MM-dd HH:mm:ss`.
+
+To get tomorrow's date, specify the following expression:
+
+```json
+{
+  "output": {
+    "text": "Tomorrow's date is <? today().plusDays(1) ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if today is March 9, 2018: `Tomorrow's date is 2018-03-10.`
+
+To get the date for the day a week from today, specify the following expression:
+
+```json
+{
+  "output": {
+    "text": "Next week's date is <? @sys-date.plusDays(7) ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if the date captured by the @sys-date entity is today's date, March 9, 2018: `Next week's date is 2018-03-16.`
+
+To get last month's date, specify the following expression:
+
+```json
+{
+  "output": {
+    "text": "Last month the date was <? today().minusMonths(1) ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if today is March 9, 2018: `Last month the date was 2018-02-9.`
+
+Use the following methods to calculate time.
+
+| Method                  | Description |
+|-------------------------|-------------|
+| `<time>.minusHours(n)`   | Returns the time n hours before the specified time. |
+| `<time>.minusMinutes(n)` | Returns the time n minutes before the specified time. |
+| `<time>.minusSeconds(n)`  | Returns the time n seconds before the specified time. |
+| `<time>.plusHours(n)`   | Returns the time n hours after the specified time. |
+| `<time>.plusMinutes(n)` | Returns the time n minutes after the specified time. |
+| `<time>.plusSeconds(n)`  | Returns the time n secons after the specified time. |
+
+where `<time>` is specified in the format `HH:mm:ss`.
+
+To get the time an hour from now, specify the following expression:
+
+```json
+{
+  "output": {
+    "text": "One hour from now is <? now().plusHours(1) ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if it is 8 AM: `One hour from now is 09:00:00.`
+
+To get the time 30 minutes ago, specify the following expression:
+
+```json
+{
+  "output": {
+    "text": "A half hour before @sys-time is <? @sys-time.minusMinutes(30) ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if the time captured by the @sys-time entity is 8 AM: `A half hour before 08:00:00 is 07:30:00.`
+
+To reformat the time that is returned, you can use the following expression:
+
+```json
+{
+  "output": {
+    "text": "6 hours ago was <? now().minusHours(6).reformatDateTime('h:mm a') ?>."
+   }
+}
+```
+{: codeblock}
+
+Result if it is 2:19 PM: `6 hours ago was 8:19 AM.`
+
 ### java.util.Date support
 {: #java.util.Date}
 
 In addition to the built-in methods, you can use standard methods of the `java.util.Date` class.
-
-#### Date calculations
 
 To get the date of the day that falls a week from today, you can use the following syntax.
 
