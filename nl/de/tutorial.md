@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -25,28 +25,28 @@ In diesem Lernprogramm erstellen Sie mit dem Service '{{site.data.keyword.conver
 
 ## Lernziele
 
-Sobald Sie dieses Lernprogramm abgeschlossen haben, wissen Sie, wie Sie Folgendes ausführen: 
+Sobald Sie dieses Lernprogramm abgeschlossen haben, wissen Sie, wie Sie Folgendes ausführen:
 
 - Entitäten definieren
 - Dialogmodul planen
 - Knoten- und Antwortbedingungen in einem Dialogmodul verwenden
 
 ### Dauer
-Für dieses Lernprogramm benötigen Sie ungefähr zwei bis drei Stunden. 
+Für dieses Lernprogramm benötigen Sie ungefähr zwei bis drei Stunden.
 
 ### Voraussetzung
 
 Arbeiten Sie das [Lernprogramm 'Einführung'](getting-started.html) durch, bevor Sie mit diesem Lernprogramm beginnen. 
 
-In diesem Lernprogramm verwenden Sie den dort erstellten Conversation-Lernprogrammarbeitsbereich und fügen Knoten zu dem einfachen Dialogmodul hinzu, das Sie im Rahmen der Einführungsübung erstellt haben.
+Sie verwenden den von Ihnen erstellten {{site.data.keyword.conversationshort}}-Lernprogrammarbeitsbereich und fügen Knoten zum dem einfachen Dialogmodul hinzu, das Sie im Rahmen der Einführungsübung erstellt haben.
 
 ## Schritt 1: Absichten und Beispiele hinzufügen
 {: #intents}
 
 Fügen Sie auf der Registerkarte 'Absichten' eine Absicht hinzu. Eine Absicht ist der Zweck oder das Ziel, der/das in der Benutzereingabe zum Ausdruck kommt.
 
-1.  Klicken Sie auf der Seite 'Absichten' des Conversation-Lernprogrammarbeitsbereichs auf **Neue erstellen**.
-1.  Fügen Sie den folgenden Namen der Absicht hinzu und drücken Sie die Eingabetaste:
+1.  Klicken Sie auf der Seite 'Absichten' des {{site.data.keyword.conversationshort}}-Lernprogrammarbeitsbereichs auf **Absicht hinzufügen**.
+1.  Fügen Sie den folgenden Namen für die Absicht hinzu und klicken Sie dann auf **Absicht erstellen**:
 
     ```
     turn_on
@@ -54,7 +54,7 @@ Fügen Sie auf der Registerkarte 'Absichten' eine Absicht hinzu. Eine Absicht is
     {: codeblock}
 
     Dem von Ihnen angegebenen Namen der Absicht wird das Zeichen `#` vorangestellt. Die Absicht `#turn_on` besagt, dass der Benutzer ein Gerät wie beispielsweise das Radio, die Frontscheibenwischer oder die Scheinwerfer einschalten möchte.
-1.  Geben Sie im Feld **Benutzerbeispiel** die folgende verbale Äußerung ein und drücken Sie anschließend die Eingabetaste:
+1.  Geben Sie im Feld **Benutzerbeispiele hinzufügen** die folgende Äußerung ein und klicken Sie dann auf **Beispiel hinzufügen**:
 
     ```
     I need lights
@@ -73,9 +73,9 @@ Fügen Sie auf der Registerkarte 'Absichten' eine Absicht hinzu. Eine Absicht is
     ```
     {: codeblock}
 
-1.  Klicken Sie auf **Fertig**, um die Absicht hinzuzufügen.
+1.  Klicken Sie auf das Symbol **Schließen** ![Pfeil 'Schließen'](images/close_arrow.png), um das Hinzufügen der Absicht `#turn_on` abzuschließen.
 
-Sie haben jetzt die drei Absichten `#turn_on`, `#greeting` und `#goodbye` und für alle Absichten Beispiele für verbale Äußerungen definiert. Diese Beispiele fördern das Training von Watson zur Erkennung von Absichten in der Benutzereingabe.
+Sie verfügen nun über drei Absichten: die Absicht `#turn_on`, die Sie soeben hinzugefügt haben, sowie die Absichten `#hello` und `#goodbye`, die im *Lernprogramm 'Einführung'* hinzugefügt wurden, das Sie als vorausgesetzten Schritt durchgearbeitet haben. Jede Absicht enthält eine Reihe von Beispieläußerungen, die das Training von Watson zur Erkennung von Absichten in der Benutzereingabe unterstützen.
 
 ## Schritt 2: Entitäten hinzufügen
 {: #entities}
@@ -85,7 +85,7 @@ Eine Entitätsdefinition enthält eine Reihe von *Entitätswerten*, die zum Ausl
 Erstellen Sie Entitäten, die in der Benutzereingabe mit der Absicht '#turn_on' auftreten könnten, um anzugeben, was der Benutzer einschalten möchte.
 
 1.  Klicken Sie auf die Registerkarte **Entitäten**, um die Seite 'Entitäten' zu öffnen.
-1.  Klicken Sie auf **Neue erstellen**.
+1.  Klicken Sie auf **Entität hinzufügen**.
 1.  Fügen Sie den folgenden Entitätsnamen hinzu und drücken Sie die Eingabetaste:
 
     ```
@@ -94,9 +94,7 @@ Erstellen Sie Entitäten, die in der Benutzereingabe mit der Absicht '#turn_on' 
     {: codeblock}
 
     Dem von Ihnen angegebenen Entitätsnamen wird das Zeichen `@` vorangestellt. Die Entität `@appliance` stellt ein Gerät im Fahrzeug dar, das ein Benutzer möglicherweise einschalten möchte.
-1.  Klicken Sie auf das Umschaltsteuerelement, um die unscharfe Suche zu **aktivieren**.
-    Diese Einstellung hilft dem Service dabei, Verweise auf Entitäten in der Benutzereingabe auch dann zu erkennen, wenn die Entität in der Benutzereingabe nicht mit genau der hier verwendeten Syntax angegeben ist.
-1.  Fügen Sie den folgenden Wert zum Feld **Wert** hinzu, aber drücken Sie nicht die Eingabetaste:
+1.  Fügen Sie den folgenden Wert zum Feld **Wertname** hinzu:
 
     ```
     radio
@@ -104,7 +102,7 @@ Erstellen Sie Entitäten, die in der Benutzereingabe mit der Absicht '#turn_on' 
     {: codeblock}
 
     Der Wert stellt ein bestimmtes Gerät dar, das der Benutzer möglicherweise einschalten möchte.
-1.  Fügen Sie im Feld **Synonyme** andere Möglichkeiten zum Angeben des Geräts 'Radio' hinzu. Drücken Sie die Tabulatortaste, um den Fokus auf das Feld zu setzen, und geben Sie dann die folgenden Synonyme ein. Drücken Sie nach jedem Synonym die Eingabetaste.
+1.  Fügen Sie im Feld **Synonyme** andere Möglichkeiten zum Angeben des Geräts 'Radio' hinzu. Drücken Sie die **Tabulatortaste**, um den Fokus auf das Feld zu setzen, und geben Sie dann die folgenden Synonyme ein. Drücken Sie nach jedem Synonym die **Eingabetaste**.
 
     ```
     music
@@ -112,11 +110,17 @@ Erstellen Sie Entitäten, die in der Benutzereingabe mit der Absicht '#turn_on' 
     ```
     {: codeblock}
 
-1.  Klicken Sie auf das Symbol **Neuen Wert hinzufügen** ![Pluszeichen](images/add.png), um weitere Gerätetypen hinzuzufügen.
+1.  Klicken Sie auf **Wert hinzufügen**, um das Definieren des Werts `radio` für die Entität `@appliance` abzuschließen.
+1.  Fügen Sie weitere Gerätetypen hinzu.
+
     - Wert: `headlights`. Synonym: `lights`.
     - Wert: `air conditioning`. Synonyme: `air` und `AC`.
-1.  Klicken Sie auf **Fertig**, um die Entität **@appliance** hinzuzufügen.
+
+1.  Klicken Sie auf das Umschaltsteuerelement, um die unscharfe Suche für die Entität `@appliance` zu **aktivieren**.
+    Diese Einstellung hilft dem Service dabei, Verweise auf Entitäten in der Benutzereingabe auch dann zu erkennen, wenn die Entität in der Benutzereingabe nicht mit genau der hier verwendeten Syntax angegeben ist.
+1.  Klicken Sie auf das Symbol **Schließen** ![Pfeil 'Schließen'](images/close_arrow.png), um das Hinzufügen der Entität `@appliance` abzuschließen.
 1.  Wiederholen Sie die Schritte 2 bis 8, um die Entität '@`genre`' mit aktivierter unscharfer Suche sowie den folgenden Werten und Synonymen zu erstellen:
+
     - Wert: `classical`. Synonym: `symphonic`.
     - Wert: `rhythm and blues` Synonym: `r&b`.
     - Wert: `rock`. Synonyme: `rock & roll`, `rock and roll` und `pop`.
@@ -130,10 +134,10 @@ Sobald die Benutzereingabe empfangen wird, erkennt der Service '{{site.data.keyw
 
 In diesem komplexen Dialogmodul erstellen Sie Dialogmodulverzweigungen, die die oben definierte Absicht '#turn_on' verarbeiten.
 
-### Basisknoten für die Absicht '#turn_on' hinzufügen
-Erstellen Sie eine Dialogmodulverzweigung zur Beantwortung der Absicht '#turn_on'. Als Erstes erstellen Sie hierbei den Basisknoten:
+### Stammknoten für '#turn_on' hinzufügen
+Erstellen Sie eine Dialogmodulverzweigung zur Beantwortung der Absicht '#turn_on'. Erstellen Sie als Erstes den Stammknoten:
 
-1.  Klicken Sie auf das Symbol ![Mehr Optionen](images/kabob.png) im Knoten **#greeting** und wählen Sie die Option **Knoten darunter hinzufügen** aus.
+1.  Klicken Sie auf das Symbol ![Mehr Optionen](images/kabob.png) im Knoten **#hello** und wählen Sie die Option **Knoten darunter hinzufügen** aus.
 1.  Beginnen Sie mit der Eingabe von `#turn_on` im Bedingungsfeld und wählen Sie dann diesen Eintrag in der Liste aus.
     Diese Bedingung wird durch jede Eingabe ausgelöst, die der Absicht '#turn_on' entspricht.
 1.  Geben Sie in diesem Knoten keine Antwort ein. Klicken Sie auf ![Schließen](images/close.png), um die Bearbeitungsansicht für den Knoten zu schließen.
@@ -183,8 +187,9 @@ Nachdem Sie die Beziehung 'Springen zu' erstellt haben, wird in der Baumstruktur
 
 Jetzt fügen Sie einen Knoten hinzu, der die Abfrage einer Musikrichtung beim Benutzer verarbeitet.
 
-1.  Klicken Sie auf das Symbol ![Mehr Optionen](images/kabob.png) im Knoten **Music** und wählen Sie die Option **Untergeordneten Knoten hinzufügen** aus. Dieser untergeordnete Knoten wird nur dann ausgewertet, wenn der Benutzer die Frage beantwortet hat, welche Art von Musik er hören möchte. Da vor diesem Knoten eine Benutzereingabe erforderlich ist, muss keine Aktion **Springen zu** verwendet werden.
-1.  Fügen Sie die Angabe `@genre` im Bedingungsfeld hinzu. Diese Bedingung wird immer dann mit 'true' ausgewertet, wenn ein gültiger Wert für die Entität '@genre' erkannt wird.
+1.  Klicken Sie auf das Symbol ![Mehr Optionen](images/kabob.png) im Knoten **Music** und wählen Sie die Option **Untergeordneten Knoten hinzufügen** aus.
+    Dieser untergeordnete Knoten wird nur dann ausgewertet, wenn der Benutzer die Frage beantwortet hat, welche Art von Musik er hören möchte. Da vor diesem Knoten eine Benutzereingabe erforderlich ist, muss keine Aktion **Springen zu** verwendet werden.
+1.  Fügen Sie die Angabe `@genre` im Bedingungsfeld hinzu.  Diese Bedingung wird immer dann mit 'true' ausgewertet, wenn ein gültiger Wert für die Entität '@genre' erkannt wird.
 1.  Geben Sie `OK! Playing @genre.` als Antwort ein. In dieser Antwort wird der vom Benutzer angegebene Wert für die Musikrichtung wiederholt.
 
 #### Knoten zur Verarbeitung von nicht erkannten Musikrichtungen in Benutzerantworten hinzufügen
@@ -258,15 +263,13 @@ Nun fügen Sie einen Peerknoten hinzu, der ausgelöst wird, wenn der Benutzer ke
 
     ![Zeigt die Auswahl einer anderen Absicht mit erneutem Training.](images/tut-change-intent.gif)
 
-#### Nächste Schritte
-
 Optional können Sie sich den Arbeitsbereich **Car Dashboard - Sample** ansehen. Dort ist derselbe Anwendungsfall mit einem längeren Dialogmodul und zusätzlicher Funktionalität weiter ausgearbeitet.
 
 1.  Klicken Sie auf die Schaltfläche **Zurück zu Arbeitsbereichen** ![Zeigt die Schaltfläche 'Zurück zum Arbeitsbereich' im Menü](images/workspaces-button.png) im Navigationsmenü.
 
 1.  Klicken Sie auf der Kachel **Car Dashboard - Sample** auf **Beispiel bearbeiten**.
 
-## Schritt 4: Lernprogrammarbeitsbereich bereitstellen
+## Nächste Schritte
 {: #deploy}
 
 Nachdem Sie Ihren Arbeitsbereich erstellt und getestet haben, können Sie ihn jetzt bereitstellen, indem Sie eine Verbindung zu einer Benutzerschnittstelle herstellen. Hierzu stehen Ihnen verschiedene Verfahren zur Verfügung.
@@ -277,7 +280,7 @@ Mit dem Testbereitstellungstool können Sie Ihren Arbeitsbereich in nur wenigen 
 
 ### Eigene Front-End-Anwendung erstellen
 
-Mit den Watson-SDKs können Sie eine [eigene Front-End-Anwendung erstellen](develop-app.html), die Ihren Arbeitsbereich mit der REST-API von Conversation verbindet.
+Mit den Watson-SDKs können Sie eine [eigene Front-End-Anwendung erstellen](develop-app.html), die Ihren Arbeitsbereich mithilfe der REST-API von {{site.data.keyword.conversationshort}} verbindet.
 
 ### In Social-Media- oder Nachrichtenkanälen bereitstellen
 

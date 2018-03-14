@@ -32,7 +32,7 @@ Weitere Informationen zur Methode `GET` für '/logs' und das zugehörige Antwort
 Das folgende Beispiel zeigt die allgemeine Form einer Filterabfrage:
 
 | Position           | Abfrageoperator | Term         |
-|:------------------:|:---------------:|:------------:|
+|:------------------:|:--------------:|:------------:|
 |`request.input.text`|`::`            |`"IBM Watson"`|
 
 - Die _Position_ gibt das Feld an, für das der Filter definiert werden soll (im Beispiel `request.input.text`).
@@ -60,7 +60,7 @@ In Ihrer Filterabfrage können Sie die folgenden Operatoren verwenden.
 | `~` | Suche nach ähnlichen Übereinstimmungen. Hängen Sie diese Operator gefolgt von der Ziffer `1` oder `2` am Ende des Abfrageterms an, um die zulässige Anzahl von abweichenden Einzelzeichen zwischen der Abfragezeichenfolge und einer Übereinstimmung im Antwortobjekt anzugeben. Die Angabe `Auto~1` würde beispielsweise eine Übereinstimmung  mit `Auto`, `Autor` oder `Autos` ergeben, jedoch nicht mit `Autoren`. Dieser Operator ist nicht gültig, wenn die Filterung für das Feld `log_id` oder ein anderes Feld mit einem Wert für Datum oder Uhrzeit bzw. mit unscharfer Suche ausgeführt wird. |
 | `*` | Operator für Platzhalterzeichen. Ergibt eine Übereinstimmung mit jeder beliebigen Folge aus 0 oder mehr Zeichen. Dieser Operator ist nicht gültig, wenn die Filterung für das Feld `log_id` oder ein anderes Feld mit einem Wert für Datum oder Uhrzeit ausgeführt wird. |
 | `()`, `[]` | Gruppierungsoperatoren. Verwenden Sie diese Operatoren, um eine logische Gruppierung von mehreren Ausdrücken einzuschließen, die boolesche Operatoren enthalten. |
-| <code>&#124;</code> | Boolescher Operator _or_. |
+| \| | Boolescher Operator _or_. |
 | `,` | Boolescher Operator _and_. |
 
 ### Nach Absicht oder Entität filtern
@@ -104,13 +104,13 @@ Um die Filterung anhand eines anderen Feldes in den Protokolldaten vorzunehmen, 
 Die folgenden Beispiele veranschaulichen die unterschiedlichen Typen von Abfragen, die diese Syntax verwenden.
 
 | Beschreibung | Abfrage |
-|--------------|---------|
+|---------|-----------|
 | Das Datum der Antwort liegt im Monat Juli 2017. | `response_timestamp>=2017-07-01,response_timestamp<2017-08-01` |
 | Die Zeitmarke der Antwort liegt vor dem Zeitpunkt `2016-11-01T04:00:00.000Z`. | `response_timestamp<2016-11-01T04:00:00.000Z` |
 | Der Benutzereingabetext enthält das Wort 'Bestellung' oder eine seiner grammatikalischen Varianten (z. B. `Bestellungen` oder `bestellen`). | `request.input.text:bestellung` |
 | Der Name einer Absicht in der Antwort stimmt exakt mit `place_order` überein. | `response.intents:intent::place_order` |
-| Ein Entitätsname in der Antwort stimmt exakt mit `beverage` überein. | `response.entities:entity::beverage` |
-| Der Benutzereingabetext enthält das Wort 'Bestellung' oder eine seiner grammatikalischen Varianten nicht.  | `request.input.text:!bestellung` |
+| Ein Entitätsname in der Antwort stimmt exakt mit `beverage` überein.  | `response.entities:entity::beverage` |
+| Der Benutzereingabetext enthält das Wort 'Bestellung' oder eine seiner grammatikalischen Varianten nicht. | `request.input.text:!bestellung` |
 | Der Name der erkannten Absicht mit der höchsten Konfidenz stimmt nicht exakt mit `hello` überein. | `response.top_intent::!hello` |
 | Der Benutzereingabetext enthält die Zeichenfolge `!hallo`. | `request.input.text:\!hallo` |
 | Der Benutzereingabe enthält die Zeichenfolge `IBM Watson`. | `request.input.text:"IBM Watson"` |
@@ -118,6 +118,7 @@ Die folgenden Beispiele veranschaulichen die unterschiedlichen Typen von Abfrage
 | Der Benutzereingabetext enthält eine Zeichenfolge, die aus `comm`, gefolgt von 0 oder mehr weiteren Zeichen, gefolgt von `s` besteht. | `request.input.text:comm*s` |
 | Die Bereitstellungs-ID im Kontext stimmt mit `my_app` überein. | `request.context.metadata.deployment::my_app` |
 | Eine Entität in der Antwort hat einen größeren Konfidenzwert als 0,8. | `response.intents:confidence>0.8` |
-| Der Name einer Absicht in der Antwort stimmt exakt mit `hello` oder `goodbye` überein. | <code>response.intents:intent::(hello&#124;goodbye)</code> |
+| Der Name einer Absicht in der Antwort stimmt exakt mit `hello` oder `goodbye` überein. | <code>response.intents:intent::(hello\|goodbye)</code> |
 | Eine Absicht in der Antwort hat den Namen `hello` und einen Konfidenzwert größer-gleich 0,8. | `response.intents:(intent:hello,confidence>=0.8)` |
 | Der Name einer Absicht in der Antwort stimmt exakt mit `order` und ein Entitätsname in der Antwort stimmt exakt mit `beverage` überein. | `[response.intents:intent::order,response.entities:entity::beverage]` |
+<!-- -->

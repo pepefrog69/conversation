@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2017
-lastupdated: "2017-07-20"
+lastupdated: "2017-07-03"
 
 ---
 
@@ -22,7 +22,7 @@ lastupdated: "2017-07-20"
 Die Liste der unterstützten Zeitzonen in diesem Abschnitt kann bei den Zeitzonenfunktionen verwendet werden, die sich auf die [Entitäten '@sys-date' und '@sys-time'](system-entities.html#sys-datetime) beziehen.
 {: shortdesc}
 
-|            Zeitzone            |             Zeitzone             |
+|            Zeitzone           |             Zeitzone            |
 |:------------------------------:|:--------------------------------:|
 |         Africa/Abidjan         |           Africa/Accra           |
 |       Africa/Addis_Ababa       |          Africa/Algiers          |
@@ -332,4 +332,4 @@ Die Liste der unterstützten Zeitzonen in diesem Abschnitt kann bei den Zeitzone
 |               NET              |                NST               |
 |               PLT              |                PNT               |
 |               PRT              |                PST               |
-|               SST              |                VST            e    |
+|               SST              |                VST            e               |

@@ -21,6 +21,7 @@ lastupdated: "2017-07-11"
 
 顧客がソーシャル・メディアやメッセージング・チャネルを通じて、作成したワークスペースとやり取りできるようにしたい場合、[Botkit ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](http://howdy.ai/botkit){: new_window} ミドルウェア・プラグインを使用することができます。
 
-このプラグインを使用すれば、開発者は {{site.data.keyword.conversationshort}} ワークスペースを Slack、Facebook、Twilio などの複数のソーシャル・チャネルと容易に統合することができます。これらの統合が確立されると、顧客は作成した {{site.data.keyword.conversationshort}} ワークスペースと各種チャネルを通じて同時に独立した会話を行うことができます。
+このプラグインを使用すれば、開発者は {{site.data.keyword.conversationshort}} ワークスペースを Slack、Facebook、Twilio などの複数のソーシャル・チャネルと容易に統合することができます。 これらの統合が確立されると、顧客は作成した {{site.data.keyword.conversationshort}} ワークスペースと各種チャネルを通じて同時に独立した会話を行うことができます。
 
-Botkit ミドルウェア・プラグインを使用するには、[GitHub リポジトリー ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](https://github.com/watson-developer-cloud/botkit-middleware){: new_window} を複製またはダウンロードします。
+Botkit ミドルウェア・プラグインを使用するには、
+[GitHub リポジトリー ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](https://github.com/watson-developer-cloud/botkit-middleware){: new_window} を複製またはダウンロードします。

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -44,7 +44,7 @@ Die Systementität '@sys-currency' erkennt Währungswerte, die in einer verbalen
 
 Für die Eingabe `twenty dollars` oder `$1,234.56` gibt die Systementität '@sys-currency' die folgenden Werte zurück:
 
-| Attribut                    | Typ    | Rückgabe für `twenty dollars` | Rückgabe für `$1,234.56` |
+| Attribut                   | Typ   | Rückgabe für `twenty dollars` | Rückgabe für `$1,234.56` |
 |-----------------------------|--------|-------------------------------|-------------------------:|
 | @sys-currency               | string | 20                            |                  1234.56 |
 | @sys-currency.literal       | string | twenty dollars                |                $1,234.56 |
@@ -56,7 +56,7 @@ Für die Eingabe `twenty dollars` oder `$1,234.56` gibt die Systementität '@sys
 
 Für die Eingabe `veinte euro` oder <code>&euro;1.234,56</code> in Spanisch gibt die Systementität '@sys-currency' die folgenden Werte zurück:
 
-| Attribut                    | Typ    | Rückgabe für  `veinte euro` | Rückgabe für <code>&euro;1.234,56</code> |
+| Attribut                   | Typ   | Rückgabe für  `veinte euro` | Rückgabe für <code>&euro;1.234,56</code> |
 |-----------------------------|--------|-----------------------------|-------------------------:|
 | @sys-currency               | string | 20                          |                  1234.56 |
 | @sys-currency.literal       | string | veinte euro                 |                &euro;1.234,56 |
@@ -86,7 +86,7 @@ Die Systementität `@sys-time` extrahiert Angaben wie `2 Uhr nachmittags`, `um 4
 
 Angaben von Datum und Uhrzeit, z. B. `jetzt` oder `in zwei Stunden` werden als Angaben von zwei separaten Entitäten extrahiert, nämlich einer Entität `@sys-date` und einer Entität `@sys-time`. Diese beiden Angaben werden nur dann miteinander verknüpft, wenn sie dieselbe Literalzeichenfolge gemeinsam nutzen, die sich über die gesamte Angabe von Datum und Uhrzeit erstreckt.
 
-Angaben für Datum und Uhrzeit, die aus mehreren Wörtern bestehen (z. B. `am Montag um 4`) werden ebenfalls als zwei Entitäten '@sys-date' und '@sys-time' extrahiert. Wenn sie zusammen aufeinanderfolgend angegeben sind, verwenden sie auch dieselbe Literalzeichenfolge, die sich über die gesamte Angabe von Datum und Uhrzeit erstreckt. 
+Angaben für Datum und Uhrzeit, die aus mehreren Wörtern bestehen (z. B. `am Montag um 4`) werden ebenfalls als zwei Entitäten '@sys-date' und '@sys-time' extrahiert. Wenn sie zusammen aufeinanderfolgend angegeben sind, verwenden sie auch dieselbe Literalzeichenfolge, die sich über die gesamte Angabe von Datum und Uhrzeit erstreckt.
 
 ### Datums-/Zeitbereiche
 
@@ -98,7 +98,7 @@ In einigen Ländereinstellungen wird mit einem Ausdruck wie 'letzter Montag' aus
 
 Beispiel: Für Freitag, den 16. Juni, könnte in einigen Ländereinstellungen 'letzter Montag' entweder den 12. Juni oder den 5. Juni referenzieren, während die Angabe in anderen Ländereinstellungen lediglich den 5. Juni (in der Vorwoche) referenziert. Dieselbe Logik gilt für einen Ausdruck wie 'nächster Montag'.
 
-Der Service 'Conversation' behandelt Datumsangaben mit 'letzte/r/s' und 'nächste/r/s' so, als ob der unmittelbar letzte oder nächste Tag referenziert wird, der entweder in derselben oder in einer vorherigen Woche liegen kann.
+Der Service '{{site.data.keyword.conversationshort}}' behandelt Datumsangaben mit 'letze/r/s' und 'nächste/r/s' so , als ob der unmittelbar letzte oder nächste Tag referenziert wird, der entweder in derselben oder in einer vorherigen Woche liegen kann.
 
 Bei Zeitausdrücken wie 'in den letzten 3 Tagen' oder 'in den nächsten 4 Stunden' ist die Logik funktional entsprechend. Beispielsweise führt dies bei der Angabe 'in den nächsten 4 Stunden' zu zwei Entitäten `@sys-time`, nämlich einer Entität für die aktuelle Uhrzeit und einer weiteren Entität für die Uhrzeit, die vier Stunden nach der aktuellen Uhrzeit liegt.
 
@@ -129,7 +129,7 @@ Wenn die Variable `$timezone` angegeben ist, werden die Werte von relativen Anga
 
 Für die Angabe `November 21` gibt '@sys-date' die folgenden Werte zurück:
 
-| Attribut                | Typ    | Rückgabe für `November 21` |
+| Attribut               | Typ   | Rückgabe für `November 21` |
 |-------------------------|--------|---------------------------:|
 | @sys-date.literal       | string |                November 21 |
 | @sys-date               | string |                20xx-11-21 *|
@@ -141,7 +141,7 @@ Für die Angabe `November 21` gibt '@sys-date' die folgenden Werte zurück:
 
 Für die Eingabe `at 6 pm` gibt die Entität '@sys-time' die folgenden Werte zurück:
 
-| Attribut                | Typ    | Rückgabe für `at 6 pm` |
+| Attribut               | Typ   | Rückgabe für `at 6 pm` |
 |-------------------------|--------|-----------------------:|
 | @sys-time.literal       | string |                at 6 pm |
 | @sys-time               | string |               18:00:00 |
@@ -151,6 +151,7 @@ Für die Eingabe `at 6 pm` gibt die Entität '@sys-time' die folgenden Werte zur
 - Die Entität '@sys-time' gibt die Uhrzeit immer im Format 'HH:mm:ss' zurück.
 
 Informationen zur Verarbeitung von Datums- und Zeitwerten enthalten die Referenzinformationen zu Methoden für [Datum und Uhrzeit](dialog-methods.html#date-time).
+{: tip}
 
 ## Entität '@sys-location'
 {: #sys-location}
@@ -164,6 +165,7 @@ Informationen zur Verarbeitung von Datums- und Zeitwerten enthalten die Referenz
 - New South Wales
 
 Informationen zur Verarbeitung von Zeichenfolgewerten enthalten die Referenzinformationen zu Methoden für [Zeichenfolgen](dialog-methods.html#strings).
+{: tip}
 
 ## Entität '@sys-number'
 {: #sys-number}
@@ -184,7 +186,7 @@ Die Systementität '@sys-number' erkennt Zahlen, die als Ziffern oder Zahlwörte
 
 Für die Eingabe `twenty` oder `1,234.56`, gibt die Systementität '@sys-number' die folgenden Werte zurück:
 
-| Attribut                    | Typ    | Rückgabe für `twenty` | Rückgabe für `1,234.56` |
+| Attribut                   | Typ   | Rückgabe für `twenty` | Rückgabe für `1,234.56` |
 |-----------------------------|--------|-------------------|------------------------:|
 | @sys-number               | string | 20                |                 1234.56 |
 | @sys-number.literal       | string | twenty            |                1,234.56 |
@@ -193,7 +195,7 @@ Für die Eingabe `twenty` oder `1,234.56`, gibt die Systementität '@sys-number'
 
 Für die Eingabe `veinte` oder `1.234,56` in Spanisch gibt die Entität '@sys-number' die folgenden Werte zurück:
 
-| Attribut                    | Typ    | Rückgabe für `veinte` | Rückgabe für `1.234,56` |
+| Attribut                   | Typ   | Rückgabe für `veinte` | Rückgabe für `1.234,56` |
 |-----------------------------|--------|-----------------------|------------------------:|
 | @sys-number               | string | 20                    |                 1234.56 |
 | @sys-number.literal       | string | veinte                |                1.234,56 |
@@ -213,6 +215,7 @@ Bei anderen unterstützten Sprachen werden funktional entsprechende Ergebnisse e
   Verwenden Sie stattdessen `@sys-number AND @sys-number<4` . Falls keine Zahl vorhanden ist, wird die erste Bedingung mit 'false' ausgewertet, was entsprechend dazu führt, dass die gesamte Bedingung mit 'false' ausgewertet wird.
 
 Informationen zur Verarbeitung von Zahlenwerten enthalten die Referenzinformationen zu Methoden für [Zahlen](dialog-methods.html#numbers).
+{: tip}
 
 ## Entität '@sys-percentage'
 {: #sys-percentage}
@@ -232,7 +235,7 @@ Die Systementität '@sys-percentage' erkennt Prozentsätze, die in einer verbale
 
 Für die Eingabe `1,234.56%` gibt '@sys-percentage' die folgenden Werte zurück:
 
-| Attribut                      | Typ    | Rückgabe für `1,234.56%` |
+| Attribut                     | Typ   | Rückgabe für `1,234.56%` |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | string |                  1234.56 |
 | @sys-percentage.literal       | string |                1,234.56% |
@@ -241,7 +244,7 @@ Für die Eingabe `1,234.56%` gibt '@sys-percentage' die folgenden Werte zurück:
 
 Für die Eingabe `1.234,56%` in Spanisch gibt '@sys-currency' die folgenden Werte zurück:
 
-| Attribut                      | Typ    | Rückgabe für `1.234,56%` |
+| Attribut                     | Typ   | Rückgabe für `1.234,56%` |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | string |                  1234.56 |
 | @sys-percentage.literal       | string |                1.234,56% |
@@ -270,3 +273,4 @@ Bei anderen unterstützten Sprachen werden funktional entsprechende Ergebnisse e
 - Vijay
 
 Informationen zur Verarbeitung von Zeichenfolgewerten enthalten die Referenzinformationen zu Methoden für [Zeichenfolgen](dialog-methods.html#strings).
+{: tip}

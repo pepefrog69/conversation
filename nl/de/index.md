@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-27"
+  years: 2015, 2018
+lastupdated: "2018-01-26"
 
 ---
 
@@ -22,7 +22,7 @@ lastupdated: "2017-07-27"
 Mit dem Service '{{site.data.keyword.conversationfull}}' können Sie eine Lösung erstellen, die Eingabe in natürlicher Sprache versteht und mittels maschinellem Lernen auf Kunden in einer Weise reagiert, die einen Dialog zwischen Personen simuliert.
 {: shortdesc}
 
-## Verwendung des Service
+## Funktionsweise
 
 Das folgende Diagramm zeigt die Gesamtarchitektur einer vollständigen Lösung:![Ablaufdiagramm des Service](images/conversation_arch_overview.png)
 
@@ -42,20 +42,24 @@ So implementieren Sie Ihren Dialog:
 - **Konfigurieren Sie einen Arbeitsbereich.** Hierzu richten Sie in der komfortablen grafischen Umgebung die Trainingsdaten und das Dialogmodul für Ihren Dialog ein.
 
     Die Trainingsdaten bestehen aus den folgenden Artefakten:
-    - **Absichten**: Dies sind die Ziele, die Sie für die Benutzer antizipieren, die mit dem Service interagieren. Definieren Sie eine Absicht pro Zielsetzung, die in der Eingabe eines Benutzers ermittelt werden kann. Sie können beispielsweise eine Absicht namens *öffnungszeiten* erstellen, die Fragen zu Ladenöffnungszeiten beantwortet. Für jede Absicht fügen Sie verbale Beispieläußerungen hinzu, die von Kunden zur Frage nach den benötigten Informationen eingegeben werden könnten (z. B. 'Wann öffnen Sie?').
+    - **Absichten**: Dies sind die Ziele, die Sie für die Benutzer antizipieren, die mit dem Service interagieren. Definieren Sie eine Absicht pro Zielsetzung, die in der Eingabe eines Benutzers ermittelt werden kann. Sie können beispielsweise eine Absicht namens *öffnungszeiten* erstellen, die Fragen zu Ladenöffnungszeiten beantwortet. Für jede Absicht fügen Sie Beispieläußerungen hinzu, die von Kunden zum Fragen nach den benötigten Informationen eingegeben werden könnten (z. B. `Wann öffnen Sie?`).
     - **Entitäten**: Eine Entität stellt einen Term oder ein Objekt dar, der/das Kontext für eine Absicht bereitstellt. Eine Entität könnte beispielsweise ein Ortsname sein, mit dem in Ihrem Dialogmodul ermittelt wird, für welches Geschäft ein Benutzer die Öffnungszeiten wissen möchte.
 
       Wenn Sie Trainingsdaten hinzufügen, wird automatisch ein Klassifikationsmerkmal für natürliche Sprache zum Arbeitsbereich hinzugefügt und trainiert, um die Arten von Anforderungen zu verstehen, die der Service überwachen und beantworten soll.
 
     Mit dem Dialogmodultool erstellen Sie einen Dialogmodulablauf, der Ihre Absichten und Entitäten enthält. Der Dialogmodulablauf wird im Tool grafisch als Baumstruktur dargestellt. Durch das Hinzufügen von Verzweigungen können Sie alle Absichten verarbeiten, die der Service abwickeln soll. Anschließend können Sie Verzweigungsknoten hinzufügen, die die vielen möglichen Permutationen einer Anforderung auf der Grundlage von weiteren Faktoren verarbeiten, z. B. den in der Benutzereingabe gefundenen Entitäten oder den von einer Anwendung bzw. einem anderen externen Service an Ihren Service übergebenen Informationen.
 
-- **Stellen Sie Ihren Arbeitsbereich bereit.** Zur Bereitstellung Ihres konfigurierten Arbeitsbereichs verbinden Sie ihn mit einer Front-End-Benutzerschnittstelle, einer Social-Media-Plattform oder einem Nachrichtenkanal.
+- **Stellen Sie Ihren Arbeitsbereich bereit.** Zur Bereitstellung Ihres konfigurierten Arbeitsbereichs verbinden Sie ihn mit einer Front-End-Benutzerschnittstelle, einer Social-Media-Plattform oder einem Nachrichtenkanal. Ihre bereitgestellte Instanz des Service '{{site.data.keyword.conversationshort}}' wird von der IBM Cloud-Computing-Plattform {{site.data.keyword.cloud_notm}} gehostet. (Weitere Informationen finden Sie unter [Übersicht über die Plattform![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://console.bluemix.net/docs/overview/ibm-cloud.html#overview).)
 
-Weitere Informationen erhalten Sie nach Auswahl der folgenden Links:
+Weitere Informationen zu diesen Implementierungsschritten finden Sie über die folgenden Links:
 
 - [Absichten und Entitäten planen](intents-entities.html#planning-your-entities)
-- [Dialogmodule im Überblick](dialog-build.html#overview)
+- [Dialogmodule im Überblick](dialog-overview.html)
 - [Bereitstellung im Überblick](deploy.html)
+
+## Browserunterstützung
+
+Für das Tool des Service '{{site.data.keyword.conversationshort}}'  ist der gleiche Versionsstand der Browsersoftware erforderlich wie für {{site.data.keyword.Bluemix_notm}}. Weitere Details enthält der Abschnitt {{site.data.keyword.Bluemix_notm}} [Voraussetzungen ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://console.bluemix.net/docs/overview/prereqs.html#browsers){: new_window}.
 
 ## Sprachunterstützung
 
@@ -66,3 +70,5 @@ Die Sprachunterstützung für die einzelnen Features ist detailliert im Abschnit
 - Lesen Sie die [Einführung](getting-started.html) in den Service.
 - Probieren Sie einige [Demos](sample-applications.html) aus.
 - Rufen Sie die Liste der [SDKs ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://www.ibm.com/watson/developercloud/developer-tools.html){: new_window} auf.
+
+Sie haben noch Fragen? Wenden Sie sich an [IBM Sales ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://www-01.ibm.com/marketing/iwm/dre/signup?source=urx-20970){: new_window}.
