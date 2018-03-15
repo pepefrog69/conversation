@@ -53,11 +53,13 @@ The following new features and changes to the service are available.
 
 - **Introducing {{site.data.keyword.conversationfull}}**: {{site.data.keyword.ibmwatson}} Conversation has been renamed. It is now called {{site.data.keyword.conversationfull}}. The name change reflects the fact that the service is expanding to provide prebuilt content and tools that help you more easily share the virtual assistants you build.
 
+- **New REST APIs and SDKs are available for Watson Assistant**: The new APIs are functionally identical to the existing Conversation APIs, which continue to be supported. For more information about the Watson Assistant APIs, see the [API Reference](https://www.ibm.com/watson/developercloud/assistant/api/v1/).
+
 - **Dialog enhancements**: The following features were added to the dialog tool:
 
   - Simple variable name and value fields are now available that you can use to add context variables or update context variable values. You do not need to open the JSON editor unless you want to. See [Defining a context variable](dialog-runtime.html#context-var-define) for more details.
   - Organize your dialog by using folders to group together related dialog nodes. See [Organizing the dialog with folders](dialog-build.html#folders) for more details.
-  - Support was added for customizing how each dialog node participates in user-initiated digressions away from the designated dialog flow. See [Digressions](dialog-build.html#folders) for more details.
+  - Support was added for customizing how each dialog node participates in user-initiated digressions away from the designated dialog flow. See [Digressions](dialog-runtime.html#digressions) for more details.
 
 - **Search intents and entities**: A new search feature has been added that allows you to [search intents](intents.html#searching-intents) for user examples, intent names, or descriptions, or to [search entity](entities.html#searching-entities) values and synonyms.
 
