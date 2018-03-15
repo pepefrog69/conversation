@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-08"
+lastupdated: "2018-03-13"
 
 ---
 
@@ -22,7 +22,7 @@ lastupdated: "2018-01-08"
 ***Intents*** are purposes or goals expressed in a customer's input, such as answering a question or processing a bill payment. By recognizing the intent expressed in a customer's input, the {{site.data.keyword.conversationshort}} service can choose the correct dialog flow for responding to it.
 {: shortdesc}
 
-<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/6HAZpBHqX8M" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/WbXTZBq-Xlk" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
 ## Intent limits
 {: #intent-limits}
@@ -122,6 +122,28 @@ You can tab from the intent name to each example, editing the examples if you ch
 To move or delete an example, select the example by selecting the check box and then select **Move** or **Delete**.
 
   ![Screen capture showing how to move or delete an example](images/move_example.png)
+
+## Searching intents
+
+Use the Search feature to find user examples, intent names, and descriptions.
+
+1.  Select the **Intents** tab in the navigation bar.
+
+    ![Intent tab overview](images/intent_oview.png)
+
+1.  Select the Search icon: ![Search icon](images/search_icon.png)
+
+1.  Enter a search term or phrase.
+
+    ![Intent search term](images/searchint_1.png)
+
+    **Note**: The first time you search, an index is created; you may see a message to wait while your contents are being indexed.
+
+### Results
+
+Intents containing your search term, with corresponding examples, are shown. Select any result to open it for editing.
+
+  ![Intent search return](images/searchint_2.png)
 
 ## Importing intents and examples
 
@@ -228,9 +250,9 @@ Refer to [supported languages](lang-support.html) for the availability of this f
 
 After you upgrade your workspace, you can [test input](#testing-your-intents) in the *Try it out* pane to see the changes. You can use **Mark as irrelevant** to indicate that the input is not related to your application.
 
-If you have an intent, such as #off_topic, for those inputs that are out of scope or off topic, delete the intent and test your workspace by marking the inputs are irrelevant.
+If you have an intent, such as #off_topic, for those inputs that are out of scope or off topic, delete the intent and test your workspace by marking the inputs as irrelevant.
 
-**Important**: Inputs that are marked as irrelevant are stored in the workspace and are included as part of the training data. Be sure that you want to make this change.
+**Important**: Intents that are marked as irrelevant are saved as counterexamples in the JSON workspace, and are included as part of the training data. Be sure that you want to make any changes.
 
 - The inputs cannot be accessed or changed later in the tooling.
 - The only way to remove the **Irrelevant** tag is to use the same input in the *Try it out* pane, and then change the intent.

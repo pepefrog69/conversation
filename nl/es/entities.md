@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-03-14"
 
 ---
 
@@ -162,7 +162,7 @@ Puede ver las entidades importadas en el separador Entidades. Es posible que deb
 ## Exportación de entidades
 {: #export_entities}
 
-Puede exportar varias entidades a un archivo CSV para luego importarlas y reutilizarlas para otra aplicación de Conversation.
+Puede exportar varias entidades a un archivo CSV para luego importarlas y reutilizarlas para otra aplicación de {{site.data.keyword.conversationshort}}.
 
 **Nota:** Actualmente la exportación de un archivo CSV no da soporte a patrones.
 

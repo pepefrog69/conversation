@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-24"
+  years: 2015, 2018
+lastupdated: "2018-03-14"
 
 ---
 
@@ -25,7 +25,7 @@ Ya tiene un diálogo de trabajo. Ahora supongamos que desea desarrollar la aplic
 Los ejemplos de código de esta guía de aprendizaje están escritos en JavaScript utilizando Node.js Watson SDK, pero puede utilizar otros lenguajes. Instale Watson [SDK ![Icono de enlace externo](../../icons/launch-glyph.svg "Icono de enlace externo")](https://www.ibm.com/watson/developercloud/developer-tools.html){: new_window} para su lenguaje de programación y revise la documentación de SDK para obtener más información.
 {: tip}
 
-## Configuración del servicio Conversation
+## Configuración del servicio {{site.data.keyword.conversationshort}}
 
 La aplicación de ejemplo que se creará en esta sección implementa varias funciones de un asistente personal cognitivo. El código de la aplicación se conectará a un espacio de trabajo de {{site.data.keyword.conversationshort}}, donde tiene lugar el proceso cognitivo (como por ejemplo la detección de intenciones del usuario).
 
@@ -42,7 +42,7 @@ Para acceder a las credenciales del servicio y al ID del espacio de trabajo desd
 
 También puede acceder a las credenciales del servicio desde el panel de control de Bluemix.
 
-## Comunicación con el servicio Conversation
+## Comunicación con el servicio {{site.data.keyword.conversationshort}}
 
 Interactuar con el servicio {{site.data.keyword.conversationshort}} es sencillo. Echemos un vistazo a un ejemplo de Node.js que se conecta al servicio, envía un único mensaje único y registra la salida en la consola:
 
@@ -52,7 +52,7 @@ Interactuar con el servicio {{site.data.keyword.conversationshort}} es sencillo.
 
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Configurar el derivador del servicio Conversation.
+// Configurar el derivador del servicio {{site.data.keyword.conversationshort}}.
 var conversation = new ConversationV1({
   username: 'USERNAME', // sustituir por nombre de usuario de la clave de servicio
   password: 'PASSWORD', // sustituir por contraseña de la clave de servicio
@@ -93,7 +93,7 @@ Utilice el mandato `node <filename.js>` para ejecutar la aplicación de ejemplo.
 Si todo funciona según lo esperado, el servicio {{site.data.keyword.conversationshort}} devuelve la salida del diálogo, que luego se registra en la consola:
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 ```
 {: screen}
 
@@ -109,7 +109,7 @@ Para poder procesar la entrada de usuario, debemos añadir una interfaz de usuar
 var prompt = require('prompt-sync')();
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Configurar el derivador del servicio Conversation.
+// Configurar el derivador del servicio {{site.data.keyword.conversationshort}}.
 var conversation = new ConversationV1({
   username: 'USERNAME', // sustituir por nombre de usuario de la clave de servicio
   password: 'PASSWORD', // sustituir por contraseña de la clave de servicio
@@ -153,21 +153,21 @@ Ahora la función `processResponse()` muestra las intenciones que detecta el di�
 Pero aún hay algo que no es correcto:
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> hello
 Detected intent: #hello
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> what time is it?
 Detected intent: #time
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> goodbye
 Detected intent: #goodbye
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >>
 ```
 {: screen}
 
-El servicio {{site.data.keyword.conversationshort}} detecta las intenciones correctas, y cada ronda de la conversación devuelve el mensaje de bienvenida procedente del nodo conversation_start (`Welcome to the Conversation example!`).
+El servicio {{site.data.keyword.conversationshort}} detecta las intenciones correctas, y cada ronda de la conversación devuelve el mensaje de bienvenida procedente del nodo conversation_start (`Welcome to the {{site.data.keyword.conversationshort}} example!`).
 
 Esto se debe a que el servicio {{site.data.keyword.conversationshort}} no tiene estado; es responsabilidad de la aplicación mantener la información de estado. Puesto que todavía no se está haciendo nada para mantener el estado, el servicio {{site.data.keyword.conversationshort}} ve cada ronda de información de entrada de usuario como la primera ronda de una nueva conversación, por lo que activa el nodo conversation_start.
 
@@ -185,7 +185,7 @@ Además de mantener nuestro lugar en la conversación, el contexto también se p
 var prompt = require('prompt-sync')();
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Configurar el servicio Conversation.
+// Configurar el servicio {{site.data.keyword.conversationshort}}.
 var conversation = new ConversationV1({
   username: 'USERNAME', // sustituir por nombre de usuario de la clave de servicio
   password: 'PASSWORD', // sustituir por contraseña de la clave de servicio
@@ -269,7 +269,7 @@ Pero, en nuestro ejemplo, utilizando un sencillo par de clave/valor que da sopor
 var prompt = require('prompt-sync')();
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Configurar el servicio Conversation.
+// Configurar el servicio {{site.data.keyword.conversationshort}}.
 var conversation = new ConversationV1({
   username: 'USERNAME', // sustituir por nombre de usuario de la clave de servicio
   password: 'PASSWORD', // sustituir por contraseña de la clave de servicio
@@ -320,7 +320,7 @@ function processResponse(err, response) {
 Ahora la función processResponse() comprueba el valor de la propiedad `action` del objeto `output` recibido del servicio {{site.data.keyword.conversationshort}}. Si el valor es `display_time` o `end_conversation`, la aplicación lleva a cabo la acción adecuada.
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> hello
 Good day to you.
 >> what time is it?

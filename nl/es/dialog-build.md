@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-19"
+  years: 2015, 2018
+lastupdated: "2018-03-14"
 
 ---
 
@@ -109,7 +109,7 @@ Puede utilizar uno o varios de los siguientes artefactos en cualquier combinaci�
   </tr>
   <tr>
     <td>irrelevant</td>
-    <td>Esta condición se evaluará como verdadera si el servicio Conversation determina que la entrada del usuario es irrelevante.</td>
+    <td>Esta condición se evaluará como verdadera si el servicio {{site.data.keyword.conversationshort}} determina que la entrada del usuario es irrelevante.</td>
   </tr>
   <tr>
     <td>true</td>
@@ -1019,7 +1019,7 @@ Es posible que tenga dos ranuras que almacenen el mismo tipo de valor, como por 
 
 Además, el servicio puede reconocer varios tipos de entidad en una sola entrada de usuario. Por ejemplo, si un usuario especifica una moneda, se reconoce como el tipo de entidad @sys-currency y @sys-number. Realice algunas pruebas en el panel "Pruébelo" para comprender la forma en que el sistema interpreta distintas entradas de usuario e incorpore en las condiciones lógica que evite posibles interpretaciones erróneas.
 
-En la lógica exclusiva de la característica de ranuras, cuando dos entidades se reconocen como una sola entrada de usuario, se utiliza la que tiene el intervalo más largo. Por ejemplo, si el usuario especifica *May 2*, aunque el servicio Conversation reconoce las entidades @sys-date (05022017) y @sys-number (2) en el texto, solo se registra y se aplica a una ranura, si procede, la entidad con el intervalo más largo (@sys-date).
+En la lógica exclusiva de la característica de ranuras, cuando dos entidades se reconocen como una sola entrada de usuario, se utiliza la que tiene el intervalo más largo. Por ejemplo, si el usuario especifica *May 2*, aunque el servicio {{site.data.keyword.conversationshort}} reconoce las entidades @sys-date (05022017) y @sys-number (2) en el texto, solo se registra y se aplica a una ranura, si procede, la entidad con el intervalo más largo (@sys-date).
 {: tip}
 
 #### Cómo evitar que se muestre una respuesta de la condición Found cuando no es necesario
@@ -1191,7 +1191,7 @@ Para descubrir un nodo basándose en su ID de nodo, siga estos pasos:
 1.  En el campo de ubicación del navegador web, debería mostrarse un URL con la siguiente sintaxis:
 
     ```json
-    https://watson-conversation.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id
+    https://watson-assistant.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id
     ```
 
 1.  Edite el URL y sustituya el valor `node-id` actual por el ID del nodo que desea encontrar y envíe el nuevo URL.

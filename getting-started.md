@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-12"
+lastupdated: "2018-03-14"
 
 ---
 
@@ -38,7 +38,7 @@ If you created a project with the {{site.data.keyword.conversationshort}} servic
 
 1.  Go to the {{site.data.keyword.watson}} Developer Console [Services ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.{DomainName}/developer/watson/services){: new_window} page.
 1.  Select {{site.data.keyword.conversationshort}}, click **Add Services**, and either sign up for a free {{site.data.keyword.Bluemix_notm}} account or log in.
-1.  Change the project name to `conversation-tutorial`, and then click **Create Project**.
+1.  Change the project name to `watson-assistant-tutorial`, and then click **Create Project**.
 
 <!-- Remove this text after dedicated instances have the developer console: begin -->
 
@@ -109,7 +109,18 @@ You've created two intents, #hello and #goodbye, and provided example user input
 
 ![Shows Intents page listing the #goodbye and #hello intents](images/gs-add-intents-result.png)
 
-## Step 4: Build a dialog
+## Step 4: Add intents from a content catalog
+{: #add-catalog}
+
+Add training data that was built by IBM to your workspace by adding intents from a content catalog. In particular, you will give your assistant access to the `eCommerce` content catalog so your dialog can address user requests to complete common online transactions.
+
+1.  In the {{site.data.keyword.conversationshort}} tool, click the **Content Catalog** tab.
+1.  Find **eCommerce** in the list, and then click **Add to workspace**.
+1.  Open the **Intents** tab to review the intents and associated example utterances that were added to your training data. You can recognize them because each intent name begins with the prefix `#eCommerce_`. You will add the `#eCommerce_Cancel_Product_Order` intent to your dialog in a later step.
+
+You have successfully supplemented your training data with prebuilt content provided by IBM.
+
+## Step 5: Build a dialog
 {: #build-dialog}
 
 A [dialog](dialog-build.html) defines the flow of your conversation in the form of a logic tree. Each node of the tree has a condition that triggers it, based on user input.
@@ -149,10 +160,16 @@ Now let's add nodes to handle our intents between the `Welcome` node and the `An
 1.  Add the response, `Good day to you.`
 1.  Click ![Close](images/close.png) to close the edit view.
 
-   ![Shows an animation of a user adding a hello node to the dialog.](images/gs-add-dialog-node-animated.gif)
-1.  Click the More icon ![More options](images/kabob.png) on this node, and then select **Add node below** to create a peer node. In the peer node, specify `#goodbye` as the condition, and `OK. See you later!` as the response.
+   ![Adding a hello node to the dialog.](images/gs-add-hello-node.png)
+1.  Click the More icon ![More options](images/kabob.png) on this node, and then select **Add node below** to create a peer node. In the peer node, specify `#eCommerce_Cancel_Product_Order` as the condition.
+1.  Add the following text as the response.
 
-    ![Adding nodes for intents](images/gs-add-dialog-nodes-result.png)
+    `I can help you cancel your order.`
+
+    ![Adding a cancel order node to the dialog.](images/gs-add-ecommerce-node.png)
+1.  Click the More icon ![More options](images/kabob.png) on this node, and then select **Add node below** to create another peer node. In the peer node, specify `#goodbye` as the condition, and `OK. See you later!` as the response.
+
+   ![Adding a goodbye node to the dialog.](images/gs-add-goodbye-node.png)
 
 ### Testing intent recognition
 
@@ -167,15 +184,19 @@ You  built a simple dialog to recognize and respond to both hello and goodbye in
     - `good morning`
     - `sayonara`
 
-   ![Shows an animation of the user testing the dialog in the Try it out pane.](images/gs-test-dialog-animated.gif)
+1.  Enter `I want to cancel an order I placed.` and press Enter. The output indicates that the `#eCommerce_Cancel_Product_Order` intent was recognized, and the response that you added for it is displayed.
+
+  **Note**: In a dialog that is used by an assistant in production, you would likely add more child nodes that collect the order number and any other necessary information from the user, and then make a programmatic call to your order tracking backend service to cancel the order on the user's behalf.
+
+  ![Shows an animation of the user testing the dialog in the Try it out pane.](images/gs-test-dialog.gif)
 
 {{site.data.keyword.watson}} can recognize your intents even when your input doesn't exactly match the examples you included. The dialog uses intents to identify the purpose of the user's input regardless of the precise wording used, and then responds in the way you specify.
 
 ### Result of building a dialog
 
-That's it. You created a simple conversation with two intents and a dialog to recognize them.
+That's it. You created a simple conversation with three intents and a dialog to recognize them.
 
-## Step 5: Review the sample workspace
+## Step 6: Review the sample workspace
 {: #review-sample-workspace}
 
 Open the sample workspace to see intents similar to the ones you just created plus many more, and see how they are used in a complex dialog.
@@ -183,8 +204,6 @@ Open the sample workspace to see intents similar to the ones you just created pl
 1.  Go back to the Workspaces page.
    You can click the ![Back to workspaces button](images/workspaces-button.png) button from the navigation menu.
 1.  On the **Car Dashboard - Sample** workspace tile, click the **Edit sample** button.
-
-    ![Shows the car dashboard sample tile on the Workspaces page](images/gs-workspace-car-sample.png)
 
 ## Next steps
 {: #next-steps}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-14"
 
 ---
 
@@ -96,11 +96,11 @@ You can use the expression language to extract property information for the foll
 
 | Global variable      | Definition |
 |----------------------|------------|
-| *context*            | JSON object part of the processed conversation message. |
+| *context*            | JSON object part of the processed message. |
 | *entities[ ]*        | List of entities that supports default access to 1st element. |
-| *input*              | JSON object part of the processed conversation message. |
+| *input*              | JSON object part of the processed message. |
 | *intents[ ]*         | List of intents that supports default access to first element. |
-| *output*             | JSON object part of the processed conversation message. |
+| *output*             | JSON object part of the processed message. |
 
 ## Accessing entities
 {: #access-entity}

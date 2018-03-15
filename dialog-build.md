@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-14"
 
 ---
 
@@ -175,6 +175,76 @@ You might want to move a previously created node to another area of the flow to 
 1.  On the node you want to move, click the **More** ![More icon](images/kabob.png) icon, and then select **Move**.
 1.  Select a target node that is located in the tree near where you want to move this node. Choose whether to place this node before or after the target node, or to make it a child of the target node.
 
+## Organizing the dialog with folders
+{: #folders}
+
+You can group dialog nodes together by adding them to a folder. There are lots of reasons to group nodes, including:
+
+- To keep nodes that address a similar subject together to make them easier to find. For example, you might group nodes that address questions about user accounts in a *User account* folder and nodes that handle payment-related queries in a *Payment* folder.
+- To group together a set of nodes that you want the dialog to process only if a certain condition is met. Use a condition, such as `$isPlatinumMember`, for example, to group together nodes that offer extra services that should only be processed if the current user is entitled to receive the extra services.
+- To hide nodes from the runtime while you work on them. You can add the nodes to a folder with a `false` condition to prevent them from being processed.
+- To apply the same configuration settings for digressing into a node to multiple root nodes at once. See [Digressions](dialog-runtime.html#digressions) for more information.
+
+These characteristics of the folder impact how the nodes in a folder are processed:
+
+- Condition: If specified, the service first evaluates the folder condition to determine whether to process the nodes within it.
+- Customizations: Any configuration settings that you apply to the folder are inherited by the nodes in the folder. If you change the digression settings of the folder, for example, the changes are inherited by all the nodes in the folder.
+- Tree hierarchy: Nodes in a folder are treated as root or child nodes based on whether the folder is added to the dialog tree at the root or child level. Any root level nodes that you add to a root level folder continue to function as root nodes; they do not become child nodes of the folder, for example. However, if you move root level nodes into a folder that is a child of another node, then the root nodes become children of that other node.
+
+Folders have no impact on the order in which nodes are evaluated. Nodes continue to be processed from first to last. As the service travels down the tree, when it encounters a folder, if the folder condition is true, it immediately processes the first node in the folder, and continues down the tree in order from there. If a folder does not have a folder condition, it is transparent to the service.
+
+### Adding a folder
+{: #folders-add}
+
+To add a folder to a dialog tree, complete the following steps:
+
+1.  From the tree view of the **Dialog** tab, click **Add folder**.
+
+    The folder is added to the end of the dialog tree, just before the **Anything else** node. Unless an existing node in the tree is selected, in which case, it is added below the selected node.
+
+    If you want to add the folder elsewhere in the tree, from the node above the spot where you want to add it, click the **More** ![More icon](images/kabob.png) icon, and then select **Add folder**.
+
+    You can add a folder below a child node within an existing dialog branch. To do so, click the **More** ![More icon](images/kabob.png) icon on the child node, and then select  **Add folder**.
+
+    The folder is opened in edit view.
+
+1.  **Optional**: Name the folder.
+
+1.  **Optional**: Define a condition for the folder.
+
+    If you do not specify a condition, `true` is used, meaning the nodes in the folder are always processed.
+
+1.  Add dialog nodes to the folder.
+
+    - To add existing dialog nodes to the folder, you must move them to the folder one at a time.
+
+      On the node that you want to move, click the **More** ![More icon](images/kabob.png) icon, select **Move**, and then click the folder. Select **To folder** as the move-to target.
+
+      As you move nodes, they are added at the start of the tree within the folder. Therefore, if you want to retain the order of a set of consecutive root dialog nodes, for example, move them starting with the last node first.
+      {: tip}
+
+    - To add a new dialog node to the folder, click the **More** ![More icon](images/kabob.png) icon on the folder, and then select **Add node to folder**.
+
+      The dialog node is added to the end of the dialog tree within the folder.
+
+### Deleting a folder
+{: #folders-delete}
+
+You can delete either a folder alone or the folder and all of the dialog nodes in it.
+
+To delete a folder, complete the following steps:
+
+1.  From the tree view of the **Dialog** tab, find the folder that you want to delete.
+
+1.  Click the **More** ![More icon](images/kabob.png) icon on the folder, and then select **Delete**.
+
+1.  Do one of the following things:
+
+    - To delete the folder only, and keep the dialog nodes that are in the folder, deselect the **Delete the nodes inside the folder** checkbox, and then click **Yes, delete it**.
+    - To delete the folder and all of the dialog nodes in it, click **Yes, delete it**.
+
+If you deleted the folder only, then the nodes that were in the folder are displayed in the dialog tree in the spot where the folder used be.
+
 ## Finding a dialog node by its node ID
 {: #get-node-id}
 
@@ -190,11 +260,11 @@ To discover a node based on its node ID, complete the following steps:
 1.  Close the edit view if it is open for the current node.
 1.  In your web browser's location field, a URL should display that has the following syntax:
 
-    `https://watson-conversation.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id`
+    `https://watson-assistant.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id`
 
 1.  Edit the URL by replacing the current `node-id` value with the ID of the node you want to find, and then submit the new URL.
 1.  If necessary, highlight the edited URL again, and resubmit it.
 
-The tooling refreshes, and shifts focus to the dialog node with the node ID that you specified. If the node ID is for a slot, a slot handler, a slot handler, or a conditional response, then the node in which the slot or conditional response is defined gets focus and the corresponding modal is displayed.
+The tooling refreshes, and shifts focus to the dialog node with the node ID that you specified. If the node ID is for a slot, a Found or Not found slot condition, a slot handler, or a conditional response, then the node in which the slot or conditional response is defined gets focus and the corresponding modal is displayed.
 
 **Note**: If you still cannot find the node, you can export the workspace and use a JSON editor to search the workspace JSON file.

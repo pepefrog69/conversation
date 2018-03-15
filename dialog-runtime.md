@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-15"
+lastupdated: "2018-02-16"
 
 ---
 
@@ -104,7 +104,15 @@ In this example, the system entity @sys-person is used to extract the user's nam
 ## Defining a context variable
 {: #context-var-define}
 
-Define a context variable by adding a `name` and `value` pair to the `{context}` section of the JSON dialog node definition. The pair must meet these requirements:
+Define a context variable by defining a name and value pair for the variable in one of the following editors:
+
+- **Context editor**: Shows a **Variable** field and a corresponding **Value** field in the node edit view that you can fill with the context variable name and value information.
+
+  **Note**: These fields are displayed automatically in nodes that you add. For nodes that were created with an earlier version of the service, you must open the context editor for the fields to be added.
+
+- **JSON editor**: When opened, it provides a view into the underlying JSON content that is passed with the /message API request that is sent to the {{site.data.keyword.conversationshort}} service. You can define context variables by adding name and value pairs to the `"context":{}` section of the JSON body.
+
+The name and value pair must meet these requirements:
 
 - The `name` can contain any upper- and lowercase alphabetic characters, numeric characters (0-9), and underscores.
 
@@ -116,17 +124,24 @@ Define a context variable by adding a `name` and `value` pair to the `{context}`
   - **$(variable-name)**
 
       Shorthand syntax with the variable name enclosed in parentheses.
+    See [Accessing and evaluating objects](expression-language.html#shorthand-syntax-for-context-variables) for more details.
 
-  See [Accessing and evaluating objects](expression-language.html#shorthand-syntax-for-context-variables) for more details.
+- The `value` can be any supported JSON type, such as a simple string variable, a number, or a JSON array. When you define the context variable using the JSON editor, you can specify a JSON object as the value also.
 
-- The `value` can be any supported JSON type, such as a simple string variable, a number, a JSON array, or a JSON object.
+The following table shows how to define name and value pairs in context variable editor fields:
+
+| Variable       | Value              |
+|:---------------|--------------------|
+| dessert        | cake               |
+| toppings_array | ["onion","olives"] |
+| age            | 18                 |
 
 The following JSON sample defines values for the $dessert string, $toppings_array array, and $age number context variables:
 
 ```json
 {
   "context": {
-    "dessert": "ice-cream",
+    "dessert": "cake",
     "toppings_array": ["onion", "olives"],
     "age": 18
   }
@@ -136,47 +151,59 @@ The following JSON sample defines values for the $dessert string, $toppings_arra
 
 To define a context variable, complete the following steps:
 
-1.  You define the context variable in a JSON editor.
+1.  Define the context variable in the section of the node that represents the time at which you want the variable to be set during dialog node evaluation.
 
-    The editor is surfaced in multiple places in the dialog node edit view. Where it surfaces reflects the time at which the variable will be set during dialog node evaluation.
+    **Note**: Any existing context variable values that are defined for this node are displayed in a set of corresponding **Variable** and **Value** fields. If you do not want them to be displayed in the edit view of the node, you must close the context editor. You can close the editor from the same menu that is used to open it; the following steps describe how to access the menu.
 
-    -To add a context variable that is processed after the node response is processed, from the **Options**  ![Advanced response](images/kabob.png) menu that is displayed in the response section, click **Open JSON editor**.
+    - To add a context variable that is set or changed after the node response is processed, add the context variable into the response section.
 
-    ![Shows how to access the JSON editor associated with a standard node response.](images/contextvar-json-response.png)
+      Click the **Options**  ![Advanced response](images/kabob.png) icon that is associated with the response, and then choose an editor by selecting one of the following options:
 
-    If the **Multiple responses** setting is **On** for the node, then you must click the **Edit response** ![Edit response](images/edit-slot.png) icon before the **Options**  ![Advanced response](images/kabob.png) menu will be visible.
+      - **Open JSON editor**
+      - **Open context editor**
 
-    ![Shows how to access the JSON editor associated with a standard node that has multiple conditional responses enabled for it.](images/contextvar-json-multi-response.png)
+      ![Shows how to access the JSON editor associated with a standard node response.](images/contextvar-json-response.png)
 
-    -To add a context variable that is processed after a slot condition is met, click the **Edit slot** ![Edit response](images/edit-slot.png) icon. From the **Options** ![Advanced response](images/kabob.png) menu in the *Configure slot* view header, click **Open JSON editor**. (For more information about slots, see [Gathering information with slots](dialog-slots.html).)
+      If the **Multiple responses** setting is **On** for the node, then you must click the **Edit response** ![Edit response](images/edit-slot.png) icon first.
 
-    ![Shows how to access the JSON editor associated with a slot condition.](images/contextvar-json-slot-condition.png)
+      ![Shows how to access the JSON editor associated with a standard node that has multiple conditional responses enabled for it.](images/contextvar-json-multi-response.png)
 
-    -To add a context variable that is processed after a slot response condition is met, click the **Edit slot** ![Edit response](images/edit-slot.png) icon. From the **Options** ![Advanced response](images/kabob.png) menu in the *Configure slot* view header, click **Enable conditional responses**.  Next to the conditional response for which you want to define a context variable, click the **Edit response** ![Edit response](images/edit-slot.png) icon. From the **Options** ![Advanced response](images/kabob.png) menu in the response section, click **Open JSON editor**.
+    - To add a context variable that is set or updated after a slot condition is met, click the **Edit slot** ![Edit response](images/edit-slot.png) icon. From the **Options** ![Advanced response](images/kabob.png) menu in the *Configure slot* view header, click **Open JSON editor**. (For more information about slots, see [Gathering information with slots](dialog-slots.html).)
 
-    ![Shows how to access the JSON editor associated with the conditional response for a slot.](images/contextvar-json-slot-multi-response.png)
+      **Note**: There is currently no way to use the context editor to define context variables that are set during this phase of dialog node evaluation.
 
-1.  Add a `"context":{}` block if one is not present.
+      ![Shows how to access the JSON editor associated with a slot condition.](images/contextvar-json-slot-condition.png)
 
-    ```json
-    {
-      "context":{},
-      "output":{}
-    }
-    ```
-    {: codeblock}
+    - To add a context variable that is processed after a response condition for a slot is met, click the **Edit slot** ![Edit response](images/edit-slot.png) icon. Click the **Options** ![Advanced response](images/kabob.png) icon, and then select **Enable conditional responses**. Click the **Edit response** ![Edit response](images/edit-slot.png) icon next to the response with which you want to associate the context variable. Click the **Options** ![Advanced response](images/kabob.png) icon in the response section, and then choose an editor by selecting one of the following options:
 
-1.  In the context block, add a name and value pair for each context variable that you want to define.
+      - **Open JSON editor**
+      - **Open context editor**
 
-    ```json
-    {
-      "context":{
-        "name": "value"
-    },
-      "output": {}
-    }
-    ```
-    {: codeblock}
+      ![Shows how to access the JSON editor associated with the conditional response for a slot.](images/contextvar-json-slot-multi-response.png)
+1.  To define the context variable in the context editor, add the variable name and value pair to the **Variable** and **Value** fields.
+1.  To define the context variable in the JSON editor, complete these additional steps:
+
+    - Add a `"context":{}` block if one is not present.
+
+      ```json
+      {
+        "context":{},
+        "output":{}
+      }
+      ```
+      {: codeblock}
+
+    - In the context block, add a name and value pair for each context variable that you want to define.
+
+      ```json
+      {
+        "context":{
+          "name": "value"
+      },
+        "output": {}
+      }
+      ```
+      {: codeblock}
 
     In this example, a variable named `new_variable` is added to a context block that already contains a variable.
 
@@ -190,43 +217,93 @@ To define a context variable, complete the following steps:
     ```
     {: codeblock}
 
-  To subsequently reference the context variable, use the syntax `$name` where *name* is the name of the context variable that you defined. For example, `$new_variable`.
+    To subsequently reference the context variable, use the syntax `$name` where *name* is the name of the context variable that you defined. For example, `$new_variable`.
 
 ## Common context variable tasks
 {: #context-common-tasks}
 
-- To store the entire string that was provided by the user as input, use `input.text`:
+To store the entire string that was provided by the user as input, use `input.text`:
 
-    ```json
-    {
-      "context": {
-        "repeat": "<?input.text?>"
+| Variable | Value            |
+|----------|------------------|
+| repeat   | `<?input.text?>` |
+
+```json
+{
+  "context": {
+    "repeat": "<?input.text?>"
+  }
+}
+```
+{: codeblock}
+
+To store the value of an entity in a context variable, use this syntax:
+
+| Variable | Value            |
+|----------|------------------|
+| place    | @place           |
+
+```json
+{
+  "context": {
+    "place": "@place"
+  }
+}
+```
+{: codeblock}
+
+You can add a JSON object to a context variable using either editor. The following expression defines a full_name object that contains a set of first and last values, which together form a person's full name.
+
+| Variable      | Value            |
+|---------------|------------------|
+| full_name     | { "first":"Paul", "last":"Smith" } |
+
+```json
+{
+  "context": {
+    "full_name": {
+      "first":"Paul",
+      "last":"Smith"
       }
-    }
-    ```
-    {: codeblock}
+  }
+}
+```
+{: codeblock}
 
-- To store the value of an entity in a context variable, use this syntax:
+If you specify `$full_name.first` in the response, `Paul` is displayed.
 
-    ```json
-    {
-      "context": {
-        "place": "@place"
-      }
-    }
-    ```
-    {: codeblock}
+To store the value of a string that you extract from the user's input, you can include a SpEL expression that uses the extract method to apply a regular expression to the user input. The following expression extracts a number from the user input, and saves it to the `$number` context variable.
 
-- To store in a context variable the value of a string that you extract from the user's input by using a regular expression, use this syntax:
+| Variable | Value                               |
+|----------|-------------------------------------|
+| number   | `<?input.text.extract('[\d]+',0)?>` |
 
-    ```json
-    {
-      "context": {
-         "number": "<?input.text.extract('^[^\\d]*[\\d]{11}[^\\d]*$',0)?>"
-      }
-    }
-    ```
-    {: codeblock}
+```json
+{
+  "context": {
+     "number": "<?input.text.extract('[\\d]+',0)?>"
+  }
+}
+```
+{: codeblock}
+
+When you define a regular expression in the JSON editor, you must escape any back slashes that you use in the expression with another back slash (`\\`). You do not need to escape back slashes in regular expressions that you define using the context variable editor.
+{: tip}
+
+To store the value of a pattern entity, append .literal to the entity name. Using this syntax ensures that the exact span of text from user input that matched the specified pattern is stored in the variable.
+
+| Variable | Value            |
+|----------|------------------|
+| email    | @email.literal   |
+
+```json
+{
+  "context": {
+    "email": "<? @email.literal ?>"
+  }
+}
+```
+{: codeblock}
 
 ## Deleting a context variable
 {: #context-delete}
@@ -586,3 +663,129 @@ Choose one of these actions to update the array. In each case, we see the array 
         {: codeblock}
 
 See [Expression language methods](dialog-methods.html#arrays) for more information about methods you can perform on arrays.
+
+## Digressions
+{: #digressions}
+
+A digression occurs when a user is in the middle of a dialog flow that is designed to address one goal, and abruptly switches topics to initiate a dialog flow that is designed to address a different goal. The dialog has always supported the user's ability to change subjects. If none of the nodes in the dialog branch that is being processed match the goal of the user's latest input, the conversation goes back out to the tree to check the root node conditions for an appropriate match. The digression settings that are available per node give you the ability to tailor this behavior even more.
+
+With digression settings, you can allow the conversation to return to the dialog flow that was interrupted when the digression occurred. For example, the user might be ordering a new phone, but switches topics to ask about tablets. Your dialog can answer the question about tablets, and then bring the user back to where they left off in the process of ordering a phone. Allowing digressions to occur and return gives your users more control over the flow of the conversation at run time. They can change topics, follow a dialog flow about the unrelated topic to its end, and then return to where they were before. The result is a dialog flow that more closely simulates a human-to-human conversation.
+
+The following image uses a mockup of the dialog tree user interface to illustrate the concept of a digression. It shows how a user interacts with dialog nodes that are configured to allow digressions that return to the dialog flow that was in progress. The user starts to provide the information required to make a dinner reservation. In the middle of filling slots in the #reservation node, the user asks a question about vegetarian menu options. The dialog answers the user's new question by finding a node that addresses it amongst the root nodes (a node that conditions on the #cuisine intent). It then returns to the conversation that was in progress by showing the prompt for the next empty slot from the original dialog node.
+
+![Shows someone who is providing details about a dinner reservation ask about vegetarian options, get an answer, and then return to providing reservation details.](images/digression.gif)
+
+### Before you begin
+
+As you test your overall dialog, decide when and where it makes sense to allow digressions and returns from digressions to occur. The following digression controls are applied to the nodes automatically. Only take action if you want to change this default behavior.
+
+- Every root node in your dialog is configured to allow digressions to target them by default. Child nodes cannot be the target of a digression.
+- Nodes with slots are configured to prevent digressions away. All other nodes are configured to allow digressions away. However, the conversation cannot digress away from a node under the following circumstances:
+
+  - If any of the child nodes of the current node contain the `anything_else` or `true` condition
+
+    These conditions are special in that they always evaluate to true. Because of their known behavior, they are often used in dialogs to force a parent node to evaluate a specific child node in succession. To prevent breaking existing dialog flow logic, digression are not allowed in this case. Before you can enable digressions away from such a node, you must change the child node's condition to something else.
+
+  - If the node is configured to jump to another node or skip user input after it is processed
+
+    The final step section of a node specifies what should happen after the node is processed. When the dialog is configured to jump directly to another node, it is often to ensure that a specific sequence is followed. And when the node is configured to skip user input, it is equivalent to forcing the dialog to process the first child node after the current node in succession. To prevent breaking existing dialog flow logic, digressions are not allowed in either of these cases. Before you can enable digressions away from this node, you must change what is specified in the final step section.
+
+### Customizing digressions
+{: #enable-digressions}
+
+You do not define the start and end of a digression. The user is entirely in control of the digression flow at run time. You only specify how each node should or should not participate in a user-led digression. For each node, you configure whether:
+
+- a digression can start from and leave the node
+- a digression that starts elsewhere can target and enter the node
+- a digression that starts elsewhere and enters the node must return to the interrupted dialog flow after the current dialog flow is completed
+
+To change the digression behavior for an individual node, complete the following steps:
+
+1.  Click the node to open its edit view.
+
+1.  Click **Customize**, and then click the **Digressions** tab.
+
+    The configuration options differ depending on whether the node you are editing is a root node, a child node, a node with children, or a node with slots.
+
+    **Digressions away from this node**
+
+    If the circumstances listed earlier do not apply, then you can make the following choices:
+
+    - **All node types**: Choose whether to allow users to digress away from the current node before they reach the end of the current dialog branch.
+
+    - **All nodes that have children**: Choose whether you want the conversation to come back to the current node after a digression if the current node's response has already been displayed and its child nodes are incidental to the node's goal. Set the *Allow return from digressions triggered after this node's response* toggle to **No** to prevent the dialog from returning to the current node and continuing to process its branch.
+
+      For example, if the user asks, `Do you sell cupcakes?` and the response, `We offer cupcakes in a variety of flavors and sizes` is displayed before the user changes subjects, you might not want the dialog to return to where it left off. Especially, if the child nodes only address possible follow-up questions from the user and can safely be ignored.
+
+      However, if the node relies on its child nodes to address the question, then you might want to force the conversation to return and continue processing the nodes in the current branch. For example, the initial response might be, `We offer cupcakes in all shapes and sizes. Which menu do you want to see: gluten-free, dairy-free, or regular?` If the user changes subjects at this point, you might want the dialog to return so the user can pick a menu type and get the information they wanted.
+
+    - **Nodes with slots**: Choose whether you want to allow users to digress away from the node before all of the slots are filled. Set the *Allow digressions away while slot filling* toggle to **Yes** to enable digressions away.
+
+      If enabled, when the conversation returns from the digression, the prompt for the next unfilled slot is displayed to encourage the user to continue providing information. If disabled, then any inputs that the user submits which do not contain a value that can fill a slot are ignored. However, you can address unsolicited questions that you anticipate your users might ask while they interact with the node by defining slot handlers. See [Adding slots](dialog-slots.html#add-slots) for more information.
+
+      The following image shows you how digressions away from the #reservation node with slots (shown in the earlier illustration) are configured.
+
+      ![Shows the digressions away settings from a node with slots.](images/digress-away-slots-full.png)
+
+    - **Nodes with slots**: Choose whether the user is only allowed to digress away if they will return to the current node by selecting the **Only digress from slots to nodes that allow returns** checkbox.
+
+      When selected, as the dialog looks for a node to answer the user's unrelated question, it ignores any root nodes that are not configured to return after the digression. Select this checkbox if you want to prevent users from being able to permanently leave the node before they have finished filling the required slots.
+
+    **Digressions into this node**
+
+    You can make the following choices about how digressions into a node behave:
+
+    - Prevent users from being able to digress into the node. See [Disabling digressions into a root node](#diable-digressions) for more details.
+
+    - When digressions into the node are enabled, choose whether the dialog must go back to the dialog flow that it digressed away from. When selected, after the current node's branch is done being processed, the dialog flow goes back to the interrupted node. To make the dialog return afterwards, select **Return after digression**.
+
+    The following image shows you how digressions into the #cuisine node (shown in the earlier illustration) are configured.
+
+    ![Shows the digressions away settings from a node with slots.](images/digress-into-cuisine-full.png)
+
+1.  Click **Apply**.
+
+1.  Use the "Try it out" pane to test the digression behavior.
+
+    Again, you cannot define the start and end of a digression. The user controls where and when digressions happen. You can only apply settings that determine how a single node participates in one. Because digressions are so unpredictable, it is hard to know how your configuration decisions will impact the overall conversation. To truly see the impact of the choices you made, you must test the dialog.
+
+The #reservation and #cuisine nodes represent two dialog branches that can participate in a single user-directed digression. The digression settings that are configured for each individual node are what make this type of digression possible at run time.
+
+![Shows two dialogs, one that sets the digressions away from the reservation slots node and one that sets the digression into the cuisine node.](images/digression-settings.png)
+
+### Disabling digressions into a root node
+{: #disable-digressions}
+
+When a flow digresses into a root node, it follows the course of the dialog that is configured for that node. So, it might process a series of child nodes before it reaches the end of the node branch, and then, if configured to do so, goes back to the dialog flow that was interrupted. Through dialog testing, you might find that a root node is triggered too often, or at unexpected times, or that its dialog is too complex and leads the user too far off course to be a good candidate for a temporary digression. If you determine that you would rather not allow users to digress into it, you can configure the root node to not allow digressions in.
+
+To disable digressions into a root node altogether, complete the following steps:
+
+1.  Click to open the root node that you want to edit.
+1.  Click **Customize**, and then click the **Digressions** tab.
+1.  Set the *Allow digressions into this node* toggle to **Off**.
+1.  Click **Apply**.
+
+If you decide that you want to prevent digressions into several root nodes, but do not want to edit each one individually, you can add the nodes to a folder. From the *Customize* page of the folder, you can set the *Allow digressions into this node* toggle to **Off** to apply the configuration to all of the nodes at once. See [Organizing the dialog with folders](dialog-build.html#folders) for more information.
+
+### Design considerations
+{: #digression-design-considerations}
+
+- **Avoid fallback node proliferation**: Many dialog designers include a node with a `true` or `anything_else` condition at the end of every dialog branch as a way to prevent users from getting stuck in the branch. This design returns a generic message if the user input does not match anything that you anticipated and included a specific dialog node to address. However, users cannot digress away from dialog flows that use this approach.
+
+  Evaluate any branches that use this approach to determine whether it would be better to allow digressions away from the branch. If the user's input does not match anything you anticipated, it might find a match against an entirely different dialog flow in your tree. Rather than responding with a generic message, you can effectively put the rest of the dialog to work to try to address the user's input. And the root-level `Anything else` node can always respond to input that none of the other root nodes can address.
+
+- **Reconsider jumps to a closing node**: Many dialogs are designed to ask a standard closing question, such as, `Did I answer your question today?` Users cannot digress away from nodes that are configured to jump to another node. So, if you configure all of your final branch nodes to jump to a common closing node, digressions cannot occur. Consider tracking user satisfaction through metrics or some other means.
+
+- **Test possible digression chains**: If a user digresses away from the current node to another node that allows digressions away, the user could potentially digress away from that other node, and repeat this pattern one or more times again. If all the nodes in the digression chain are configured to return after the digression, then the user will eventually be brought back to the current dialog node. However, test scenarios that digress multiple times to determine whether individual nodes function as expected.
+
+- **Remember that the current node gets priority**: Remember that nodes outside the current flow are only considered as digression targets if the current flow cannot address the user input. It is even more important in a node with slots that allows digressions away, in particular, to make it clear to users what information is needed from them, and to add confirmation statements that are displayed after the user provides a value.
+
+  Any slot can be filled during the slot-filling process. So, a slot might capture user input unexpectedly. For example, you might have a node with slots that collects the information necessary to make a dinner reservation. One of the slots collects date information. While providing the reservation details, the user might ask, `What's the weather meant to be tomorrow?` You might have a root node that conditions on #forecast which could answer the user. However, because the user's input includes the word `tomorrow` and the reservation node with slots is being processed, the service assumes the user is providing or updating the reservation date instead. *The current node always gets priority.* If you define a clear confirmation statement, such as, `Ok, setting the reservation date to tomorrow,` the user is more likely to realize there was a miscommunication and correct it.
+
+  Conversely, while filling slots, if the user provides a value that is not expected by any of the slots, there is a chance it will match against a completely unrelated root node that the user never intended to digress to.
+
+  Be sure to do lots of testing as you configure the digression behavior.
+
+- **When to use digressions instead of slot handlers**: For general questions that users might ask at any time, use a root node that allows digressions into it, processes the input, and then goes back to the flow that was in progress. For nodes with slots, try to anticipate the types of related questions users might want to ask while filling in the slots, and address them by adding handlers to the node.
+
+  For example, if the node with slots collects the information required to fill out an insurance claim, then you might want to add handlers that address common questions about insurance. However, for questions about how to get help, or your stores locations, or the history of your company, use a root level node.

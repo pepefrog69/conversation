@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-08"
+lastupdated: "2018-03-13"
 
 ---
 
@@ -26,7 +26,7 @@ The dialog uses the intents and entities that are identified in the user's input
 
 The response might be the answer to a question such as `Where can I get some gas?` or the execution of a command, such as turning on the radio. The intent and entity might be enough information to identify the correct response, or the dialog might ask the user for more input that is needed to respond correctly. For example, if a user asks, `Where can I get some food?` you might want to clarify whether they want a restaurant or a grocery store, to dine in or take out, and so on. You can ask for more details in a text response and create one or more child nodes to process the new input.
 
-<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/oQUpejt6d84?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/DVqPvOI8clw?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
 The dialog is represented graphically in the {{site.data.keyword.conversationshort}} tool as a tree. Create a branch to process each intent that you want your conversation to handle. A branch is composed of multiple nodes.
 
@@ -66,6 +66,8 @@ When you start to build the dialog, you must determine the branches to include, 
 When the service reaches the end of a branch, or cannot find a condition that evaluates to true from the current set of child nodes it is evaluating, it jumps back out to the base of the tree. And once again, the service processes the root nodes from first to the last. If none of the conditions evaluates to true, then the response from the last node in the tree, which typically has a special `anything_else` condition that always evaluates to true, is returned.
 
 You can disrupt the standard first-to-last flow by customizing what happens after a node is processed. For example, you can configure a node to jump directly to another node after it is processed, even if the other node is positioned earlier in the tree. See [Defining what to do next](dialog-overview.html#jump-to) for more details.
+
+How you configure digression settings for each node can also impact how users move through the nodes at run time. If you enable digressions away from most nodes, users can jump from one node to another and back again more easily. See [Digressions](dialog-runtime.html#digressions) for more information.
 
 ## Conditions
 {: #conditions}
@@ -175,6 +177,7 @@ You can reply with one of these response types:
 - [Simple text response](#simple-text)
 - [Conditional responses](#multiple)
 - [Complex response](#complex)
+- [Multimedia response](#multimedia)
 
 ### Simple text response
 {: #simple-text}
@@ -182,6 +185,13 @@ You can reply with one of these response types:
 If you want to provide a text response, simply enter the text that you want the service to display to the user.
 
 ![Shows a node that shows a user ask, Where are you located, and the dialog response is, We have no brick and mortar stores! But, with an internet connection, you can shop us from anywhere.](images/response-simple.png)
+
+To include a context variable value in the response, use the syntax `$variable-name` to specify it. See [Context variables](dialog-runtime.html#context) for more information.
+
+```
+Hello $user
+```
+{: screen}
 
 If you include an email address in the response, you must escape the at symbol (`@`) with a backslash (`\`). For example, `Send us your feedback at feedback\@example.com.` Likewise, if you include a number sign (`#`) in the response, you must escape it. For example, `We are the \#1 seller of lobster rolls in Maine.` Entity names begin with `@` and intent names begin with `#`. Escaping these symbols prevents the service from misreading the response text.
 {: tip}
@@ -204,7 +214,7 @@ You can choose to rotate through the response variations sequentially or in rand
 
 A single dialog node can provide different responses, each one triggered by a different condition.  Use this approach to address multiple scenarios in a single node.
 
-<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/KcvVQAsnhLM?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/Q5_-f7_Iyvg?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
 The node still has a main condition, which is the condition for using the node and processing the conditions and responses that it contains.
 
@@ -214,26 +224,22 @@ In this example, the service uses information that it collected earlier about th
 
 This single node now provides the equivalent function of four separate nodes.
 
-To add conditional responses to a node, click **Customize** and then click the **Multiple responses** toggle to turn it **On**.
+To add conditional responses to a node, complete the following steps:
 
-The conditions within a node are evaluated in order, just as nodes are.  Be sure that your conditions and responses are listed in the correct order.  If you need to change the order, select a condition and move it up or down in the list using the arrows that are displayed. If you want to update the context, you must do so in the JSON editor for each individual response.  There is not a common JSON editor for all responses. If you associated a **Jump to** action with the node, the jump does not occur until after any responses are processed.
-{: tip}
+1.  Click **Customize**, and then click the **Multiple responses** toggle to turn it **On**.
+
+    The node response section changes to show a pair of condition and response fields. You can add a condition and a response into them.
+1.  To customize a response further, click the **Edit response** ![Edit response](images/edit-slot.png) icon next to the response.
+
+    You must open the response for editing to change the value of a context variable when the response is triggered, for example. You update or add context values for each individual conditional response; there is no common JSON editor that shows you the context information for all of the responses at once.
+1.  Click **Add response** to add another conditional response.
+
+The conditions within a node are evaluated in order, just as nodes are.  Be sure that your conditional responses are listed in the correct order.  If you need to change the order, select a condition and response pair and move it up or down in the list using the arrows that are displayed. A **Jump to** action that is configured for the node is not processed until after all of the conditional responses are processed.
 
 ### A complex response
 {: #complex}
 
-To specify a more complex response, you can use the JSON editor to specify the response in the `"output":{}` property.
-
-To include a context variable value in the response, use the syntax `$variable-name` to specify it. See [Context variables](dialog-runtime.html#context) for more information.
-
-```json
-{
-  "output": {
-    "text": "Hello $user"
-  }
-}
-```
-{: codeblock}
+To specify a more complex response, you can use the JSON editor to specify the response in the `"output":{}` property. The output.text field is always stored as a JSON array. If you try to save it in any other format, your text is replaced with an empty JSON array.
 
 To specify more than one statement that you want to display on separate lines, define the output as a JSON array.
 
@@ -302,6 +308,13 @@ To implement more complex behavior, you can define the output text as a complex 
 
 The default behavior assumes `selection_policy = random` and `append = true`. When the values array contains more than one item, the output text is randomly selected from its elements.
 
+### Multimedia response
+{: #multimedia}
+
+If you plan to integrate the dialog with Slack or Facebook Messenger using the {{site.data.keyword.conversationshort}} connector, you can specify dialog node responses that include multimedia or interactive elements such as clickable buttons.
+
+See [Multimedia responses](dialog-multimedia.html) for more information.
+
 ## Defining what to do next
 {: #jump-to}
 
@@ -312,18 +325,14 @@ After making the specified response, you can instruct the service to do one of t
 
   **Note**: The current node must have at least one child node for this option to be available.
 
-- **Jump to another dialog node**: Use this option when you want to bypass waiting for user input and want the conversation to go directly to an entirely different dialog node. You can use a *Jump to* action to route the flow to a common dialog node from multiple locations in the tree, for example.
+- **Jump to another dialog node**: Use this option when you want the conversation to go directly to an entirely different dialog node. You can use a *Jump to* action to route the flow to a common dialog node from multiple locations in the tree, for example.
 
   **Note**: The target node that you want to jump to must exist before you can configure the jump to action to use it.
 
 ### Configuring the Jump to action
 {: #jump-to-config}
 
-If you choose to jump to another node, you must specify whether the action targets the **response** or the **condition** of the selected dialog node.
-
-- **Response**: If the statement targets the response section of the selected dialog node, it is run immediately. That is, the system does not evaluate the condition of the selected dialog node; it processes the response of the selected dialog node immediately.
-
-  Targeting the response is useful for chaining several dialog nodes together. The response is processed as if the condition of this dialog node is true. If the selected dialog node has another **Jump to** action, that action is run immediately, too.
+If you choose to jump to another node, specify when the target node is processed by choosing one of the following options:
 
 - **Condition**: If the statement targets the condition section of the selected dialog node, the service checks first whether the condition of the targeted node evaluates to true.
     - If the condition evaluates to true, the system processes the target node immediately.
@@ -331,6 +340,12 @@ If you choose to jump to another node, you must specify whether the action targe
     - If the system processes all the siblings and none of the conditions evaluate to true, the basic fallback strategy is used, and the dialog evaluates the nodes at the base level of the dialog tree.
 
     Targeting the condition is useful for chaining the conditions of dialog nodes. For example, you might want to first check whether the input contains an intent, such as `#turn_on`, and if it does, you might want to check whether the input contains entities, such as `@lights`, `@radio`, or `@wipers`. Chaining conditions helps to structure larger dialog trees.
+
+- **Response**: If the statement targets the response section of the selected dialog node, it is run immediately. That is, the system does not evaluate the condition of the selected dialog node; it processes the response of the selected dialog node immediately.
+
+  Targeting the response is useful for chaining several dialog nodes together. The response is processed as if the condition of this dialog node is true. If the selected dialog node has another **Jump to** action, that action is run immediately, too.
+
+- **Wait for user input**: Waits for new input from the user, and then begins to process it from the node that you jump to. This option is useful if the source node asks a question, for example, and you want to jump to a separate node to process the user's answer to the question.
 
 ## More information
 
