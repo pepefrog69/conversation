@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-13"
+lastupdated: "2018-03-15"
 
 ---
 
@@ -177,7 +177,6 @@ You can reply with one of these response types:
 - [Simple text response](#simple-text)
 - [Conditional responses](#multiple)
 - [Complex response](#complex)
-- [Multimedia response](#multimedia)
 
 ### Simple text response
 {: #simple-text}
@@ -307,13 +306,6 @@ To implement more complex behavior, you can define the output text as a complex 
     In this case, all other output text is overwritten by this output text.
 
 The default behavior assumes `selection_policy = random` and `append = true`. When the values array contains more than one item, the output text is randomly selected from its elements.
-
-### Multimedia response
-{: #multimedia}
-
-If you plan to integrate the dialog with Slack or Facebook Messenger using the {{site.data.keyword.conversationshort}} connector, you can specify dialog node responses that include multimedia or interactive elements such as clickable buttons.
-
-See [Multimedia responses](dialog-multimedia.html) for more information.
 
 ## Defining what to do next
 {: #jump-to}
