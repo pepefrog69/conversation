@@ -53,8 +53,6 @@ The following new features and changes to the service are available.
 
 - **Introducing {{site.data.keyword.conversationfull}}**: {{site.data.keyword.ibmwatson}} Conversation has been renamed. It is now called {{site.data.keyword.conversationfull}}. The name change reflects the fact that the service is expanding to provide prebuilt content and tools that help you more easily share the virtual assistants you build.
 
-- **The Conversation REST API and Conversation SDKs are now deprecated**: Instead, use the new {{site.data.keyword.conversationshort}} REST API or upgrade to the {{site.data.keyword.conversationshort}} SDK. All of the same endpoints and methods are supported. For more information, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/){: new_window}.
-
 - **Dialog enhancements**: The following features were added to the dialog tool:
 
   - Simple variable name and value fields are now available that you can use to add context variables or update context variable values. You do not need to open the JSON editor unless you want to. See [Defining a context variable](dialog-runtime.html#context-var-define) for more details.
