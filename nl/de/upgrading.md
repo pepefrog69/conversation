@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-02-09"
 
 ---
 
@@ -17,41 +17,58 @@ lastupdated: "2017-07-06"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Upgrade für Arbeitsbereiche durchführen
+# Upgrade durchführen
 
-Die Features des Service 'Conversation' werden regelmäßig erweitert und aktualisiert. Einige dieser Änderungen werden zwar automatisch auf Ihren Arbeitsbereich angewendet, aber Updates mit weitreichenden Auswirkungen machen eine manuelle Aktualisierung erforderlich.
+Erfahren Sie, wie ein Upgrade Ihres Serviceplans durchgeführt wird.
 {: shortdesc}
 
-Falls Sie eine Instanz verwenden, die vor dem 3. Februar 2017 erstellt wurde, und für Ihren Arbeitsbereich eine Aktualisierung verfügbar ist, wird das Upgradesymbol ![Upgradesymbol](images/upgrade.png) angezeigt, um Sie darauf hinzuweisen, dass ein Upgrade verfügbar ist. Wählen Sie dieses Symbol aus, um das Dialogfenster 'Upgrade für Arbeitsbereich durchführen' zu öffnen.
+## Upgrade Ihres Plans durchführen
+{: #plan-upgrade}
 
-Sobald Sie ein Upgrade Ihres Arbeitsbereichs durchführen, wird die neueste Version der API im Tool aktiviert und in der Anzeige 'Ausprobieren' mit der Verwendung der neuesten Features begonnen.
+Mit dem Plan des Typs 'Lite' können Sie den Service '{{site.data.keyword.conversationshort}}' nachhaltig ausprobieren. Ihre Möglichkeiten sind jedoch nicht unbegrenzt.
 
-Nachdem Sie ein Upgrade für einen Arbeitsbereich durchgeführt haben, können Sie den Arbeitsbereich nicht mehr auf eine Vorgängerversion zurücksetzen.
+### Begrenzungen nach Artefakten
+Informationen zu den Begrenzungen, die sich bei den einzelnen Plänen ergeben, finden Sie nach Artefakten aufgeschlüsselt in den folgenden Abschnitten:
+
+- [Arbeitsbereiche](configure-workspace.html#workspace-limits)
+- [Dialogmodulknoten](dialog-build.html#dialog-node-limits)
+- [Absichten](intents.html#intent-limits)
+- [Entitäten](entities.html#entity-limits)
+- [Protokolle](logs_convo.html#log-limits)
+
+### Begrenzungen für API-Aufrufe
+Die Anzahl der zulässigen API-Aufrufe pro Instanz richtet sich nach Ihrem Serviceplan. Details können Sie der Beschreibung Ihres Plans entnehmen.
+
+Falls Sie einen Lite-Plan verwenden und den Grenzwert für die API-Aufrufe erreichen, die Protokolle jedoch angeben, dass Sie weniger Aufrufe als erwartet durchgeführt haben, müssen Sie bedenken, dass der Lite-Plan Informationen nur für 7 Tage speichert.
+
+So führen Sie ein Upgrade für Ihren Plan durch:
+
+1.  Wählen Sie im {{site.data.keyword.Bluemix_notm}}-Menü die Optionen **Services** > **Dashboard** aus.
+1.  Wählen Sie die Serviceinstanz aus, für die Sie das Upgrade durchführen wollen, um sie zu öffnen.
+1.  Klicken Sie im Navigationsbereich auf **Plan**.
+   Daraufhin werden Ihr aktueller Plan sowie andere verfügbare Planoptionen angezeigt und Sie können Änderungen vornehmen.
+
+Antworten auf häufig gestellte Frage zu Abonnements enthält der Abschnitt [Abrechnung und Nutzung verwalten ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](/docs/billing-usage/how_charged.html){: new_window}.
+
+Weitere Informationen zu Services, die von IBM Cloud gehostet werden, finden Sie über die folgenden Links:
+
+- [Bedingungen für Cloud-Services](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
+- [Datensicherheit und Datenschutz für Cloud-Services](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
 
 ## Upgrade Ihres Arbeitsbereichs durchführen
-Führen Sie Folgendes aus, um zu verhindern, dass Funktionalität in Ihrem Arbeitsbereich behindert wird:
+{: #upgrade-workspace}
 
+Die Features des Service '{{site.data.keyword.conversationshort}}' werden regelmäßig erweitert und aktualisiert. Einige dieser Änderungen werden zwar automatisch auf Ihren Arbeitsbereich angewendet, aber Updates mit weitreichenden Auswirkungen machen eine manuelle Aktualisierung erforderlich.
+
+Ein Upgrade für Ihren Arbeitsbereich ist nur verfügbar, wenn das Upgradesymbol (![Upgradesymbol](images/upgrade.png)) angezeigt wird.
+
+**Hinweis**: Nachdem Sie ein Upgrade für einen Arbeitsbereich durchgeführt haben, können Sie den Arbeitsbereich nicht mehr auf eine Vorgängerversion zurücksetzen.
+
+So führen Sie ein Upgrade für Ihren Arbeitsbereich durch:
 1.  [Duplizieren Sie Ihren Arbeitsbereich](configure-workspace.html#exporting-and-copying-workspaces).
 2.  Führen Sie das Upgrade für den duplizierten Arbeitsbereich durch.
-3.  Testen Sie, ob in diesem Arbeitsbereich nach dem Upgrade Probleme auftreten.
 
-Nachdem Sie den Test auf Probleme beendet haben, wenden Sie das Upgrade auf Ihre Anwendung an, indem Sie den Nachrichten-API-Aufruf so ändern, dass **2017-02-03** oder eine höhere Version verwendet wird.
-
-## Änderung bei Aktionen 'Springen zu'
-Die Verarbeitung von Aktionen **Springen zu** wurde im Release vom 3. Februar 2017 geändert.
-
-Wenn Sie zuvor zur Bedingung eines Knotens gesprungen sind und weder dieser Knoten noch einer seiner Peerknoten eine Bedingung enthielten, die mit 'true' ausgewertet wurde, führte das System die Aktion 'Springen zu' zum Stammknoten aus und suchte nach einem Knoten, dessen Bedingung mit der Eingabe übereinstimmte. In einigen Situationen entstand durch diese Verarbeitung eine Schleife, die eine Fortsetzung des Dialogmoduls verhinderte.
-
-Wenn beim neuen Prozess weder der Zielknoten noch einer seiner Peerknoten mit 'true' ausgewertet werden, wird die Dialogmodulrunde beendet. Eine etwaige Antwort, die generiert wurde, wird an den Benutzer zurückgegeben, und an die Anwendung wird eine Fehlernachricht zurückgegeben:
-
-```
-Goto failed from node DIALOG_NODE_ID.
-Did not match the condition of the target node and any of the conditions of its subsequent siblings.
-```
-{: screen}
-
-Die nächste Benutzereingabe wird auf der Stammebene des Dialogmoduls verarbeitet.
-
-Diese Aktualisierung könnte das Verhalten Ihres Dialogmoduls ändern, wenn Sie darin Aktionen **Springen zu** verwenden, deren Ziel Knoten mit Bedingungen sind, die ebenfalls mit 'false' ausgewertet werden.
-
-Falls Sie das alte Verarbeitungsmodell wiederherstellen wollen, fügen Sie einen finalen Peerknoten mit einer Bedingung `true` hinzu. Verwenden Sie in der Antwort eine Aktion **Springen zu**, deren Ziel die Bedingung des ersten Knotens auf der Stammebene der Baumstruktur Ihres Dialogmoduls ist.
+    Sobald Sie ein Upgrade Ihres Arbeitsbereiches durchführen, wird die neueste Version der API im Tool aktiviert und in der Anzeige 'Ausprobieren' mit der Verwendung der neuen Features begonnen.
+3.  Testen Sie den Arbeitsbereich nach dem Upgrade.
+4.  Nachdem Sie im duplizierten Arbeitsbereich überprüft haben, wie sich die Änderung auf Ihre Anwendung auswirken wird, wenden Sie das Upgrade auf Ihren primären Arbeitsbereich an.
+5.  Aktualisieren Sie Ihre Anwendung, indem Sie den Nachrichten-API-Aufruf so ändern, dass die neueste Version der API verwendet wird.

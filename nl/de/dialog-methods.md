@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-08"
+  years: 2015, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -17,12 +17,27 @@ lastupdated: "2017-08-08"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Methoden für die Verarbeitung von Werten
+# Methoden in der Ausdruckssprache
 
-Mit den hier beschriebenen Methodden können Sie Werte verarbeiten, die aus verbalen Äußerungen von Benutzern extrahiert wurden und die Sie in einer Kontextvariablen, in einer Bedingung oder an einer anderen Stelle in der Antwort referenzieren wollen.
+Sie können Werte verarbeiten, die aus verbalen Äußerungen der Benutzer extrahiert wurden und die Sie in einer Kontextvariablen, in einer Bedingung oder an anderer Stelle in der Antwort referenzieren möchten.
 {: shortdesc}
 
->**Hinweis:** Für Methoden, die reguläre Ausdrücke einbeziehen, finden Sie auf der Seite [RE2 Syntax reference](https://github.com/google/re2/wiki/Syntax) Details über die Syntax, die Sie verwenden müssen, wenn Sie den regulären Ausdruck angeben.
+## Auswertungssyntax
+
+Um Variablenwerte innerhalb anderer Variablen zu erweitern oder um Methoden auf Ausgabetext oder Kontextvariablen anzuwenden, verwenden Sie die `<? expression ?>`. Beispiel:
+
+- **Numerische Eigenschaft erhöhen**
+    - `"output":{"number":"<? output.number + 1 ?>"}`
+- **Methode in einem Objekt aufrufen**
+    - `"context":{"toppings": "<? context.toppings.append( 'onions' ) ?>"}`
+
+In den folgenden Abschnitten werden Methoden beschrieben, die Sie zum Verarbeiten von Werten verwenden können. Die Methoden sind nach dem Datentyp geordnet:
+
+- [Arrays](dialog-methods.html#arrays)
+- [Datum und Uhrzeit](dialog-methods.html#date-time)
+- [Zahlen](dialog-methods.html#numbers)
+- [Objekte](dialog-methods.html#objects)
+- [Zeichenfolgen](dialog-methods.html#strings)
 
 ## Arrays
 {: #arrays}
@@ -64,7 +79,7 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.contains(object value)
 
@@ -193,7 +208,7 @@ Ergebnis:
 ```json
 Dies ist das Array: Salami;Paprika;Schinken;
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.remove(integer)
 
@@ -230,7 +245,7 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.removeValue(object)
 
@@ -267,7 +282,7 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.set(integer index, object value)
 
@@ -304,7 +319,7 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.size()
 
@@ -341,7 +356,7 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray split(String regexp)
 
@@ -374,12 +389,33 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### Unterstützung für com.google.gson.JsonArray
+{: #com.google.gson.JsonArray}
+
+Zusätzlich zu den integrierten Methoden können Sie Standardmethoden der Klasse `com.google.gson.JsonArray` verwenden.
+
+#### Neues Array
+
+new JsonArray().append('value')
+
+Um ein neues Array zu definieren, das mit von Benutzern bereitgestellten Werten gefüllt werden soll, können Sie ein Array instanziieren. Bei der Instanziierung müssen Sie außerdem einen Platzhalterwert in dem Array hinzufügen. Zu diesem Zweck können Sie die folgende Syntax verwenden:
+
+```json
+{
+  "context":{
+    "answer": "<? output.answer?:new JsonArray().append('temp_value') ?>"
+  }
+```
+{: codeblock}
 
 ## Datum und Uhrzeit
 {: #date-time}
 
 Für die Arbeit mit Datum und Uhrzeit stehen mehrere Methoden zur Verfügung.
+
+Informationen zum Erkennen und Extrahieren von Datums- und Uhrzeitinformationen aus der Benutzereingabe finden Sie unter [Entitäten '@sys-date' und '@sys-time'](system-entities.html#sys-datetime).
 
 ### .after(String date/time)
 
@@ -452,9 +488,9 @@ Die folgende Kontextvariablendefinition erstellt beispielsweise eine Variable '$
 ```
 {: codeblock}
 
-Das Format folgt den Java-Regeln für [SimpleDateFormat](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html).
+Das Format entspricht den Java-Regeln für [SimpleDateFormat ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html){: new_window}.
 
->Hinweis: Wenn Sie versuchen, nur die Zeit zu formatieren, wird das Datum als `1970-01-01` behandelt.
+**Hinweis**: Wenn Sie versuchen, nur die Uhrzeit zu formatieren, wird das Datum als `1970-01-01` behandelt.
 
 ### .sameMoment(String date/time)
 
@@ -469,14 +505,149 @@ Das Format folgt den Java-Regeln für [SimpleDateFormat](http://docs.oracle.com/
 
 - Ermittelt, ob der Wert für Datum/Uhrzeit vor dem angegebenen Argument für Datum/Uhrzeit liegt oder damit identisch ist.
 
-Informationen zu Systementitäten, die Werte für Datum und Uhrzeit extrahieren, finden Sie unter [Entitäten '@sys-date' und '@sys-time'](system-entities.html#sys-datetime).
+### Unterstützung für java.util.Date
+{: #java.util.Date}
+
+Zusätzlich zu den integrierten Methoden können Sie Standardmethoden der Klasse `java.util.Date` verwenden.
+
+#### Datumsberechnungen
+
+Um das Datum des Tages abzurufen, der genau eine Woche auf den heutigen Tag folgt, können Sie die folgende Syntax verwenden:
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() +
+      (7 * (24*60*60*1000L))) ?>"
+  }
+}
+```
+{: codeblock}
+
+Dieser Ausdruck ruft zunächst das aktuelle Datum in Millisekunden (seit dem 1. Januar 1970 um 00:00:00 GMT) ab. Außerdem wird berechnet, wie viele Millisekunden 7 Tagen entsprechen. (Die Formel `(24*60*60*1000L)` berechnet die Millisekunden für einen Tag.) Anschließend werden 7 Tage zu dem aktuellen Datum addiert. Das Ergebnis ist das vollständige Datum des Tages, der genau eine Woche auf den heutigen Tag folgt. Beispiel: `Fre, 26. Jan 2018, 16:30:37 UTC`. Beachten Sie, dass die Zeit in der Zeitzone UTC angegeben wird. Der Wert 7 kann jederzeit in eine Variable (z. B. `$number_of_days`) geändert werden, die Sie übergeben können. Sorgen Sie nur dafür, dass der zugehörige Wert vor der Auswertung dieses Ausdrucks festgelegt wird.
+
+Wenn das Datum anschließend mit einem anderen Datum verglichen werden soll, das von dem Service generiert wird, dann muss das Datum neu formatiert werden. Systementitäten (z. B. `@sys-date`) und andere integrierte Methoden (z. B. `now()`) wandeln Datumsangaben in das Format `jjjj-MM-tt` um.
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() +
+      (7 * (24*60*60*1000L))).format('jjjj-MM-tt') ?>"
+  }
+}
+```
+{: codeblock}
+
+Das Ergebnis der Neuformatierung ist das Datum `2018-01-26`. Mit einem Ausdruck wie `@sys-date.after($week_from_today)` in einer Antwortbedingung können Sie nun das Datum aus der Benutzereingabe mit dem in der Kontextvariablen gespeicherten Datum vergleichen.
+
+Der folgende Ausdruck berechnet die Uhrzeit, die 3 Stunden nach der aktuellen Uhrzeit folgt.
+
+```json
+{
+  "context": {
+    "future_time": "<? new Date(new Date().getTime() + (3 * (60*60*1000L)) -
+      (5 * (60*60*1000L))).format('h:mm a') ?>"
+  }
+}
+```
+{: codeblock}
+
+Der Wert `(60*60*1000L)` entspricht einer Stunde, ausgedrückt in Millisekunden. Dieser Ausdruck addiert 3 Stunden zu der aktuellen Uhrzeit. Anschließend wird die Uhrzeit aus einer UTC-Zeitzone in eine EST-Zeitzone umgerechnet, indem 5 Stunden abgezogen werden. Außerdem werden die Datumswerte so umformatiert, dass sie Stunden und Minuten sowie AM oder PM enthalten.
 
 ## Zahlen
 {: #numbers}
 
-### Random()
+Diese Methoden unterstützen das Abrufen und Umformatieren von Zahlenwerten.
 
-Gibt eine Zufallszahl zurück. Verwenden Sie eine der folgenden Syntaxoptionen:
+Informationen zu Systementitäten, die Zahlen aus der Benutzereingabe erkennen und extrahieren können, finden Sie unter [Entität '@sys-number'](system-entities.html#sys-number).
+
+Wenn der Service bestimmte Zahlenformate in der Benutzereingabe erkennen soll (z. B. Verweise auf Bestellnummern), sollten Sie in Betracht ziehen, eine Musterentität zum Erfassen solcher Zahlenformate zu erstellen. Weitere Details finden Sie unter [Entitäten erstellen](entities.html#creating-entities).
+
+### toDouble()
+
+  Konvertiert das Objekt oder Feld in den Zahlentyp 'Double'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
+
+### toInt()
+
+  Konvertiert das Objekt oder Feld in den Zahlentyp 'Integer'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
+
+### toLong()
+
+  Konvertiert das Objekt oder Feld in den Zahlentyp 'Long'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
+
+  Wenn Sie einen Zahlentyp 'Long' in einem SpEL-Ausdruck angeben, müssen Sie den Buchstaben `L` an die Zahl anfügen, um diesen Zahlentyp zu identifizieren. Beispiel: `5000000000L`. Diese Syntax ist für alle Zahlen erforderlich, die nicht in das Format einer 32-Bit-Ganzzahl passen. Beispiel: Zahlen, die größer als 2^31 (2,147,483,648) oder kleiner als -2^31 (-2,147,483,648) sind, werden als Zahlentyp 'Long' eingestuft. Zahlen des Typs 'Long' liegen zwischen dem Minimalwert -2^63 und dem Maximalwert 2^63-1.
+
+### Zahlenunterstützung in Java
+{: #java.lang.Number}
+
+### java.lang.Math()
+
+Führt grundlegende Zahlenoperationen aus.
+
+Sie können die Klassenmethoden einschließlich der folgenden verwenden:
+
+- max()
+
+```json
+{
+  "context": {
+    "bigger_number": "<? T(Math).max($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "Die größere Zahl ist $bigger_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- min()
+
+```json
+{
+  "context": {
+    "smaller_number": "<? T(Math).min($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "Die kleinere Zahl ist $smaller_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- pow()
+
+```json
+{
+  "context": {
+    "power_of_two": "<? T(Math).pow($base.toDouble(),2.toDouble()) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "Die zweite Potenz der Zahl $base ist $power_of_two."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+Informationen zu weiteren Methoden finden Sie unter [java.lang.Math - Referenzinformationen](https://docs.oracle.com/javase/7/docs/api/java/lang/Math.html).
+
+### java.util.Random()
+
+Gibt eine Zufallszahl zurück. Sie können eine der folgenden Syntaxoptionen verwenden:
 
 - Um einen zufälligen booleschen Wert (true oder false) zurückzugeben, verwenden Sie `<?new Random().nextBoolean()?>`.
 - Um eine zufällige Zahl des Typs 'Double' zwischen 0 (eingeschlossen) und 1 (ausgeschlossen) zurückzugeben, verwenden Sie `<?new Random().nextDouble()?>`
@@ -504,19 +675,16 @@ Condition = @sys-number
 ```
 {: codeblock}
 
-### toDouble()
+Informationen zu weiteren Methoden finden Sie unter [java.util.Random - Referenzinformationen](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html).
 
-  Konvertiert das Objekt oder Feld in den Zahlentyp 'Double'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
+Sie können auch Standardmethoden der folgenden Klassen verwenden:
 
-### toInt()
-
-  Konvertiert das Objekt oder Feld in den Zahlentyp 'Integer'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
-
-### toLong()
-
-  Konvertiert das Objekt oder Feld in den Zahlentyp 'Long'. Sie können diese Methode für jedes beliebige Objekt oder Feld aufrufen. Falls die Konvertierung fehlschlägt, wird *null* zurückgegeben.
-
-Informationen zu Systementitäten, die Zahlen extrahieren, finden Sie unter [Entität '@sys-number'](system-entities.html#sys-number).
+- `java.lang.Byte`
+- `java.lang.Integer`
+- `java.lang.Long`
+- `java.lang.Double`
+- `java.lang.Short`
+- `java.lang.Float`
 
 ## Objekte
 {: #objects}
@@ -593,10 +761,21 @@ Ergebnis:
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### Unterstützung für com.google.gson.JsonObject
+{: #com.google.gson.JsonObject}
+
+Zusätzlich zu den integrierten Methoden können Sie Standardmethoden der Klasse `com.google.gson.JsonObject` verwenden.
 
 ## Zeichenfolgen
 {: #strings}
+
+Diese Methoden unterstützen das Arbeiten mit Text.
+
+Informationen zum Erkennen und Extrahieren bestimmter Zeichenfolgetypen wie Personennamen und Positionen aus der Benutzereingabe finden Sie unter [Systementitäten](system-entities.html).
+
+**Hinweis:** Für Methoden, die reguläre Ausdrücke einbeziehen, finden Sie auf der Seite [RE2 Syntax reference ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://github.com/google/re2/wiki/Syntax){: new_window} Details über die Syntax zum Angeben des regulären Ausdrucks.
 
 ### String.append(object)
 
@@ -633,7 +812,7 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.contains(string)
 
@@ -711,14 +890,14 @@ Ergebnis:
 
 ### String.find(zeichenfolge regulärer_ausdruck)
 
-Diese Methode gibt 'true' zurück, falls ein Segment der Zeichenfolge mit dem eingegebenen regulären Ausdruck übereinstimmt. Sie können diese Methode für ein JSON-Array oder ein JSON-Objekt aufrufen. Sie konvertiert das Array oder Objekt in eine Zeichenfolge, bevor der Vergleich vorgenommen wird.
+Diese Methode gibt 'true' zurück, falls ein Segment der Zeichenfolge mit dem eingegebenen regulären Ausdruck übereinstimmt.  Sie können diese Methode für ein JSON-Array oder ein JSON-Objekt aufrufen. Sie konvertiert das Array oder Objekt in eine Zeichenfolge, bevor der Vergleich vorgenommen wird.
 
 Ausgangspunkt ist die folgende Eingabe:
 
 ```
 "Hallo 123456".
 ```
-{: screen}
+{: codeblock}
 
 Verwenden Sie die folgende Syntax:
 
@@ -788,7 +967,7 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.matches(string regexp)
 
@@ -870,7 +1049,7 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toLowerCase()
 
@@ -903,7 +1082,7 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toUpperCase()
 
@@ -936,7 +1115,7 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.trim()
 
@@ -973,6 +1152,86 @@ Ergebnis ist die folgende Ausgabe:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
-Informationen zu Systementitäten, die Zeichenfolgen extrahieren, finden Sie unter [Systementitäten](system-entities.html).
+### Unterstützung für java.lang.String
+{: #java.lang.String}
+
+Zusätzlich zu den integrierten Methoden können Sie Standardmethoden der Klasse `java.lang.String` verwenden.
+
+#### java.lang.String.format()
+
+Sie können die Standardmethode für Java-Zeichenfolgen `format()` auf Text anwenden. Informationen über die Syntax zum Angeben der Formatdetails finden Sie unter [java.util.formatter reference ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#syntax){: new_window}.
+
+Beispiel: Der folgende Ausdruck akzeptiert drei dezimale Ganzzahlen (1, 1 und 2) und fügt Sie zu einem Satz hinzu.
+
+```json
+{
+  "formatted String": "<? T(java.lang.String).format('%d + %d gleich %d', 1, 1, 2) ?>"
+}
+```
+{: codeblock}
+
+Ergebnis: `1 + 1 gleich 2`.
+
+## Indirekte Datentypumwandlung
+
+Wenn Sie einen Ausdruck mit Text umgeben (z. B. als Teil einer Knotenantwort), wird der Wert als Zeichenfolge wiedergegeben. Wenn der Ausdruck als der ursprüngliche Datentyp dargestellt werden soll, umgeben Sie ihn nicht mit Text.
+
+Sie können beispielsweise den folgenden Ausdruck zur Antwort eines Dialogmodulknotens hinzufügen, damit die in der Benutzereingabe erkannten Entitäten im Zeichenfolgeformat zurückgegeben werden:
+
+```json
+  The entities are <? entities ?>.
+```
+{: codeblock}
+
+Falls der Benutzer *Hello now* als Eingabe angibt, werden die Entitäten '@sys-date' und '@sys-time' durch die Angabe `now` ausgelöst. Das Entitätsobjekt ist ein Array, aber da der Ausdruck Text enthält, werden die Entitäten wie folgt im Zeichenfolgeformat zurückgegeben:
+
+```json
+  The entities are 2018-02-02, 14:34:56.
+```
+{: codeblock}
+
+Wenn Sie keinen Text in die Antwort einfügen, wird stattdessen ein Array zurückgegeben. Dies ist beispielsweise der Fall, wenn die Antwort nur als Ausdruck (ohne umgebenden Text) angegeben wird.
+
+```
+  <? entities ?>
+```
+{: codeblock}
+
+Die Entitätsinformationen werden im nativen Datentyp (d. h. als Array) zurückgegeben.
+
+```json
+[
+  {
+    "entity":"sys-date","location":[6,9],"value":"2018-02-02","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  },
+  {
+    "entity":"sys-time","location":[6,9],"value":"14:33:22","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  }
+  ]
+```
+{: codeblock}
+
+Ein weiteres Beispiel: Die folgende Kontextvariable '$array' ist ein Array, aber die Kontextvariable '$string_array' ist eine Zeichenfolge.
+
+```json
+{
+  "context": {
+    "array": [
+      "eins",
+      "zwei"
+    ],
+    "array_in_string": "Dies ist mein Array: $array"
+  }
+}
+```
+{: codeblock}
+
+Falls Sie die Werte dieser Kontextvariablen im Fenster 'Ausprobieren' überprüfen, werden ihre Werte dort folgendermaßen angegeben:
+
+**$array** : `["eins","zwei"]`
+
+**$array_in_string** : `"Dies ist mein Array: [\"eins\",\"zwei\"]"`
+
+Sie können nachfolgend Arraymethoden für die Variable '$array' ausführen, z. B. `<? $array.removeValue('two') ?>`, jedoch nicht für die Variable '$array_in_string'.

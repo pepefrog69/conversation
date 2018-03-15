@@ -17,7 +17,7 @@ lastupdated: "2017-07-06"
 # ビデオ: {{site.data.keyword.conversationshort}} のツールの概要
 {: #tool-video}
 
-{{site.data.keyword.conversationshort}} ツールを使用すれば、{{site.data.keyword.conversationshort}} ワークスペースを作成して管理することができます。このツールのさまざまな領域についてお知りになりたい場合は、このビデオをご覧ください。
+{{site.data.keyword.conversationshort}} ツールを使用すれば、{{site.data.keyword.conversationshort}} ワークスペースを作成して管理することができます。 このツールのさまざまな領域についてお知りになりたい場合は、このビデオをご覧ください。
 
 <p>
   <div class="embed-responsive embed-responsive-16by9">

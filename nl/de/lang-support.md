@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-02-07"
 
 ---
 
@@ -23,27 +23,29 @@ Der Service '{{site.data.keyword.conversationshort}}' unterstützt die hier aufg
 
 Die Stufe der Unterstützung für Sprachen und Features ist in der nachstehenden Tabelle durch die folgenden Codes wiedergegeben:
 
-- **GA** - Das Feature ist allgemein verfügbar und wird für diese Sprache unterstützt. Bitte beachten Sie, dass Features nach der allgemeinen Verfügbarkeit weiter aktualisiert werden können. 
+- **GA** - Das Feature ist allgemein verfügbar und wird für diese Sprache unterstützt. Bitte beachten Sie, dass Features nach der allgemeinen Verfügbarkeit weiter aktualisiert werden können.
 - **Beta** - Das Feature wird nur als Betaversion unterstützt und wird noch getestet, bevor es in dieser Sprache allgemein verfügbar gemacht wird.
 - **Keine Angabe** - Falls kein Code angegeben ist, bedeutet dies, dass ein Feature in dieser Sprache nicht verfügbar ist.
 
-|                  | **[Absichten](intents.html)**, **[Entitäten](entities.html)** und **[Dialogmodule definieren](dialog-build.html)** | **[Absolute Bewertung und Option 'Als irrelevant markieren'](intents.html#mark-irrelevant)** | **Systementitäten (für [Zahlen](system-entities.html#sys-number), [Währung](system-entities.html#sys-currency), [Prozentsatz](system-entities.html#sys-percentage), [Datum/Uhrzeit](system-entities.html#sys-datetime))** | **[Unscharfe Suche für Entitäten](entities.html#fuzzy-matching)** | **[Musterbasierte Entitäten](entities.html#pattern-entities)** |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **Englisch (en)**                  | GA | GA | GA </br> Beta ([location](system-entities.html#sys-location), [person](system-entities.html#sys-person)) | Beta (Normalformenreduktion, Rechtschreibfehler und Suche mit teilweiser Übereinstimmung) | Beta |
-| **Arabisch (ar)**                  | GA | Beta | Beta | Beta (nur Rechtschreibfehler) | Beta |
-| **Chinesisch (vereinfacht) (zh-cn)**   | Beta | Beta | Beta |  | Beta |
-| **Chinesisch (traditionell) (zh-tw)**  | Beta | Beta |  |  | Beta |
-| **Tschechisch (cs)**               | Beta | Beta | Beta | Beta (nur Rechtschreibfehler) | Beta |
-| **Niederländisch (nl)**            | Beta | Beta |  |  | Beta |
-| **Französisch (fr)**               | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta |
-| **Deutsch (de)**                   | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta |
-| **Italienisch (it)**               | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta |
-| **Japanisch (ja)**                 | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta |
-| **Koreanisch (ko)**                | GA | GA | Beta | Beta (nur Rechtschreibfehler) | Beta |
-| **Portugiesisch (Brasilien) (pt-br)** | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta |
-| **Spanisch (es)**                  | GA | GA | GA | Beta (nur Rechtschreibfehler) | Beta ||
+|                  | **[Absichten](intents.html)**, **[Entitäten](entities.html)** und **[Dialogmodule definieren](dialog-build.html)** | **[Absolute Bewertung und Option 'Als irrelevant markieren'](intents.html#mark-irrelevant)** | **Systementitäten (für [Zahlen](system-entities.html#sys-number), [Währung](system-entities.html#sys-currency), [Prozentsatz](system-entities.html#sys-percentage), [Datum/Uhrzeit](system-entities.html#sys-datetime))** | **[Unscharfe Suche für Entitäten](entities.html#fuzzy-matching)** |
+|:---|:---:|:---:|:---:|:---:|
+| **Englisch (en)**                   | GA | GA | GA </br> Beta ([location](system-entities.html#sys-location), [person](system-entities.html#sys-person)) | Beta (Normalformenreduktion, Rechtschreibfehler und Suche mit teilweiser Übereinstimmung) |
+| **Arabisch (ar)**                    | GA | Beta | Beta | Beta (nur Rechtschreibfehler) |
+| **Chinesisch (vereinfacht) (zh-cn)**   | Beta | Beta | Beta |  |
+| **Chinesisch (traditionell) (zh-tw)**  | Beta | Beta |  |  |
+| **Tschechisch (cs)**                     | Beta | Beta | Beta | Beta (nur Rechtschreibfehler) |
+| **Niederländisch (nl)**                     | Beta | Beta | Beta |  |
+| **Französisch (fr)**                    | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Deutsch (de)**                    | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Italienisch (it)**                   | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Japanisch (ja)**                  | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Koreanisch (ko)**                    | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Portugiesisch (Brasilien) (pt-br)** | GA | GA | GA | Beta (nur Rechtschreibfehler) |
+| **Spanisch (es)**                   | GA | GA | GA | Beta (nur Rechtschreibfehler) ||
 
 **Hinweis:** Der Service '{{site.data.keyword.conversationshort}}' unterstützt mehrere Sprachen wie hier angegeben. Die Toolschnittstelle (Beschreibungen, Bezeichnungen usw.) verwendet Englisch. Alle unterstützten Sprachen können über die in Englisch angezeigte Schnittstelle eingegeben und trainiert werden.
+
+**Konformität mit GB18030**: GB18030 ist eine chinesische Norm, die eine erweiterte Codepage für die Verwendung im chinesischen Markt spezifiziert. Diese normierte Codepage ist für die Softwarebranche von großer Bedeutung, da vom China National Information Technology Standardization Technical Committee verfügt wurde, dass jede Softwareanwendung, die nach dem 1. September 2001 im chinesischen Markt freigegeben wird, für GB18030 aktiviert sein muss. Der Service '{{site.data.keyword.conversationshort}}' unterstützt diese Codierung und ist für die Einhaltung von GB18030 zertifiziert.
 
 ## Sprache für einen Arbeitsbereich ändern
 
@@ -72,7 +74,7 @@ Nachdem Sie alle gewünschten Einstellungen ausgewählt haben, klicken Sie auf *
 ## Mit Akzentzeichen arbeiten
 {: #working-with-accents}
 
-In einer dialogorientierten Einstellung können Benutzer bei der Interaktion mit dem Service 'Conversation' Akzente verwenden oder nicht. Insofern können Fassungen von Wörtern mit Akzent und ohne Akzent bei der Absichts- und Entitätserkennung identisch behandelt werden.
+In einer dialogorientierten Einstellung können Benutzer bei der Interaktion mit dem Service '{{site.data.keyword.conversationshort}}' Akzente verwenden oder nicht. Insofern können Fassungen von Wörtern mit Akzent und ohne Akzent bei der Absichts- und Entitätserkennung identisch behandelt werden.
 
 Bei einigen Sprachen (z. B. Spanisch) können manche Akzente jedoch die Bedeutung der Entität ändern. Obwohl die Originalentität implizit einen Akzent besitzt, kann der Service daher bei der Entitätserkennung auch eine Übereinstimmung mit der Version derselben Entität ohne Akzent erzielen, allerdings mit einer etwas geringeren Konfidenzbewertung.
 

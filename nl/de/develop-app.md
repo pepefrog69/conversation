@@ -1,38 +1,40 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-24"
+  years: 2015, 2018
+lastupdated: "2018-01-29"
 
 ---
 
-{:shortdesc: .shortdesc}
+{:curl: #curl .ph data-hd-programlang='curl'}
+{:javascript: #javascript .ph data-hd-programlang='javascript'}
+{:java: #java .ph data-hd-programlang='java'}
+{:python: #python .ph data-hd-programlang='python'}
+{:swift: data-hd-programlang='swift'}
 {:new_window: target="_blank"}
-{:tip: .tip}
+{:shortdesc: .shortdesc}
+{:screen: .screen}
 {:pre: .pre}
 {:codeblock: .codeblock}
-{:screen: .screen}
-{:javascript: .ph data-hd-programlang='javascript'}
-{:java: .ph data-hd-programlang='java'}
-{:python: .ph data-hd-programlang='python'}
-{:swift: .ph data-hd-programlang='swift'}
+{:download: .download}
+{:tip: .tip}
 
 # Clientanwendung erstellen
 
 Sie haben bereits ein funktionsfähiges Dialogmodul erstellt. Jetzt soll die Anwendung entwickelt werden, die mit Ihren Benutzern interagiert und mit dem Service '{{site.data.keyword.conversationfull}}' kommuniziert.
 {: shortdesc}
 
-Die Codebeispiele in diesem Lernprogramm sind in JavaScript geschrieben und verwenden das Watson-SDK für Node.js. Sie können jedoch auch jede andere Sprache verwenden. Installieren Sie das Watson-[SDK ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://www.ibm.com/watson/developercloud/developer-tools.html){: new_window} für Ihre Programmiersprache. Weitere Informationen finden Sie in der SDK-Dokumentation.
-{: tip}
+Sie können dieses Lernprogramm entweder für Node.js (Javascript) oder für Python anzeigen, indem Sie auf die Sprachauswahl in der rechten oberen Ecke klicken. Details zu allen unterstützten Sprachen finden Sie unter {{site.data.keyword.watson}} [SDKs ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](/docs/services/watson/getting-started-sdks.html#sdks){: new_window}.
+{: tip }
 
-## Service 'Conversation' einrichten
+## Service '{{site.data.keyword.conversationshort}}' einrichten
 
 Die Beispielanwendung, die in diesem Abschnitt erstellt wird, implementiert verschiedene Funktionen eines kognitiven persönlichen Assistenten. Der Anwendungscode stellt eine Verbindung zu einem {{site.data.keyword.conversationshort}}-Arbeitsbereich her, in dem die kognitive Verarbeitung (z. B. die Erkennung der Benutzerabsichten) stattfindet.
 
 Bevor Sie mit diesem Beispiel fortfahren, müssen Sie den erforderlichen {{site.data.keyword.conversationshort}}-Arbeitsbereich einrichten:
 
 1.  Laden Sie die <a target="_blank" href="https://watson-developer-cloud.github.io/doc-tutorial-downloads/conversation/conversation-simple-example.json" download="conversation-simple-example.json">JSON-Datei</a> für den Arbeitsbereich herunter.
-1.  [Importieren Sie den Arbeitsbereich](configure-workspace.html#creating-workspaces) in eine Instanz des Service '{{site.data.keyword.conversationshort}}'.
+1.  [Importieren Sie den Arbeitsbereich](/docs/services/conversation/configure-workspace.html#creating-workspaces) in eine Instanz des Service '{{site.data.keyword.conversationshort}}'.
 
 ## Serviceinformationen abrufen
 
@@ -40,11 +42,11 @@ Damit Ihre Anwendung auf die REST-APIs des Service '{{site.data.keyword.conversa
 
 Um auf die Berechtigungsnachweise für den Service und die Arbeitsbereichs-ID im Arbeitsbereich zuzugreifen, wählen Sie das Menü ![Menü](images/Menu_16.png) aus, wählen Sie **Bereitstellen** aus und wechseln Sie dann auf die Registerkarte **Berechtigungsnachweise**.
 
-Auf die Berechtigungsnachweise für den Service können Sie auch über das Bluemix-Dashboard zugreifen.
+Auf die Berechtigungsnachweise für den Service können Sie auch über das {{site.data.keyword.Bluemix_short}}-Dashboard zugreifen.
 
-## Mit dem Service 'Conversation' kommunizieren
+## Mit dem Service '{{site.data.keyword.conversationshort}}' kommunizieren
 
-Die Interaktion mit dem Service '{{site.data.keyword.conversationshort}}' ist ganz leicht. Das folgende Node.js-Beispiel stellt eine Verbindung zum Service her, sendet eine einfache Nachricht und protokolliert die Ausgabe in der Konsole:
+Die Interaktion mit dem Service '{{site.data.keyword.conversationshort}}' ist ganz leicht. Das folgende Beispiel stellt eine Verbindung zum Service her, sendet eine einfache Nachricht und protokolliert die Ausgabe in der Konsole:
 
 ```javascript
 // Beispiel 1: Service-Wrapper einrichten, Startnachricht senden und
@@ -54,14 +56,17 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
 // Service-Wrapper für Conversation einrichten
 var conversation = new ConversationV1({
-  username: 'USERNAME', // Durch Benutzernamen aus Serviceschlüssel ersetzen
-  password: 'PASSWORD', // Durch Kennwort aus Serviceschlüssel ersetzen
-  path: { workspace_id: 'WORKSPACE_ID' }, // Durch Arbeitsbereichs-ID ersetzen
-  version_date: '2016-07-11'
+  username: 'USERNAME', // Durch den Servicebenutzernamen ersetzen
+  password: 'PASSWORD', // Durch das Servicekennwort ersetzen
+  version_date: '2017-05-26'
 });
 
+var workspace_id = 'WORKSPACE_ID'; // Durch Arbeitsbereichs-ID ersetzen
+
 // Dialog mit leerer Nachricht starten
-conversation.message({}, processResponse);
+conversation.message({
+  workspace_id: workspace_id
+  }, processResponse);
 
 // Dialogantwort verarbeiten
 function processResponse(err, response) {
@@ -70,30 +75,72 @@ function processResponse(err, response) {
     return;
   }
 
-  // Ausgabe des Dialogs, sofern vorhanden, anzeigen
+  // Ausgabe des Dialogs anzeigen, sofern vorhanden
   if (response.output.text.length != 0) {
       console.log(response.output.text[0]);
   }
 }
 ```
 {: codeblock}
+{: javascript}
+
+```python
+# Beispiel 1: Service-Wrapper einrichten, Startnachricht senden und
+# Antwort empfangen
+
+import watson_developer_cloud
+
+# Service 'Conversation' einrichten
+conversation = watson_developer_cloud.ConversationV1(
+  username = 'USERNAME', # Durch Benutzernamen aus Serviceschlüssel ersetzen
+  password = 'PASSWORD', # Durch Kennwort aus Serviceschlüssel ersetzen
+  version = '2017-05-26'
+)
+workspace_id = 'WORKSPACE_ID' # Durch Arbeitsbereichs-ID ersetzen
+
+# Dialog mit leerer Nachricht starten
+response = conversation.message(
+  workspace_id = workspace_id,
+  input = {
+    'text': ''
+  }
+)
+
+# Ausgabe des Dialogs anzeigen, sofern vorhanden
+if response['output']['text']:
+  print(response['output']['text'][0])
+```
+{: codeblock}
+{: python}
 
 Im ersten Schritt wird ein Wrapper für den Service '{{site.data.keyword.conversationshort}}' erstellt.
 
 Der Wrapper ist ein Objekt, das Sie verwenden, um Eingabe an den Service zu senden und Ausgabe vom Service zu empfangen. Beim Erstellen des Service-Wrappers geben Sie die Authentifizierungsnachweise aus dem Serviceschlüssel sowie die Version der verwendeten {{site.data.keyword.conversationshort}}-API an.
 
 In diesem Node.js-Beispiel ist der Wrapper eine Instanz von `ConversationV1`, gespeichert in der Variablen `conversation`. Die Watson-SDKs für andere Sprachen bieten funktional entsprechende Mechanismen für die Instanziierung eines Service-Wrappers.
+{: javascript}
+
+In diesem Python-Beispiel ist der Wrapper eine Instanz von `watson_developer_cloud.ConversationV1`, gespeichert in der Variablen `conversation`. Die Watson-SDKs für andere Sprachen bieten funktional entsprechende Mechanismen für die Instanziierung eines Service-Wrappers.
+{: python}
 
 Nachdem Sie den Service-Wrapper erstellt haben, verwenden Sie ihn, um eine Nachricht an den Service '{{site.data.keyword.conversationshort}}' zu senden. In diesem Beispiel ist die Nachricht leer, denn es soll lediglich der Knoten 'conversation_start' im Dialogmodul ausgelöst werden, weshalb kein Eingabetext benötigt wird.
 
 Verwenden Sie den Befehl `node <filename.js>`, um die Beispielanwendung auszuführen.
+{: javascript}
 
-**Hinweis:** Stellen Sie sicher, dass Sie das Watson-Node.js-SDK mit `npm install watson-developer-cloud` installiert haben.
+Verwenden Sie die Syntax `python <filename.py>`, um die Beispielanwendung auszuführen.
+{: python}
 
-Wenn alles wie erwartet funktioniert, gibt der Service '{{site.data.keyword.conversationshort}}' die Ausgabe aus dem Dialogmodul zurück, die anschließend in der Konsole protokolliert wird:
+**Hinweis:** Stellen Sie sicher, dass Sie das Watson-SDK für Node.js mit `npm install watson-developer-cloud` installiert haben.
+{: javascript}
+
+**Hinweis:** Stellen Sie sicher, dass Sie das Watson-SDK für Python mit `pip install --upgrade watson-developer-cloud` oder `easy_install --upgrade watson-developer-cloud` installiert haben.
+{: python}
+
+Wann alles wie erwartet funktioniert, gibt der Service '{{site.data.keyword.conversationshort}}' die Ausgabe aus dem Dialogmodul zurück, die anschließend in der Konsole ausgegeben wird:
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 ```
 {: screen}
 
@@ -101,7 +148,9 @@ Diese Ausgabe bedeutet, dass Sie erfolgreich mit dem Service '{{site.data.keywor
 
 ## Benutzereingabe zur Erkennung von Absichten verarbeiten
 
-Damit eine Benutzereingabe verarbeitet werden kann, müssen Sie Ihrer Anwendung eine Benutzerschnittstelle hinzufügen. Das Beispiel ist auch in dieser Hinsicht einfach gehalten; es werden Standardeingabe und -ausgabe verwendet. Hierzu kann das Node.js-Modul 'prompt-sync' verwendet werden. (Sie können das Modul 'prompt-sync' mit dem Befehl `npm install prompt-sync` installieren.)
+Damit eine Benutzereingabe verarbeitet werden kann, müssen Sie Ihrer Anwendung eine Benutzerschnittstelle hinzufügen. Das Beispiel ist auch in dieser Hinsicht einfach gehalten; es werden Standardeingabe und -ausgabe verwendet.
+<span class="ph style-scope doc-content" data-hd-programlang="javascript">Hierzu kann das Node.js-Modul 'prompt-sync' verwendet werden. (Sie können das Modul 'prompt-sync' mit dem Befehl `npm install prompt-sync` installieren.)</span>
+<span class="ph style-scope doc-content" data-hd-programlang="python">Hierzu kann die Python-Funktion `input` verwendet werden.</span>
 
 ```javascript
 // Beispiel 2: Benutzereingabe hinzufügen und Absichten erkennen
@@ -111,14 +160,17 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
 // Service-Wrapper für Conversation einrichten
 var conversation = new ConversationV1({
-  username: 'USERNAME', // Durch Benutzernamen aus Serviceschlüssel ersetzen
-  password: 'PASSWORD', // Durch Kennwort aus Serviceschlüssel ersetzen
-  path: { workspace_id: 'WORKSPACE_ID' }, // Durch Arbeitsbereichs-ID ersetzen
-  version_date: '2016-07-11'
+  username: 'USERNAME', // Durch den Servicebenutzernamen ersetzen
+  password: 'PASWORD', // Durch das Servicekennwort ersetzen
+  version_date: '2017-05-26'
 });
 
+var workspace_id = 'WORKSPACE_ID'; // Durch Arbeitsbereichs-ID ersetzen
+
 // Dialog mit leerer Nachricht starten
-conversation.message({}, processResponse);
+conversation.message({
+  workspace_id: workspace_id
+  }, processResponse);
 
 // Dialogantwort verarbeiten
 function processResponse(err, response) {
@@ -140,34 +192,81 @@ function processResponse(err, response) {
   // Nächste Eingaberunde anfordern
   var newMessageFromUser = prompt('>> ');
   conversation.message({
+    workspace_id: workspace_id,
     input: { text: newMessageFromUser }
     }, processResponse)
 }
 ```
 {: codeblock}
+{: javascript}
+
+```python
+# Beispiel 2: Benutzereingabe hinzufügen und Absichten erknnen
+
+import watson_developer_cloud
+
+# Service 'Conversation' einrichten
+conversation = watson_developer_cloud.ConversationV1(
+  username = 'USERNAME', # Durch Benutzernamen aus Serviceschlüssel ersetzen
+  password = 'PASSWORD', # Durch Kennwort aus Serviceschlüssel ersetzen
+  version = '2017-05-26'
+)
+workspace_id = 'WORKSPACE_ID' # Durch Arbeitsbereichs-ID ersetzen
+
+# Mit leerem Wert initialisieren, um den Dialog zu starten
+user_input = ''
+
+# Hauptschleife für Ein-/Ausgabe
+while True:
+
+  # Nachricht an Service 'Conversation' senden
+  response = conversation.message(
+    workspace_id = workspace_id,
+    input = {
+      'text': user_input
+    }
+  )
+
+  # Bei Erkennung einer Absicht diese in der Konsole ausgeben
+  if response['intents']:
+    print('Erkannte Absicht: #' + response['intents'][0]['intent'])
+
+  # Ausgabe des Dialogs anzeigen, sofern vorhanden
+  if response['output']['text']:
+    print(response['output']['text'][0])
+
+  # Nächste Eingaberunde anfordern
+  user_input = input('>> ')
+```
+{: codeblock }
+{: python }
 
 Diese Version der Anwendung beginnt wie die vorherige mit dem Senden einer leeren Nachricht an den Service '{{site.data.keyword.conversationshort}}', um den Dialog zu starten.
 
 Die Funktion `processResponse()` zeigt jetzt die vom Dialogmodul erkannten Absichten zusammen mit dem Ausgabetext an und fordert anschließend die nächste Runde der Benutzereingabe an.
+{: javascript }
+
+Sie zeigt jetzt die vom Dialogmodul erkannten Absichten zusammen mit dem Ausgabetext an und fordert anschließend die nächste Runde der Benutzereingabe an. (Momentan wird eine Schleife `while True` verwendet, da noch keine Methode zum Beenden des Dialogs implementiert wurde.)
+{: python }
 
 Aber etwas stimmt immer noch nicht:
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> hello
 Detected intent: #hello
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> what time is it?
 Detected intent: #time
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> goodbye
 Detected intent: #goodbye
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >>
 ```
 {: screen}
 
-Der Service '{{site.data.keyword.conversationshort}}' erkennt die korrekten Absichten, aber in jeder Runde des Dialogs wird weiterhin die Willkommensnachricht aus dem Knoten 'conversation_start' (`Welcome to the Conversation example!`) zurückgegeben.
+Der Service '{{site.data.keyword.conversationshort}}' erkennt die korrekten Absichten, aber in jeder Runde des Dialogs wird weiterhin die Willkommensnachricht aus dem Knoten 'conversation_start' (`Welcome to the {{site.data.keyword.conversationshort}} example!`) zurückgegeben.
 
 Dies liegt daran, dass der Service '{{site.data.keyword.conversationshort}}' statusunabhängig ist; für die Verwaltung von Statusinformationen ist die Anwendung zuständig. Da noch keine Aktion zum Verwalten von Statuswerten definiert wurde, betrachtet der Service '{{site.data.keyword.conversationshort}}' jede Runde mit Benutzereingabe als erste Runde eines neuen Dialogs und löst somit den Knoten 'conversation_start' aus.
 
@@ -185,16 +284,19 @@ Der Kontext kann aber nicht nur verwalten, an welcher Stelle sich der Dialog ger
 var prompt = require('prompt-sync')();
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Service 'Conversation' einrichten
+// Service-Wrapper für Conversation einrichten
 var conversation = new ConversationV1({
-  username: 'USERNAME', // Durch Benutzernamen aus Serviceschlüssel ersetzen
-  password: 'PASSWORD', // Durch Kennwort aus Serviceschlüssel ersetzen
-  path: { workspace_id: 'WORKSPACE_ID' }, // Durch Arbeitsbereichs-ID ersetzen
-  version_date: '2016-07-11'
+  username: 'USERNAME', // Durch den Servicebenutzernamen ersetzen
+  password: 'PASSWORD', // Durch das Servicekennwort ersetzen
+  version_date: '2017-05-26'
 });
 
+var workspace_id = 'WORKSPACE_ID'; // Durch Arbeitsbereichs-ID ersetzen
+
 // Dialog mit leerer Nachricht starten
-conversation.message({}, processResponse);
+conversation.message({
+  workspace_id: workspace_id
+  }, processResponse);
 
 // Dialogantwort verarbeiten
 function processResponse(err, response) {
@@ -205,10 +307,10 @@ function processResponse(err, response) {
 
   // Bei Erkennung einer Absicht diese in der Konsole protokollieren
   if (response.intents.length > 0) {
-    console.log('Detected intent: #' + response.intents[0].intent);
+    console.log('Erkannte Absicht: #' + response.intents[0].intent);
   }
 
-  // Ausgabe des Dialogs, sofern vorhanden, anzeigen
+  // Ausgabe des Dialogs anzeigen, sofern vorhanden
   if (response.output.text.length != 0) {
       console.log(response.output.text[0]);
   }
@@ -217,14 +319,63 @@ function processResponse(err, response) {
     var newMessageFromUser = prompt('>> ');
     // Kontext zurück an Statusverwaltung senden
     conversation.message({
+      workspace_id: workspace_id,
       input: { text: newMessageFromUser },
       context : response.context,
     }, processResponse)
 }
 ```
 {: codeblock}
+{: javascript }
+
+```python
+# Beispiel 3: Status verwalten
+
+import watson_developer_cloud
+
+# Service 'Conversation' einrichten
+conversation = watson_developer_cloud.ConversationV1(
+  username = 'USERNAME', # Durch Benutzernamen aus Serviceschlüssel ersetzen
+  password = 'PASSWORD', # Durch Kennwort aus Serviceschlüssel ersetzen
+  version = '2017-05-26'
+)
+workspace_id = 'WORKSPACE_ID' # Durch Arbeitsbereichs-ID ersetzen
+
+# Mit leerem Wert initialisieren, um den Dialog zu starten
+user_input = ''
+context = {}
+
+# Hauptschleife für Ein-/Ausgabe
+while True:
+
+  # Nachricht an Service 'Conversation' senden
+  response = conversation.message(
+    workspace_id = workspace_id,
+    input = {
+      'text': user_input
+    },
+    context = context
+  )
+
+  # Bei Erkennung einer Absicht diese in der Konsole ausgeben
+  if response['intents']:
+    print('Erkannte Absicht: #' + response['intents'][0]['intent'])
+
+  # Ausgabe des Dialogs anzeigen, sofern vorhanden
+  if response['output']['text']:
+    print(response['output']['text'][0])
+
+  # Gespeicherten Kontext durch den zuletzt vom Dialogmodul empfangenen Kontext ersetzen
+  context = response['context']
+
+  # Nächste Eingaberunde anfordern
+  user_input = input('>> ')
+```
+{: codeblock }
+{: python }
 
 Die einzige Änderung zum vorherigen Beispiel besteht darin, dass in jeder Dialogrunde jetzt das Objekt `response.context` zurückgesendet wird, das in der vorherigen Runde empfangen wurde.
+{: javascript }
 
 ```javascript
     conversation.message({
@@ -233,6 +384,22 @@ Die einzige Änderung zum vorherigen Beispiel besteht darin, dass in jeder Dialo
     }, processResponse)
 ```
 {: codeblock}
+{: javascript }
+
+Die einzige Änderung im Vergleich zum vorherigen Beispiel besteht darin, dass nun der vom Dialogmodul übermittelte Kontext in einer Variable namens `context` Kontext gespeichert und mit der nächsten Runde der Benutzereingabe zurückgesendet wird:
+{: python }
+
+```python
+  response = conversation.message(
+    workspace_id = workspace_id,
+    input = {
+      'text': user_input
+    },
+    context = context
+  )
+```
+{: codeblock }
+{: python }
 
 Dies stellt sicher, dass der Kontext von einer Runde zur nächsten verwaltet wird, weshalb der Service '{{site.data.keyword.conversationshort}}' nicht mehr bei jeder Runde davon ausgeht, dass es sich um die erste Runde handelt:
 
@@ -269,16 +436,19 @@ In unserem Beispiel wird jedoch ein einfaches Schlüssel/Wert-Paar verwendet, da
 var prompt = require('prompt-sync')();
 var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
-// Service 'Conversation' einrichten
+// Service-Wrapper für Conversation einrichten
 var conversation = new ConversationV1({
-  username: 'USERNAME', // Durch Benutzernamen aus Serviceschlüssel ersetzen
-  password: 'PASSWORD', // Durch Kennwort aus Serviceschlüssel ersetzen
-  path: { workspace_id: 'WORKSPACE_ID' }, // Durch Arbeitsbereichs-ID ersetzen
-  version_date: '2016-07-11'
+  username: 'USERNAME', // Durch den Servicebenutzernamen ersetzen
+  password: 'PASSWORD', // Durch das Servicekennwort ersetzen
+  version_date: '2017-05-26'
 });
 
+var workspace_id = 'WORKSPACE_ID'; // Durch Arbeitsbereichs-ID ersetzen
+
 // Dialog mit leerer Nachricht starten
-conversation.message({}, processResponse);
+conversation.message({
+  workspace_id: workspace_id
+  }, processResponse);
 
 // Dialogantwort verarbeiten
 function processResponse(err, response) {
@@ -288,7 +458,7 @@ function processResponse(err, response) {
   }
 
   var endConversation = false;
-
+  
   // Auf Aktionsflags überprüfen
   if (response.output.action === 'display_time') {
     // Lokale Systemzeit ausgeben, da der Benutzer nach der Uhrzeit gefragt hat
@@ -308,19 +478,75 @@ function processResponse(err, response) {
   if (!endConversation) {
     var newMessageFromUser = prompt('>> ');
     conversation.message({
+      workspace_id: workspace_id,
       input: { text: newMessageFromUser },
-      // Kontext zur Statusverwaltung zurücksenden
+      // Kontext zur Statusverwaltung zurücksenden.
       context : response.context,
     }, processResponse)
   }
 }
 ```
 {: codeblock}
+{: javascript}
+
+```python
+# Beispiel 4: Appaktionen implementieren
+
+import watson_developer_cloud
+import time
+
+# Service 'Conversation' einrichten
+conversation = watson_developer_cloud.ConversationV1(
+  username = 'USERNAME', # Durch Benutzernamen aus Serviceschlüssel ersetzen
+  password = 'PASSWORD', # Durch Kennwort aus Serviceschlüssel ersetzen
+  version = '2017-05-26'
+)
+workspace_id = 'WORKSPACE_ID' # Durch Arbeitsbereichs-ID ersetzen
+
+# Mit leerem Wert initialisieren, um den Dialog zu starten
+user_input = ''
+context = {}
+current_action = ''
+
+# Hauptschleife für Ein-/Ausgabe
+while current_action != 'end_conversation':
+
+  # Nachricht an Service 'Conversation' senden
+  response = conversation.message(
+    workspace_id = workspace_id,
+    input = {
+      'text': user_input
+    },
+    context = context
+  )
+
+  # Ausgabe des Dialogs anzeigen, sofern vorhanden
+  if response['output']['text']:
+    print(response['output']['text'][0])
+
+  # Gespeicherten Kontext durch den zuletzt vom Dialogmodul empfangenen Kontext ersetzen
+  context = response['context']
+  # Auf Aktionsflags prüfen, die vom Dialogmodul gesendet wurden
+  if 'action' in response['output']:
+    current_action = response['output']['action']
+  # Lokale Systemzeit ausgeben, da der Benutzer nach der Uhrzeit gefragt hat
+  if current_action == 'display_time':
+    print('Die aktuelle ist ' + time.strftime('%I:%M:%S %p'))
+  # Nächste Eingaberunde anfordern, falls der Dialog nicht beendet ist
+  if current_action != 'end_conversation':
+    user_input = input('>> ')
+```
+{: codeblock}
+{: python}
 
 Die Funktion 'processResponse()' überprüft nun den Wert der Eigenschaft `action` für das Objekt `output`, das vom Service '{{site.data.keyword.conversationshort}}' empfangen wurde. Falls der Wert entweder `display_time` oder `end_conversation` lautet, führt die Anwendung die entsprechende Aktion aus.
+{: javascript}
+
+Die App überprüft nun den Wert der Eigenschaft `action` für das Objekt `output`, das vom Service '{{site.data.keyword.conversationshort}}' empfangen wurde. Falls der Wert `display_time` lautet, führt die Anwendung die entsprechende Aktion aus. Wenn der wert `end_conversation` lautet, fragt die App nicht nach weiteren Benutzereingaben und die Schleife `while` endet.
+{: python}
 
 ```
-Welcome to the Conversation example!
+Welcome to the {{site.data.keyword.conversationshort}} example!
 >> hello
 Good day to you.
 >> what time is it?
@@ -330,7 +556,7 @@ OK! See you later.
 ```
 {: screen}
 
-Gratulation! Die Anwendung verwendet jetzt den Service '{{site.data.keyword.conversationshort}}', um die Absichten aus Eingabe in natürlicher Sprache zu erkennen, zeigt die passenden Antworten an und implementiert die angeforderten Aktionen.
+Gratulation! Die Anwendung verwendet jetzt den Service '{{site.data.keyword.conversationshort}}', um die Absichten aus der Eingabe in natürlicher Sprache zu erkennen, zeigt die entsprechenden Antworten an und implementiert die angeforderten Clientaktionen.
 
 Eine reale Anwendung würde natürlich eine ausgereiftere Schnittstelle wie beispielsweise ein Fenster für einen Web-Chat verwenden. Auch die implementierten Aktionen wären komplexer und möglicherweise mit der Integration bei einer Kundendatenbank oder einem anderen Unternehmenssystem verbunden. Aber die Grundprinzipien für die Interaktion der Anwendung mit dem Service '{{site.data.keyword.conversationshort}}' bleiben dieselben.
 

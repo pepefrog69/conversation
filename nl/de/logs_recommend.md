@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-02-13"
 
 ---
 
@@ -42,7 +42,7 @@ Für diese Empfehlungen werden einzelne Ausdrücke berücksichtigt, die von Benu
 Klicken Sie auf **Start**, um mit der Erkennung von Absichten zu beginnen.
 ![Seite 'Vorhandene Absichten verbessern'](images/rec_improve_intent.png)
 
-Wenn Sie die Seite **Vorhandene Absichten verbessern** aufrufen oder verlassen, zeigt der Fortschrittsanzeiger, wie viele Ausdrücke aller für den Tag vorhandenen Ausdrücke Sie in der aktuellen Sitzung bearbeitet haben. Bitte beachten Sie, dass nach dem Verlassen und einem erneuten Aufruf der Seite der Fortschrittsanzeiger wieder bei Null beginnt. Dies bedeutet jedoch nicht, dass Ihre bisherige Arbeit verloren ist; sie wird lediglich für den Fortschritt der aktuellen Sitzung nicht gezählt.
+Wenn Sie die Seite **Vorhandene Absichten verbessern** aufrufen oder verlassen, zeigt der Fortschrittsanzeiger, wie viele Ausdrücke aller für den Tag vorhandenen Ausdrücke Sie in der aktuellen Sitzung bearbeitet haben. Bitte beachten Sie, dass nach dem Verlassen und einem erneuten Aufrufen der Seite der Fortschrittsanzeiger wieder bei null (`leer`) beginnt. Dies bedeutet jedoch nicht, dass Ihre bisherige Arbeit verloren ist, sie wird lediglich für den Fortschritt der aktuellen Sitzung nicht gezählt.
 
 Wählen Sie die beste Absicht für einen Ausdruck in der bereitgestellten Liste aus oder wählen Sie die Option *Als irrelevant markieren* aus. Die Ausdrücke werden zu Absichten als Beispiele (also als Trainingsdaten) hinzugefügt, sobald Sie auf **Speichern** klicken.
 

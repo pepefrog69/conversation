@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2017-10-17"
 
 Sie können das Testbereitstellungstool verwenden, um Ihren {{site.data.keyword.conversationshort}}-Arbeitsbereich als Botbenutzer in einem Slack-Team zu integrieren. Dieses Verfahren ist geeignet, wenn Sie einen Slack-Bot als Benutzerschnittstelle für Ihren Arbeitsbereich testen wollen.
 
-Das Testbereitstellungstool verwendet den Service '{{site.data.keyword.openwhisk}}', um eine vordefinierte Slack-Anwendung als Botbenutzer für Ihr Team bereitzustellen. Diese Anwendung verarbeitet die Kommunikation mit Ihren Conversation-Arbeitsbereichen.
+Das Testbereitstellungstool verwendet den Service '{{site.data.keyword.openwhisk}}', um eine vordefinierte Slack-Anwendung als Botbenutzer für Ihr Team bereitzustellen. Diese Anwendung verarbeitet die Kommunikation mit Ihren {{site.data.keyword.conversationshort}}-Arbeitsbereichen.
 
 ![Übersichtsdiagramm für Testbereitstellung](images/testdeploy_diagram.png)
 
@@ -31,7 +31,7 @@ Das Testbereitstellungstool ist jedoch mit einigen Einschränkungen verbunden:
 - Falls Sie mit diesem Verfahren mehrere Arbeitsbereiche für dasselbe Team bereitstellen, reagieren alle Arbeitsbereiche auf den Benutzernamen `@ibmwatson_bot`. Es empfiehlt sich, mit diesem Tool jeweils nur einen einzigen Arbeitsbereich für ein bestimmtes Slack-Team bereitzustellen.
 - Sie müssen berechtigt sein, Apps für Ihr Slack-Team zu installieren. Erkundigen Sie sich bei Ihrem Slack-Administrator, wenn Sie nicht sicher sind, ob Sie diese Berechtigung besitzen.
 - Die vordefinierte Slack-Anwendung dient ausschließlich zu Testzwecken und ist möglicherweise nicht jederzeit verfügbar.
-- Aufgrund von Einschränkungen für {{site.data.keyword.openwhisk_short}} ist dieses Tool gegenwärtig nur für die {{site.data.keyword.Bluemix_notm}}-Region 'US South' verfügbar.
+- Aufgrund von Einschränkungen für {{site.data.keyword.openwhisk_short}} ist dieses Tool gegenwärtig nur für die {{site.data.keyword.Bluemix_notm}}-Region 'Vereinigte Staaten (Süden)' verfügbar.
 
 So installieren Sie Ihre Anwendung als Botbenutzer:
 
@@ -40,7 +40,7 @@ So installieren Sie Ihre Anwendung als Botbenutzer:
 
    ![Menüoption für schnelle Bereitstellung](images/deploy_menu_testdeploy.png)
 
-1. Klicken Sie unter **Mit Cloud Functions bereitstellen** auf **In Slack testen** und befolgen Sie die Anweisungen.
+1. Klicken Sie unter **Mit {{site.data.keyword.openwhisk_short}} bereitstellen** auf **In Slack testen** und befolgen Sie die Anweisungen.
 
    ![Schaltfläche 'Slack-Test erstellen'](images/testdeploy_testinslack.png)
 
@@ -61,6 +61,6 @@ Beispiel: Ihr Arbeitsbereich verwendet eine Kontextvariable namens `drink_order`
 ```
 {: codeblock}
 
-Weitere Informationen zum Ändern von Werten für Kontextvariablen finden Sie unter [Wert einer Kontextvariablen aktualisieren](dialog-build.html#updating-a-context-variable-value).
+Weitere Informationen zum Ändern von Werten für Kontextvariablen finden Sie unter [Wert einer Kontextvariablen aktualisieren](dialog-overview.html#updating-a-context-variable-value).
 
 **Hinweis:** Nachdem Sie den Test Ihres Arbeitsbereichs beendet haben, können Sie die Testbereitstellung löschen, indem Sie erneut das Testbereitstellungstool aufrufen und dort auf **Test löschen** klicken. Denken Sie daran, dass Sie die Berechtigung für die Botanwendung in Ihrem Slack-Team gesondert widerrufen müssen.

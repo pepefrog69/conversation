@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-02-15"
 
 ---
 
@@ -17,7 +17,7 @@ lastupdated: "2017-10-17"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Conversation-Arbeitsbereich konfigurieren
+# {{site.data.keyword.conversationshort}}-Arbeitsbereich konfigurieren
 
 Die Verarbeitung natürlicher Sprache für den Service '{{site.data.keyword.conversationshort}}' findet in einem *Arbeitsbereich* statt. Ein Arbeitsbereich ist ein Container für alle Artefakte, die den Dialogablauf für eine Anwendung definieren.
 {: shortdesc}
@@ -35,7 +35,7 @@ Sobald Sie Informationen hinzufügen, trainiert sich der Arbeitsbereich selbst. 
 
 Die Anzahl der Arbeitsbereiche, die Sie in einer einzelnen Serviceinstanz erstellen können, richtet sich nach Ihrem {{site.data.keyword.conversationshort}}-Serviceplan. Der Beispielarbeitsbereich wird nur dann bei der Zählung für die Begrenzung der Arbeitsbereiche berücksichtigt, wenn Sie das Beispiel bearbeiten oder kopieren:
 
-| Serviceplan      | Arbeitsbereiche pro Instanz     |
+| Serviceplan     | Arbeitsbereiche pro Instanz |
 |------------------|--------------------------------:|
 | Standard/Premium |                              20 |
 | Lite*            |                               5 |
@@ -51,7 +51,7 @@ Zur Erstellung von Arbeitsbereichen verwenden Sie das {{site.data.keyword.conver
 
 1.  Wenn die Seite 'Servicedetails' noch nicht geöffnet ist, klicken Sie in der Konsole auf Ihre {{site.data.keyword.conversationshort}}-Serviceinstanz. (Wenn Sie eine Serviceinstanz erstellen, wird die Seite 'Servicedetails' angezeigt.)
 
-1.  Blättern Sie auf der Seite 'Servicedetails' bis **Dialogtools** vor und klicken Sie auf **Starttool**.
+1.  Klicken Sie auf **Starttool**.
 
 1.  Führen Sie eine der folgenden Aktionen aus:
     - Klicken Sie auf **Erstellen**, wenn Sie einen Arbeitsbereich völlig neu erstellen wollen.
@@ -67,7 +67,7 @@ Zur Erstellung von Arbeitsbereichen verwenden Sie das {{site.data.keyword.conver
         Geben Sie die Daten an, die Sie einbeziehen wollen:
 
         - Wählen Sie **Alles (Absichten, Entitäten und Dialogmodul)** aus, falls Sie eine vollständige Kopie des exportierten Arbeitsbereichs inklusive des Dialogmoduls importieren wollen.
-        - Wählen Sie **Absichten und Entitäten** aus, falls Sie die Absichten und Entitäten aus dem exportierten Arbeitsbereich verwenden, jedoch ein neues Dialogmodul erstellen wollen. 
+        - Wählen Sie **Absichten und Entitäten** aus, falls Sie die Absichten und Entitäten aus dem exportierten Arbeitsbereich verwenden, jedoch ein neues Dialogmodul erstellen wollen.
 
 1.  Geben Sie die Details für den neuen Arbeitsbereich an:
     - **Name**: Der Name darf nicht länger als 64 Zeichen sein. Dieser Wert ist erforderlich.
@@ -85,12 +85,31 @@ Beim Exportieren eines Arbeitsbereichs wird eine Kopie aller Arbeitsbereichsdate
 
 Beim Kopieren eines Arbeitsbereichs wird eine vollständige Kopie des Arbeitsbereichs innerhalb derselben Serviceinstanz erstellt. Verwenden Sie diese Option, wenn Sie einen bestehenden Arbeitsbereich anpassen, die ursprüngliche Version jedoch ebenfalls beibehalten wollen.
 
-- Zum Exportieren eines bestehenden Arbeitsbereichs in eine JSON-Datei klicken Sie auf der Kachel für den Arbeitsbereich auf das Menüsymbol und wählen Sie dann die Option **Als JSON herunterladen** aus:
-
-    ![Screenshot mit der Menüoption 'Als JSON herunterladen'](images/workspace_export.png)
-- Um eine Kopie eines bestehenden Arbeitsbereichs innerhalb derselben Serviceinstanz zu erstellen, klicken Sie auf der Kachel für den Arbeitsbereich auf das Menüsymbol und wählen Sie dann die Option **Duplizieren** aus:
-
-    ![Screenshot mit der Menüoption 'Duplizieren'](images/workspace_duplicate.png)
+- Um einen bestehenden Arbeitsbereich in eine JSON-Datei zu exportieren, klicken Sie in der Kachel für den Arbeitsbereich auf das Menüsymbol und wählen Sie die Option **Als JSON herunterladen** aus.
+- Um eine Kopie eines bestehenden Arbeitsbereichs innerhalb derselben Serviceinstanz zu erstellen, klicken Sie in der Kachel für den Arbeitsbereich auf das Menüsymbol und wählen Sie die Option **Duplizieren** aus.
 
     Geben Sie den Namen, die Beschreibung und die Sprache für den neuen Arbeitsbereich an. In der Kopie sind alle Daten (inklusive Absichten, Entitäten und Dialogmodul) enthalten.
 
+## Arbeitsbereich  mit Teammitgliedern gemeinsam nutzen
+{: #invite-others}
+
+Nachdem Sie die Serviceinstanz erstellt haben, können Sie anderen Personen Zugriff auf die Instanz gewähren. Danach können Sie in Teamarbeit die Trainingsdaten definieren und das Dialogmodul erstellen.
+
+**Wichtig**: Eine Absicht, eine Entität oder ein Dialogmodulknoten kann nicht von mehreren Personen gleichzeitig bearbeitet werden. Andernfalls werden nur die Änderungen der Person angewendet, die ihre Änderungen als zuletzt speichert. Änderungen, die im selben Zeitraum von einer anderen Person vorgenommen und vorher gespeichert wurden, gehen verloren. Koordinieren Sie die geplanten Bearbeitungsvorgänge der einzelnen Teammitglieder so, dass keine Arbeitsergebnisse verloren gehen.
+
+Um einen Arbeitsbereich mit anderen Personen gemeinsam zu nutzen, müssen Sie den betreffenden Personen Entwicklerzugriff auf die Serviceinstanz gewähren, in der der Arbeitsbereich gehostet wird. Wenn die Instanz, die Sie für die gemeinsame Nutzung freigeben, noch weitere Arbeitsbereiche hostet, die nicht von anderen Personen bearbeitet werden sollen, dann informieren Sie alle eingeladenen Teammitglieder unmißverständlich darüber.
+
+1.  Rufen Sie die Seite {{site.data.keyword.watson}} Developer Console [Projekte ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://console.{DomainName}/developer/watson/projects) auf und melden Sie sich an. Klicken Sie im Menü auf **Verwalten > Konto > Benutzer**.
+1.  Klicken Sie auf **Benutzer einladen** und geben Sie die E-Mai-Adressen der Personen aus Ihrem Team ein, denen Sie Zugang gewähren möchten.
+1.  Wählen Sie im Abschnitt *Cloud Foundry-Zugriff* Ihre Organisation in der Liste *Organisation* aus.
+
+    In das Feld *Organisationsrollen* wird automatisch *Auditor* eingetragen. Sie können den Standardwert in diesem Feld beibehalten.
+1.  Optional können Sie den Zugriff, den Sie gewähren, auf die Arbeitsbereiche in einer einzelnen Region und einem einzelnen Bereich beschränken.
+1.  Wählen Sie im Feld *Bereichsrollen* die Option **Entwickler** aus.
+
+    Weitere Informationen zu den Rollen finden Sie unter [Cloud Foundry-Rollen ![Symbol für externen Link](../../icons/launch-glyph.svg "Symbol für externen Link")](https://console.bluemix.net/docs/iam/cfaccess.html#cfroles).
+1.  Klicken Sie auf **Benutzer einladen**.
+
+Bei der nächsten Anmeldung der eingeladenen Personen bei {{site.data.keyword.cloud_notm}} wird Ihre Organisation in der Kontoliste angezeigt.
+
+Wenn mehrere Personen an der Entwicklung eines Arbeitsbereichs beteiligt sind, können unbeabsichtigte Änderungen (einschließlich Löschen des Arbeitsbereichs) vorkommen. Ziehen Sie in Betracht, regelmäßig Sicherungskopien Ihres Arbeitsbereichs zu erstellen, damit gegebenenfalls eine frühere Version wiederhergestellt werden kann. Um eine Sicherungskopie zu erstellen, exportieren Sie einfach den Arbeitsbereich als JSON-Datei.

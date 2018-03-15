@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-08"
+  years: 2015, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -17,12 +17,27 @@ lastupdated: "2017-08-08"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 値を処理するためのメソッド
+# 式言語のメソッド
 
-これらのメソッドを使用して、応答の中のコンテキスト変数や条件などで参照する、ユーザー発話から抽出された値を処理します。
+ユーザー発話から抽出した値を処理して、応答の中のコンテキスト変数や条件などで参照することができます。
 {: shortdesc}
 
->**注:** 正規表現を必要とするメソッドの場合、[RE2 構文リファレンス](https://github.com/google/re2/wiki/Syntax)で正規表現を指定する際に使用する構文についての詳細を参照してください。
+## 評価構文
+
+他の変数内の変数値を拡張したり、メソッドを出力テキストやコンテキスト変数に適用したりするには、 `<? expression ?>` 式構文を使用します。例:
+
+- **数値プロパティーの増分**
+    - `"output":{"number":"<? output.number + 1 ?>"}`
+- **オブジェクトでのメソッドの呼び出し**
+    - `"context":{"toppings": "<? context.toppings.append( 'onions' ) ?>"}`
+
+以下の各セクションで、値を処理するために使用できるメソッドについて説明します。メソッドはデータ・タイプ別にまとめています。
+
+- [配列](dialog-methods.html#arrays)
+- [日付と時刻](dialog-methods.html#date-time)
+- [数値](dialog-methods.html#numbers)
+- [オブジェクト](dialog-methods.html#objects)
+- [ストリング](dialog-methods.html#strings)
 
 ## 配列
 {: #arrays}
@@ -64,7 +79,7 @@ lastupdated: "2017-08-08"
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.contains(オブジェクト値)
 
@@ -164,7 +179,7 @@ $nested.array.get(0).getAsString().contains('one')
 
 ### JSONArray.join(ストリング区切り文字)
 
-このメソッドは、この配列内のすべての値をストリングに結合します。値はストリングに変換され、入力区切り文字で区切られます。
+このメソッドは、この配列内のすべての値をストリングに結合します。 値はストリングに変換され、入力区切り文字で区切られます。
 
 このダイアログ実行時のコンテキスト:
 
@@ -193,7 +208,7 @@ $nested.array.get(0).getAsString().contains('one')
 ```json
 This is the array: onion;olives;ham;
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.remove(整数)
 
@@ -230,7 +245,7 @@ This is the array: onion;olives;ham;
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.removeValue(オブジェクト)
 
@@ -267,7 +282,7 @@ This is the array: onion;olives;ham;
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.set(添字整数, オブジェクト値)
 
@@ -304,7 +319,7 @@ This is the array: onion;olives;ham;
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.size()
 
@@ -341,11 +356,11 @@ This is the array: onion;olives;ham;
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray split(正規表現ストリング)
 
-このメソッドは、入力正規表現を使用して、入力ストリングを分割します。結果はストリングの JSONArray です。
+このメソッドは、入力正規表現を使用して、入力ストリングを分割します。 結果はストリングの JSONArray です。
 
 入力:
 
@@ -374,12 +389,33 @@ This is the array: onion;olives;ham;
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### com.google.gson.JsonArray のサポート
+{: #com.google.gson.JsonArray}
+
+組み込みメソッドに加えて、`com.google.gson.JsonArray` クラスの標準メソッドを使用できます。
+
+#### 新規配列
+
+new JsonArray().append('value')
+
+ユーザーから提供された値を取り込む新規配列を定義するためには、配列をインスタンス化します。また、インスタンス化するときにはプレースホルダー値を配列に追加する必要もあります。そのためには、以下の構文を使用します。
+
+```json
+{
+  "context": {
+    "answer": "<? output.answer?:new JsonArray().append('temp_value') ?>"
+  }
+```
+{: codeblock}
 
 ## 日付と時刻
 {: #date-time}
 
 いくつかのメソッドは、日時の処理に使用できます。
+
+ユーザー入力から日時情報を認識して抽出する方法については、[@sys-date および @sys-time エンティティー](system-entities.html#sys-datetime)を参照してください。
 
 ### .after(日付/時刻ストリング)
 
@@ -452,9 +488,9 @@ This is the array: onion;olives;ham;
 ```
 {: codeblock}
 
-形式は、Java [SimpleDateFormat](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html) ルールに従います。
+形式は Java の [SimpleDateFormat ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html){: new_window} ルールに従います。
 
->注: 時刻のみをフォーマット設定しようとすると、日付は `1970-01-01` として扱われます。
+**注**: 時刻のみをフォーマット設定しようとすると、日付は `1970-01-01` として扱われます。
 
 ### .sameMoment(日付/時刻ストリング)
 
@@ -469,22 +505,157 @@ This is the array: onion;olives;ham;
 
 - 日付/時刻値が日付/時刻引数以前かどうかを判別します。
 
-日時値を取り出すシステム・エンティティーについては、[@sys-date および @sys-time エンティティー](system-entities.html#sys-datetime)を参照してください。
+### java.util.Date のサポート
+{: #java.util.Date}
+
+組み込みメソッドに加えて、`java.util.Date` クラスの標準メソッドを使用できます。
+
+#### 日付の計算
+
+今日から 1 週間後の日付を取得するには、次の構文を使用します。
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() +
+      (7 * (24*60*60*1000L))) ?>"
+  }
+}
+```
+{: codeblock}
+
+この式は、最初に現在日付を 1970 年 1 月 1 日 00:00:00 GMT からのミリ秒として取得します。また、7 日間のミリ秒数も計算します(`(24*60*60*1000L)` は、1 日をミリ秒で表しています)。次に、現在日付に 7 日を加えます。結果は、今日から 1 週間後の日を示す完全な日付です。例えば、`Fri Jan 26 16:30:37 UTC 2018` のようになります。この時間は UTC タイム・ゾーンであることに気を付けてください。いつでも、この 7 を、値を渡せる変数 (`$number_of_days` など) に変更できます。この式が評価される前に、その値が設定されていることを確認してください。
+
+後で、サービスで生成された別の日付と比較できるようにするには、日付の形式を再設定する必要があります。システム・エンティティー (`@sys-date`) および別の組み込みメソッド (`now()`) は、日付を `yyyy-MM-dd` 形式に変換します。
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() +
+      (7 * (24*60*60*1000L))).format('yyyy-MM-dd') ?>"
+  }
+}
+```
+{: codeblock}
+
+日付の形式を再設定すると、結果は `2018-01-26` になります。これで、応答条件で `@sys-date.after($week_from_today)` のような式を使用して、ユーザー入力で指定された日付をコンテキスト変数に保存された日付と比較できます。
+
+次の式は、今から 3 時間後の時間を計算します。
+
+```json
+{
+  "context": {
+    "future_time": "<? new Date(new Date().getTime() + (3 * (60*60*1000L)) -
+      (5 * (60*60*1000L))).format('h:mm a') ?>"
+  }
+}
+```
+{: codeblock}
+
+`(60*60*1000L)` の値は、1 時間をミリ秒で表しています。この式は、現在時刻に 3 時間を加算しています。そして、その時間から 5 時間を減算して、UTC タイム・ゾーンの時間を EST タイム・ゾーンで再計算します。また、時間と分、および AM/PM を含むように日付値の形式を再設定します。
 
 ## 数値
 {: #numbers}
 
-### Random()
+これらのメソッドを使用して、数値を取得し、形式を再設定できます。
 
-乱数を返します。以下の構文オプションのいずれかを使用します。
+ユーザー入力から数値を認識して抽出するシステム・エンティティーについては、[@sys-number エンティティー](system-entities.html#sys-number)を参照してください。
+
+ユーザー入力内の特定の数値形式 (注文番号参照など) をサービスで認識したい場合は、それをキャプチャーするためのパターン・エンティティーを作成することを検討してください。詳しくは、[エンティティーの作成](entities.html#creating-entities)を参照してください。
+
+### toDouble()
+
+  オブジェクトまたはフィールドを Double 数値型に変換します。 任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。 変換に失敗した場合は、*null* が返されます。
+
+### toInt()
+
+  オブジェクトまたはフィールドを Integer 数値型に変換します。 任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。 変換に失敗した場合は、*null* が返されます。
+
+### toLong()
+
+  オブジェクトまたはフィールドを Long 数値型に変換します。 任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。 変換に失敗した場合は、*null* が返されます。
+
+  SpEL 式で Long 数値型を指定する場合は、Long 数値型であることを示す `L` を数値の末尾に付加する必要があります (例: `5000000000L`)。32 ビットの整数型に収まらない数値には、この構文が必須です。例えば、2^31 (2,147,483,648) より大きい数値や -2^31 (-2,147,483,648) より小さい数値は Long 型と見なされます。Long 数値型の最小値は -2^63、最大値は 2^63-1 です。
+
+### Java 数値のサポート
+{: #java.lang.Number}
+
+### java.lang.Math()
+
+基本的な数値演算を実行します。
+
+次のようなクラス・メソッドを使用できます。
+
+- max()
+
+```json
+{
+  "context": {
+    "bigger_number": "<? T(Math).max($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "The bigger number is $bigger_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- min()
+
+```json
+{
+  "context": {
+    "smaller_number": "<? T(Math).min($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "The smaller number is $smaller_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- pow()
+
+```json
+{
+  "context": {
+    "power_of_two": "<? T(Math).pow($base.toDouble(),2.toDouble()) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "Your number $base to the second power is $power_of_two."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+その他のメソッドについては、[java.lang.Math 参照資料](https://docs.oracle.com/javase/7/docs/api/java/lang/Math.html)を参照してください。
+
+### java.util.Random()
+
+乱数を返します。 以下のいずれかの構文オプションを使用できます。
 
 - ランダム・ブール値 (true または false) を返すには、`<?new Random().nextBoolean()?>` を使用します。
-- 0 (含まれる) から 1 (含まれない) までのランダム倍精度浮動小数点数を返すには、`<?new Random().nextDouble()?>` を使用します。
-- 0 (含まれる) から指定数値までのランダム整数を返すには、`<?new Random().nextInt(n)?>` を使用します。ここで、n は目的の数値範囲の限界に 1 を加えた数値です。
+- 0 (含まれる) から 1 (含まれない) までのランダム倍精度浮動小数点数を返すには、` を使用します。<?new Random().nextDouble()?>`
+- 0 (含まれる) から指定した数値までのランダム整数を返すには、`<?new Random().nextInt(n)?>` を使用します。ここで、n は目的の数値範囲の最高値に 1 を加えた数値です。
 例えば、0 から 10 までの乱数を返す場合は、`<?new Random().nextInt(11)?>` を指定します。
 - 整数値の全範囲 (-2147483648 から 2147483648) のランダム整数を返すには、`<?new Random().nextInt()?>` を使用します。
 
-例えば、#random_number インテントでトリガーされるダイアログ・ノードを作成することもできます。この場合、最初の応答条件は、例えば次のようになります。
+例えば、#random_number インテントでトリガーされるダイアログ・ノードを作成することもできます。 この場合、最初の応答条件は、例えば次のようになります。
 
 ```json
 Condition = @sys-number
@@ -504,19 +675,16 @@ Condition = @sys-number
 ```
 {: codeblock}
 
-### toDouble()
+その他のメソッドについては、[java.util.Random 参照資料](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html)を参照してください。
 
-  オブジェクトまたはフィールドを Double 数値型に変換します。任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。変換に失敗した場合は、*null* が返されます。
+以下のクラスの標準メソッドも使用できます。
 
-### toInt()
-
-  オブジェクトまたはフィールドを Integer 数値型に変換します。任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。変換に失敗した場合は、*null* が返されます。
-
-### toLong()
-
-  オブジェクトまたはフィールドを Long 数値型に変換します。任意のオブジェクトまたはフィールドに対してこのメソッドを呼び出すことができます。変換に失敗した場合は、*null* が返されます。
-
-数値を取り出すシステム・エンティティーについては、[@sys-number エンティティー](system-entities.html#sys-number)を参照してください。
+- `java.lang.Byte`
+- `java.lang.Integer`
+- `java.lang.Long`
+- `java.lang.Double`
+- `java.lang.Short`
+- `java.lang.Float`
 
 ## オブジェクト
 {: #objects}
@@ -552,7 +720,7 @@ Condition = @sys-number
 
 ### JSONObject.remove(ストリング)
 
-このメソッドは、入力 `JSONObject` から名前のプロパティーを削除します。このメソッドから返される `JSONElement` が、削除される `JSONElement` です。
+このメソッドは、入力 `JSONObject` から名前のプロパティーを削除します。 このメソッドから返される `JSONElement` が、削除される `JSONElement` です。
 
 このダイアログ実行時のコンテキスト:
 
@@ -593,10 +761,21 @@ Condition = @sys-number
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### com.google.gson.JsonObject のサポート
+{: #com.google.gson.JsonObject}
+
+組み込みメソッドに加えて、`com.google.gson.JsonObject` クラスの標準メソッドを使用できます。
 
 ## ストリング
 {: #strings}
+
+これらのメソッドは、テキストの操作に使用できます。
+
+ユーザー入力から特定のタイプの文字列 (人名や場所など) を認識して抽出する方法については、[システム・エンティティー](system-entities.html)を参照してください。
+
+**注:** 正規表現を使用するメソッドで、正規表現を指定するときに使用する構文について詳しくは、[RE2 構文のリファレンス ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](https://github.com/google/re2/wiki/Syntax){: new_window} を参照してください。
 
 ### String.append(オブジェクト)
 
@@ -633,7 +812,7 @@ Condition = @sys-number
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.contains(ストリング)
 
@@ -711,14 +890,14 @@ Condition = @sys-number
 
 ### String.find(正規表現ストリング)
 
-このメソッドは、ストリングのいずれかのセグメントが入力正規表現と一致すれば true を返します。JSONArray または JSONObject エレメントに対してこのメソッドを呼び出すことができます。このメソッドは、配列またはオブジェクトをストリングに変換してから比較を行います。
+このメソッドは、ストリングのいずれかのセグメントが入力正規表現と一致すれば true を返します。  JSONArray または JSONObject エレメントに対してこのメソッドを呼び出すことができます。このメソッドは、配列またはオブジェクトをストリングに変換してから比較を行います。
 
 入力:
 
 ```
 "Hello 123456".
 ```
-{: screen}
+{: codeblock}
 
 構文:
 
@@ -788,7 +967,7 @@ Condition = @sys-number
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.matches(正規表現ストリング)
 
@@ -870,7 +1049,7 @@ endIndex の位置の文字は含まれません。
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toLowerCase()
 
@@ -903,7 +1082,7 @@ endIndex の位置の文字は含まれません。
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toUpperCase()
 
@@ -936,7 +1115,7 @@ endIndex の位置の文字は含まれません。
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.trim()
 
@@ -973,6 +1152,86 @@ endIndex の位置の文字は含まれません。
   }
 }
 ```
-{: screen}
+{: codeblock}
 
-ストリングを取り出すシステム・エンティティーについては、[システム・エンティティー](system-entities.html)を参照してください。
+### java.lang.String のサポート
+{: #java.lang.String}
+
+組み込みメソッドに加えて、`java.lang.String` クラスの標準メソッドを使用できます。
+
+#### java.lang.String.format()
+
+標準の Java String `format()` メソッドをテキストに適用できます。形式の詳細を指定するために使用する構文については、[java.util.formatter のリファレンス ![外部リンク・アイコン](../../icons/launch-glyph.svg "外部リンク・アイコン")](https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#syntax){: new_window} を参照してください。
+
+例えば、次の式は 3 つの 10 進整数 (1、1、および 2) を受け取り、それらを文に追加します。
+
+```json
+{
+  "formatted String": "<? T(java.lang.String).format('%d + %d equals %d', 1, 1, 2) ?>"
+}
+```
+{: codeblock}
+
+結果: `1 + 1 equals 2`
+
+## 間接的なデータ型変換
+
+例えば、ノード応答の一部として式をテキスト内に組み込むと、その値は文字列としてレンダリングされます。式を元のデータ・タイプでレンダリングする場合は、式をテキストで囲まないでください。
+
+例えば、次の式をダイアログ・ノードの応答に追加すると、ユーザー入力で認識されたエンティティーを文字列形式で返すことができます。
+
+```json
+  The entities are <? entities ?>.
+```
+{: codeblock}
+
+ユーザーが入力として *Hello now* を指定した場合、`now` 参照によって @sys-date エンティティーと @sys-time エンティティーがトリガーされます。entities オブジェクトは配列ですが、式がテキスト内に組み込まれているため、エンティティーは次のように文字列形式で返されます。
+
+```json
+  The entities are 2018-02-02, 14:34:56.
+```
+{: codeblock}
+
+応答にテキストを指定しない場合は、代わりに配列が返されます。例えば、テキストで囲まずに式だけを応答として指定します。
+
+```
+  <? entities ?>
+```
+{: codeblock}
+
+エンティティー情報がネイティブのデータ・タイプ、配列として返されます。
+
+```json
+[
+  {
+    "entity":"sys-date","location":[6,9],"value":"2018-02-02","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  },
+  {
+    "entity":"sys-time","location":[6,9],"value":"14:33:22","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  }
+  ]
+```
+{: codeblock}
+
+別の例として、次の $array コンテキスト変数は配列ですが、$string_array コンテキスト変数は文字列です。
+
+```json
+{
+  "context": {
+    "array": [
+      "one",
+      "two"
+    ],
+    "array_in_string": "this is my array: $array"
+  }
+}
+```
+{: codeblock}
+
+「Try it out」ペインでこれらのコンテキスト変数の値をチェックすると、次のように値が指定されていることを確認できます。
+
+**$array** : `["one","two"]`
+
+**$array_in_string** : `"this is my array: [\"one\",\"two\"]"`
+
+この後、$array 変数には `<? $array.removeValue('two') ?>` などの配列メソッドを実行できますが、$array_in_string 変数には実行できません。

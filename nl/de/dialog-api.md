@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-09-21"
+  years: 2015, 2018
+lastupdated: "2018-01-26"
 
 ---
 
@@ -21,19 +21,67 @@ lastupdated: "2017-09-21"
 
 Die REST-API von {{site.data.keyword.conversationshort}} unterstützt die programmgesteuerte Änderung von Dialogmodulen ohne Verwendung des {{site.data.keyword.conversationshort}}-Tools. Mit der API '/dialog_nodes' können Sie Dialogmodulknoten erstellen, löschen oder ändern.
 
-Denken Sie daran, dass es sich bei einem Dialogmodul um eine Baumstruktur von vernetzten Knoten handelt, die bestimmte Regeln einhalten muss, damit sie gültig ist. Dies bedeutet, dass Änderungen, die Sie an einem Dialogmodulknoten vornehmen, Auswirkungen auf andere Knoten oder auf die Struktur Ihres Dialogmoduls nach sich ziehen können. Beschäftigen Sie sich daher unbedingt damit, wie Ihre Änderungen den Rest des Dialogmoduls beeinflussen, bevor Sie Ihr Dialogmodul mithilfe der API '/dialog_nodes' ändern.
+Denken Sie daran, dass es sich bei einem Dialogmodul um eine Baumstruktur von vernetzten Knoten handelt, die bestimmte Regeln einhalten muss, damit sie gültig ist. Dies bedeutet, dass Änderungen, die Sie an einem Dialogmodulknoten vornehmen, Auswirkungen auf andere Knoten oder auf die Struktur Ihres Dialogmoduls nach sich ziehen können. Beschäftigen Sie sich daher unbedingt damit, wie Ihre Änderungen den Rest des Dialogmoduls beeinflussen, bevor Sie Ihr Dialogmodul mithilfe der API '/dialog_nodes' ändern. Sie können eine Sicherungskopie des aktuellen Dialogmoduls erstellen, indem Sie den Arbeitsbereich exportieren, in dem sich das Dialogmodul befindet. Details finden Sie im Abschnitt [Arbeitsbereiche exportieren und kopieren](configure-workspace.html#exporting-and-copying-workspaces).
 
 Ein gültiges Dialogmodul erfüllt immer die folgenden Kriterien:
 
 - Jeder Dialogmodulknoten besitzt eine eindeutige ID (Eigenschaft `dialog_node`).
 - Jeder untergeordnete Knoten kennt seinen übergeordneten Knoten (Eigenschaft `parent`). Ein übergeordneter Knoten kennt jedoch nicht seine untergeordneten Knoten.
-- Ein Knoten kennt, sofern vorhanden, seinen unmittelbar vorhergehenden gleichgeordneten Knoten (Eigenschaft `previous_sibling`). Dies bedeutet, dass alle gleichgeordneten Knoten eines bestimmten übergeordneten Knotens eine verkettete Liste bilden, in der jeder Knoten auf den vorherigen Knoten verweist.
+- Ein Knoten kennt, sofern vorhanden, seinen unmittelbar vorhergehenden gleichgeordneten Knoten (Eigenschaft `previous_sibling`). Dies bedeutet, dass alle gleichgeordneten Knoten desselben übergeordneten Knotens eine verkettete Liste bilden, in der jeder Knoten auf den vorherigen Knoten verweist.
 - Nur ein einziger untergeordneter Knoten eines bestimmten übergeordneten Knotens kann der erste gleichgeordnete Knoten sein (hat also die Eigenschaft `previous_sibling` mit dem Wert 'null').
 - Ein Knoten kann nicht auf einen vorherigen gleichgeordneten Knoten verweisen, der ein untergeordneter Knoten eines anderen übergeordneten Knotens ist.
 - Zwei Knoten können nicht auf denselben vorherigen gleichgeordneten Knoten verweisen.
 - Ein Knoten kann einen anderen Knoten angeben, der als Nächstes auszuführen ist (Eigenschaft `next_step`).
 - Ein Knoten kann nicht sein eigener übergeordneter oder gleichgeordneter Knoten sein.
-- Ein Knoten des Typs `response_condition` kann keine untergeordneten Knoten besitzen.
+- Ein Knoten muss eine Typeigenschaft haben, die einen der folgenden Werte enthält. Wenn keine Typeigenschaft angegeben ist, wird der Typ `standard` verwendet.
+
+  - `event_handler`: Ein Handler, der für einen Frameknoten oder einen einzelnen Slotknoten definiert ist.
+
+    Mit dem Tool können Sie einen Handler für Frameknoten definieren, indem Sie auf den Link **Handler verwalten** für einen Knoten mit Slots klicken. (Die Benutzerschnittstelle des Tools macht den Ereignishandler der Slotebene nicht zugänglich, aber Sie können über die API einen Ereignishandler definieren.
+
+  - `frame`: Ein Knoten mit mindestens einem untergeordneten Knoten des Typs `slot`. Alle untergeordneten Slotknoten, die erforderlich sind, müssen gefüllt werden, bevor der Service den Frameknoten beenden kann.
+
+    Der Frameknotentyp wird im Tool als Knoten mit Slots dargestellt. Der Knoten, in dem die Slots enthalten sind, wird als Frameknotentyp dargestellt (type=`frame`). Er ist der übergeordnete Knoten für jeden Slot, der als untergeordneter Knoten des Typs `slot` dargestellt wird.
+
+  - `response_condition`: Eine bedingte Antwort.
+
+    Im Tool können Sie eine oder mehrere bedingte Antworten zu einem Knoten hinzufügen. Jede bedingte Antwort, die Sie definieren, wird im zugrunde liegenden JSON-Code als einzelner Knoten des Typs 'Antwortbedingung' (type=`response_condition`) dargestellt.
+
+  - `slot`: Ein untergeordneter Knoten eines Knotens mit dem Typ `frame`.
+
+    Dieser Knotentyp wird im Tool als einer von mehreren Slots dargestellt, die zu einem einzelnen Knoten hinzugefügt wurden. Dieser einzelne Knoten wird im JSON-Code als übergeordneter Knoten des Typs `frame` dargestellt.
+
+  - `standard`: Ein typischer Dialogmodulknoten. Dies ist der Standardtyp.
+
+- Bei Knoten des Typs `slot`, die demselben übergeordneten Knoten zugeordnet sind, legt die Reihenfolge der gleichgeordneten Knoten (angegeben durch die Eigenschaft `previous_sibling`) fest, in welcher Reihenfolge die Slots verarbeitet werden.
+- Ein Knoten des Typs `slot` muss über einen übergeordneten Knoten des Typs `frame` verfügen.
+- Ein Knoten des Typs `frame` muss über mindestens einen untergeordneten Knoten des Typs `slot` verfügen.
+- Ein Knoten des Typs `response_condition` muss über einen übergeordneten Knoten des Typs `standard` oder `frame` verfügen.
+- Knoten des Typs `response_condition` und `event_handler` können keine untergeordneten Knoten besitzen.
+- Ein Knoten des Typs `event_handler` muss zusätzlich über eine Eigenschaft `event_name` verfügen, die einen der folgenden Werte enthält, um den Typ des Knotenereignisses anzugeben:
+
+  - `filled`: Definiert die nächsten Schritte, wenn ein Benutzer einen Wert angibt, der die im Feld *Überprüfen auf* eines Slots angegebene Bedingung erfüllt, wenn der Slot gefüllt ist. Ein Handler mit diesem Namen ist nur vorhanden, wenn für den Slot eine Bedingung für 'Gefunden' definiert ist.
+  - `focus`: Definiert die Frage, die angezeigt wird, um den Benutzer zum Eingeben der für den Slot benötigten Information aufzufordern. Ein Handler mit diesem Namen ist nur  vorhanden, wenn der Slot erforderlich ist.
+  - `generic`: Definiert eine zu überwachende Bedingung, die abweichende Fragen verarbeiten kann, die Benutzer beim Füllen eines Slots oder eines Knotens mit Slots möglicherweise stellen könnten.
+  - `input`: Aktualisiert den Nachrichtenkontext und fügt eine Kontextvariable mit dem beim Benutzer abgefragten Wert ein, um den Slot zu füllen. Ein Handler mit diesem Namen muss für jeden Slot im Frameknoten vorhanden sein.
+  - `nomatch`: Definiert die nächsten Schritte, wenn die Benutzerantwort für die Abfrage des Slots keinen gültigen Wert enthält. Ein Handler mit diesem Namen ist nur vorhanden, wenn für den Slot eine Bedingung für 'Nicht gefunden' definiert ist.
+
+  Das folgende Diagramm zeigt, an welcher Position in der Benutzerschnittstelle des Tools der Code definiert wird, der für jedes benannte Ereignis ausgelöst wird.
+
+  ![Position in der Benutzerschnittstelle, an der der von Handlern für benannte Ereignisse ausgelöste Code autorisiert wird](images/api-event-handlers.png)
+
+- Ein Knoten des Typs `event_handler` mit dem Ereignisnamen `generic` kann ein übergeordnetes Element des Typs `slot` oder `frame` aufweisen.
+- Ein Knoten des Typs `event_handler` mit dem Ereignisnamen `focus`, `input`, `filled` oder `nomatch` muss ein übergeordnetes Element des Typs `slot` aufweisen.
+- Wenn zwei oder mehr Ereignishandler mit demselben Ereignisnamen demselben übergeordneten Knoten zugeordnet sind, legt die Reihenfolge der gleichgeordneten Elemente fest, in welcher Reihenfolge die Ereignishandler ausgeführt werden.
+- Bei Knoten des Typs `event_handler`, die demselben übergeordneten Knoten mit Slots zugeordnet sind, bleibt die Ausführungsreihenfolge gleich (unabhängig von der Platzierung der Knotendefinitionen). Die Ereignisse werden in der Reihenfolge der Ereignisnamen ausgelöst.
+
+  1. focus
+  1. input
+  1. filled
+  1. generic*
+  1. nomatch
+
+  *Wenn ein `event_handler` mit dem Ereignisnamen `generic` für diesen Slot oder für den übergeordneten Frame definiert ist, wird er für die gefüllten Ereignishandlerknoten und die Ereignishandlerknoten des Typs 'nomatch' ausgeführt.
 
 Die folgenden Beispiele zeigen, wie verschiedene Änderungen in der Folge zu nachgelagerten Änderungen führen können.
 
@@ -72,7 +120,7 @@ Die Werte, die Sie für `parent` und `previous_node` angeben, müssen gültig se
 
 - Beide Werte müssen vorhandene Knoten referenzieren.
 - Der angegebene übergeordnete Knoten muss derselbe Knoten wie der übergeordnete Knoten des vorherigen gleichgeordneten Knoten sein (bzw. `null`, falls der vorherige gleichgeordnete Knoten keinen übergeordneten Knoten besitzt).
-- Der übergeordnete Knoten kann nicht den Knotentyp `response_condition` besitzen.
+- Das übergeordnete Element darf kein Knoten des Typs `response_condition` oder `event_handler` sein.
 
 Anschließend sieht das Dialogmodul so aus:
 
@@ -95,7 +143,7 @@ Der angegebene Wert für `parent` muss gültig sein:
 - Er muss einen vorhandenen Knoten referenzieren.
 - Er darf nicht den Knoten referenzieren, der geändert wird (weil ein Knoten nicht sein eigenes übergeordnetes Element sein kann).
 - Er darf nicht ein untergeordnetes Element des Knotens referenzieren, der geändert wird.
-- Er darf keinen Knoten des Typs `response_condition` referenzieren.
+- Er darf keinen Knoten des Typs `response_condition` oder `event_handler` referenzieren.
 
 Dies hat die folgende geänderte Struktur zum Ergebnis:
 
@@ -138,7 +186,7 @@ Hierdurch wird das folgende Ergebnis erzielt:
 
 ![Beispiel 6 für Dialogmodul](images/dialog_api_6.png)
 
-Die Knoten **node_1**, **node_4**, **node_5** und **node_7** wurden sämtlich gelöscht. Wenn Sie einen Knoten löschen, werden auch alle ihm untergeordneten Knoten gelöscht. Falls Sie einen Basisknoten löschen, wird somit tatsächlich eine ganze Verzweigung in der Baumstruktur des Dialogmoduls gelöscht. Alle anderen Referenzen auf den gelöschten Knoten (z. B. Referenzen in `next_step`) werden in `null` geändert.
+Die Knoten **node_1**, **node_4**, **node_5** und **node_7** wurden sämtlich gelöscht. Wenn Sie einen Knoten löschen, werden auch alle ihm untergeordneten Knoten gelöscht. Wenn Sie einen Stammknoten löschen, wird damit tatsächlich eine ganze Verzweigung in der Baumstruktur des Dialogmoduls gelöscht. Alle anderen Referenzen auf den gelöschten Knoten (z. B. Referenzen in `next_step`) werden in `null` geändert.
 
 Darüber hinaus wurde durch diese Aktion der Knoten **node_2** aktualisiert und verweist nun auf den Knoten **node_8** als seinen neuen vorherigen gleichgeordneten Knoten.
 
