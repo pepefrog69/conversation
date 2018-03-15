@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-15"
+lastupdated: "2018-03-07"
 
 ---
 
@@ -17,45 +17,47 @@ lastupdated: "2018-02-15"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Using catalogs
+# Using content catalogs
 
-***Catalogs*** provide an easy way to add common intents to your {{site.data.keyword.conversationshort}} service workspace.
+***Content Catalogs*** provide an easy way to add common intents to your {{site.data.keyword.conversationshort}} service workspace.
 {: shortdesc}
 
-## Adding a catalog to your workspace
+**IMPORTANT**: Content Catalog intents are meant to provide a starting point, and not meant to be fully built-out for production use. It is recommended that you review and expand on these intents, to make them better suited to how your application will use them.
+
+## Adding a content catalog to your workspace
 {: #add-catalog}
 
-Use the {{site.data.keyword.conversationshort}} tool to add catalogs.
+Use the {{site.data.keyword.conversationshort}} tool to add content catalogs.
 
-1.  In the {{site.data.keyword.conversationshort}} tool, open your workspace and then select the **Catalog** tab in the navigation bar. If **Catalog** is not visible, use the ![Menu](images/Menu_16.png) menu to open the page.
+1.  In the {{site.data.keyword.conversationshort}} tool, open your workspace and then select the **Content Catalog** tab in the navigation bar.
 
-1.  Select a catalog, such as *Billing*, to see the intents that are provided with it.
+1.  Select a content catalog, such as *Banking*, to see the intents that are provided with it.
 
     ![Screen capture showing available catalogs](images/catalog_overview.png)
 
-    You will see information about the intents that are defined in the *Billing* category.
+    You will see information about the intents that are defined in the *Banking* category.
 
-    ![Screen capture showing Billing category intents](images/catalog_open.png)
+    ![Screen capture showing Banking category intents](images/catalog_open.png)
 
-    Intents that are added from a catalog are distinguishable from other intents by their naming convention; in this case, `#Billing_ . . .`
+    Intents that are added from a content catalog are distinguishable from other intents by their naming convention; in this case, `#Banking_ . . .`
 
-1.  Select ![Close arrow](images/close_arrow.png) to return to the **Catalog** tab.
+1.  Select ![Close arrow](images/close_arrow.png) to return to the **Content Catalog** tab.
 
-1.  Next, add the *Billing* catalog to your workspace by clicking the `Add to Bot` button. You will see a message indicating that the *Billing* intents have been added to your workspace.
+1.  Next, add the *Banking* content catalog to your workspace by clicking the `Add to workspace` button. You will see a message indicating that the *Banking* intents have been added to your workspace.
 
-    ![Screen capture showing Add to Bot button](images/catalog_addtobot.png)
+    ![Screen capture showing Add to workspace button](images/catalog_addtobot.png)
 
-1.  Now, select the **Intents** tab, and verify that the *Billing* intents have been added to your workspace.
+1.  Now, select the **Intents** tab, and verify that the *Banking* intents have been added to your workspace.
 
-    ![Screen capture showing Billing intents listed on Intents tab](images/catalog_intents.png)
+    ![Screen capture showing Banking intents listed on Intents tab](images/catalog_intents.png)
 
 ### Results
 
-The intents from the *Billing* catalog have been added to the **Intents** tab of your workspace, and the system begins to train itself on the new data.
+The intents from the *Banking* content catalog have been added to the **Intents** tab of your workspace, and the system begins to train itself on the new data.
 
-## Editing catalog examples
+## Editing content catalog examples
 
-Like any other intent, once the *Billing* catalog intents have been added to your workspace, you can make the following changes:
+Like any other intent, once the *Banking* content catalog intents have been added to your workspace, you can make the following changes:
 
 - Rename the intent.
 - Delete the intent.

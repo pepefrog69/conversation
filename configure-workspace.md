@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-15"
+lastupdated: "2018-03-14"
 
 ---
 
@@ -28,7 +28,9 @@ A single {{site.data.keyword.conversationshort}} service instance can contain mu
 - [**Entities**](entities.html); An *entity* represents a term or object that is relevant to your intents and that provides a specific context for an intent. For example, an entity might represent a city where the user wants to find a business location, or the amount of a bill payment. In the tool, the name of an entity is always prefixed with the `@` character. To train the workspace to recognize your entities, you list the possible values for each entity and synonyms that users might enter.
 - [**Dialog**](dialog-build.html): A *dialog* is a branching conversation flow that defines how your application responds when it recognizes the defined intents and entities. You use the dialog builder in the tool to create conversations with users, providing responses based on the intents and entities that you recognize in their input.
 
-As you add information, the workspace trains itself, so you don't have to do anything to initiate the training.
+The *content catalog* contains prebuilt common intents and entities that you can add to your application rather than building your own. For example, most applications require a greeting intent that starts a dialog with the user. You can add the **General** content catalog to add a group of intents that recognize and respond to utterances that are commonly used to start and end a conversation, among other things.
+
+As you add information, the workspace uses this unique data to build a machine learning model that can recognize these and similar user inputs. Each time you add or change the training data, the training process is triggered to ensure that the underlying model stays up-to-date as your customer needs and the topics they want to discuss change.
 
 ## Workspace limits
 {: #workspace-limits}
@@ -81,7 +83,7 @@ After you create the workspace, it appears as a tile on the Workspaces page.
 
 You can use the Workspaces page to export workspaces and to copy a workspace to a new workspace.
 
-Exporting a workspace saves a copy of all workspace data in a JSON file. Use this option if you want to import the workspace into a different service instance or save a copy of the workspace data offline. When you import a workspace, you can choose to import only the intents and entities, which can be useful if you want to build a new dialog using the same training data.
+Exporting a workspace saves a copy of all workspace data in a JSON file. The workspace data includes intents and entities that you defined as part of the training data. It also includes counter examples that are created when you identify inaccurate classifications by marking them as irrelevant. Use this option if you want to import the workspace into a different service instance or save a copy of the workspace data offline. When you import a workspace, you can choose to import only the intents and entities, which can be useful if you want to build a new dialog using the same training data.
 
 Copying a workspace makes a complete copy of the workspace within the same service instance. Use this option if you want to adapt an existing workspace while preserving the original version.
 

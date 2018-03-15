@@ -227,6 +227,37 @@ This is the array: onion;olives;ham;
 ```
 {: codeblock}
 
+If you define a variable that stores multiple values in a JSON array, you can return a subset of values from the array and use the join method to format them properly.
+
+For example, the following context variable defines a JSON array that stores flight information. There are two data points per flight, the time and flight code.
+
+```json
+"flights_found": [
+  {
+    "time": "10:00",
+    "flight_code": "OK123"
+  },
+  {
+    "time": "12:30",
+    "flight_code": "LH421"
+  },
+  {
+    "time": "16:15",
+    "flight_code": "TS4156"
+  }
+]
+```
+{: codeblock}
+
+To return the flight codes only, use the following syntax in a response:
+
+```
+The flights that fit your criteria are: <? T(String).join(",", $flights_found.![flight_code]) ?>.
+```
+{: codeblock}
+
+Result: `The flights that match your criteria are: OK123,LH421,TS4156.
+
 ### JSONArray.remove(integer)
 
 This method removes the element in the index position from the JSONArray and returns the updated JSONArray.
@@ -436,23 +467,25 @@ For information about how to recognize and extract date and time information fro
 
 ### .after(String date/time)
 
-- Determines whether the date/time value is after the date/time argument.
-- Analogous to `.before()`.
+Determines whether the date/time value is after the date/time argument.
 
 ### .before(String date or time)
+Determines whether the date/time value is before the date/time argument.
 
-- For example:
+For example:
 - @sys-time.before('12:00:00')
 - @sys-date.before('2016-11-21')
-- Determines whether the date/time value is before the date/time argument.
+
 - If comparing different items, such as `time vs. date`, `date vs. time`, and `time vs. date and time`, the method returns false and an exception is printed in the response JSON log `output.log_messages`.
-    - For example, `@sys-date.before(@sys-time)`.
+
+  For example, `@sys-date.before(@sys-time)`.
 - If comparing `date and time vs. time` the method ignores the date and only compares times.
 
 ### now()
 
+Returns a string with the current date and time in the format `yyyy-MM-dd HH:mm:ss`.
+
 - Static function.
-- Returns a string with the current date and time in the format `yyyy-MM-dd HH:mm:ss`.
 - The other date/time methods can be invoked on date-time values that are returned by this function and it can be passed in as their argument.
 - If the context variable `$timezone` is set, this function returns dates and times in the client's time zone.
 
@@ -705,6 +738,8 @@ These methods help you get and reformat number values.
 For information about system entities that can recognize and extract numbers from user input, see [@sys-number entity](system-entities.html#sys-number).
 
 If you want the service to recognize specific number formats in user input, such as order number references, consider creating a pattern entity to capture it. See [Creating entities](entities.html#creating-entities) for more details.
+
+If you want to change the decimal placement for a number, to reformat a number as a currency value, for example, see the [String format() method](dialog-methods.html#java.lang.String).
 
 ### toDouble()
 
@@ -1347,6 +1382,17 @@ For example, the following expression takes three decimal integers (1, 1, and 2)
 {: codeblock}
 
 Result: `1 + 1 equals 2`.
+
+To change the decimal placement for a number, use the following syntax:
+
+```
+{
+  <? T(String).format('%.2f',<number to format>) ?>
+}
+```
+{: codeblock}
+
+For example, if the $number variable that needs to be formatted in US dollars is `4.5`, then a response such as, `Your total is $<? T(String).format('%.2f',$number) ?>` returns `Your total is $4.50.`
 
 ## Indirect data type conversion
 

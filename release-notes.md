@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-27"
+lastupdated: "2018-03-15"
 
 ---
 
@@ -28,7 +28,7 @@ Send the version parameter with every API request. The service uses the API vers
 
 The current version is `2018-02-16`.
 
-The "Try it out" pane in the {{site.data.keyword.conversationshort}} tooling uses the latest API version.
+The "Try it out" pane in the {{site.data.keyword.conversationshort}} tooling is using version 2017-05-26.
 
 ## Beta features
 
@@ -47,6 +47,30 @@ Existing models that you have trained will not be immediately impacted, but expi
 {: #change-log}
 
 The following new features and changes to the service are available.
+
+### 15 March 2018
+{: #15March2018}
+
+- **Introducing {{site.data.keyword.conversationfull}}**: {{site.data.keyword.ibmwatson}} Conversation has been renamed. It is now called {{site.data.keyword.conversationfull}}. The name change reflects the fact that the service is expanding to provide prebuilt content and tools that help you more easily share the virtual assistants you build.
+
+The Conversation REST API and Conversation SDKs are now deprecated. Instead, use the new {{site.data.keyword.conversationshort}} REST API or upgrade to the {{site.data.keyword.conversationshort}} SDK. All of the same endpoints and methods are supported. For more information, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/){: new_window}.
+
+- **Dialog enhancements**: The following features were added to the dialog tool:
+
+  - Simple variable name and value fields are now available that you can use to add context variables or update context variable values. You do not need to open the JSON editor unless you want to. See [Defining a context variable](dialog-runtime.html#context-var-define) for more details.
+  - Organize your dialog by using folders to group together related dialog nodes. See [Organizing the dialog with folders](dialog-build.html#folders) for more details.
+  - Support was added for customizing how each dialog node participates in user-initiated digressions away from the designated dialog flow. See [Digressions](dialog-build.html#folders) for more details.
+
+- **Search intents and entities**: A new search feature has been added that allows you to [search intents](intents.html#searching-intents) for user examples, intent names, or descriptions, or to [search entity](entities.html#searching-entities) values and synonyms.
+
+- **Content catalogs**: The new [content catalogs](catalog.html#using-content-catalogs) contain a single category of prebuilt common intents and entities that you can add to your application. For example, most applications require a general #greeting-type intent that starts a dialog with the user. You can add it from the content catalog rather than building your own.
+
+- **Enhanced user metrics**: The [Improve component](logs.html#about-the-improve-component) has been enhanced with additional user metrics and logging statistics. For example, the [Overview page](logs_oview.html#the-overview-page) includes several new, detailed graphs that summarize interactions between users and your application, the amount of traffic for a given time period, and the intents and entities that were recognized most often in user conversations.
+
+### 12 March 2018
+{: #12March2018}
+
+- **New date and time methods**: Methods were added that make it easier to perform date calculations from the dialog. See [Date and time calculations](dialog-methods.html#date-and-time-calculations) for more details.
 
 ### 16 February 2018
 {: #16February2018}

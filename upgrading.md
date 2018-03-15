@@ -65,11 +65,10 @@ An upgrade is only available for your workspace if the upgrade icon (![upgrade i
 **Note**: After you upgrade a workspace, you cannot revert your workspace to a previous version.
 
 To upgrade your workspace, complete the following steps:
-
 1.  [Duplicate your workspace](configure-workspace.html#exporting-and-copying-workspaces).
 2.  Upgrade the duplicate workspace.
 
-    When you upgrade a workspace, the latest version of the API is enabled in the tool, and the "Try it out" pane begins to use the newest features.
+    When you upgrade your workspace, the latest version of the API is enabled in the tool, and the "Try it out" pane begins to use the newest features.
 3.  Test the upgraded workspace.
 4.  After evaluating the duplicate workspace to understand how the upgrade will impact your application, apply the upgrade to your primary workspace.
 5.  Upgrade your application by changing the message API call to use the latest API version.

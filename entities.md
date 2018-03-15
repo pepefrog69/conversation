@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-27"
+lastupdated: "2018-03-13"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2018-02-27"
 
 ***Entities*** represent a class of object or a data type that is relevant to a user's purpose. By recognizing the entities that are mentioned in the user's input, the {{site.data.keyword.conversationshort}} service can choose the specific actions to take to fulfill an intent.
 
-<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/kAZ9m-oCKxM" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/wyWgsF9eYc8" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
 ## Entity limits
 {: #entity-limits}
@@ -80,9 +80,15 @@ Use the {{site.data.keyword.conversationshort}} tool to create entities.
 
     > **Note:** You can add *either* synonyms or patterns for a single entity value, you cannot add both.
 
-    - In the **Synonyms** field, type any synonyms for the entity value. A synonym can be any string up to 64 characters in length.
+    ***Synonyms***
+    {: #synonyms}
+
+    - In the **Synonyms** field, type any synonym for the entity value. A synonym can be any string up to 64 characters in length.
 
       ![Screen capture of defining an entity](images/define_entity.png)
+
+    ***Patterns***
+    {: #patterns}
 
     - The **Patterns** field lets you define specific patterns for an entity value. A pattern **must** be entered as a regular expression in the field.
 
@@ -157,6 +163,30 @@ The entity you created is added to the **Entities** tab, and the system begins t
 You can click any entity in the list to open it for editing. You can rename or delete entities, and you can add, edit, or delete values, synonyms, or patterns.
 
 > **Note**: If you change the entity type from `synonym` to `pattern`, or vice versa, the existing values are converted, but might not be useful as-is.
+
+## Searching entities
+
+Use the Search feature to find entity values and synonyms.
+
+1.  Select the **Entities** tab in the navigation bar, then *My Entities*.
+
+    ![Entity tab overview](images/entity_oview.png)
+
+    **Note**: System entities are not searchable.
+
+1.  Select the Search icon: ![Search icon](images/search_icon.png)
+
+1.  Enter a search term or phrase.
+
+    ![Entity search term](images/searchent_1.png)
+
+    **Note**: The first time you search, an index is created; you may see a message to wait while your contents are being indexed.
+
+### Results
+
+Entities containing your search term, with corresponding examples, are shown. Select any result to open it for editing.
+
+  ![Entity search return](images/searchent_2.png)
 
 ## Importing entities
 
