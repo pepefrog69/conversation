@@ -53,7 +53,7 @@ The following new features and changes to the service are available.
 
 - **Introducing {{site.data.keyword.conversationfull}}**: {{site.data.keyword.ibmwatson}} Conversation has been renamed. It is now called {{site.data.keyword.conversationfull}}. The name change reflects the fact that the service is expanding to provide prebuilt content and tools that help you more easily share the virtual assistants you build.
 
-- **New REST APIs and SDKs are available for Watson Assistant**: The new APIs are functionally identical to the existing Conversation APIs, which continue to be supported. For more information about the Watson Assistant APIs, see the [API Reference](https://www.ibm.com/watson/developercloud/assistant/api/v1/).
+- **New REST APIs and SDKs are available for Watson Assistant**: The new APIs are functionally identical to the existing Conversation APIs, which continue to be supported. For more information about the Watson Assistant APIs, see the [API Reference ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/){: new_window}.
 
 - **Dialog enhancements**: The following features were added to the dialog tool:
 
