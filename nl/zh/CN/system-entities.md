@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -98,7 +98,7 @@ lastupdated: "2017-07-06"
 
 例如，对于 6 月 16 日星期五，在一些语言环境中“last Monday”可能指 6 月 12 日或 6 月 5 日，而在另一些语言环境中，仅指 6 月 5 日（前一周）。这种逻辑同样适用于像“next Monday”这样的短语。
 
-Conversation 服务将“last”和“next”日期视为是指所引用的最近的上一天或下一天（可能是同一周，也可能是前一周）。
+{{site.data.keyword.conversationshort}} 服务将“last”和“next”日期视为是指所引用的最近的上一个日期或下一个日期（可能是同一周，也可能是前一周）。
 
 对于像“for the last 3 days”或“in the next 4 hours”这样的时间短语，该逻辑同样适用。例如，对于“in the next 4 hours”，这将生成两个 `@sys-time` 实体：一个是当前时间，一个是晚于当前时间四小时的时间。
 
@@ -151,6 +151,7 @@ Conversation 服务将“last”和“next”日期视为是指所引用的最�
 - @sys-time 始终返回以下格式的时间：HH:mm:ss。
 
 有关处理日期和时间值的信息，请参阅[日期和时间](dialog-methods.html#date-time)方法参考。
+{: tip}
 
 ## @sys-location 实体
 {: #sys-location}
@@ -164,6 +165,7 @@ Conversation 服务将“last”和“next”日期视为是指所引用的最�
 - New South Wales
 
 有关处理字符串值的信息，请参阅[字符串](dialog-methods.html#strings)方法参考。
+{: tip}
 
 ## @sys-number 实体
 {: #sys-number}
@@ -195,10 +197,10 @@ Conversation 服务将“last”和“next”日期视为是指所引用的最�
 
 | 属性| 类型| 针对 `veinte` 的返回项| 针对 `1.234,56` 的返回项|
 |-----------------------------|--------|-----------------------|------------------------:|
-| @sys-number               | 字符串 | 20                    |                 1234.56 |
+| @sys-number               | 字符串 | 20                            |                 1234.56 |
 | @sys-number.literal       | 字符串 | veinte                |                1.234,56 |
 | @sys-number.location      | 数组   | [0,6]                 |                   [0,8] |
-| @sys-number.numeric_value | 数字   | 20                    |                 1234.56 |
+| @sys-number.numeric_value | 数字   | 20                            |                 1234.56 |
 
 对于其他支持的语言，将获得同样的结果。
 
@@ -208,11 +210,12 @@ Conversation 服务将“last”和“next”日期视为是指所引用的最�
 
 - 如果使用 @sys-number 来比较条件中的数字值，请确保单独包含一项检查来确认是否存在数字本身。如果找不到数字，那么 @sys-number 会求值为 null，这可能导致即便不存在任何数字，比较也会求值为 true。
 
-  例如，不要单独使用 `@sys-number<4`，因为如果找不到数字，`@sys-number` 会求值为 null。由于 null 小于 4，因此即便不存在任何数字，条件也会求值为 true。
+  例如，不要单独使用 `@sys-number<4` ，因为如果找不到数字，`@sys-number` 会求值为 null。由于 null 小于 4，因此即便不存在任何数字，条件也会求值为 true。
 
-  请改为使用 `@sys-number AND @sys-number<4`。如果不存在任何数字，那么第一个条件求值为 false，这会相应地将整个条件求值为 false。
+  请改为使用 `@sys-number AND @sys-number<4` 。如果不存在任何数字，那么第一个条件求值为 false，这会相应地将整个条件求值为 false。
 
 有关处理数字值的信息，请参阅[数字](dialog-methods.html#numbers)方法参考。
+{: tip}
 
 ## @sys-percentage 实体
 {: #sys-percentage}
@@ -270,3 +273,4 @@ Conversation 服务将“last”和“next”日期视为是指所引用的最�
 - Vijay
 
 有关处理字符串值的信息，请参阅[字符串](dialog-methods.html#strings)方法参考。
+{: tip}

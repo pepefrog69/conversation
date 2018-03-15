@@ -60,7 +60,7 @@ lastupdated: "2017-09-18"
 | `~` | 近似匹配。将后跟 `1` 或 `2` 的此运算符附加到查询项末尾，以指定允许查询字符串与响应对象中的匹配项之间的单字符差异数。例如，`car~1` 将与 `car`、`cat` 或 `cars` 匹配，但不会与 `cats` 匹配。在对 `log_id` 或任何日期或时间字段进行过滤时，或者使用模糊匹配时，此运算符无效。|
 | `*` | 通配符运算符。与零个或零个以上字符组成的任意序列匹配。在对 `log_id` 或任何日期或时间字段进行过滤时，此运算符无效。|
 | `()`, `[]` | 分组运算符。用于通过布尔运算符将多个表达式的逻辑分组括起。|
-| <code>&#124;</code> | 布尔值_或_运算符。|
+| \| | 布尔值_或_运算符。|
 | `,` | 布尔值_和_运算符。|
 
 ### 按意向或实体过滤
@@ -118,6 +118,7 @@ lastupdated: "2017-09-18"
 | 用户输入文本包含的字符串由 `comm`，后跟零个或多个其他字符，再后跟 `s` 组成。| `request.input.text:comm*s`|
 | 上下文中的部署标识与 `my_app` 匹配。| `request.context.metadata.deployment::my_app`|
 | 响应中实体的置信度值大于 0.8。| `response.intents:confidence>0.8`|
-| 响应中的意向名称与 `hello` 或 `goodbye` 完全匹配。| <code>response.intents:intent::(hello&#124;goodbye)</code>|
+| 响应中的意向名称与 `hello` 或 `goodbye` 完全匹配。| <code>response.intents:intent::(hello\|goodbye)</code> |
 | 响应中意向的名称为 `hello` 且置信度值等于或大于 0.8。| `response.intents:(intent:hello,confidence>=0.8)`|
 | 响应中的意向名称与 `order` 完全匹配，并且响应中的实体名称与 `beverage` 完全匹配。| `[response.intents:intent::order,response.entities:entity::beverage]` |
+<!-- -->

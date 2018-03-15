@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-09-15"
+  years: 2015, 2018
+lastupdated: "2018-02-16"
 
 ---
 
@@ -17,28 +17,95 @@ lastupdated: "2017-09-15"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 存取及評估物件
+# 用於存取物件的表示式
 
-條件中的有效表示式是以「Spring 表示式 (SpEL)」語言所撰寫的。如需相關資訊，請參閱 [Spring 表示式語言 (SpEL) 語言 ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/expressions.html){: new_window}。
+您可以使用「Spring 表示式 (SpEL)」語言，來撰寫存取物件及物件內容的表示式。如需相關資訊，請參閱 [Spring 表示式語言 (SpEL) ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/expressions.html){: new_window}。
 {: shortdesc}
 
-## 內建廣域變數
+## 評估語法
 
-下列是可用的廣域變數：
+若要展開其他變數內的變數值，或呼叫內容及廣域物件的方法，請使用 `<? expression ?>` 表示式語法。例如：
+
+- **展開內容**
+    - `"output":{"text":"Your name is <? context.userName ?>"}`
+
+- **呼叫廣域物件內容的方法**
+    - `"context":{"email": "<? @email.literal ?>"}`
+
+## 速記語法            
+{: #shorthand-syntax}
+
+學習如何使用 SpEL 速記語法來快速參照下列物件：
+
+- [環境定義變數](expression-language.html#shorthand-context)
+- [實體](expression-language.html#shorthand-entities)
+- [目的](expression-language.html#shorthand-intents)
+
+### 環境定義變數的速記語法
+{: #shorthand-context}
+
+下表顯示可用來在條件表示式中撰寫環境定義變數的速記語法範例。
+
+| 速記語法                   | SpEL 中的完整語法                       |
+|----------------------------|-----------------------------------------|
+| `$card_type`               | `context['card_type']`                  |
+| `$(card-type)`             | `context['card-type']`                  |
+| `$card_type:VISA`          | `context['card_type'] == 'VISA'`        |
+| `$card_type:(MASTER CARD)` | `context['card_type'] == 'MASTER CARD'` |
+
+您可以在環境定義變數名稱中包含特殊字元（例如連字號或句點）。不過，在評估 SpEL 表示式時，這麼做可能會導致問題。例如，連字號可能會解譯為減號。若要避免這類問題，請使用完整表示式語法或速記語法 `$(variable-name)` 來參照變數，而且不要在名稱中使用下列特殊字元：
+
+- 括弧 ()
+- 多個單引號 ''
+- 引號 "
+
+### 實體的速記語法
+{: #shorthand-entities}
+
+下表顯示在參照實體時可使用的速記語法範例。
+
+| 速記語法            | SpEL 中的完整語法                        |
+|---------------------|------------------------------------------|
+| `@year`             | `entities['year']?.value`                |
+| `@year == 2016`     | `entities['year']?.value == 2016`        |
+| `@year != 2016`     | `entities['year']?.value != 2016`        |
+| `@city == 'Boston'` | `entities['city']?.value == 'Boston'`    |
+| `@city:Boston`      | `entities['city']?.contains('Boston')`   |
+| `@city:(New York)`  | `entities['city']?.contains('New York')` |
+
+在 SpEL 中，問號 `(?)` 會防止在實體物件為空值時觸發空值指標異常狀況。
+
+如果您要檢查的實體值包含 `)` 字元，則無法使用 `:` 運算子進行比較。例如，如果您要檢查城市實體是否為 `Dublin (Ohio)`，則必須使用 `@city == 'Dublin (Ohio)'`，而非 `@city:(Dublin (Ohio))`。
+
+### 目的的速記語法
+{: #shorthand-intents}
+
+下表顯示在參照目的時可使用的速記語法範例。
+
+| 速記語法                | SpEL 中的完整語法   |
+|-------------------------|---------------------|
+| `#help`                 | `intent == 'help'`  |
+| `! #help`               | `intent != 'help'`  |
+| `NOT #help`             | `intent != 'help'`  |
+| `#help` 或 `#i_am_lost` | <code>(intent == 'help' \|\| intent == 'I_am_lost')</code> |
+
+## 內建廣域變數
+{: #builtin-vars}
+
+您可以使用表示式語言來擷取下列廣域變數的內容資訊：
 
 | 廣域變數             | 定義       |
 |----------------------|------------|
-| *anything_else*      | 整個對話的最後一個節點。若使用者輸入與目的不相符，則會執行此節點。|
 | *context*            | 已處理交談訊息的 JSON 物件部分。|
-| *conversation_start* | 第一個對話交談要求中為 true 的布林值（可用在對話節點的條件中，以定義對話歡迎訊息）。|
 | *entities[ ]*        | 支援第一個元素之預設存取的實體清單。|
 | *input*              | 已處理交談訊息的 JSON 物件部分。|
 | *intents[ ]*         | 支援第一個元素之預設存取的目的清單。|
 | *output*             | 已處理交談訊息的 JSON 物件部分。|
 
 ## 存取實體
+{: #access-entity}
 
-entity 陣列包含一個以上的實體。
+entities 陣列包含使用者輸入中所辨識的一個以上實體。
 
 測試對話時，您可以藉由在對話節點回應中指定此表示式，來查看使用者輸入中所辨識實體的詳細資料：
 
@@ -60,23 +127,6 @@ entity 陣列包含一個以上的實體。
 ]
 ```
 {: codeblock}
-
-### 實體的速記語法
-
-下表顯示在參照實體時可使用的速記語法範例。
-
-| 速記語法            | SpEL 中的完整語法                        |
-|---------------------|------------------------------------------|
-| `@year`             | `entities['year']?.value`                |
-| `@year == 2016`     | `entities['year']?.value == 2016`        |
-| `@year != 2016`     | `entities['year']?.value != 2016`        |
-| `@city == 'Boston'` | `entities['city']?.value == 'Boston'`    |
-| `@city:Boston`      | `entities['city']?.contains('Boston')`   |
-| `@city:(New York)`  | `entities['city']?.contains('New York')` |
-
-在 SpEL 中，問號 `(?)` 會防止在實體物件為空值時觸發空值指標異常狀況。
-
-如果您要檢查的實體值包含 `)` 字元，則無法使用 `:` 運算子進行比較。例如，如果您要檢查城市實體是否為 `Dublin (Ohio)`，則必須使用 `@city == 'Dublin (Ohio)'`，而非 `@city:(Dublin (Ohio))`。
 
 ### 在輸入事件中放置實體時
 
@@ -129,8 +179,11 @@ entity 陣列包含一個以上的實體。
   這會顯示如下：`You asked about these airports: JFK, Logan, O'Hare.`
 
 ## 存取目的
+{: #access-intent}
 
-intent 陣列包含使用者輸入中所辨識的一個以上目的，並依信任遞減順序排序。每一個目的都只有一個內容：confidence 內容。confidence 內容是一個十進位百分比，代表已辨識目的中的服務信任。
+intent 陣列包含使用者輸入中所辨識的一個以上目的，並依信任遞減順序排序。 
+
+每一個目的都只有一個內容：`confidence` 內容。confidence 內容是一個十進位百分比，代表已辨識目的中的服務信任。
 
 測試對話時，您可以藉由在對話節點回應中指定此表示式，來查看使用者輸入中所辨識目的的詳細資料：
 
@@ -139,7 +192,7 @@ intent 陣列包含使用者輸入中所辨識的一個以上目的，並依信�
 ```
 {: codeblock}
 
-針對使用者輸入 *Hello now*，服務確信 #greeting 目的是使用者輸入的最佳相符項，因此會先列出 #greeting 目的物件詳細資料。回應也會包括工作區中所定義的所有其他目的，即使其信任很低而四捨五入到 0。
+針對使用者輸入 *Hello now*，服務會尋找含有 #greeting 目的的完全相符項。因此，它會先列出 #greeting 目的物件詳細資料。回應也會包含技能中所定義的前 10 個其他目的，而不論其信任評分為何。（在此範例中，它在其他目的中的信任設為 0，因為第一個目的是完全相符項。）傳回前 10 個目的，因為「試用」窗格會傳送 `alternate_intents:true` 參數及其要求。如果您要直接使用 API，而且想要查看前 10 個結果，則請務必在呼叫中指定此參數。如果 `alternate_intents` 是 false（這是預設值），則只會傳回陣列中信任高於 0.2 的目的。
 
 ```json
 [{"intent":"greeting","confidence":1},
@@ -155,18 +208,8 @@ intent 陣列包含使用者輸入中所辨識的一個以上目的，並依信�
 
 `intent == 'help'` 與 `intents[0] == 'help'` 不同，因為 `intent == 'help'` 在偵測不到目的時不會擲出異常狀況。只有在目的信任超出臨界值時，它才會評估為 true。如果想要的話，您可以指定條件的自訂信任層次，例如，`intents.size() > 0 && intents[0] == 'help' && intents[0].confidence > 0.1`
 
-### 目的的速記語法
-
-下表顯示在參照目的時可使用的速記語法範例。
-
-| 速記語法                | SpEL 中的完整語法   |
-|-------------------------|---------------------|
-| `#help`                 | `intent == 'help'`  |
-| `! #help`               | `intent != 'help'`  |
-| `NOT #help`             | `intent != 'help'`  |
-| `#help` 或 `#i_am_lost` | <code>(intent == 'help' &#124;&#124; intent == 'I_am_lost')</code> |
-
 ## 存取輸入
+{: #access-input}
 
 輸入 JSON 物件只包含一個內容：text 內容。text 內容代表使用者輸入的文字。
 
@@ -181,72 +224,3 @@ intent 陣列包含使用者輸入中所辨識的一個以上目的，並依信�
 - 若要檢查使用者輸入是否包含 "Yes"，請使用：`input.text.contains( 'Yes' )`。
 - 如果使用者輸入是數字，則會傳回 true：`input.text.matches( '[0-9]+' )`。
 - 若要檢查輸入字串是否包含 10 個字元，請使用：`input.text.length() == 10`。
-
-## 環境定義變數的速記語法
-
-下表顯示可用來在條件表示式中撰寫環境定義變數的速記語法範例。
-
-| 速記語法                   | SpEL 中的完整語法                       |
-|----------------------------|-----------------------------------------|
-| `$card_type`               | `context['card_type']`                  |
-| `$(card-type)`             | `context['card-type']`                  |
-| `$card_type:VISA`          | `context['card_type'] == 'VISA'`        |
-| `$card_type:(MASTER CARD)` | `context['card_type'] == 'MASTER CARD'` |
-
-您可以在環境定義變數名稱中包括特殊字元（例如連字號或句點）。不過，在評估 SpEL 表示式時，這麼做可能會導致問題。例如，連字號可能會解譯為減號。若要避免這類問題，請使用完整表示式語法或速記語法 `$(variable-name)` 來參照變數，而且不要在名稱中使用下列特殊字元：
-
-- 括弧 ()
-- 多個單引號 ''
-- 引號 "
-
-## 評估
-
-若要展開其他變數內的變數值，或將方法套用至變數，請使用 `<? expression ?>` 表示式語法。例如：
-
-- **展開內容**
-    - `"output":{"text":"Your name is <? context.userName ?>"}`
-    或
-    - `"output":{"text":"Your name is $userName"}`（速記語法）
-- **將數值內容增量**
-    - `"output":{"number":"<? output.number + 1 ?>"}`
-- **在內容及廣域物件上呼叫方法（例如 append）**
-    - `"context":{"toppings": "<? context.toppings.append( 'onions' ) ?>"}`
-
-### JSON 物件或字串格式
-
-在對話回應中使用完整 SpEL 語法時，請用 `<?` 及 `?>` 括住表示式，以「字串」格式予以呈現。在條件中使用完整 SpEL 語法時，請不要包括圍繞 `<? ?>` 的語法。
-
-如果您在條件中指定一個 SpEL 表示式，則會以物件格式傳回資訊，因此產生的值可以保留其資料類型，並用於方程式或其他表示式中。如果您在條件中指定多個 SpEL 表示式，或將表示式包括為字串的一部分，則會改為以「字串」格式傳回資訊。 
-
-例如，您可以將此表示式新增至對話節點回應，以傳回使用者輸入中所辨識的實體：
-
-```json
-The entities are <? entities ?>.
-```
-{: codeblock}
-
-如果使用者將 *Hello now* 指定為輸入，則會以「字串」格式提供實體資訊。
-
-```json
-The entities are 2017-08-07, 15:09:49.
-```
-{: codeblock}
-
-您可以將此表示式新增至對話節點回應，以傳回使用者輸入中所辨識的目的：
-
-```json
-The intents are <? intents ?>.
-```
-{: codeblock}
-
-如果使用者將 *Hello now* 指定為輸入，則會以「字串」格式提供目的資訊。
-
-```json
-The intents are [
-{"intent":"greeting","confidence":0.9331061244010925},
-{"intent":"yes","confidence":0.06050306558609009},
-{"intent":"pizza-order","confidence":0.052069634199142456},
-...
-]
-```
-{: codeblock}

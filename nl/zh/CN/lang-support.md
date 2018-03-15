@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-02-07"
 
 ---
 
@@ -27,29 +27,31 @@ lastupdated: "2017-10-27"
 - **Beta** - 此功能部件仅作为 Beta 发行版支持，并且仍在进行测试，要在测试后才可在此语言中一般可用。
 - **空白** - 缺少任何代码都指示功能部件在此语言中不可用。
 
-|                  | **[定义意向](intents.html)**、**[实体](entities.html)**和**[对话](dialog-build.html)**| **[绝对评分和“标记为不相关”](intents.html#mark-irrelevant)**| **系统实体（[number](system-entities.html#sys-number)、[currency](system-entities.html#sys-currency)、[percentage](system-entities.html#sys-percentage) 和 [date, time](system-entities.html#sys-datetime)）**| **[实体模糊匹配](entities.html#fuzzy-matching)**| **[基于模式的实体](entities.html#pattern-entities)**|
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **英语 (en)**| GA| GA| GA</br> Beta（[location](system-entities.html#sys-location) 和 [person](system-entities.html#sys-person)）| Beta（词干提取、拼写错误检查和部分匹配）| Beta|
-| **阿拉伯语 (ar)**| GA| Beta| Beta| Beta（仅用于拼写错误）| Beta|
-| **简体中文 (zh-cn)**| Beta| Beta| Beta|  | Beta|
-| **繁体中文 (zh-tw)**| Beta| Beta|  |  | Beta|
-| **捷克语 (cs)**| Beta| Beta| Beta| Beta（仅用于拼写错误）| Beta|
-| **荷兰语 (nl)**| Beta| Beta|  |  | Beta|
-| **法语 (fr)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta|
-| **德语 (de)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta|
-| **意大利语 (it)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta|
-| **日语 (ja)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta|
-| **韩国语 (ko)**| GA| GA| Beta| Beta（仅用于拼写错误）| Beta|
-| **巴西葡萄牙语 (pt-br)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta|
-| **西班牙语 (es)**| GA| GA| GA| Beta（仅用于拼写错误）| Beta||
+|                  | **[定义意向](intents.html)**、**[实体](entities.html)**和**[对话](dialog-build.html)**| **[绝对评分和“标记为不相关”](intents.html#mark-irrelevant)**| **系统实体（[number](system-entities.html#sys-number)、[currency](system-entities.html#sys-currency)、[percentage](system-entities.html#sys-percentage) 和 [date, time](system-entities.html#sys-datetime)）**| **[实体模糊匹配](entities.html#fuzzy-matching)**|
+|:---|:---:|:---:|:---:|:---:|
+| **英语 (en)**| GA| GA| GA</br> Beta（[location](system-entities.html#sys-location) 和 [person](system-entities.html#sys-person)）| Beta（词干提取、拼写错误检查和部分匹配）|
+| **阿拉伯语 (ar)**| GA| Beta| Beta| Beta（仅用于拼写错误）|
+| **简体中文 (zh-cn)**| Beta| Beta| Beta|  |
+| **繁体中文 (zh-tw)**| Beta| Beta|  |  |
+| **捷克语 (cs)**| Beta| Beta| Beta| Beta（仅用于拼写错误）|
+| **荷兰语 (nl)**| Beta| Beta| Beta|  |
+| **法语 (fr)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **德语 (de)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **意大利语 (it)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **日语 (ja)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **韩国语 (ko)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **巴西葡萄牙语 (pt-br)**| GA| GA| GA| Beta（仅用于拼写错误）|
+| **西班牙语 (es)**| GA| GA| GA| Beta（仅用于拼写错误）||
 
 **注：**{{site.data.keyword.conversationshort}} 服务支持注明的多种语言，但工具界面本身（描述、标签等）是英语。所有支持的语言都可以通过英语界面进行输入和培训。
+
+**GB18030 合规性**：GB18030 是一项中国标准，规定了用于中国市场的扩展代码页。此代码页标准对于软件行业来说非常重要，因为中国国家信息技术标准化技术委员会要求，在 2001 年 9 月 1 日之后向中国市场发布的任何软件应用程序都应支持 GB18030。{{site.data.keyword.conversationshort}} 服务支持此编码，并且已通过 GB1 8030 合规性认证。
 
 ## 更改工作空间语言
 
 一旦创建了工作空间，就无法修改其语言。如果有必要更改工作空间的受支持语言，用户应该下载该工作空间。然后，在文本编辑器中编辑生成的 JSON 文件，搜索名为 `language` 的 JSON 属性。
 
-`language` 属性应该设置为工作空间的原始语言；例如，英语将为 `en`。修改此属性的值，将其更改为所需语言（`fr` 表示法语，`de` 表示德语等）。保存对 JSON 文件的更改，然后将修改后的文件导入到 {{site.data.keyword.conversationshort}} 服务实例中。
+`language` 属性应该设置为工作空间的原始语言；例如，英语将为 `en`。修改此属性的值，将其更改为所需语言（`fr` 表示法语，`de` 表示德语等）. 保存对 JSON 文件的更改，然后将修改后的文件导入到 {{site.data.keyword.conversationshort}} 服务实例中。
 
 ## 配置双向语言
 {: #configuring-bi-directional}
@@ -72,7 +74,7 @@ lastupdated: "2017-10-27"
 ## 处理有重音的字符
 {: #working-with-accents}
 
-在会话设置中，用户在与 Conversation 服务进行交互时，可能会也可能不会使用重音符。因此，对于意向检测和实体识别，对单词的有重音和无重音版本进行相同的处理。
+在会话设置中，用户在与 {{site.data.keyword.conversationshort}} 服务进行交互时，有可能会使用重音符。因此，对于意向检测和实体识别，对单词的有重音和无重音版本进行相同的处理。
 
 但是，对于某些语言（例如，西班牙语），一些重音符可以改变实体的含义。因此，对于实体检测，尽管原始实体可能隐式具有重音符，但服务还是可以与同一实体的无重音版本相匹配，但置信度分数略低。
 

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-10"
+  years: 2015, 2018
+lastupdated: "2018-02-16"
 
 ---
 
@@ -16,32 +16,55 @@ lastupdated: "2017-08-10"
 {:java: .ph data-hd-programlang='java'}
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
+{:download: .download}
 
-# 開始使用指導教學
+# 入門指導教學
 {: #gettingstarted}
 
-在此簡短指導教學中，我們介紹 {{site.data.keyword.conversationshort}} 工具，並逐步完成建立第一次交談的處理程序。
+在這份簡短的指導教學中，我們會介紹 {{site.data.keyword.conversationshort}} 工具，並逐步完成建立第一次交談的處理程序。
 {: shortdesc}
 
 ## 開始之前
 {: #prerequisites}
 
-如果您已建立服務實例，則表示已設定這些必要條件。請移至步驟 1。
-{: tip}
+您將需要服務實例才能開始。
 
-1.  移至 [{{site.data.keyword.conversationshort}} 服務 ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](https://console.{DomainName}/catalog/services/conversation/){: new_window}，並且註冊免費的 {{site.data.keyword.Bluemix_notm}} 帳戶或登入。
-1.  登入之後，請在 {{site.data.keyword.conversationshort}} 頁面的**服務名稱**欄位中鍵入 `conversation-tutorial`，然後按一下**建立**。
+<!-- Remove the text marked `download` after there's no g-s tab in the catalog dashboard -->
+
+您已建立服務實例。按一下**管理**，然後按一下**啟動工具**。前往步驟 2。
+{: download tip}
+
+如果您已使用 {{site.data.keyword.conversationshort}} 服務建立專案，則表示已設定這些必要條件。前往步驟 1。
+
+1.  移至 {{site.data.keyword.watson}} Developer Console [服務 ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](https://console.{DomainName}/developer/watson/services){: new_window} 頁面。
+1.  選取 {{site.data.keyword.conversationshort}}，按一下**新增服務**，然後註冊免費 {{site.data.keyword.Bluemix_notm}} 帳戶或登入。
+1.  將專案名稱變更為 `conversation-tutorial`，然後按一下**建立專案**。
+
+<!-- Remove this text after dedicated instances have the developer console: begin -->
+
+如果您使用 {{site.data.keyword.Bluemix_dedicated_notm}}，請從「型錄」的 [{{site.data.keyword.conversationshort}} ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](https://console.{DomainName}/catalog/services/conversation/){: new_window} 頁面中建立服務實例。
+
+<!-- Remove this text after dedicated instances have the developer console: end -->
 
 ## 步驟 1：啟動工具
 {: #launch-tool}
 
-建立服務實例之後，您將會登入該實例的儀表板。請在這裡啟動 {{site.data.keyword.conversationshort}} 工具。
+建立包含 {{site.data.keyword.conversationshort}} 服務的專案之後，即會登入專案詳細資料頁面。請在這裡啟動 {{site.data.keyword.conversationshort}} 工具。
 
-按一下**管理**，然後按一下**啟動工具**。
+在**服務**下，按一下 {{site.data.keyword.conversationshort}} 的**啟動工具**。
 
-![顯示您在其中啟動工具的 IBM Bluemix Watson「管理」頁面](images/gs-launch-tool.png)
+<!-- To do: Add screenshot for developer console -->
 
-系統可能會提示您個別登入工具。如果是這樣，請提供 IBM Bluemix 認證來登入。
+如果系統已提示您登入工具，請提供 {{site.data.keyword.Bluemix_notm}} 認證。
+
+如果您不在 {{site.data.keyword.conversationshort}} 服務的專案詳細資料頁面上，請移至 {{site.data.keyword.watson}} Developer Console [專案 ![外部鏈結圖示](../../icons/launch-glyph.svg "外部鏈結圖示")](https://console.{DomainName}/developer/watson/projects) 頁面，然後選取專案。
+{: tip}
+
+<!-- Remove this text after dedicated instances have the developer console: begin -->
+
+{{site.data.keyword.Bluemix_dedicated_notm}}：從「儀表板」中選取您的服務實例，以啟動工具。
+
+<!-- Remove this text after dedicated instances have the Developer Console: end -->
 
 ## 步驟 2：建立工作區
 {: #create-workspace}
@@ -51,9 +74,9 @@ lastupdated: "2017-08-10"
 [*工作區*](configure-workspace.html) 是用於定義交談流程之構件的容器。
 
 1.  在 {{site.data.keyword.conversationshort}} 工具中，按一下**建立**。
-1.  將工作區命名為 `Conversation tutorial`，然後按一下**建立**。您將登入新工作區的**目的**標籤。
+1.  將工作區命名為 `{{site.data.keyword.conversationshort}} tutorial`。如果您計劃建置的對話將使用英文以外的語言，則請從清單中選擇適當的語言。按一下**建立**。您將登入新工作區的**目的**標籤。
 
-![顯示使用者建立 Conversation tutorial 工作區的動畫。](images/gs-create-workspace-animated.gif)
+![顯示使用者建立 {{site.data.keyword.conversationshort}} tutorial 工作區的動畫。](images/gs-create-workspace-animated.gif)
 
 ## 步驟 3：建立目的
 {: #create-intents}
@@ -62,20 +85,19 @@ lastupdated: "2017-08-10"
 
 在此範例中，我們將簡化作業，並且只定義兩個目的：一個是打招呼，一個是道再見。
 
-1.  確定您位於「目的」標籤上（如果您剛剛建立工作區，則應該已在該處）。
-1.  按一下**建立新的項目**。
-1.  將目的命名為 `hello`。
-1.  鍵入 `hello` 作為**使用者範例**，然後按 Enter 鍵。
+1.  確定您位於「目的」標籤上。（如果您剛剛建立工作區，則應該已在該處。）
+1.  按一下**新增目的**。
+1.  將目的命名為 `hello`，然後按一下**建立目的**。
+1.  在**新增使用者範例**欄位中鍵入 `hello`，然後按 **Enter** 鍵。
 
    *範例* 將告訴 {{site.data.keyword.conversationshort}} 服務您要比對哪些類型的使用者輸入與目的。您提供的範例越多，服務就可以越精確地辨識使用者目的。
-1.  再新增四個範例，然後按一下**完成**，以完成建立 #hello 目的：
+1.  再新增四個範例：
     - `good morning`
     - `greetings`
     - `hi`
     - `howdy`
 
-   ![顯示使用者建立具有範例詞語之 #hello 目的的動畫。](images/gs-add-intents-animated.gif)
-
+1.  按一下**關閉** ![關閉箭頭](images/close_arrow.png) 圖示，以完成建立 #hello 目的。
 1.  建立另一個名為 #goodbye 且具有下列五個範例的目的：
     - `bye`
     - `farewell`
@@ -87,7 +109,18 @@ lastupdated: "2017-08-10"
 
 ![顯示列出 #goodbye 及 #hello 目的的「目的」頁面](images/gs-add-intents-result.png)
 
-## 步驟 4：建置對話
+## 步驟 4：從型錄中新增目的
+{: #add-catalog}
+
+藉由從型錄中新增目的，將 IBM 所建置的訓練資料新增至您的工作區中。更具體來說，您會將 `Business Information` 型錄存取權授與助理，讓對話可以處理公司聯絡資訊的使用者要求。
+
+1.  在 {{site.data.keyword.conversationshort}} 工具中，按一下**型錄**標籤。
+1.  尋找清單中的**商業資訊**，然後按一下**新增至機器人**。
+1.  開啟**目的**標籤，以檢閱已新增至訓練資料的目的及關聯的範例詞語。您可以辨識它們，因為每一個目的名稱的開頭都是字首 `#Business_Information_`。在稍後的步驟中，您會將 `#Business_Information_Contact_Us` 目的新增至對話。
+
+您已使用 IBM 所提供的預先建置內容，順利補充訓練資料。
+
+## 步驟 5：建置對話
 {: #build-dialog}
 
 [對話](dialog-build.html)會以邏輯樹狀結構的形式來定義您的交談流程。每一個樹狀結構節點都會有根據使用者輸入來觸發的條件。
@@ -103,7 +136,7 @@ lastupdated: "2017-08-10"
 
     ![顯示具有 Welcome 及 Anything else 節點的對話樹狀結構](images/gs-add-dialog-node-animated-cover.png)
 1.  按一下 **Welcome** 節點，以在編輯視圖中將它開啟。
-1.  將預設回應取代為文字：`Welcome to the Conversation tutorial!`。
+1.  將預設回應取代為文字：`Welcome to the {{site.data.keyword.conversationshort}} tutorial!`。
 
     ![顯示在編輯視圖中開啟的 Welcome 節點](images/gs-edit-welcome-node.png)
 1.  按一下 ![關閉](images/close.png)，以關閉編輯視圖。
@@ -128,9 +161,11 @@ lastupdated: "2017-08-10"
 1.  按一下 ![關閉](images/close.png)，以關閉編輯視圖。
 
    ![顯示使用者將 hello 節點新增至對話的動畫。](images/gs-add-dialog-node-animated.gif)
-1.  按一下此節點上的「其他」圖示 ![其他選項](images/kabob.png)，然後選取**新增下面的節點**以建立對等節點。在對等節點中，指定 `#goodbye` 作為條件，並指定 `OK. See you later!` 作為回應。
+1.  按一下此節點上的「其他」圖示 ![其他選項](images/kabob.png)，然後選取**新增下面的節點**以建立對等節點。在對等節點中，指定 `#Business_Information_Contact_Us` 作為條件。
+1.  新增下列文字作為回應。
 
-    ![新增目的的節點](images/gs-add-dialog-nodes-result.png)
+    `Call us at 800-426-4968 or give us your feedback at https://www.ibm.com/scripts/contact/contact/us/en.`
+1.  按一下此節點上的「其他」圖示 ![其他選項](images/kabob.png)，然後選取**新增下面的節點**以建立另一個對等節點。在對等節點中，指定 `#goodbye` 作為條件，並指定 `OK. See you later!` 作為回應。
 
 ### 測試目的辨識
 
@@ -145,7 +180,8 @@ lastupdated: "2017-08-10"
     - `good morning`
     - `sayonara`
 
-   ![顯示使用者在「試用」畫面中測試對話的動畫](images/gs-test-dialog-animated.gif)
+   ![顯示使用者在「試用」窗格中測試對話的動畫。](images/gs-test-dialog-animated.gif)
+1.  輸入 `Who can I call if I have questions?`，然後按 Enter 鍵。輸出指出已辨識 `#Business_Information_Contact_Us` 目的，並且顯示您已為它所新增的回應。
 
 即使您的輸入未完全符合內含的範例，{{site.data.keyword.watson}} 還是可以辨識目的。對話會使用目的來識別使用者輸入的用途，而不考慮使用精確用字，然後以您指定的方式做出回應。
 
@@ -153,7 +189,7 @@ lastupdated: "2017-08-10"
 
 大功告成。您已建立一個具有兩個目的的簡單交談，以及一個用來辨識它們的對話。
 
-## 步驟 5：檢閱範例工作區
+## 步驟 6：檢閱範例工作區
 {: #review-sample-workspace}
 
 開啟範例工作區，以查看與您剛剛建立之目的類似的目的以及許多其他目的，並查看在複雜對話中如何使用它們。
@@ -164,11 +200,11 @@ lastupdated: "2017-08-10"
 
     ![顯示「工作區」頁面上的汽車儀表板範例磚](images/gs-workspace-car-sample.png)
 
-## 下一步
+## 後續步驟
 {: #next-steps}
 
 本指導教學已建置簡單範例。針對實際應用程式，您需要定義一些較有趣的目的、一些實體，以及更複雜的對話。
 
 - 嘗試進階[指導教學](tutorial.html)，以新增實體並釐清使用者用途。
-- [部署](deploy.html)工作區，方法是將它連接至前端使用者介面、社交媒體或傳訊通道。
+- [部署](deploy.html)工作區，方法是將它連接至前端使用者介面、社交媒體或傳訊頻道。
 - 參閱[範例應用程式](sample-applications.html)。

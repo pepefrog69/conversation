@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -36,17 +36,17 @@ Le llevará entre 2 y 3 horas completar esta guía de aprendizaje.
 
 ### Requisito previo
 
-Antes de empezar, complete los [Guía de aprendizaje de iniciación](getting-started.html). 
+Antes de empezar, complete la [Guía de aprendizaje de iniciación](getting-started.html). 
 
-Utilizará el espacio de trabajo de la guía de aprendizaje de Conversation que ha creado y añadirá nodos al diálogo sencillo que ha creado como parte del ejercicio de iniciación.
+Utilizará el espacio de trabajo de la guía de aprendizaje de {{site.data.keyword.conversationshort}} que ha creado y añadirá nodos al diálogo simple que ha creado como parte del ejercicio de iniciación.
 
 ## Paso 1: Añadir intenciones y ejemplos
 {: #intents}
 
 Añada una intención en el separador Intenciones. Una intención es la finalidad u objetivo expresado en la entrada del usuario.
 
-1.  En la página Intenciones del espacio de trabajo de la guía de aprendizaje de Conversation, pulse **Crear nueva**.
-1.  Añada el siguiente nombre de intención y pulse Intro:
+1.  En la página de Intenciones del espacio de trabajo de la guía de aprendizaje de {{site.data.keyword.conversationshort}}, pulse **Añadir intención**. 
+1.  Añada el siguiente nombre de intención y, a continuación, pulse **Crear intención**:
 
     ```
     turn_on
@@ -54,7 +54,7 @@ Añada una intención en el separador Intenciones. Una intención es la finalida
     {: codeblock}
 
     Se añade el signo `#` al nombre de intención que especifique. La intención `#turn_on` indica que el usuario desea activar un dispositivo, como la radio, los limpiaparabrisas o los faros.
-1.  En el campo **Ejemplo de usuario**, escriba la siguiente expresión y pulse Intro:
+1.  En **Añadir ejemplo de usuario**, escriba la siguiente expresión y, a continuación, pulse **Añadir ejemplo**:  
 
     ```
     I need lights
@@ -73,9 +73,9 @@ Añada una intención en el separador Intenciones. Una intención es la finalida
     ```
     {: codeblock}
 
-1.  Pulse **Listo** para añadir la intención.
+1.  Pulse el icono **Cerrar** ![Flecha Cerrar](images/close_arrow.png) para finalizar la adición de la intención `#turn_on`. 
 
-Ahora tiene tres intenciones, `#turn_on`, `#greeting` y `#goodbye`, todas con expresiones de ejemplo. Estos ejemplos ayudan a formar a Watson para que reconozca las intenciones de la entrada de usuario.
+Ahora tendrá tres intenciones, la intención `#turn_on` que acaba de añadir, y las intenciones `#hello` y `#goodbye` que se añadieron en la *guía aprendizaje de iniciación* que debería haber completado como un paso de requisito previo para este procedimiento. Cada intención tiene un conjunto de expresiones de ejemplo que ayuda a entrenar a Watson para que reconozca las intenciones de la entrada de usuario. 
 
 ## Paso 2: Añadir entidades
 {: #entities}
@@ -85,7 +85,7 @@ Una definición de entidad incluye un conjunto de *valores* de entidad que se pu
 Cree entidades que se puedan producir en la entrada de usuario que tiene la intención #turn_on para representar lo que el usuario desea activar.
 
 1.  Pulse el separador **Entidades** para abrir la página Entidades.
-1.  Pulse **Crear nueva**.
+1.  Pulse **Añadir entidad**.
 1.  Añada el siguiente nombre de entidad y pulse Intro:
 
     ```
@@ -94,9 +94,7 @@ Cree entidades que se puedan producir en la entrada de usuario que tiene la inte
     {: codeblock}
 
     Se antepone un signo `@` al nombre de entidad que especifique. La entidad `@appliance` representa un dispositivo del coche que es usuario puede desear activar.
-1.  Pulse el conmutador para **activar** la comparación a aproximada.
-    Este valor ayuda al servicio a reconocer referencias a entidades en la entrada de usuario aunque la entidad se especifique de forma que no coincida exactamente con la sintaxis utilizada aquí.
-1.  Añada el valor siguiente al campo **Valor**, pero no pulse Intro:
+1.  Añada el siguiente valor al campo **Nombre de valor**: 
 
     ```
     radio
@@ -104,7 +102,7 @@ Cree entidades que se puedan producir en la entrada de usuario que tiene la inte
     {: codeblock}
 
     El valor representa un dispositivo específicos que el usuario puede desear activar.
-1.  Añada otras formas de especificar la entidad del dispositivo radio en el campo **Sinónimos**. Pulse el tabulador para colocarse en el campo y especifique los siguientes sinónimos. Pulse Intro después de escribir cada sinónimo.
+1.  Añada otras formas de especificar la entidad del dispositivo radio en el campo **Sinónimos**. Pulse el **Tabulador** para colocarse en el campo y especifique los siguientes sinónimos. Pulse **Intro** después de cada sinónimo.
 
     ```
     music
@@ -112,11 +110,16 @@ Cree entidades que se puedan producir en la entrada de usuario que tiene la inte
     ```
     {: codeblock}
 
-1.  Pulse el icono **Añadir un nuevo valor** ![signo más](images/add.png) para añadir otros tipos de dispositivos.
+1.  Pulse **Añadir valor** para acabar de definir el valor `radio` para la entidad `@appliance`. 
+1.  Añada otros tipos de dispositivos.
+
     - Valor: `headlights`. Sinónimo: `lights`.
     - Valor: `air conditioning`. Sinónimos: `air` y `AC`.
-1.  Pulse **Listo** para añadir la entidad **@appliance**.
+
+1.  Pulse para **Activar** la coincidencia aproximada para la entidad `@appliance`. Este valor ayuda al servicio a reconocer referencias a entidades en la entrada de usuario aunque la entidad se especifique de forma que no coincida exactamente con la sintaxis utilizada aquí.
+1.  Pulse el icono **Cerrar** ![Flecha Cerrar](images/close_arrow.png) para completar la adición de la entidad `@appliance`. 
 1.  Repita los pasos 2-8 para crear la entidad @`genre` con la coincidencia aproximada activada y estos valores y sinónimos:
+
     - Valor: `classical`. Sinónimo: `symphonic`.
     - Valor: `rhythm and blues` Sinónimo: `r&b`.
     - Valor: `rock`. Sinónimos: `rock & roll`, `rock and roll` y `pop`.
@@ -130,10 +133,10 @@ Cuando se recibe la entrada del usuario, el servicio {{site.data.keyword.convers
 
 En este diálogo complejo, creará ramas del diálogo que manejarán la intención #turn_on que ha definido anteriormente.
 
-### Añada un nodo base para #turn_on
-Cree una rama del diálogo que responda a la intención #turn_on. Para empezar, cree el nodo base:
+### Añada un nodo raíz para #turn_on
+Cree una rama del diálogo que responda a la intención #turn_on. Empiece creando el nodo raíz:
 
-1.  Pulse el icono Más ![Más opciones](images/kabob.png) en el nodo **#greeting** y seleccione **Añadir nodo debajo**.
+1.  Pulse el icono Más ![Más opciones](images/kabob.png) en el nodo **#hello** y seleccione **Añadir nodo debajo**.
 1.  Empiece escribiendo `#turn_on` en el campo de condición y luego selecciónelo en la lista.
     Activa esta condición cualquier entrada que coincida con la intención #turn_on.
 1.  No especifique una respuesta en este nodo. Pulse ![Cerrar](images/close.png) para cerrar la vista de edición del nodo.
@@ -259,26 +262,24 @@ Ahora añada un nodo igual que se active si el usuario no especifica un tipo de 
 
     ![Muestra cómo seleccionar otra intención y volver a formar](images/tut-change-intent.gif)
 
-#### Qué hacer a continuación
-
 Si lo desea, puede revisar el espacio de trabajo **Car Dashboard - Sample (Panel de control del coche - Ejemplo)** para ver este mismo caso de uso ampliado con un diálogo más largo y funciones adicionales.
 
 1.  Pulse el botón **Volver a espacios de trabajo** ![Muestra el botón Volver a espacios de trabajo del menú](images/workspaces-button.png) desde el menú de navegación.
 
 1.  En el mosaico de **Car Dashboard - Sample**, pulse **Editar ejemplo**.
 
-## Paso 4: Desplegar el espacio de trabajo de la guía de aprendizaje
+## Siguientes pasos
 {: #deploy}
 
 Ahora que ha creado y probado su espacio de trabajo, puede desplegarlo conectándolo a una interfaz de usuario. Lo puede hacer de varias formas.
 
 ### Probar en Slack
 
-Puede utilizar la herramienta de despliegue de prueba para [desplegar su espacio de trabajo](test-deploy.html) como un bot de conversación en un canal Slack en solo unos pasos. Esta opción constituye la forma más rápida y sencilla de desplegar el espacio de trabajo para probarlo, pero tiene limitaciones.
+Puede utilizar la herramienta de despliegue de prueba para [desplegar su espacio de trabajo](test-deploy.html) como un chatbot en un canal Slack en solo unos pasos. Esta opción constituye la forma más rápida y sencilla de desplegar el espacio de trabajo para probarlo, pero tiene limitaciones.
 
 ### Cree su propia aplicación frontal
 
-Puede utilizar los SDK de Watson para [crear su propia](develop-app.html) aplicación frontal que se conecte al espacio de trabajo utilizando la API REST de Conversation.
+Puede utilizar los SDK de Watson para [crear su propia](develop-app.html) aplicación frontal que se conecte al espacio de trabajo utilizando la API REST de {{site.data.keyword.conversationshort}}. 
 
 ### Despliegue en redes sociales o canales de mensajería
 

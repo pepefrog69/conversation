@@ -60,7 +60,7 @@ Puede utilizar los operadores siguientes en la consulta de filtro.
 | `~` | Coincidencia aproximada. Añada este operador seguido de un `1` o de un `2` al final del término de consulta para especificar el número permitido de diferencias de un solo carácter entre la serie de la consulta y una coincidencia en el objeto de respuesta. Por ejemplo, `car~1` coincidiría con `car`, `cat` o `cars`, pero no coincidiría con `cats`. Este operador no es válido cuando se realiza el filtrado sobre `ID_registro` o cualquier campo de fecha u hora, o con coincidencia aproximada. |
 | `*` | Operador de carácter comodín. Coincide con cualquier secuencia de cero o más caracteres. Este operador no es válido cuando se realiza el filtrado sobre `ID_registro` o cualquier campo de fecha u hora. |
 | `()`, `[]` | Operadores de agrupación. Utilícelo para especificar una agrupación lógica de varias expresiones mediante operadores booleanos. |
-| <code>&#124;</code> | Operador _or_ booleano. |
+| \| | Operador _or_ booleano. |
 | `,` | Operador _and_ booleano. |
 
 ### Filtrado por intención o entidad
@@ -118,6 +118,7 @@ En los ejemplos siguientes se ilustran distintos tipos de consultas que utilizan
 | El texto de entrada de usuario contiene una serie consistente en `comm`, seguido de cero o más caracteres adicionales, seguidos de `s`. | `request.input.text:comm*s` |
 | El ID de despliegue del contexto coincide con `my_app`. | `request.context.metadata.deployment::my_app` |
 | Una entidad de la respuesta tiene un valor de confianza mayor que 0,8. | `response.intents:confidence>0.8` |
-| Un nombre de intención de la respuesta coincide exactamente con `hello` o con `goodbye`. | <code>response.intents:intent::(hello&#124;goodbye)</code> |
+| Un nombre de intención de la respuesta coincide exactamente con `hello` o con `goodbye`. | <code>response.intents:intent::(hello\|goodbye)</code> |
 | Una intención de la respuesta tiene el nombre `hello` y un valor de confianza igual o mayor que 0,8. | `response.intents:(intent:hello,confidence>=0.8)` |
 | Un nombre de intención de la respuesta coincide exactamente con `order`, y un nombre de entidad de la respuesta coincide exactamente con `beverage`. | `[response.intents:intent::order,response.entities:entity::beverage]` |
+<!-- -->

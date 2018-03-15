@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-02-09"
 
 ---
 
@@ -17,41 +17,59 @@ lastupdated: "2017-07-06"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 升级工作空间
+# 升级
 
-Conversation 服务会定期添加和更新功能。虽然其中某些更改会自动应用于工作空间，但那些影响较大的更新仍需要手动进行。
+了解如何升级服务套餐。
 {: shortdesc}
 
-如果您有在 2017 年 2 月 3 日之前创建的实例，并且您的工作空间有可用更新，那么会显示“升级”图标 (![“升级”图标](images/upgrade.png)) 以指示有可用的升级。选择此图标可打开“升级工作空间”对话框。
+## 升级套餐
+{: #plan-upgrade}
 
-升级工作空间后，工具中会启用 API 的最新版本，并且“试用”面板开始使用最新的功能。
+使用 Lite 套餐可以广泛试用 {{site.data.keyword.conversationshort}} 服务。但可以执行的操作存在限制。
 
-升级工作空间后，即无法将工作空间还原为先前版本。
+
+### 工件限制
+有关每个套餐的工件限制的信息，请参阅以下主题：
+
+- [工作空间](configure-workspace.html#workspace-limits)
+- [对话节点](dialog-build.html#dialog-node-limits)
+- [意向](intents.html#intent-limits)
+- [实体](entities.html#entity-limits)
+- [日志](logs_convo.html#log-limits)
+
+### API 调用限制
+每个实例允许的 API 调用数取决于服务套餐。请参阅套餐描述以获取详细信息。
+
+如果使用的是 Lite 套餐，并达到了 API 调用限制，但日志显示的调用数少于预期，请记住 Lite 套餐对日志信息仅存储 7 天。
+
+要升级套餐，请完成以下步骤：
+
+1.  在 {{site.data.keyword.Bluemix_notm}} 菜单中，选择**服务** > **仪表板**。
+1.  选择要升级的服务实例以将其打开。
+1.  在导航窗格中，单击**套餐**。在此，可以查看当前套餐和其他可用的套餐选项并进行更改。
+
+有关预订的常见问题的解答，请参阅[管理帐单和使用情况 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](/docs/billing-usage/how_charged.html){: new_window}。
+
+通过访问以下链接，可以了解有关 IBM Cloud 托管的服务的更多信息：
+
+- [云服务条款](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
+- [云服务数据安全与隐私](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
 
 ## 升级工作空间
-要避免工作空间中的功能受到影响，请执行以下操作：
+{: #upgrade-workspace}
 
+{{site.data.keyword.conversationshort}} 服务会定期添加和更新功能。虽然其中某些更改会自动应用于工作空间，但那些影响较大的更新仍需要手动进行。
+
+
+仅当显示“升级”图标 (![“升级”图标](images/upgrade.png)) 时，才能对工作空间进行升级。
+
+**注**：升级工作空间后，即无法将工作空间还原为先前版本。
+
+要升级工作空间，请完成以下步骤：
 1.  [复制工作空间](configure-workspace.html#exporting-and-copying-workspaces)。
 2.  升级复制的工作空间。
-3.  在升级后的工作空间中测试是否有问题。
 
-完成问题测试后，通过将消息 API 调用更改为使用 **2017-02-03** 或更高版本，将升级应用于应用程序。
-
-## “跳转至”操作中的更改
-**跳转至**操作的处理已于 2017 年 2 月 3 日发行版中进行了更改。
-
-先前，如果跳转至节点的条件，但是该节点或其任何对等节点都没有求值为 true 的条件，那么系统将跳转至根级别节点，并查找其条件与输入匹配的节点。在某些情境中，此处理会产生循环，导致无法继续处理对话。
-
-在新过程下，如果目标节点或其同级都未求值为 true，那么对话将结束。已生成的任何响应都会返回给用户，并且会向应用程序返回错误消息：
-
-```
-Goto failed from node DIALOG_NODE_ID.
-Did not match the condition of the target node and any of the conditions of its subsequent siblings.
-```
-{: screen}
-
-下一个用户输入将在对话的根级别进行处理。
-
-如果有目标节点条件求值为 false 的**跳转至**操作，那么此更新可能会更改对话的行为。
-
-如果要复原旧的处理模型，请添加条件为 `true` 的最终对等节点。在响应中，使用将对话树根级别的第一个节点条件作为目标的**跳转至**操作。
+    升级工作空间后，工具中会启用 API 的最新版本，并且“试用”窗格开始使用最新的功能。
+3.  测试升级后的工作空间。
+4.  在评估重复工作空间以了解升级将如何影响应用程序后，将升级应用到主工作空间。
+5.  通过将消息 API 调用更改为使用最新的 API 版本来升级应用程序。

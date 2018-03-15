@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-10"
+  years: 2015, 2018
+lastupdated: "2018-02-02"
 
 ---
 
@@ -28,7 +28,7 @@ Node.js 应用程序显示 {{site.data.keyword.conversationshort}} 如何在简�
 
 [观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](http://conversation-simple.ng.bluemix.net/){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/conversation-simple){: new_window}。
 
-## Conversation 和汽车仪表板 UI
+## {{site.data.keyword.conversationshort}} 和汽车仪表板 UI
 
 利用 {{site.data.keyword.conversationshort}} 可以构建使用意向、实体和对话的应用程序，而此 Node.js 应用程序就是这一类型的成熟的应用程序。
 
@@ -40,15 +40,14 @@ Node.js 应用程序显示 {{site.data.keyword.conversationshort}} 如何在简�
 
  [观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://text-bot.mybluemix.net/  ){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/text-bot){: new_window}。
 
-## Conversation 和 Discovery
+## {{site.data.keyword.conversationshort}} 和 {{site.data.keyword.discoveryshort}}
 
 此应用程序演示 {{site.data.keyword.conversationshort}} 和 {{site.data.keyword.discoveryshort}} 的组合。首先，用户向 {{site.data.keyword.conversationshort}} 服务发布问题。如果 {{site.data.keyword.conversationshort}} 无法自信地回答，{{site.data.keyword.conversationshort}} Enhanced 将调用 {{site.data.keyword.discoveryshort}} 来为用户提供有帮助的答案列表。
 
-[观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://conversation-with-discovery-within-ui.mybluemix.net/){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/conversation-enhanced){: new_window}。
+[观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://conversation-with-discovery-within-ui.ng.bluemix.net/){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/conversation-enhanced){: new_window}。
 
-## Conversation 和 Tone Analyzer
+## {{site.data.keyword.conversationshort}} 和 {{site.data.keyword.toneanalyzershort}}
 
 {{site.data.keyword.toneanalyzerfull}} 使用语言分析从编写的文本中检测三种类型的语气：情绪、社会倾向和书写风格。Watson Food Coach 应用程序就是 {{site.data.keyword.toneanalyzershort}} 与 {{site.data.keyword.conversationshort}} 相集成的示例。在此应用程序中，根据用户所吃的食品种类以及对食品的感受，自动代理会提供相应的指导响应，以鼓励用户选择健康食品。
 
-[观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://food-coach.mybluemix.net/){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/food-coach){: new_window}。
-
+[观看演示 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://food-coach.ng.bluemix.net/){: new_window} 或 [派生代码 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](https://github.com/watson-developer-cloud/food-coach){: new_window}。
