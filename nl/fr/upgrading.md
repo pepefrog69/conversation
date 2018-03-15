@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-02-09"
 
 ---
 
@@ -17,41 +17,58 @@ lastupdated: "2017-07-06"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Mise à niveau des espaces de travail
+# Mise à niveau
 
-Le service Conversation ajoute et met à jour des fonctions régulièrement. Si certaines modifications sont appliquées automatiquement à votre espace de travail, celles qui ont un impact majeur nécessitent d'être appliquées manuellement.
+Découvrez comment mettre à niveau votre plan de service.
 {: shortdesc}
 
-Si vous possédez une instance qui a été créée avant le 3 février 2017 et qu'une mise à jour est disponible pour votre espace de travail, l'icône de mise à niveau (![Upgrade](images/upgrade.png)) apparaît pour indiquer qu'une mise à niveau est disponible. Sélectionnez cette icône pour ouvrir la boîte de dialogue Upgrade workspace. 
+## Mise à niveau de votre plan
+{: #plan-upgrade}
 
-Lorsque vous mettez à niveau votre espace de travail, la dernière version de l'API est activée dans l'outil et le panneau "Try it out" commence à utiliser les fonctions les plus récentes. 
+Vous pouvez explorer longuement le service {{site.data.keyword.conversationshort}} à l'aide du plan Lite. Toutefois, les actions que vous pouvez exécuter sont limitées.
 
-Une fois que vous avez mis à niveau un espace de travail, vous ne pouvez plus rétablir la version précédente de cet espace de travail. 
+### Nombre limite d'artefacts
+Pour plus d'informations sur le nombre limite d'artefacts par plan, reportez-vous aux rubriques suivantes :
+
+- [Espaces de travail](configure-workspace.html#workspace-limits)
+- [Noeuds de dialogue](dialog-build.html#dialog-node-limits)
+- [Intentions](intents.html#intent-limits)
+- [Entités](entities.html#entity-limits)
+- [Journaux](logs_convo.html#log-limits)
+
+### Nombre limite d'appels d'API
+Le nombre d'appels d'API autorisés par instance dépend de votre plan de service. Pour plus d'informations, reportez-vous à la description de votre plan.
+
+Si vous disposez d'un plan Lite et atteignez le nombre limite d'appels d'API mais les journaux indiquent que vous avez passé moins d'appels que prévu, gardez à l'esprit que le plan Lite stocke des informations de journal pendant 7 jours uniquement.
+
+Pour mettre votre plan à niveau, procédez comme suit :
+
+1.  Dans le menu {{site.data.keyword.Bluemix_notm}}, sélectionnez **Services** > **Tableau de bord**.
+1.  Sélectionnez l'instance de service que vous souhaitez mettre à niveau afin de l'ouvrir.
+1.  Cliquez sur **Plan** dans le panneau de navigation.
+   Votre plan en cours, ainsi que d'autres options de plan disponibles, sont affichés et vous pouvez effectuer des modifications.
+
+Pour visualiser les réponses aux questions les plus courantes sur les abonnements, reportez-vous à la rubrique sur la [gestion de la facturation et de l'utilisation ![Icône de lien externe](../../icons/launch-glyph.svg "Icône de lien externe")](/docs/billing-usage/how_charged.html){: new_window}.
+
+Pour en savoir plus sur les services hébergés par IBM Cloud, cliquez sur les liens suivants :
+
+- [Cloud Services terms](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
+- [Cloud Services data security and privacy](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
 
 ## Mise à niveau de votre espace de travail
-Pour éviter d'entraver la fonctionnalité dans votre espace de travail :
+{: #upgrade-workspace}
 
+Le service {{site.data.keyword.conversationshort}} ajoute et met à jour des fonctions régulièrement. Si certaines modifications sont appliquées automatiquement à votre espace de travail, celles qui ont un impact majeur nécessitent d'être appliquées manuellement.
+
+Une mise à niveau est disponible pour votre espace de travail uniquement si l'icône Upgrade (![icône Upgrade](images/upgrade.png)) est affichée. 
+
+**Remarque** : une fois que vous avez mis à niveau un espace de travail, vous ne pouvez plus rétablir la version précédente de cet espace de travail. 
+
+Pour mettre votre espace de travail à niveau, procédez comme suit :
 1.  [Dupliquez votre espace de travail](configure-workspace.html#exporting-and-copying-workspaces).
-2.  Mettez à niveau l'espace de travail dupliqué. 
+2.  Mettez à niveau l'espace de travail dupliqué.
+
+    Lorsque vous mettez à niveau votre espace de travail, la dernière version de l'API est activée dans l'outil et le panneau "Try it out" commence à utiliser les fonctions les plus récentes.
 3.  Testez l'espace de travail mis à niveau. 
-
-Lorsque vous avez terminé les tests, appliquez la mise à niveau à votre application en modifiant l'appel d'API de message pour que la date **2017-02-03** ou une date ultérieure soit utilisée. 
-
-## Modifications apportées aux actions Jump to
-Le traitement des actions **Jump to** a été modifié dans le cadre de l'édition du 3 février 2017. 
-
-Auparavant, si vous passiez directement à la condition d'un noeud et que ni ce noeud ni aucun de ses noeuds homologues n'avaient une condition pour laquelle la valeur true avait été renvoyée, le système accédait directement au noeud de niveau racine et recherchait un noeud dont la condition correspondait à l'entrée. Dans certaines situations, ce traitement créait une boucle, ce qui empêchait le dialogue de progresser. 
-
-Dans le cadre du nouveau processus, si le noeud cible et ses homologues ne renvoient pas la valeur true, le tour du dialogue prend fin. Les réponses qui ont été éventuellement générées sont renvoyées à l'utilisateur et un message d'erreur est renvoyé à l'application : 
-
-```
-Goto failed from node DIALOG_NODE_ID.
-Did not match the condition of the target node and any of the conditions of its subsequent siblings.
-```
-{: screen}
-
-L'entrée utilisateur suivante est traitée au niveau racine du dialogue. 
-
-Cette mise à jour peut modifier le comportement de votre dialogue si certaines actions **Jump to** ciblent des noeuds dont les conditions sont false.
-
-Si vous souhaitez restaurer l'ancien modèle de processus, ajoutez un noeud homologue final avec une condition `true`. Dans la réponse, utilisez une action **Jump to** qui cible la condition du premier noeud au niveau racine de l'arborescence de votre dialogue. 
+4.  Après avoir évalué l'espace de travail en double pour comprendre de quelle manière la mise à niveau impactera votre application, appliquez la mise à niveau à votre espace de travail principal. 
+5.  Mettez à niveau votre application en modifiant l'appel d'API de message de telle manière que la dernière version d'API soit utilisée. 
