@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-05"
+lastupdated: "2018-03-15"
 
 ---
 
@@ -19,7 +19,7 @@ lastupdated: "2018-03-05"
 
 # Multimedia responses
 
-If your workspace is integrated with Slack or Facebook Messenger using the [{{site.data.keyword.conversationshort}} connector](conversation-connector.html), you can specify dialog node responses that include multimedia or interactive elements such as clickable buttons. To specify an interactive response, you insert a block of JSON data into the output of a dialog node.
+If your workspace is integrated with Slack or Facebook Messenger using the [Conversation connector](conversation-connector.html), you can specify dialog node responses that include multimedia or interactive elements such as clickable buttons. To specify an interactive response, you insert a block of JSON data into the output of a dialog node.
 
 **Note:** If you want to use interactive messages with Slack, make sure you have enabled the interactive message support. For more information, see the Slack deployment [README ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/watson-developer-cloud/conversation-connector/blob/master/channels/slack/README.md#interactive-messages){: new_window}.
 
@@ -66,13 +66,13 @@ You can specify interactive responses using a generic JSON format that supports 
 
 For more information about the supported response types and how to specify them, see [Response types](#response-types).
 
-At run time, the {{site.data.keyword.conversationshort}} connector converts this response into the format expected by the channel (Slack or Facebook Messenger). If the response contains multiple media types or attachments, the generic response is converted into a series of separate message payloads. The connector then sends each message payload to the channel in a separate message.
+At run time, the Conversation connector converts this response into the format expected by the channel (Slack or Facebook Messenger). If the response contains multiple media types or attachments, the generic response is converted into a series of separate message payloads. The connector then sends each message payload to the channel in a separate message.
 
-**Note:** When a response is split into multiple messages, the {{site.data.keyword.conversationshort}} connector sends these messages to the channel in sequence. It is the responsibility of the channel to deliver these messages to the end user; this can be affected by network or server issues.
+**Note:** When a response is split into multiple messages, the Conversation connector sends these messages to the channel in sequence. It is the responsibility of the channel to deliver these messages to the end user; this can be affected by network or server issues.
 
 ## Native JSON format
 
-In addition to the generic JSON format, the {{site.data.keyword.conversationshort}} connector also supports channel-specific responses written using the native Slack and Facebook Messenger formats. You might want to use the native JSON formats if you need to specify a response type that is not currently supported by the generic JSON format.
+In addition to the generic JSON format, the Conversation connector also supports channel-specific responses written using the native Slack and Facebook Messenger formats. You might want to use the native JSON formats if you need to specify a response type that is not currently supported by the generic JSON format.
 
 You can specify native JSON for Slack or Facebook using the appropriate field in the dialog node response:
 
