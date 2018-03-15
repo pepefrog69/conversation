@@ -57,7 +57,7 @@ Watson Assistant
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
-    [API reference](https://www.ibm.com/watson/developercloud/conversation/api/v1/)
+    [API reference](https://www.ibm.com/watson/developercloud/assistant/api/v1/)
     dialog-methods.md
     expression-language.md
     filter-reference.md
