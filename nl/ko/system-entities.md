@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -44,24 +44,24 @@ lastupdated: "2017-07-06"
 
 입력 `twenty dollars` 또는 `$1,234.56`의 경우, @sys-currency는 다음 값을 리턴합니다.
 
-| 속성                        | 유형   | `twenty dollars`에 대해 리턴됨| `$1,234.56`에 대해 리턴됨 |
+| 속성                   | 유형   | `twenty dollars`에 대해 리턴됨 | `$1,234.56`에 대해 리턴됨 |
 |-----------------------------|--------|-------------------------------|-------------------------:|
 | @sys-currency               | 문자열 | 20                            |                  1234.56 |
 | @sys-currency.literal       | 문자열 | twenty dollars                |                $1,234.56 |
-| @sys-currency.numeric_value | 숫자   | 20                            |                  1234.56 |
-| @sys-currency.location      | 배열   | [0,14]                        |                    [0,9] |
+| @sys-currency.numeric_value | 숫자 | 20                            |                  1234.56 |
+| @sys-currency.location      | 배열  | [0,14]                        |                    [0,9] |
 | @sys-currency.unit          | 문자열 | USD*                          |                      USD |
 
 *@sys-currency.unit은 항상 3자의 ISO 통화 코드를 리턴합니다.
 
 입력 `veinte euro` 또는 <code>&euro;1.234,56</code>(스페인어)의 경우 @sys-currency가 다음 값을 리턴합니다.
 
-| 속성                        | 유형   | `veinte euro`에 대해 리턴됨 | <code>&euro;1.234,56</code>에 대해 리턴됨 |
+| 속성                   | 유형   | `veinte euro`에 대해 리턴됨 | <code>&euro;1.234,56</code>에 대해 리턴됨 |
 |-----------------------------|--------|-----------------------------|-------------------------:|
 | @sys-currency               | 문자열 | 20                          |                  1234.56 |
 | @sys-currency.literal       | 문자열 | veinte euro                 |                &euro;1.234,56 |
-| @sys-currency.numeric_value | 숫자   | 20                          |                  1234.56 |
-| @sys-currency.location      | 배열   |[0,11]                       |                     [0,9]|
+| @sys-currency.numeric_value | 숫자 | 20                          |                  1234.56 |
+| @sys-currency.location      | 배열  |[0,11]                       |                     [0,9]|
 | @sys-currency.unit          | 문자열 | EUR*                        |                     EUR  |
 *@sys-currency.unit은 항상 3자의 ISO 통화 코드를 리턴합니다.
 
@@ -98,7 +98,7 @@ lastupdated: "2017-07-06"
 
 한 예로, 6월 16일 금요일인 경우 어떤 로케일에서는 "last Monday"가 6월 12일 또는 6월 5일을 나타내는 반면, 다른 로케일에서는 6월 5일만 나타냅니다(이전 주). 동일한 로직이 "next Monday"와 같은 구에서도 유효합니다.
 
-Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가장 가까운 지난 요일이나 다른 요일을 나타내는 것으로 간주하며, 이 날짜는 같은 주나 이전 주의 요일일 수 있습니다.
+{{site.data.keyword.conversationshort}} 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가장 가까운 지난 요일이나 다른 요일을 나타내는 것으로 간주하며, 이 날짜는 같은 주나 이전 주의 요일일 수 있습니다.
 
 "for the last 3 days" 또는 "in the next 4 hours"와 같은 시간 구에서 로직은 동일합니다. 예를 들어, "in the next 4 hours"의 경우, 두 개의 `@sys-time` 엔티티(현재 시간의 엔티티와 현재 시간보다 4시간 뒤의 엔티티)가 생깁니다.
 
@@ -129,11 +129,11 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 
 입력 `November 21`의 경우 @sys-date가 다음 값을 리턴합니다.
 
-| 속성                    | 유형   | `November 21`에 대해 리턴됨 |
+| 속성               | 유형   | `November 21`에 대해 리턴됨 |
 |-------------------------|--------|---------------------------:|
 | @sys-date.literal       | 문자열 |                November 21 |
 | @sys-date               | 문자열 |                20xx-11-21 *|
-| @sys-date.location      | 배열   |                     [0,11] |
+| @sys-date.location      | 배열 |                     [0,11]  |
 | @sys-date.calendar_type | 문자열 |                  GREGORIAN |
 
 - @sys-date는 항상 yyyy-MM-dd 형식의 날짜를 리턴합니다.
@@ -141,16 +141,17 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 
 입력 `at 6 pm`의 경우 @sys-time이 다음 값을 리턴합니다.
 
-| 속성                    | 유형   | `at 6 pm`에 대해 리턴됨 |
+| 속성               | 유형   | `at 6 pm`에 대해 리턴됨 |
 |-------------------------|--------|-----------------------:|
 | @sys-time.literal       | 문자열 |                at 6 pm |
 | @sys-time               | 문자열 |               18:00:00 |
-| @sys-time.location      | 배열   |                   [0,7]|
+| @sys-time.location      | 배열 |                   [0,7]|
 | @sys-time.calendar_type | 문자열 |              GREGORIAN |
 
 - @sys-time은 항상 HH:mm:ss 형식으로 시간을 리턴합니다.
 
 날짜 및 시간 값 처리에 대한 정보는 [날짜 및 시간](dialog-methods.html#date-time) 메소드 참조를 참조하십시오.
+{: tip}
 
 ## @sys-location 엔티티
 {: #sys-location}
@@ -160,10 +161,11 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 ### 인식되는 형식
 
 - Boston
-- U.S.A.
+- 대표전화서비스: 02-3781-7114
 - New South Wales
 
 문자열 값 처리에 대한 정보는 [문자열](dialog-methods.html#strings) 메소드 참조를 참조하십시오.
+{: tip}
 
 ## @sys-number 엔티티
 {: #sys-number}
@@ -184,21 +186,21 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 
 입력 `twenty` 또는 `1,234.56`의 경우 @sys-number가 다음 값을 리턴합니다.
 
-| 속성                        | 유형   | `twenty`에 대해 리턴됨 | `1,234.56`에 대해 리턴됨 |
+| 속성                   | 유형   | `twenty`에 대해 리턴됨 | `1,234.56`에 대해 리턴됨 |
 |-----------------------------|--------|-------------------|------------------------:|
 | @sys-number               | 문자열 | 20                |                 1234.56 |
 | @sys-number.literal       | 문자열 | twenty            |                1,234.56 |
-| @sys-number.location      | 배열   |  [0,6]            |                    [0,8]|
-| @sys-number.numeric_value | 숫자   | 20                |                 1234.56 |
+| @sys-number.location      | 배열 |  [0,6]             |                    [0,8]|
+| @sys-number.numeric_value | 숫자 | 20                |                 1234.56 |
 
 입력 `veinte` 또는 `1.234,56`(스페인어)의 경우 @sys-number가 다음 값을 리턴합니다.
 
-| 속성                        | 유형   | `veinte`에 대해 리턴됨 | `1.234,56`에 대해 리턴됨 |
+| 속성                   | 유형   | `veinte`에 대해 리턴됨 | `1.234,56`에 대해 리턴됨 |
 |-----------------------------|--------|-----------------------|------------------------:|
 | @sys-number               | 문자열 | 20                    |                 1234.56 |
 | @sys-number.literal       | 문자열 | veinte                |                1.234,56 |
-| @sys-number.location      | 배열   | [0,6]                 |                   [0,8] |
-| @sys-number.numeric_value | 숫자   | 20                    |                 1234.56 |
+| @sys-number.location      | 배열  | [0,6]                 |                   [0,8] |
+| @sys-number.numeric_value | 숫자 | 20                    |                 1234.56 |
 
 지원되는 다른 언어에 대해서도 동등한 결과를 얻습니다.
 
@@ -213,6 +215,7 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
   대신 `@sys-number AND @sys-number<4`를 사용하십시오. 숫자가 없는 경우 첫 번째 조건이 false로 평가되며 그에 따라 전체 조건이 false로 평가됩니다.
 
 숫자 값 처리에 대한 정보는 [숫자](dialog-methods.html#numbers) 메소드 참조를 참조하십시오.
+{: tip}
 
 ## @sys-percentage 엔티티
 {: #sys-percentage}
@@ -232,21 +235,21 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 
 입력 `1,234.56%`의 경우 @sys-percentage가 다음 값을 리턴합니다.
 
-| 속성                          | 유형   | `1,234.56%`에 대해 리턴됨 |
+| 속성                     | 유형   | `1,234.56%`에 대해 리턴됨 |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | 문자열 |                  1234.56 |
 | @sys-percentage.literal       | 문자열 |                1,234.56% |
-| @sys-percentage.location      | 배열   |                    [0,9] |
-| @sys-percentage.numeric_value | 숫자   |                  1234.56 |
+| @sys-percentage.location      | 배열  |                    [0,9] |
+| @sys-percentage.numeric_value | 숫자 |                  1234.56 |
 
 입력 `1.234,56%`(스페인어)의 경우 @sys-currency가 다음 값을 리턴합니다.
 
-| 속성                          | 유형   | `1.234,56%`에 대해 리턴됨 |
+| 속성                     | 유형   | `1.234,56%`에 대해 리턴됨 |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | 문자열 |                  1234.56 |
 | @sys-percentage.literal       | 문자열 |                1.234,56% |
-| @sys-percentage.location      | 배열   |                    [0,9] |
-| @sys-percentage.numeric_value | 숫자   |                  1234.56 |
+| @sys-percentage.location      | 배열  |                    [0,9] |
+| @sys-percentage.numeric_value | 숫자 |                  1234.56 |
 
 지원되는 다른 언어에 대해서도 동등한 결과를 얻습니다.
 
@@ -270,3 +273,4 @@ Conversation 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가�
 - Vijay
 
 문자열 값 처리에 대한 정보는 [문자열](dialog-methods.html#strings) 메소드 참조를 참조하십시오.
+{: tip}

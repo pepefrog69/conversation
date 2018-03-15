@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -46,9 +46,9 @@ lastupdated: "2017-07-06"
 
 | 屬性                        | 類型   | 針對 `twenty dollars` 所傳回  | 針對 `$1,234.56` 所傳回 |
 |-----------------------------|--------|-------------------------------|-------------------------:|
-| @sys-currency               | 字串   | 20                            |                  1234.56 |
+| @sys-currency               | 字串   | 20                          |                  1234.56 |
 | @sys-currency.literal       | 字串   | twenty dollars                |                $1,234.56 |
-| @sys-currency.numeric_value | 數字   | 20                            |                  1234.56 |
+| @sys-currency.numeric_value | 數字   | 20                          |                  1234.56 |
 | @sys-currency.location      | 陣列   | [0,14]                        |                    [0,9] |
 | @sys-currency.unit          | 字串   | USD*                          |                      USD |
 
@@ -98,7 +98,7 @@ lastupdated: "2017-07-06"
 
 例如，針對 Friday June 16，在某些語言環境中，"last Monday" 可能指的是 June 12 或 June 5，而在其他語言環境中，它就只是 June 5（前一週）。這個相同邏輯針對 "next Monday" 這類詞組保留 true。
 
-Conversation 服務會將 "last" 及 "next" 日期視為參照最接近的前一天或隔天（可能在同一週或前一週）。
+{{site.data.keyword.conversationshort}} 服務會將 "last" 及 "next" 日期視為參照最接近的前一天或隔天（可能在同一週或前一週）。
 
 "for the last 3 days" 或 "in the next 4 hours" 這類時間詞組的邏輯相同。例如，如果是 "in the next 4 hours"，這會導致兩個 `@sys-time` 實體：一個是現行時間，一個是比現行時間晚四個小時的時間。
 
@@ -151,6 +151,7 @@ REST API 用戶端可以選擇性地將本端時區新增為環境定義變數 `
 - @sys-time 一律會以下列格式傳回時間：HH:mm:ss。
 
 如需處理日期及時間值的相關資訊，請參閱[日期和時間](dialog-methods.html#date-time)方法參照。
+{: tip}
 
 ## @sys-location 實體
 {: #sys-location}
@@ -164,6 +165,7 @@ REST API 用戶端可以選擇性地將本端時區新增為環境定義變數 `
 - New South Wales
 
 如需處理字串值的相關資訊，請參閱[字串](dialog-methods.html#strings)方法參照。
+{: tip}
 
 ## @sys-number 實體
 {: #sys-number}
@@ -195,10 +197,10 @@ REST API 用戶端可以選擇性地將本端時區新增為環境定義變數 `
 
 | 屬性                        | 類型   | 針對 `veinte` 所傳回  | 針對 `1.234,56` 所傳回 |
 |-----------------------------|--------|-----------------------|------------------------:|
-| @sys-number               | 字串   | 20                    |                 1234.56 |
+| @sys-number               | 字串   | 20                          |                 1234.56 |
 | @sys-number.literal       | 字串   | veinte                |                1.234,56 |
 | @sys-number.location      | 陣列   | [0,6]                 |                   [0,8] |
-| @sys-number.numeric_value | 數字   | 20                    |                 1234.56 |
+| @sys-number.numeric_value | 數字   | 20                          |                 1234.56 |
 
 您可以取得其他支援的語言的對等結果。
 
@@ -213,6 +215,7 @@ REST API 用戶端可以選擇性地將本端時區新增為環境定義變數 `
   請改為使用 `@sys-number AND @sys-number<4`。如果找不到數字，則會將第一個條件評估為 false，這樣會適當地將整個條件評估為 false。
 
 如需處理數值的相關資訊，請參閱[數字](dialog-methods.html#numbers)方法參照。
+{: tip}
 
 ## @sys-percentage 實體
 {: #sys-percentage}
@@ -270,3 +273,4 @@ REST API 用戶端可以選擇性地將本端時區新增為環境定義變數 `
 - Vijay
 
 如需處理字串值的相關資訊，請參閱[字串](dialog-methods.html#strings)方法參照。
+{: tip}

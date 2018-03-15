@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-01-09"
 
 ---
 
@@ -33,14 +33,15 @@ Por ejemplo, supongamos que desea crear una aplicación para el panel de control
     - `Headlights off (Apagar faros)`
     - `Turn the radio off (Apagar la radio)`
     - `Stop the air conditioner (Parar el aire acondicionado)`
+
 1.  Cuando tenga una lista de ejemplos, clasifíquelos en categorías en función de la capacidad a la que la aplicación desea dar soporte; estas categorías representan las intenciones que definirá, mientras que los ejemplos ayudarán a la aplicación a identificar dichas intenciones en nuevas entradas.
 
     No cree intenciones demasiado parecidas. Las intenciones similares pueden resultar difíciles de distinguir para el servicio {{site.data.keyword.conversationshort}}. Si cree que tiene varias intenciones cuyo significado se parece, tenga en cuenta la posibilidad de combinarlas en una sola intención y luego utilizar entidades para ofrecer varias posibles respuestas para dicha intención.
     {: tip}
 
-    Puesto que todos los ejemplos anteriores representan la misma intención (desactivar algo), puede llamar a esta categoría `#turn_off`.
-    Recuerde que no es necesario que la entrada de un cliente coincida exactamente con ninguno de los ejemplos; las intenciones se reconocen mediante un proceso de lenguaje natural.
+    Puesto que los ejemplos anteriores representan la misma intención (desactivar algo), puede llamar a esta categoría `#turn_off`. Recuerde que no es necesario que la entrada de un cliente coincida exactamente con ninguno de los ejemplos; las intenciones se reconocen mediante un proceso de lenguaje natural.
     {: tip}
+
 1.  Luego debería utilizar una entidad que representara lo que el usuario desea desactivar. Para ello, puede crear una entidad denominada `@accessory` y asignarle los siguientes valores posibles:
 
     - `headlights (faros)`
@@ -51,4 +52,5 @@ Por ejemplo, supongamos que desea crear una aplicación para el panel de control
 1.  Cuando se recibe la entrada del usuario, la conversación reconoce tanto intenciones como entidades. Entonces el flujo del diálogo puede utilizarlas para ofrecer la mejor respuestas. Solo debe crear una entidad para algo importante en lo referente a cómo cambia la forma en que la aplicación responde frente a una intención.
     Además de las entidades que defina, el servicio proporciona un conjunto de entidades del sistema que ya están definidas y listas para que las utilice. Para obtener más información, consulte [Habilitación de entidades del sistema](entities.html#enable_system_entities).
     {: tip}
+
 1.  Siga perfilando las intenciones, entidades y ejemplos según necesite. No piense en su conjunto de intenciones y entidades como productos acabados. Es probable que cuando [cree sus diálogos](dialog-build.html) identifique intenciones y entidades adicionales que deberá añadir. También puede seguir recopilando entradas de nuevos clientes y utilizarlas para añadir nuevos ejemplos; este proceso iterativo mejora la capacidad de su aplicación de reconocer intenciones y entidades con precisión.

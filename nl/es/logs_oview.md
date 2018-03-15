@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-30"
+  years: 2015, 2018
+lastupdated: "2018-01-25"
 
 ---
 
@@ -19,10 +19,10 @@ lastupdated: "2017-08-30"
 
 # La página Visión general
 
-La página Visión general del panel **Mejorar** proporciona un resumen de las interacciones entre los usuarios y el bot.  Puede ver la cantidad de tráfico durante un periodo de tiempo determinado, así como las intenciones y entidades que se han reconocido con mayor frecuencia en las conversaciones de los usuarios.
+La página Visión general del panel **Mejorar** proporciona un resumen de las conversaciones entre los usuarios y su espacio de trabajo. Puede ver la cantidad de tráfico durante un periodo de tiempo determinado, así como las intenciones y entidades que se han reconocido con mayor frecuencia en las conversaciones de los usuarios.
 {: shortdesc}
 
-Las estadísticas que se muestran en la página Visión general abarcan un período de tiempo más largo que el período durante el cual se retienen los registros de conversaciones de usuarios.  Estas estadísticas representan tráfico externo (usuarios o llamadas de API) que ha interactuado con el bot; no se incluyen las interacciones desde el panel **Pruébelo** de la herramienta.
+Las estadísticas que se muestran en la página Visión general abarcan un período de tiempo más largo que el período durante el cual se retienen los registros de conversaciones de usuarios.  Estas estadísticas representan tráfico externo (usuarios o llamadas de API) que ha interactuado con el espacio de trabajo; no se incluyen las interacciones desde el panel *Pruébelo* de la herramienta. 
 
 Puede utilizar la página Visión general para responder a preguntas como:
 
@@ -33,11 +33,10 @@ Puede utilizar la página Visión general para responder a preguntas como:
 
 Para abrir la página Visión general, seleccione **Visión general** en la barra de navegación. Si no ve **Visión general**, utilice el menú ![Menú](images/Menu_16.png) para abrir la página.
 
-![Página Visión general](images/oview.png)
+  ![Página Visión general](images/oview.png)
 
 La parte superior de la página incluye los controles siguientes:
 
-* *Filtro* - Activa y desactiva la opción de filtro. Cuando el filtro está activado, verá selectores desplegables correspondientes a **Intenciones** y **Entidades**
 * *Renovar datos* - Le permite renovar las estadísticas de la página Visión general inmediatamente. La página Visión general muestra la última vez que se han actualizado los datos que se muestran. Puede seleccionar **Renovar datos** si cree que pueden estar disponibles datos nuevos.
 * Control de periodo de tiempo - Utilice este control para elegir el periodo para el que se muestran datos.  Este control afecta a todos los datos que se muestran en la página: no sólo al número de conversaciones que se muestran en el gráfico, sino también a las estadísticas mostradas junto con el gráfico y a las listas de las principales intenciones y entidades.
 
@@ -49,11 +48,11 @@ Puede elegir si desea ver datos correspondientes a un solo día, una semana, un 
 
 Un gráfico muestra el número total de conversaciones correspondientes al rango de fechas seleccionado.
 
-**Nota:** Se considera 'conversación' cualquier interacción con el bot, de modo que si hay conversaciones donde el bot ha dicho "Hola, ¿en qué puedo ayudarle?"y luego el usuario ha cerrado su navegador, esta conversación se incluye en el recuento total de conversaciones.
+**Nota**: Se considera una 'conversación' a cualquier interacción con el espacio de trabajo, por lo tanto, si hay conversaciones en las que el servicio empieza diciendo por ejemplo `Hi, how can I help you?` (Hola, ¿cómo puede ayudarle) y, a continuación, el usuario cierra su navegador sin responder, también se considera una conversación que se incluye en el recuento de conversaciones. 
 
-Puede seleccionar **Ver registros** para abrir la página [Conversaciones de usuario](logs_convo.html), con el rango de fechas filtrado de modo que se ajuste al periodo de tiempo que ha seleccionado para la página Visión general. Dependiendo del plan y del rango de fechas que ha seleccionado, es posible que no vea ningún dato. Por ejemplo, el [plan de servicio Estándar](logs_convo.html#log-limits) de {{site.data.keyword.conversationshort}} solo mantiene registros de conversación durante 30 días; si elige un rango de fechas más de 30 días, no verá ningún dato.
+Puede seleccionar **Ver registros** para abrir la página [Conversaciones de usuario](logs_convo.html), con el rango de fechas filtrado de modo que se ajuste al periodo de tiempo que ha seleccionado para la página Visión general. La página [Conversaciones de usuario](logs_convo.html) muestra el número total de *expresiones*. Una expresión es un mensaje individual que el usuario envía al espacio de trabajo. Cada conversación puede estar formada por varias expresiones. Por lo tanto, el número de resultados de la página [Conversaciones de usuario](logs_convo.html) es distinto del número de conversaciones que se muestra en esta página Visión general.
 
-**Nota:** La página [Conversaciones de usuario](logs_convo.html) muestra el número total de *expresiones*. Una expresión es un único mensaje que el usuario envía al bot. Cada conversación puede estar formada por varias expresiones. Por lo tanto, el número de resultados de la página [Conversaciones de usuario](logs_convo.html) es distinto del número de conversaciones que se muestra en esta página Visión general.
+**Nota**: Dependiendo del plan y del rango de fechas que ha seleccionado, es posible que no vea ningún dato. Por ejemplo, el [plan de servicio Estándar](logs_convo.html#log-limits) de {{site.data.keyword.conversationshort}} solo mantiene las conversaciones durante 30 días; si elige un rango de fechas anterior a los últimos 30 días, no verá ningún dato. 
 
 Mientras visualiza el gráfico, puede pulsar en un punto de datos individual para ver el valor numérico, tal como se muestra a continuación:
 
@@ -63,7 +62,7 @@ Debajo del gráfico se muestran estadísticas relacionadas con los datos visuali
 
 * *Total de conversaciones* - El número total de conversaciones que han tenido lugar durante este periodo de tiempo
 * *Número máximo de conversaciones* - El número máximo de conversaciones correspondientes a un solo punto de datos dentro del periodo de tiempo
-* *Comprensión débil* - El número de conversaciones con comprensión débil. Estas conversaciones no están clasificadas por intención y no contienen ninguna entidad conocida. Pueden ser útiles para identificar posibles problemas del diálogo.
+* *Comprensión débil* - El número de expresiones con una comprensión débil. Estas expresiones no están clasificadas por una intención y no contienen ninguna entidad conocida. Pueden ser útiles para identificar posibles problemas del diálogo.
 
 ## Principales intenciones y Principales entidades
 

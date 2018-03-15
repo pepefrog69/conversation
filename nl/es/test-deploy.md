@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -17,11 +17,11 @@ lastupdated: "2017-10-17"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Prueba de Slack
+# Realización de pruebas en Slack
 
 Puede utilizar la herramienta de despliegue de prueba para integrar su espacio de trabajo de {{site.data.keyword.conversationshort}} en un equipo Slack como usuario de bot. Utilice este método si realizar una prueba rápida mediante un bot Slack como interfaz de usuario para el espacio de trabajo.
 
-La herramienta de despliegue de prueba utiliza el servicio {{site.data.keyword.openwhisk}} para desplegar una aplicación Slack creada previamente en su equipo como usuario bot. Esta aplicación maneja la comunicación con los espacios de trabajo de Conversation.
+La herramienta de despliegue de prueba utiliza el servicio {{site.data.keyword.openwhisk}} para desplegar una aplicación Slack creada previamente en su equipo como usuario bot. Esta aplicación maneja la comunicación con los espacios de trabajo de {{site.data.keyword.conversationshort}}. 
 
 ![Diagrama de visión general de un despliegue de prueba](images/testdeploy_diagram.png)
 
@@ -40,7 +40,7 @@ Para instalar la aplicación como usuario bot:
 
    ![Opción de menú de despliegue rápido](images/deploy_menu_testdeploy.png)
 
-1. En **Desplegar con funciones de nube**, pulse **Probar en Slack** y siga las instrucciones.
+1. En **Desplegar con {{site.data.keyword.openwhisk_short}}**, pulse **Probar en Slack** y siga las instrucciones. 
 
    ![Botón Crear prueba de Slack](images/testdeploy_testinslack.png)
 
@@ -61,6 +61,6 @@ Por ejemplo, si el trabajo utiliza una variable de contexto denominada `drink_or
 ```
 {: codeblock}
 
-Para obtener más información sobre cómo modificar valores de variables de contexto, consulte [Actualización de un valor de variable de contexto](dialog-build.html#updating-a-context-variable-value).
+Para obtener más información sobre cómo modificar valores de variables de contexto, consulte [Actualización de un valor de variable de contexto](dialog-overview.html#updating-a-context-variable-value).
 
 **Nota:** Cuando termine de probar su espacio de trabajo, puede suprimir el despliegue de prueba; para ello vaya a la herramienta de despliegue de prueba y pulse **Suprimir prueba**. Recuerde que también debe desautorizar por separado la aplicación bot en su equipo Slack.

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2017-10-17"
 
 테스트 배치 도구를 사용하여 {{site.data.keyword.conversationshort}} 작업공간을 Slack 팀에 봇 사용자로 통합할 수 있습니다. Slack 봇을 작업공간의 사용자 인터페이스로 사용하여 신속하게 테스트하려는 경우 이 방법을 사용하십시오.
 
-테스트 배치 도구는 {{site.data.keyword.openwhisk}} 서비스를 사용하여 미리 빌드된 Slack 애플리케이션을 팀에 봇 사용자로 배치합니다. 이 애플리케이션은 대화 작업공간과의 통신을 처리합니다.
+테스트 배치 도구는 {{site.data.keyword.openwhisk}} 서비스를 사용하여 미리 빌드된 Slack 애플리케이션을 팀에 봇 사용자로 배치합니다. 이 애플리케이션은 {{site.data.keyword.conversationshort}} 작업공간과의 통신을 처리합니다.
 
 ![테스트 배치 개요 다이어그램](images/testdeploy_diagram.png)
 
@@ -40,7 +40,7 @@ lastupdated: "2017-10-17"
 
    ![빠른 배치 메뉴 옵션](images/deploy_menu_testdeploy.png)
 
-1. **Cloud Functions를 사용한 배치**에서 **Slack에서 테스트**를 클릭하고 지시사항을 따르십시오.
+1. **{{site.data.keyword.openwhisk_short}}와 함께 배치**아래에서, **Slack에서 테스트**를 클릭하고 다음 지시사항을 따르십시오.
 
    ![Slack 테스트 작성 단추](images/testdeploy_testinslack.png)
 
@@ -61,6 +61,6 @@ lastupdated: "2017-10-17"
 ```
 {: codeblock}
 
-컨텍스트 변수 값 수정에 대한 자세한 정보는 [컨텍스트 변수 값 업데이트](dialog-build.html#updating-a-context-variable-value)를 참조하십시오.
+컨텍스트 변수 값 수정에 대한 자세한 정보는 [컨텍스트 변수 값 업데이트](dialog-overview.html#updating-a-context-variable-value)를 참조하십시오.
 
 **참고:** 작업공간 테스트를 완료하면 테스트 배치 도구로 돌아가 **테스트 삭제**를 클릭하여 테스트 배치를 삭제할 수 있습니다. Slack 팀에서 봇 애플리케이션의 권한을 별도로 해제해야 합니다.

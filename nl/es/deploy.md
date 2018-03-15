@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -21,9 +21,10 @@ lastupdated: "2017-07-27"
 
 Después de haber configurado el espacio de trabajo y de haber creado un diálogo de trabajo, puede desplegar la aplicación conectando el espacio de trabajo a la interfaz que utilizarán sus clientes. También puede conectar su espacio de trabajo a otros servicios (incluidos otros servicios {{site.data.keyword.watson}}). Existen varias maneras de hacerlo.
 
--   [**Prueba en Slack**](test-deploy.html): Puede utilizar la herramienta de despliegue de prueba para desplegar el espacio de trabajo como un chat bot en un canal Slack en solo unos pasos. Esta opción constituye la forma más rápida y sencilla de desplegar el espacio de trabajo para probarlo, pero tiene limitaciones.
+- [**Realización de pruebas en Slack**](test-deploy.html): Utilice la herramienta de despliegue de prueba para desplegar con rapidez un chatbot en un canal de Slack, utilizando su espacio de trabajo y una app Slack creada de forma previa. Esta opción constituye la forma más rápida y sencilla de probar el espacio de trabajo, sin embargo, tiene algunas limitaciones. 
 
--  [**Creación de una aplicación cliente**](develop-app.html): Puede utilizar el SDK de {{site.data.keyword.watson}} correspondiente al lenguaje que elija para desarrollar su propia aplicación frontal. Luego la aplicación puede utilizar las API de {{site.data.keyword.conversationshort}} para comunicarse con el servicio, así como integrarse con servicios de terceros y con sus propios sistemas empresariales.
+- [**Despliegue en un canal con el conector de {{site.data.keyword.conversationshort}}**](conversation-connector.html): Utilice el conector de {{site.data.keyword.conversationshort}} para desplegar un chatbot en Slack o Facebook Messenger, utilizando su espacio de trabajo y su propia app Slack o Facebook. 
 
--  [**Creación de un bot con Botkit**](integrations.html): Puede utilizar la infraestructura Botkit para integrar su espacio de trabajo con redes sociales y canales de mensajería.
+- [**Creación de una aplicación cliente**](develop-app.html): Puede utilizar el SDK de {{site.data.keyword.watson}} correspondiente al lenguaje que elija para desarrollar su propia aplicación frontal. Luego la aplicación puede utilizar las API de {{site.data.keyword.conversationshort}} para comunicarse con el servicio, a la vez que se integra con sistemas empresariales propios y servicios de terceros. 
 
+- [**Creación de un bot con Botkit**](integrations.html): Puede utilizar la infraestructura Botkit para integrar su espacio de trabajo con redes sociales y canales de mensajería.

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -98,7 +98,7 @@ En algunos entornos locales, se utilizan frases como "last Monday" (el lunes pas
 
 Por ejemplo, para el viernes 16 de junio, en algunos entornos locales "last Monday" podría hacer referencia al 12 de junio o al 5 de junio, mientras que en otros entornos locales solo haría referencia al 5 de junio (la semana anterior). La misma lógica se aplicaría a una frase como "next Monday" (lunes que viene).
 
-El servicio Conversation trata las fechas "última" ("last") y "siguiente" ("next") como si hicieran referencia al último o al siguiente día más inmediato, que puede estar dentro de la misma semana o en la anterior.
+El servicio {{site.data.keyword.conversationshort}} trata las fechas "última" ("last") y "siguiente" ("next") como si hicieran referencia al último o al siguiente día más inmediato, que puede estar dentro de la misma semana o en la anterior.
 
 Para frases de tiempo como "for the last 3 days" (durante los últimos 3 días) o "in the next 4 hours" (durante las próximas 4 horas), la lógica es equivalente. Por ejemplo, en el caso de "in the next 4 hours", esto da lugar a dos entidades `@sys-time`: una de la hora actual y una de cuatro horas después de la hora actual.
 
@@ -151,6 +151,7 @@ Para la entrada `at 6 pm`, @sys-time devuelve estos valores:
 - @sys-time siempre devuelve la hora en este formato: HH:mm:ss.
 
 Para obtener información sobre el proceso de valores de fecha y hora, revise la información de consulta del método de [Fecha y hora](dialog-methods.html#date-time).
+{: tip}
 
 ## Entidad @sys-location
 {: #sys-location}
@@ -164,6 +165,7 @@ Para obtener información sobre el proceso de valores de fecha y hora, revise la
 - New South Wales
 
 Para obtener información sobre el proceso de valores de tipo serie (String), revise la consulta del método de [series](dialog-methods.html#strings).
+{: tip}
 
 ## Entidad @sys-number
 {: #sys-number}
@@ -213,6 +215,7 @@ Se obtienen resultados equivalentes para otros idiomas soportados.
   Utilice `@sys-number AND @sys-number<4` en su lugar. Si no hay ningún número, la primera condición se evalúa como falsa, lo que da lugar, correctamente, a que toda la condición se evalúe como falsa.
 
 Para obtener información sobre el proceso de valores numéricos, revise la consulta del método de [Números](dialog-methods.html#numbers).
+{: tip}
 
 ## Entidad @sys-percentage
 {: #sys-percentage}
@@ -270,3 +273,4 @@ Se obtienen resultados equivalentes para otros idiomas soportados.
 - Vijay
 
 Para obtener información sobre el proceso de valores de tipo serie (String), revise la consulta del método de [series](dialog-methods.html#strings).
+{: tip}

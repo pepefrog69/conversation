@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-09-15"
+  years: 2015, 2018
+lastupdated: "2018-02-16"
 
 ---
 
@@ -17,28 +17,95 @@ lastupdated: "2017-09-15"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 访问对象和对象求值
+# 用于访问对象的表达式
 
-条件中的有效表达式是用 Spring Expression (Spel) 语言编写的。有关更多信息，请参阅 [Spring Expression Language (SpEL) 语言 ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/expressions.html){: new_window}。
+可以使用 Spring 表达式 (SpEL) 语言来编写用于访问对象及其属性的表达式。有关更多信息，请参阅 [Spring 表达式语言 (SpEL) ![外部链接图标](../../icons/launch-glyph.svg "外部链接图标")](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/expressions.html){: new_window}。
 {: shortdesc}
 
-## 内置全局变量
+## 求值语法
 
-提供了以下全局变量：
+要在其他变量内部扩展变量值，或要对属性和全局对象调用方法，请使用 `<? expression ?>` 表达式语法。例如：
+
+- **扩展属性**
+    - `"output":{"text":"Your name is <? context.userName ?>"}`
+
+- **对全局对象的属性调用方法**
+    - `"context":{"email": "<? @email.literal ?>"}`
+
+## 简写语法            
+{: #shorthand-syntax}
+
+了解如何使用 SpEL 简写语法快速引用以下对象：
+
+- [上下文变量](expression-language.html#shorthand-context)
+- [实体](expression-language.html#shorthand-entities)
+- [意向](expression-language.html#shorthand-intents)
+
+### 上下文变量的简写语法
+{: #shorthand-context}
+
+下表显示了可用于在条件表达式中编写上下文变量的简写语法示例。
+
+| 简写语法                   | 使用 SpEL 的完整语法                    |
+|----------------------------|-----------------------------------------|
+| `$card_type`               | `context['card_type']`                  |
+| `$(card-type)`             | `context['card-type']`                  |
+| `$card_type:VISA`          | `context['card_type'] == 'VISA'`        |
+| `$card_type:(MASTER CARD)` | `context['card_type'] == 'MASTER CARD'` |
+
+可以在上下文变量名称中包含特殊字符，例如连字符或句点。但是，这样做会导致对 SpEL 表达式求值时出现问题。例如，连字符可能解释为减号。要避免此类问题，请使用完整的表达式语法或简写语法 `$(variable-name)` 来引用该变量，并且不要在名称中使用以下特殊字符：
+
+- 圆括号 ()
+- 多个单引号 ''
+- 引号 "
+
+### 实体的简写语法
+{: #shorthand-entities}
+
+下表显示了可以在引用实体时使用的简写语法示例。
+
+| 简写语法            | 使用 SpEL 的完整语法                     |
+|---------------------|------------------------------------------|
+| `@year`             | `entities['year']?.value`                |
+| `@year == 2016`     | `entities['year']?.value == 2016`        |
+| `@year != 2016`     | `entities['year']?.value != 2016`        |
+| `@city == 'Boston'` | `entities['city']?.value == 'Boston'`    |
+| `@city:Boston`      | `entities['city']?.contains('Boston')`   |
+| `@city:(New York)`  | `entities['city']?.contains('New York')` |
+
+在 SpEL 中，问号 `(?)` 会阻止实体对象为空时触发空指针异常。
+
+如果要检查的实体值包含 `)` 字符，那么不能使用 `:` 运算符进行比较。例如，如果要检查 city 实体是否为 `Dublin (Ohio)`，那么必须使用 `@city == 'Dublin (Ohio)'`，而不能使用 `@city:(Dublin(Ohio))`。
+
+### 意向的简写语法
+{: #shorthand-intents}
+
+下表显示了可以在引用意向时使用的简写语法示例。
+
+| 简写语法                | 使用 SpEL 的完整语法|
+|-------------------------|---------------------|
+| `#help`                 | `intent == 'help'`  |
+| `! #help`               | `intent != 'help'`  |
+| `NOT #help`             | `intent != 'help'`  |
+| `#help` 或 `#i_am_lost` | <code>(intent == 'help' \|\| intent == 'I_am_lost')</code> |
+
+## 内置全局变量
+{: #builtin-vars}
+
+可以使用表达式语言抽取以下全局变量的属性信息：
 
 | 全局变量             | 定义       |
 |----------------------|------------|
-| *anything_else*      | 整个对话的最后一个节点。如果用户输入无法与意向匹配，那么将执行此节点。|
 | *context*            | 已处理会话消息的 JSON 对象部分。|
-| *conversation_start* | 在第一轮对话会话中为 true 的布尔值（可以用在对话节点的条件中来定义对话欢迎消息）。|
 | *entities[ ]*        | 支持缺省访问第一个元素的实体的列表。|
 | *input*              | 已处理会话消息的 JSON 对象部分。|
 | *intents[ ]*         | 支持缺省访问第一个元素的意向的列表。|
 | *output*             | 已处理会话消息的 JSON 对象部分。|
 
 ## 访问实体
+{: #access-entity}
 
-实体数组包含一个或多个实体。
+实体数组包含在用户输入中识别的一个或多个实体。
 
 测试对话时，通过在对话节点响应中指定以下表达式，可以查看在用户输入中识别到的实体的详细信息：
 
@@ -60,23 +127,6 @@ lastupdated: "2017-09-15"
 ]
 ```
 {: codeblock}
-
-### 实体的简写语法
-
-下表显示了可以在引用实体时使用的简写语法示例。
-
-| 简写语法            | 使用 SpEL 的完整语法                     |
-|---------------------|------------------------------------------|
-| `@year`             | `entities['year']?.value`                |
-| `@year == 2016`     | `entities['year']?.value == 2016`        |
-| `@year != 2016`     | `entities['year']?.value != 2016`        |
-| `@city == 'Boston'` | `entities['city']?.value == 'Boston'`    |
-| `@city:Boston`      | `entities['city']?.contains('Boston')`   |
-| `@city:(New York)`  | `entities['city']?.contains('New York')` |
-
-在 SpEL 中，问号 `(?)` 会阻止实体对象为空时触发空指针异常。
-
-如果要检查的实体值包含 `)` 字符，那么不能使用 `:` 运算符进行比较。例如，如果要检查 city 实体是否为 `Dublin (Ohio)`，那么必须使用 `@city == 'Dublin (Ohio)'`，而不能使用 `@city:(Dublin(Ohio))`。
 
 ### 在输入内容中放置实体
 
@@ -125,8 +175,11 @@ lastupdated: "2017-09-15"
   显示的响应类似于：`You asked about these airports: JFK, Logan, O'Hare.`
 
 ## 访问意向
+{: #access-intent}
 
-意向数组包含在用户输入中已识别到的一个或多个意向，按置信度降序排序。每个意向只有一个属性：confidence 属性。confidence 属性为小数百分比，表示服务对识别到的意向的置信度。
+意向数组包含在用户输入中已识别到的一个或多个意向，按置信度降序排序。 
+
+每个意向只有一个属性：`confidence` 属性。confidence 属性为小数百分比，表示服务对识别到的意向的置信度。
 
 测试对话时，通过在对话节点响应中指定以下表达式，可以查看在用户输入中识别到的意向的详细信息：
 
@@ -135,7 +188,7 @@ lastupdated: "2017-09-15"
 ```
 {: codeblock}
 
-对于用户输入 *Hello now*，服务确信 #greeting 意向是用户输入的最佳匹配，因此首先列出 #greeting 意向对象的详细信息。响应还包含工作空间中定义的其他所有意向，即便服务对这些意向的置信度非常低，甚至可舍入为 0，也会包含在内。
+对于用户输入 *Hello now*，服务找到了与 #greeting 意向的完全匹配。因此，服务首先列出 #greeting 意向对象的详细信息。响应还包含在技能中定义的排名前 10 的其他意向，这些意向与置信度分数无关。（在此示例中，由于第一个意向是完全匹配，因此它在其他意向中的置信度设置为 0。）由于“试用”窗格在其请求中发送了 `alternate_intents:true` 参数，因此返回了排名前 10 的意向。如果要直接使用 API，并希望查看排名前 10 的结果，请确保在调用中指定此参数。如果 `alternate_intents` 为 false（这是缺省值），那么在数组中仅返回置信度高于 0.2 的意向。
 
 ```json
 [{"intent":"greeting","confidence":1},
@@ -151,18 +204,8 @@ lastupdated: "2017-09-15"
 
 `intent == 'help'` 不同于 `intents[0] == 'help'`，因为如果未检测到意向，`intent == 'help'` 不会抛出异常。仅当意向置信度超过阈值时，它才会求值为 true。如果需要，可以为条件指定定制置信度级别，例如 `intents.size() > 0 && intents[0] == 'help' && intents[0].confidence > 0.1`
 
-### 意向的简写语法
-
-下表显示了可以在引用意向时使用的简写语法示例。
-
-| 简写语法                | 使用 SpEL 的完整语法|
-|-------------------------|---------------------|
-| `#help`                 | `intent == 'help'`  |
-| `! #help`               | `intent != 'help'`  |
-| `NOT #help`             | `intent != 'help'`  |
-| `#help` 或 `#i_am_lost` | <code>(intent == 'help' &#124;&#124; intent == 'I_am_lost')</code> |
-
 ## 访问输入
+{: #access-input}
 
 输入 JSON 对象仅包含一个属性：text 属性。text 属性表示用户输入的文本。
 
@@ -177,71 +220,3 @@ lastupdated: "2017-09-15"
 - 要检查用户输入是否包含“Yes”，请使用：`input.text.contains( 'Yes' )`。
 - 如果用户输入的是数字，那么返回 true：`input.text.matches( '[0-9]+' )`。
 - 要检查输入字符串是否包含 10 个字符，请使用：`input.text.length() == 10`。
-
-## 上下文变量的简写语法
-
-下表显示了可用于在条件表达式中编写上下文变量的简写语法示例。
-
-| 简写语法                   | 使用 SpEL 的完整语法                    |
-|----------------------------|-----------------------------------------|
-| `$card_type`               | `context['card_type']`                  |
-| `$(card-type)`             | `context['card-type']`                  |
-| `$card_type:VISA`          | `context['card_type'] == 'VISA'`        |
-| `$card_type:(MASTER CARD)` | `context['card_type'] == 'MASTER CARD'` |
-
-可以在上下文变量名称中包含特殊字符，例如连字符或句点。但是，这样做会导致对 SpEL 表达式求值时出现问题。例如，连字符可能解释为减号。要避免此类问题，请使用完整的表达式语法或简写语法 `$(variable-name)` 来引用该变量，并且不要在名称中使用以下特殊字符：
-
-- 圆括号 ()
-- 多个单引号 ''
-- 引号 "
-
-## 求值
-
-要在其他变量内部扩展变量值，或要将方法应用于变量，请使用 `<? expression ?>` 表达式语法。例如：
-
-- **扩展属性**
-    - `"output":{"text":"Your name is <? context.userName ?>"}` 或
-    - `"output":{"text":"Your name is $userName"}`（简写语法）
-- **递增数字属性**
-    - `"output":{"number":"<? output.number + 1 ?>"}`
-- **对属性和全局对象调用方法，例如 append 方法**
-    - `"context":{"toppings": "<? context.toppings.append( 'onions' ) ?>"}`
-
-### JSON 对象或字符串格式
-
-在对话响应中使用完整 SpEL 语法时，请将表达式括在 `<?` 和 `?>` 之间，使其以字符串格式呈现。在条件中使用完整 SpEL 语法时，不要包含括起符号 `<? ?>` 语法。
-
-如果在条件中指定一个 SpEL 表达式，那么将以对象格式返回信息，以便生成的值可以保留其数据类型并在公式或其他表达式中使用。如果在条件中指定多个 SpEL 表达式，或者在字符串中包含 SpEL 表达式，那么将改为以字符串格式返回信息。 
-
-例如，可以将以下表达式添加到对话节点响应，以返回在用户输入中识别到的实体：
-
-```json
-实体为 <? entities ?>。
-```
-{: codeblock}
-
-如果用户将 *Hello now* 指定为输入，那么将以字符串格式提供实体信息。
-
-```json
-实体为 2017-08-07 15:09:49。
-```
-{: codeblock}
-
-可以将以下表达式添加到对话节点响应，以返回在用户输入中识别到的意向：
-
-```json
-意向为 <? intents ?>。
-```
-{: codeblock}
-
-如果用户将 *Hello now* 指定为输入，那么将以字符串格式提供意向信息。
-
-```json
-意向为 [
-{"intent":"greeting","confidence":0.9331061244010925},
-{"intent":"yes","confidence":0.06050306558609009},
-{"intent":"pizza-order","confidence":0.052069634199142456},
-...
-]
-```
-{: codeblock}
