@@ -53,6 +53,7 @@ Watson Assistant
         tutorial.md
         tutorial-slots.md
         tutorial-slots-complex.md
+        tutorial-digressions.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
