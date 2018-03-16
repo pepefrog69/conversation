@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-12"
+lastupdated: "2018-03-16"
 
 ---
 
@@ -40,7 +40,7 @@ To understand how to use utterance data to make improvements across applications
 * ***Conversation***: A set of related exchanges (utterances and responses) that a user has with your application.
 * ***Conversation ID***: A unique identifier used to link related exchanges.
 * ***Workspace ID***: The unique identifier of an application
-* ***Deployment ID***: Unique labels that are passed with user utterances to help identify the deployment environment that the utterances come from.
+<!-- * ***Deployment ID***: Unique labels that are passed with user utterances to help identify the deployment environment that the utterances come from. -->
 * ***Customer ID***: A unique label that can identify a specific user of your application.
 
 Creating an application is a very iterative process. While you develop your application, you use the *Try it out* pane to verify that your application recognizes the correct intents and entities in test inputs, and to make corrections as needed.
@@ -94,7 +94,7 @@ curl -X GET
 
 See the [Filter query reference](filter-reference.html) for additional details. -->
 
-## Deleting utterance data from specific users
+<!-- ## Deleting utterance data from specific users
 {: #customer_id}
 
 There might come a time when you want to completely remove a set of utterances between a specific user and your {{site.data.keyword.conversationshort}} instance. For example, under the European Union General Data Protection Regulation (GDPR), individuals are entitled to have their personal information, which may be included in utterances, removed upon request. Those utterances will then no longer be available when you [select a data source](logs_convo.html#select-source) to improve understanding.
@@ -132,4 +132,4 @@ curl -X DELETE
 {: #codeblock}
 
 
-Each example returns an empty JSON object `{}`.
+Each example returns an empty JSON object `{}`. -->
