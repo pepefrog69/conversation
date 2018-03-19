@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -154,23 +154,6 @@ Wenn Sie Änderungen an Ihrem Dialogmodul vornehmen, können Sie es jederzeit te
 Wenn Sie feststellen, dass falsche Absichten oder Entitäten erkannt werden, müssen Sie möglicherweise die Absichts- oder Entitätsdefinitionen ändern.
 
 Falls die richtigen Absichten und Entitäten erkannt wurden, jedoch im Dialogmodul falsche Knoten ausgelöst wurden, vergewissern Sie sich, dass Ihre Bedingungen korrekt formuliert sind.
-
-## Dialogmodul durchsuchen
-{: #search}
-
-Verwenden Sie die Suchfunktion, um Bedingungen und Titel in Ihrem Dialogmodul zu finden.
-
-1.  Wählen Sie das Symbol 'Suche' ![Symbol 'Suche'](images/search_icon.png) aus.
-
-1.  Geben Sie einen Suchbegriff oder -ausdruck ein.
-
-    **Hinweis**: Beim ersten Suchvorgang wird ein Index erstellt. Gegebenenfalls weist eine Nachricht darauf hin, dass Sie warten müssen, bis die Indexierung des Inhalts abgeschlossen ist.
-
-### Ergebnisse
-
-Knoten, die Ihren Suchbegriff enthalten, und entsprechende Beispiele werden angezeigt. Wählen Sie ein Ergebnis aus, damit es zum Bearbeiten geöffnet wird.
-
-  ![Rückgabe der Suche nach Absichten](images/search_dialog.png)
 
 ## Dialogmodulknoten kopieren
 {: #copy-node}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -154,23 +154,6 @@ Si vous apportez des modifications à votre dialogue, vous pouvez le tester à t
 Si vous constatez que les intentions ou les entités reconnues sont incorrectes, vous devrez peut-être modifier vos définitions d'intention ou d'entité.
 
 Si les intentions et les entités reconnues sont correctes, mais les noeuds déclenchés dans votre dialogue sont incorrects, vérifiez que vos conditions sont correctement écrites. 
-
-## Recherche dans votre dialogue
-{: #search}
-
-Utilisez la fonction de recherche pour trouver des conditions et des vignettes dans votre dialogue. 
-
-1.  Sélectionnez l'icône de recherche : ![Icône de recherche](images/search_icon.png)
-
-1.  Entrez un terme ou une phrase de recherche. 
-
-    **Remarque** : lors de votre première recherche, un index est créé ; il se peut qu'un message s'affiche pour vous inviter à patienter pendant l'indexation de votre contenu. 
-
-### Résultats
-
-Les noeuds contenant votre terme de recherche, avec des exemples correspondants, s'affichent. Sélectionnez n'importe quel résultat pour l'ouvrir et l'éditer. 
-
-  ![Résultats renvoyés par la fonction de recherche d'intention](images/search_dialog.png)
 
 ## Copie d'un noeud de dialogue
 {: #copy-node}
