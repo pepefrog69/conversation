@@ -2,7 +2,7 @@
 {:topicgroup: .topicgroup}
 
 {: .toc subcollection="watson-assistant" audience="service" href="/docs/services/conversation/getting-started.html"}
-Watsin Assistant
+Watson Assistant
 
     {: .navgroup id="learn"}
     getting-started.md
