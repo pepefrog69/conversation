@@ -1,8 +1,8 @@
 {:navgroup: .navgroup}
 {:topicgroup: .topicgroup}
 
-{: .toc subcollection="watson-assistant" audience="service" href="/docs/services/conversation/getting-started.html"}
-Watson Assistant
+{: .toc subcollection="conversation" audience="service" href="/docs/services/conversation/getting-started.html"}
+Conversation
 
     {: .navgroup id="learn"}
     getting-started.md
@@ -20,7 +20,6 @@ Watson Assistant
         intents-entities.md
         intents.md
         entities.md
-        catalog.md
 
     {: .topicgroup}
     대화 상자 빌드

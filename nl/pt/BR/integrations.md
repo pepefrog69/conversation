@@ -17,10 +17,10 @@ lastupdated: "2017-07-11"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Construindo um robô com BotKit
+# BotKit으로 봇 빌드
 
-Se você deseja que os clientes possam se comunicar com seu espaço de trabalho através de mídias sociais e canais de mensagens, é possível usar o plug-in de middleware [Botkit ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](http://howdy.ai/botkit){: new_window}.
+고객이 소셜 미디어와 메시징 채널을 통해 작업공간과 통신할 수 있게 하려면 [Botkit(![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘"))](http://howdy.ai/botkit){: new_window} 미들웨어 플러그인을 사용할 수 있습니다.
 
-Esse plug-in permite que os desenvolvedores integrem facilmente uma área de trabalho do {{site.data.keyword.conversationshort}} a múltiplos canais sociais, incluindo Slack, Facebook e Twilio. Após o estabelecimento dessas integrações, os clientes poderão ter conversas simultâneas e independentes com a área de trabalho do {{site.data.keyword.conversationshort}} por meio de diferentes canais.
+이 플러그인을 사용하면 개발자가 {{site.data.keyword.conversationshort}} 작업공간을 Slack, Facebook 및 Twilio를 포함한 여러 소셜 채널과 쉽게 통합할 수 있습니다. 이러한 통합이 설정되면 고객은 서로 다른 채널을 통해 {{site.data.keyword.conversationshort}} 작업공간과 동시에 독립적인 대화를 할 수 있습니다.
 
-Para usar o plug-in de middleware Botkit, clone ou faça download do [repositório GitHub![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://github.com/watson-developer-cloud/botkit-middleware){: new_window}.
+Botkit 미들웨어 플러그인을 사용하려면 [GitHub 저장소(![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘"))](https://github.com/watson-developer-cloud/botkit-middleware){: new_window}를 복제하거나 다운로드하십시오.

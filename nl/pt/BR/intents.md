@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-25"
+  years: 2015, 2018
+lastupdated: "2018-01-30"
 
 ---
 
@@ -17,89 +17,146 @@ lastupdated: "2017-10-25"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Definindo intenções
+# 인텐트 정의
 
-***Intenções*** são propósitos ou objetivos expressos em uma entrada do cliente, como responder a uma pergunta ou processar um pagamento de conta. Ao reconhecer a intenção expressa na entrada de um cliente, o serviço {{site.data.keyword.conversationshort}} pode escolher o fluxo de diálogo correto para responder a isso.
+***인텐트***는 고객 입력에 표현된 목적입니다(예: 질문에 응답 또는 요금 지불 처리). {{site.data.keyword.conversationshort}} 서비스는 고객 입력에 표현된 인텐트를 인식하여 응답을 위한 올바른 대화 상자 플로우를 선택할 수 있습니다.
 {: shortdesc}
 
-<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/VG0YykNcfv8?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
+<iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/6HAZpBHqX8M" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
-## Limites de intenção
+## 인텐트 한계
 {: #intent-limits}
 
-O número de intenções e exemplos que você pode criar depende de seu plano de serviço {{site.data.keyword.conversationshort}}:
+작성할 수 있는 인텐트 및 예제의 수는 {{site.data.keyword.conversationshort}} 서비스 플랜에 따라 다릅니다.
 
-| Plano de Serviço | Intenções por área de trabalho | Exemplos por área de trabalho |
+| 서비스 플랜      | 작업공간당 인텐트     | 작업공간당 예제        |
 |------------------|----------------------:|-----------------------:|
-| Standard/Premium |                 2.000 |                 25.000 |
-| Lite             |                    25 |                 25.000 |
+| 표준/프리미엄    |                 2,000 |                 25,000 |
+| 라이트           |                   100 |                 25,000 |
 
-## Criando intenções
+## 인텐트 작성
 {: #creating-intents}
 
-Use a ferramenta {{site.data.keyword.conversationshort}} para criar intenções.
+{{site.data.keyword.conversationshort}} 도구를 사용하여 인텐트를 작성하십시오.
 
-1.  Na ferramenta do {{site.data.keyword.conversationshort}}, abra a sua área de trabalho e, em seguida, selecione a guia **Intenções** na barra de navegação. Se **Intenções** não estiver visível, use o menu ![Menu](images/Menu_16.png) para abrir a página.
-1.  Selecione **Criar novo**.
-1.  No campo **Nome da intenção**, digite um nome descritivo para a intenção.
-    - O nome de intenção pode conter letras (em Unicode), números, sublinhados, hifens e pontos.
-    - O nome não pode ser composto de `..` ou qualquer outra cadeia de somente pontos.
-    - Os nomes das intenções não podem conter espaços e não devem exceder 128 caracteres. A seguir estão exemplos de nomes de intenção:
+1.  {{site.data.keyword.conversationshort}} 도구에서 작업공간을 연 다음 탐색줄에서 **인텐트** 탭을 선택하십시오. **인텐트**가 표시되지 않으면 ![메뉴](images/Menu_16.png) 메뉴를 사용하여 페이지를 여십시오.
+
+1.  **새로 작성**을 선택하십시오.
+
+1.  **인텐트 이름** 필드에 인텐트 이름을 입력하십시오. 
+    - 인텐트 이름에는 문자(유니코드), 숫자, 밑줄, 하이픈 및 마침표가 포함될 수 있습니다.
+    - 이름은 `..` 또는 마침표만으로 이루어진 다른 문자열로 구성될 수 없습니다.
+    - 인텐트 이름에는 공백이 포함될 수 없으며 128자를 초과하면 안됩니다. 다음은 인텐트 이름의 예제입니다.
         - `#weather_conditions`
         - `#pay_bill`
         - `#escalate_to_agent`
 
-    O conjunto de ferramentas inclui automaticamente o caractere `#` nos nomes de intenção, então você não precisa incluir um.
+    도구는 자동으로 인텐트 이름에 `#` 문자를 포함하므로 추가할 필요가 없습니다.
     {: tip}
 
-    É possível selecionar **Criar** para salvar seu nome de intenção sem incluir exemplos. Também é possível selecionar o campo exemplo do usuário ou usar a tecla tab para avançar e incluir exemplos.
+    **설명** 필드의 인텐트 설명을 추가하십시오.
 
-1.  No campo **Exemplo do usuário**, digite o texto de um exemplo do usuário para a intenção. Um exemplo pode ser qualquer sequência de até 1024 caracteres de comprimento. Os seguintes podem ser exemplos para a intenção `#pay_bill`:
+1.  인텐트 이름을 저장하려면 **인텐트 작성**을 선택하십시오.
+
+    ![새 인텐트 정의를 표시하는 화면 캡처](images/create_intent.png)
+
+1.  다음으로, **사용자 예제 추가** 필드에서, 인텐트에 대한 사용자 예제의 텍스트를 입력하십시오. 예제는 길이가 최대 1024자인 문자열일 수 있습니다. 다음은 `#pay_bill` 인텐트의 예제입니다.
     - `I need to pay my bill.`
     - `Pay my account balance`
     - `make a payment`
 
-    Se você tiver definido ou planeja definir entidades que correspondem a esta intenção, consulte as entidades ou seus sinônimos associados em alguns dos exemplos. Fazer isso ajuda a estabelecer um relacionamento entre a intenção e as entidades.
+    **인텐트 예제로서 엔티티 및 동의어 참조**
 
-    > **Importante:** os nomes das intenções e o texto de exemplo podem ser expostos em URLs quando um aplicativo interage com o serviço. Não inclua informações sensíveis ou pessoais nestes artefatos.
+    이 인텐트에 해당하는 엔티티를 정의했거나 정의하려는 경우, 일부 예제에서 엔티티 또는 연관된 동의어를 참조하십시오. 이렇게 하면 인텐트와 엔티티 간 관계를 설정할 수 있습니다.
 
-    Pressione Enter ou selecione **+** para salvar o exemplo.
-1.  Repita o mesmo processo para incluir mais exemplos. É possível usar a tecla tab entre cada exemplo. Forneça pelo menos 5 exemplos para cada intenção. Quanto mais exemplos você fornecer, mais preciso seu aplicativo pode ser.
+    ![인텐트 정의를 표시하는 화면 캡처](images/define_intent.png)
+    {: #entity-as-example}
 
-    ![Captura de tela mostrando a definição de intenção](images/define_intent.png)
-1.  Quando você tiver concluído a inclusão de exemplos, selecione **Pronto** para concluir a criação da intenção.
+    *중요*:
 
-### Resultados
+      - 인텐트 예제 데이터는 일반 사용자가 제공할 데이터의 대표적이고 일반적이어야 합니다. 예제는 실제 사용자 데이터 또는 특정 분야의 전문가로부터 수집할 수 있습니다. 데이터의 대표적이고 정확한 네이처가 중요합니다.
+      - 훈련 및 테스트 데이터(평가 목적으로) 모두 실제 사용에서 인텐트 배포를 반영해야 합니다. 일반적으로, 자주 발생하는 인텐트는 상대적으로 더 많은 예제와 보다 나은 응답 범위를 가지고 있습니다.
+      - 자연스럽게 나타나는 한 예제 텍스트에 구두점을 포함할 수 있습니다. 일부 사용자가 구두점을 포함하는 예제의 인텐트를 표현하고 일부 사용자는 구두점을 표현하지 않을 것이므로 두 버전을 모두 포함합니다. 일반적으로, 다양한 패턴에 대한 적용 범위가 클수록 더 나은 응답이 됩니다. 
 
-A intenção que você criou é incluída na guia Intenções e o sistema começa a treinar a si mesmo com os novos dados.
+    **@Entity를 인텐트 예제로 직접 참조**
 
-## Editando intenções
+    인텐트 예제에서 엔티티를 직접 참조하도록 선택할 수도 있습니다. 에를 들어, *Galaxy S8*, *Moto Z2*, *LG G6* 및 *Google Pixel 2* 값을 포함하는 `@PhoneModelName`이라는 엔티티가 있습니다. 인텐트를 작성할 때(예: `#order_phone`) 다음과 같이 훈련 데이터를 제공할 수 있습니다. 
+    - Can I get a `@PhoneModelName`?
+    - Help me order a `@PhoneModelName`.
+    - Is the `@PhoneModelName` in stock?
+    - Add a `@PhoneModelName` to my order.
 
-É possível selecionar qualquer intenção na lista para abri-la para edição. É possível fazer as seguintes mudanças:
+    ![인텐트 정의를 표시하는 화면 캡처](images/define_intent_entity.png)
 
-- Renomear a intenção.
-- Excluir a intenção.
-- Incluir, editar ou excluir exemplos.
-- Mover um exemplo para uma intenção diferente.
+    **참고**: 현재 정의한 닫힌 엔티티만 직접 참조할 수 있습니다(패턴 값은 무시됨). [시스템 엔티티](system-entities.html)를 사용할 수 없습니다.
 
-É possível usar a tecla tab do nome da intenção para cada exemplo, editando os exemplos, se você escolher.
+    엔티티를 훈련 데이터의 *어느 곳에서*도 참조하기로 선택한 경우 인텐트 예제(예: `@PhoneModelName`)의 다른 어느 곳에서도 직접 참조(예: *Galaxy S8*)를 사용하는 값을 취소합니다. 모든 인텐트는 인텐트-예제-엔티티 접근법을 사용합니다. 특정 인텐트에 대해서만 이 방법을 선택할 수는 없습니다. 
 
-Para mover um exemplo, selecione o exemplo selecionando a caixa de seleção e, em seguida, selecione **Mover para**.
+    실제로, 이것은 직접 참조(*Galaxy S8*)를 기반으로 하는 대부분의 인텐트를 미리 훈련했고 하나의 인텐트에 대한 엔티티 참조(`@PhoneModelName`)를 사용하면 이전의 모든 훈련에 영향을 미친다는 것을 의미합니다. `@Entity` 참조를 사용하도록 선택하면 이전의 모든 직접 참조를 `@Entity` 참조로 바꿔야 합니다. 
 
-  ![Captura de tela mostrando como mover um exemplo](images/move_example.png)
+    **참고**: 10 개의 값이 정의된 `@Entity`를 사용하여 하나의 예제 인텐트를 정의하는 것은 해당 예제를 10 회 지정하는 것과 동일**하지 않습니다**. {{site.data.keyword.conversationshort}} 서비스는 그 하나의 예제 인텐트 구문에 크게 비중을 두지 않습니다. 
 
-## Importando intenções e exemplos
+    **중요**:인텐트 이름 및 예제 텍스트는 애플리케이션이 서비스와 상호작용할 때 URL에서 노출될 수 있습니다. 이러한 아티팩트에 민감한 정보 또는 개인 정보를 포함하지 마십시오.
 
-Se você tiver um grande número de intenções e exemplos, você pode achar mais fácil importá-los de um arquivo CSV (Valor Separado por Vírgula) do que defini-los um por um na ferramenta {{site.data.keyword.conversationshort}}.
+    예제를 저장하려면 **예제 추가**를 누르십시오. 
 
-1.  Colete as intenções e exemplos em um arquivo CSV ou exporte-os de uma planilha para um arquivo CSV. O formato obrigatório para cada linha no arquivo é o seguinte:
+1.  동일한 프로세스를 반복하여 예제를 추가하십시오. 각 예제 간에 탭으로 이동할 수 있습니다. 인텐트마다 다섯 개 이상의 예제를 제공하십시오. 제공하는 예제가 많을수록 애플리케이션이 더 정확해질 수 있습니다.
+
+1.  예제 추가를 완료하면, ![닫기 화살표](images/close_arrow.png)를 선택하여 인텐트 작성을 완료하십시오.
+
+### 결과
+
+작성한 인텐트가 인텐트 탭에 추가되며 시스템이 새 데이터에 대해 자체 훈련을 시작합니다.
+
+## 인텐트 편집
+
+목록에서 인텐트를 선택하여 편집을 위해 열 수 있습니다. 다음과 같이 변경할 수 있습니다.
+
+- 인텐트의 이름을 바꿉니다.
+- 인텐트를 삭제합니다.
+- 예제를 추가하거나 편집하거나 삭제합니다.
+- 다른 인텐트로 예제를 이동합니다.
+
+인텐트 이름에서 각 예제로 탭을 사용하여 이동할 수 있으며, 예제(선택하는 경우)를 편집할 수 있습니다.
+
+예제를 이동하거나 삭제하려면, 선택란을 선택하여 예제를 선택한 다음 **이동** 또는 **삭제**를 선택하십시오.
+
+  ![예제 이동 또는 삭제 방법을 표시하는 화면 캡처](images/move_example.png)
+
+## 인텐트 검색
+
+사용자 예제, 인텐트 이름 및 설명을 찾으려면 검색 기능을 사용하십시오.
+
+1.  탐색줄에서 **인텐트** 탭을 선택하십시오.
+
+    ![인텐트 탭 개요](images/intent_oview.png)
+
+1.  검색 아이콘 선택: ![검색 아이콘](images/search_icon.png)
+
+1.  검색어 또는 구를 입력하십시오.
+
+    ![인텐트 검색어](images/searchint_1.png)
+
+    **참고**: 처음 검색할 때 인덱스가 생성됩니다. 컨텐츠가 인덱스화하는 동안 기다리라는 메시지가 표시될 수 있습니다.
+
+### 결과
+
+검색어를 포함한 인텐트가 해당 예제와 함께 표시됩니다. 편집하기 위해 열려면 결과를 선택하십시오.
+
+  ![인텐트 검색 리턴](images/searchint_2.png)
+
+## 인텐트 및 예제 가져오기
+
+많은 수의 인텐트 및 예제가 있는 경우 이러한 인텐트와 예제를 {{site.data.keyword.conversationshort}} 도구에서 하나씩 정의하는 것보다 쉼표로 구분된 값(CSV) 파일에서 가져오는 것이 더 쉽습니다.
+
+1.  CSV 파일에 인텐트와 예제를 수집하거나 스프레드시트에서 CSV 파일로 내보내십시오. 파일의 각 행에 대한 필수 형식은 다음과 같습니다.
 
     ```
     <example>,<intent>
     ```
     {: screen}
 
-    em que `<example>` é o texto de um exemplo do usuário e `<intent>` é o nome da intenção que você deseja que corresponda ao exemplo. Por exemplo:
+    여기서 `<example>`은 사용자 예제의 텍스트이며, `<intent>`는 예제에서 일치시킬 인텐트의 이름입니다. 예:
 
     ```
     Tell me the current weather conditions.,weather_conditions
@@ -110,94 +167,92 @@ Se você tiver um grande número de intenções e exemplos, você pode achar mai
     ```
     {: screen}
 
-    > **Importante:** Salve o arquivo CSV com codificação UTF-8 e nenhuma marca de ordem de byte (BOM).
+    > **중요:** UTF-8로 인코딩되고 BOM(Byte Order Mark)은 없는 CSV 파일을 저장하십시오.
 
-1.  Na ferramenta do {{site.data.keyword.conversationshort}}, abra a sua área de trabalho e, em seguida, selecione a guia **Intenções** na barra de navegação. Se **Intenções** não estiver visível, use o menu ![Menu](images/Menu_16.png) para abrir a página.
+1.  {{site.data.keyword.conversationshort}} 도구에서 작업공간을 연 다음 탐색줄에서 **인텐트** 탭을 선택하십시오. **인텐트**가 표시되지 않으면 ![메뉴](images/Menu_16.png) 메뉴를 사용하여 페이지를 여십시오.
 
-1.  Selecione ![Importar](images/importGA.png) e, em seguida, arraste um arquivo ou navegue para selecionar um arquivo de seu computador. O arquivo é validado e importado e o sistema começa a treinar com os novos dados.
+1.  *가져오기* 아이콘![가져오기 아이콘](images/importGA.png)을 선택하십시오. 그런 다음, 파일을 끌거나 컴퓨터에서 파일을 찾아서 선택하십시오. 파일을 유효성 검증하여 가져오며, 시스템은 새 데이터에 대한 자체 훈련을 시작합니다.
 
-    > **Importante:** O tamanho máximo do arquivo CSV é 10MB. Se o seu arquivo CSV for maior, considere dividi-lo em múltiplos arquivos e importá-los separadamente.
+    ![가져오기 옵션](images/ImportIntent.png)
 
-### Resultados
+    > **중요:** 최대 CSV 파일 크기는 10MB입니다. 더 큰 CSV 파일의 경우 여러 개의 파일로 분할하고 개별적으로 가져오는 것을 고려하십시오.
 
-É possível visualizar as intenções importadas e os exemplos correspondentes na guia Intenções. Você pode precisar atualizar a página para ver as novas intenções e exemplos.
+### 결과
 
-## Exportando intenções
+가져온 인텐트 및 해당 예제를 **인텐트** 탭에서 볼 수 있습니다. 새 인텐트와 예제를 보려면 페이지를 새로 고쳐야 합니다.
+
+## 내보낸 인텐트
 {: #export_intents}
 
-É possível exportar um número de intenções para um arquivo CSV, você pode então importá-las e reutilizá-las para outro aplicativo de Conversação.
+여러 개의 인텐트를 CSV 파일로 내보낼 수 있으므로 다른 {{site.data.keyword.conversationshort}} 애플리케이션으로 가져와서 다시 사용할 수 있습니다.
 
-1.  Na guia Intenções, selecione ![Ícone exportar](images/ExportIcon.png)
+1.  인텐트 탭에서 목록에서 원하는 인텐트를 선택하고 *내보내기*를 선택하십시오.
 
-    ![Opções de Exportação e Exclusão](images/ExportIntent1.png)
+    ![내보내기 옵션](images/ExportIntent.png)
 
-1.  Selecione as intenções desejadas e clique no botão **Exportar**.
-![Botões de seleção de entidade para Exportação e Exclusão](images/ExportIntent2.png)
-
-## Excluindo intenções
+## 인텐트 삭제
 {: #delete_intents}
 
-É possível selecionar várias intenções para exclusão.
+삭제할 인텐트 수를 선택할 수 있습니다.
 
-**IMPORTANTE**: ao excluir intenções, você também exclui todos os exemplos associados e esses itens não podem ser recuperados posteriormente. Todos os nós de diálogo que fazem referência a essas intenções devem ser atualizados manualmente para que não façam referencia ao conteúdo excluído.
+**중요**: 인텐트를 삭제하여 연관된 모든 예제를 삭제하며 이러한 항목은 나중에 검색할 수 없습니다. 삭제된 컨텐츠를 더 이상 참조하지 않도록 이러한 인텐트를 참조하는 모든 대화 상자 노드를 수동으로 업데이트해야 합니다.
 
-1.  Na guia Intenções, selecione ![Ícone excluir](images/DeleteIcon.png)
+1.  인텐트 탭에서 목록에서 원하는 인텐트를 선택하고 *삭제*를 선택하십시오.
 
-    ![Opções de Exportação e Exclusão](images/ExportIntent3.png)
+    ![삭제 옵션](images/DeleteIntent.png)
 
-1.  Selecione as intenções que você deseja excluir e clique no botão **Excluir**. **Nota**: O recurso de exclusão suporta a exclusão em massa de intenções.
-
-## Testando suas intenções
+## 인텐트 테스트
 {: #testing-your-intents}
 
-Depois de ter concluído a criação de novas intenções, é possível testar o sistema para ver se ele reconhece suas intenções como você espera.
+새 인텐트 작성을 완료한 후 시스템을 테스트하여 인텐트를 예상대로 인식하는지 여부를 볼 수 있습니다.
 
-1.  Na ferramenta {{site.data.keyword.conversationshort}}, selecione o ícone ![Pergunte ao Watson](images/ask_watson.png).
+1.  {{site.data.keyword.conversationshort}} 도구에서 ![Watson에게 질문](images/ask_watson.png) 아이콘을 선택하십시오.
 
-1.  No painel Experimente, insira uma pergunta ou outra cadeia de texto e pressione Enter para ver qual intenção é reconhecida. Se a intenção incorreta é reconhecida, você pode melhorar seu modelo incluindo esse texto como um exemplo para a intenção correta.
+1.  *연습* 분할창에서, 질문 또는 기타 텍스트 문자열을 입력한 후 Enter를 눌러 인식되는 인텐트를 확인하십시오. 잘못된 인텐트가 인식되면, 올바른 인텐트에 이 텍스트를 예제로 추가하여 모델을 개선할 수 있습니다.
 
-    Se tiver feito mudanças recentemente em sua área de trabalho, você poderá ver uma mensagem indicando que o sistema ainda está treinando. Se você vir essa mensagem, aguarde até que o treinamento seja concluído antes de testar:
+    최근에 작업공간을 변경한 경우 시스템이 아직 재훈련하고 있다는 메시지가 표시됩니다. 이 메시지가 표시되면 테스트 전에 훈련이 완료될 때까지 기다리십시오.
     {: tip}
 
-    ![Captura de tela mostrando mensagem de treinamento em andamento](images/training.png)
+    ![재훈련 메시지를 표시하는 화면 캡처](images/training.png)
 
-    A resposta indica qual intenção foi reconhecida de sua entrada.
+    응답은 입력에서 인식된 인텐트를 표시합니다.
 
-    ![Captura de tela de intenções de teste](images/test_intents.png)
+    ![인텐트 테스트 화면 캡처](images/test_intents.png)
 
-1.  Se o sistema não reconhecer a intenção correta, será possível corrigi-lo. Para corrigir a intenção reconhecida, selecione a intenção exibida e, em seguida, selecione a intenção correta na lista. Após o envio de sua correção, o sistema inicia automaticamente um novo treinamento para incorporar os novos dados.
+1.  시스템이 올바른 인텐트를 인식하지 않은 경우 이를 정정할 수 있습니다. 인식된 인텐트를 정정하려면 표시된 인텐트를 선택한 다음 목록에서 올바른 인텐트를 선택하십시오. 정정사항이 제출되면 시스템은 자동으로 자체 재훈련하여 새 데이터를 통합합니다.
 
-    ![Captura de tela da correção de uma intenção reconhecida](images/correct_intent.png)
+    ![인식된 인텐트를 정정하는 화면 캡처](images/correct_intent.png)
 
-1.  Se a entrada não estiver relacionada ao seu aplicativo, será possível indicar isso. Selecione a intenção exibida e escolha **Marcar como irrelevante**.
+1.  입력이 애플리케이션과 관련 없는 경우 해당 내용을 표시할 수 있습니다. 표시된 인텐트를 선택하고 **관련 없음으로 표시**를 선택하십시오.
 
-    ![Captura de tela marcar como irrelevante](images/irrelevant.png)
+    ![관련 없음으로 표시 화면 캡처](images/irrelevant.png)
 
-Se suas intenções não estão sendo corretamente reconhecidas, considere fazer os seguintes tipos de mudanças:
+인텐트가 올바르게 인식되지 않는 경우 다음과 같은 변경을 고려하십시오.
 
-- Inclua o texto não reconhecido como um exemplo para a intenção correta.
-- Mova exemplos existentes de uma intenção para outra.
-- Considere se suas intenções são muito semelhantes e redefina-as conforme apropriado.
+- 올바른 인텐트에 인식되지 않는 텍스트를 예제로 추가하십시오.
+- 기존 예제를 하나의 인텐트에서 다른 인텐트로 이동하십시오.
+- 인텐트가 너무 비슷한지를 생각하고 이 인텐트를 적절하게 다시 정의하십시오.
 
-## Pontuação absoluta e Marcar como irrelevante
+## 절대 스코어링 및 관련 없음으로 표시
 
-Desde fevereiro de 2017, há um novo algoritmo para pontuar a confiança da intenção e retornar intenções. É possível também marcar entradas como "irrelevantes". Essas mudanças podem requerer que você [atualizar para sua área de trabalho ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](upgrading.html){: new_window}.
+2017년 2월 현재 인텐트 신뢰도 스코어링 및 인텐트 리턴을 위한 새 알고리즘이 있습니다. 또한, 입력을 *관련 없음*으로 표시할 수 있습니다. 이와 같이 변경하려면 [작업공간으로 업그레이드(![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘"))](upgrading.html){: new_window}해야 합니다.
 
-### Pontuação absoluta
+### 절대 스코어링
 
-Agora pontuamos cada confiança da intenção nela mesma, não em relação a outras intenções. Isso permite a flexibilidade de ter diversas intenções retornadas. Também significa que o sistema não pode retornar uma intenção de modo algum. Se o sistema tiver baixa confiança (menos de 0,2) que qualquer intenção relacione à entrada do usuário, o sistema não retornará uma intenção.
+{{site.data.keyword.conversationshort}} 서비스는 이제 다른 인텐트와 관련되지 않은 각 인텐트의 자체 신뢰도를 점수화합니다. 이렇게 되면 여러 인텐트를 리턴할 수도 있습니다. 또한 시스템이 인텐트를 리턴하지 않을 수도 있음을 의미합니다. 최상위 인텐트가 사용자의 입력(0.2 미만)과 관련된 신뢰도가 낮으면 API에 의한 인텐트 배열 출력에 계속 포함되지만 해당 #intent의 조건은 false를 리턴합니다. 신뢰도 있는 인텐트가 발견되지 않는 경우를 원하면 `irrelevant`를 조건으로 지정할 수 있습니다. 
 
-Conforme as pontuações de confiança da intenção mudam, seus diálogos podem precisar de reestruturação. Por exemplo, se você condicionou seu diálogo com uma intenção que agora tem baixa confiança, a resposta do sistema não será mais correta.
+인텐트 신뢰도 스코어가 변경되면서 대화 상자를 재구성해야 할 수 있습니다. 예를 들어, 낮은 신뢰도의 인텐트로 대화 상자의 조건을 지정한 경우 시스템의 응답은 더 이상 정확하지 않습니다.
 
-### Marcar como irrelevante
+### 관련 없음으로 표시
 {: #mark-irrelevant}
 
-É possível consultar [idiomas suportados](lang-support.html) para verificar a disponibilidade deste recurso.
+이 기능ㅇ의 가용성에 대해선 [지원되는 언어](lang-support.html)를 참조하십시오. 
 
-Depois de atualizar sua área de trabalho, é possível [testar entrada](#testing-your-intents) no painel Experimente para ver as mudanças. É possível usar "Marcar como irrelevante" para indicar que a entrada não está relacionada ao seu aplicativo.
+작업공간을 업그레이드한 후 *연습* 분할창에서 [테스트 입력](#testing-your-intents)을 하여 변경사항을 볼 수 있습니다. 애플리케이션과 관련 없는 입력을 표시하려면 **관련 없음으로 표시**를 사용할 수 있습니다. 
 
-Se você tiver uma intenção, como #off_topic, para aquelas entradas que estão fora do escopo ou tópico, exclua a intenção e teste sua área de trabalho marcando que as entradas são irrelevantes.
+범위 밖에 있거나 주제에서 벗어난 입력에 대한 인텐트(예: #off_topic)가 있는 경우, 인텐트를 삭제하고 입력을 관련 없음으로 표시하여 작업공간을 테스트하십시오.
 
-> **Importante**: Entradas que são marcadas como irrelevantes são armazenadas na área de trabalho e são incluídas como parte dos dados de treinamento. Certifique-se de que você deseja fazer essa mudança.
-> - As entradas não podem ser acessadas ou mudadas posteriormente no conjunto de ferramentas.
-> - A única maneira de remover a identificação "Irrelevante" é usar a mesma entrada no painel Experimente e, em seguida, mudar a intenção.
+**중요**: 관련 없음으로 표시된 입력이 작업공간에 저장되고 훈련 데이터의 일부로 포함되어 있습니다. 이를 변경할 것인지 확인하십시오.
+
+- 나중에 도구에서 입력을 액세스하거나 변경할 수 없습니다.
+- **관련 없음** 태그를 제거하는 유일한 방법은 *연습* 분할창에서 동일한 입력을 사용한 다음 인텐트를 변경하는 것입니다.

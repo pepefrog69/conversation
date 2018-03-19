@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-02-07"
 
 ---
 
@@ -17,71 +17,73 @@ lastupdated: "2017-10-27"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Idiomas suportados
-O serviço {{site.data.keyword.conversationshort}} suporta os idiomas listados. Recursos individuais do serviço são suportados em uma extensão maior ou menor para cada idioma.
+# 지원되는 언어
+{{site.data.keyword.conversationshort}} 서비스는 나열된 언어를 지원합니다. 서비스의 개별 기능은 다소 차이가 있지만 각 언어에 지원됩니다.
 {: shortdesc}
 
-Na tabela a seguir, o nível de suporte a recurso e idioma é indicado por estes códigos:
+다음 표에서 언어 및 기능 지원 레벨은 다음 코드로 표시됩니다.
 
-- **GA** - O recurso é geralmente disponibilizado e suportado para este idioma. Observe que os recursos podem continuar sendo atualizados mesmo após a disponibilização.
-- **Beta** - O recurso é suportado apenas como uma liberação Beta e ainda está passando por testes antes que seja disponibilizado nesse idioma.
-- **Em Branco** - Ausência de qualquer código indica que um recurso não está disponível nesse idioma.
+- **GA** - 기능이 일반적으로 사용 가능하며 이 언어에 지원됩니다. 일반적으로 사용 가능하더라도 계속 업데이트될 수 있습니다.
+- **베타** - 기능이 베타 릴리스로만 지원되며 이 언어로 일반적으로 사용 가능하게 되기 전까지 테스트가 진행됩니다.
+- **공백** - 코드가 없으면 이 언어에서 기능을 사용할 수 없습니다.
 
-|                  | **[Definindo intenções](intents.html)**, **[entidades](entities.html)** e **[diálogo](dialog-build.html)** | **[Pontuação absoluta e 'Marcar como irrelevante'](intents.html#mark-irrelevant)** | **Entidades do sistema([número](system-entities.html#sys-number), [moeda](system-entities.html#sys-currency), [porcentagem](system-entities.html#sys-percentage), [data, hora](system-entities.html#sys-datetime))** | **[Correspondência difusa da entidade](entities.html#fuzzy-matching)** | **[Entidades baseadas em padrão](entities.html#pattern-entities)** |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **Inglês (en)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral </br> Beta ([local](system-entities.html#sys-location), [pessoa](system-entities.html#sys-person)) | Beta (Stemming, erro de ortografia e correspondência parcial) | Beta |
-| **Árabe (ar)**                    | disponibilidade geral | Beta | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Chinês (Simplificado) (zh-cn)**   | Beta | Beta | Beta |  | Beta |
-| **Chinês (Tradicional) (zh-tw)**  | Beta | Beta |  |  | Beta |
-| **Tcheco (cs)**                     | Beta | Beta | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Holandês (nl)**                     | Beta | Beta |  |  | Beta |
-| **Francês (fr)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Alemão (de)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Italiano (it)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Japonês (ja)**                  | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Coreano (ko)**                    | disponibilidade geral | disponibilidade geral | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Português (do Brasil) (pt-br)** | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Espanhol (es)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta ||
+|                  | **[인텐트](intents.html)**, **[엔티티](entities.html)** 및 **[대화 상자 정의](dialog-build.html)** | **[절대 스코어링 및 '관련 없음으로 표시'](intents.html#mark-irrelevant)** | **시스템 엔티티([숫자](system-entities.html#sys-number), [통화](system-entities.html#sys-currency), [백분율](system-entities.html#sys-percentage), [날짜, 시간](system-entities.html#sys-datetime))** | **[엔티티 유사 일치](entities.html#fuzzy-matching)** |
+|:---|:---:|:---:|:---:|:---:|
+| **영어(en)**                   | GA | GA | GA </br> 베타([위치](system-entities.html#sys-location), [개인](system-entities.html#sys-person)) | 베타(어간 추출, 오타 및 부분 일치) |
+| **아랍어(ar)**                    | GA | 베타 | 베타 | 베타(오타만) |
+| **중국어(간체)(zh-cn)**   | 베타 | 베타 | 베타 |  |
+| **중국어(간체)(zh-tw)**  | 베타 | 베타 |  |  |
+| **체코어(cs)**                     | 베타 | 베타 | 베타 | 베타(오타만) |
+| **네덜란드어(nl)**                     | 베타 | 베타 | 베타 |  |
+| **프랑스어(fr)**                    | GA | GA | GA | 베타(오타만) |
+| **독일어(de)**                    | GA | GA | GA | 베타(오타만) |
+| **이탈리아어(it)**                   | GA | GA | GA | 베타(오타만) |
+| **일본어(ja)**                  | GA | GA | GA | 베타(오타만) |
+| **한국어(ko)**                    | GA | GA | GA | 베타(오타만) |
+| **포르투갈어(브라질)(pt-br)** | GA | GA | GA | 베타(오타만) |
+| **스페인어(es)**                   | GA | GA | GA | 베타(오타만) ||
 
-**Nota:** O serviço do {{site.data.keyword.conversationshort}} suporta vários idiomas, conforme observado, mas a interface do conjunto de ferramentas em si (descrições, rótulos, etc.) está em inglês. Todos os idiomas suportados podem ser inseridos e treinados por meio da interface em inglês.
+**참고:** {{site.data.keyword.conversationshort}} 서비스는 설명된 여러 언어를 지원하지만 도구 인터페이스 자체(설명, 레이블 등)는 영어로 되어 있습니다. 지원되는 모든 언어는 입력될 수 있으며 영어 인터페이스를 통해 훈련될 수 있습니다.
 
-## Mudando um idioma da área de trabalho
+**GB18030 준수**: GB18030은 중국 시장에서 사용할 확장 코드 페이지를 지정하는 중국 표준입니다. 이 코드 페이지 표준은 중국 국가 정보 기술 표준 기술위원회가 2001년 9월 1일 이후 중국 시장에 출시되는 모든 소프트웨어 애플리케이션에 대해 GB18030을 사용하도록 정했기 때문에 소프트웨어 업계에 중요합니다. {{site.data.keyword.conversationshort}} 서비스는 이 인코딩을 지원하고 GB18030-준수 인증을 받았습니다. 
 
-Quando uma área de trabalho for criada, seu idioma não poderá ser modificado. Se for necessário mudar o idioma suportado de uma área de trabalho, o usuário deverá fazer download da área de trabalho. Em seguida, editar o arquivo JSON resultante em um editor de texto, procurando uma propriedade JSON chamada `language`.
+## 작업공간 언어 변경
 
-A propriedade `language` deve ser configurada com o idioma original da área de trabalho; por exemplo, inglês seria `en`. Modifique o valor dessa propriedade, mudando-a para o idioma desejado (`fr` para francês, `de` para alemão, etc.). Salve as mudanças no arquivo JSON e importe o arquivo modificado para sua instância de serviço do {{site.data.keyword.conversationshort}}.
+작업공간이 작성되면 해당 언어를 수정할 수 없습니다. 작업공간의 지원되는 언어를 변경해야 하는 경우 사용자는 작업공간을 다운로드해야 합니다. 그런 다음 JSON 특성 `language`를 검색하고 결과 JSON 파일을 텍스트 편집기에서 편집하십시오.
 
-## Configurando idiomas bidirecionais
+`language` 특성은 작업공간의 원래 언어로 설정해야 합니다. 예를 들어, 영어는 `en`입니다. 원하는 언어(프랑스어의 경우 `fr`, 독일어의 경우 `de` 등)로 이 특성 값을 변경하여 수정하십시오. JSON 파일의 변경사항을 저장하고 수정된 파일을 {{site.data.keyword.conversationshort}} 서비스 인스턴스로 가져오십시오.
+
+## 양방향 언어 구성
 {: #configuring-bi-directional}
 
-Para idiomas bidirecionais, por exemplo, árabe, é possível mudar as preferências da área de trabalho adequadamente. Na guia da área de trabalho, selecione o menu suspenso *Ações* e selecione **Preferências Bidirecionais** (essa opção só está disponível para áreas de trabalho configuradas para um idioma bidirecional):
+양방향 언어(예: 아랍어)의 경우 작업공간 환경 설정을 적절하게 변경할 수 있습니다. 작업공간 탭에서 *조치* 드롭 다운 메뉴를 선택하고 **양방향 환경 설정**을 선택하십시오(이 옵션은 양방향 언어로 설정된 작업공간에서만 사용 가능).
 
-![Preferências bidirecionais](images/bidi_prefs.png)
+![양방향 환경 설정](images/bidi_prefs.png)
 
-Selecione dentre as opções a seguir para sua área de trabalho:
+작업공간에 대해 다음 옵션에서 선택하십시오.
 
-- **Direção da GUI**: especifica a direção do layout de elementos, como botões ou menus, na interface gráfica com o usuário. Escolha `LTR` (esquerda para a direita) ou `RTL` (direita para a esquerda). Se não especificado, a ferramenta seguirá a configuração da direção da GUI do navegador da web.
-- **Direção do Texto**: especifica a direção do texto digitado. Escolha `LTR` (esquerda para a direita) ou `RTL` (direita para a esquerda) ou selecione `Auto`, que escolherá automaticamente a direção do texto com base nas configurações de seu sistema. A opção `None` exibirá o texto da esquerda para a direita.
-- **Formato Numérico**: especifica qual formato de números usar ao apresentar dígitos regulares. Escolha entre `Nominal`, `Arabic-Indic` ou `Arabic-European`. A opção `None` exibirá números ocidentais.
-- **Tipo de Calendário**: especifica como você escolhe as datas de filtragem na IU da área de trabalho. Escolha `Islamic-Civil`, `Islamic-Tabular`, `Islamic-Umm al-Qura` ou `Gregorian`. **Nota**: essa configuração não se aplica ao painel "Experimente".
+- **GUI 방향**: 그래픽 사용자 인터페이스에서 단추 또는 메뉴와 같은 요소의 레이아웃 방향을 지정합니다. `LTR`(왼쪽에서 오른쪽) 또는 `RTL`(오른쪽에서 왼쪽)을 선택하십시오. 지정되지 않은 경우 도구가 웹 브라우저 GUI 방향 설정을 따릅니다.
+- **텍스트 방향**: 입력된 텍스트의 방향을 지정합니다. `LTR`(왼쪽에서 오른쪽) 또는 `RTL`(오른쪽에서 왼쪽)을 선택하거나, 시스템 설정에 따라 텍스트 방향을 자동으로 선택하는 `Auto`을 선택하십시오. `None` 옵션은 왼쪽에서 오른쪽으로 텍스트를 표시합니다.
+- **숫자 양식 지정**: 일반적인 숫자를 제공할 때 사용할 숫자 양식을 지정합니다. `Nominal`, `Arabic-Indic` 또는 `Arabic-European`에서 선택하십시오. `None` 옵션은 서양 숫자를 표시합니다.
+- **달력 유형**: 작업공간 UI에서 필터링 날짜를 선택하는 방법을 지정합니다. `Islamic-Civil`, `Islamic-Tabular`, `Islamic-Umm al-Qura` 또는 `Gregorian`을 선택하십시오. **참고**: 이 설정은 "연습" 패널에 적용되지 않습니다.
 
-![Opções bidirecionais](images/bidi_opts.png)
+![양방향 옵션](images/bidi_opts.png)
 
-Ao terminar de fazer suas seleções, clique em **Atualizar** para salvar e retornar para a guia da área de trabalho.
+선택을 완료한 후 **업데이트**를 클릭하여 저장하고 작업공간 탭으로 돌아가십시오.
 
-## Trabalhando com caracteres acentuados
+## 악센트 문자에 대한 작업
 {: #working-with-accents}
 
-Em uma configuração de conversação, os usuários podem ou não usar acentos enquanto interagem com o serviço de Conversa. Dessa forma, ambas as versões, acentuadas e não acentuadas, de palavras podem ser tratadas da mesma forma para detecção de intenção e reconhecimento de entidade.
+대화식 설정에서 사용자는 {{site.data.keyword.conversationshort}} 서비스와 상호작용하는 동안 악센트를 사용하거나 사용하지 않을 수 있습니다. 이와 같이 악센트 버전의 단어 및 비악센트 버전의 단어는 인텐트 발견 및 엔티티 인식에 대해 동일하게 처리될 수 있습니다.
 
-No entanto, para alguns idiomas, como o espanhol, alguns acentos podem alterar o significado da entidade. Dessa forma, para a detecção de entidade, embora a entidade original possa ter implicitamente um acento, o serviço também poderá corresponder à versão não acentuada da mesma entidade, mas com uma pontuação de confiança ligeiramente mais baixa.
+하지만 스페인어와 같은 일부 언어의 경우 몇 가지 악센트가 엔티티의 의미를 바꿀 수 있습니다. 따라서 엔티티 발견에 대해 원래 엔티티에 내재적으로 악센트가 있을 수 있지만 서비스는 비악센트 버전의 동일한 엔티티를 일치시킬 수 있습니다. 단, 신뢰도 스코어가 약간 낮아집니다.
 
-Por exemplo, para a palavra "barrió", que tem um acento e corresponde ao passado do verbo "barrer" (varrer), o serviço também pode corresponder à palavra "barrio" (vizinhança), mas com uma confiança ligeiramente mais baixa.
+예를 들어, 악센트가 있고 "barrer"(쓸다)라는 동사의 과거 시제에 해당하는 단어 "barrió"에 대해 서비스는 단어 "barrio"(이웃)를 일치시킬 수도 있습니다. 단, 신뢰도가 약간 낮아집니다.
 
-O sistema fornecerá a maior pontuação de confiança em entidades com correspondências exatas. Por exemplo, `barrio` não será detectado se `barrió` estiver no conjunto de treinamento, e `barrió` não será detectado se `barrio` estiver no conjunto de treinamento.
+시스템은 정확한 일치의 엔티티에 가장 높은 신뢰도 스코어를 제공합니다. 예를 들어, `barrió`가 훈련 세트에 있는 경우 `barrio`는 발견되지 않고, `barrio`가 훈련 세트에 있는 경우에는 `barrió`가 발견되지 않습니다.
 
-Você deverá treinar o sistema com os caracteres e acentos apropriados. Por exemplo, se você estiver esperando `barrió` como uma resposta, coloque `barrió` no conjunto de treinamento.
+적절한 문자와 악센트를 사용하여 시스템을 훈련시킬 수 있습니다. 예를 들어, `barrió`를 응답으로 예상하는 경우 훈련 세트에 `barrió`를 넣어야 합니다.
 
-Embora não seja um acento, o mesmo se aplica às palavras que usam, por exemplo, a letra espanhola `ñ` vs. a letra `n`, como "uña" vs. "una". Nesse caso, a letra `ñ` não é apenas um `n` com um acento; ela é uma letra exclusiva, específica do espanhol.
+악세트 표시가 아니지만 예를 들어, 스페인 문자 `ñ` 대 문자 `n`(예: "uña" 대 "una")를 사용하는 단어에 동일한 내용이 적용됩니다. 이 경우 문자 `ñ`은 단순히 악센트가 있는 `n`이 아닙니다.
 
-Se você achar que os seus clientes não usarão os acentos apropriados ou usarão palavras erradas (incluindo, por exemplo, a colocação de um `n` em vez de um `ñ`), ative a correspondência difusa ou inclua-os explicitamente nos exemplos de treinamento.
+고객이 적절한 악센트를 사용하지 않거나 단어 철자를 잘못 쓸 것으로 생각되는 경우(예: `ñ` 대신 `n` 입력) 유사 일치를 사용할 수 있습니다. 또는 훈련 예제에 명시적으로 이를 포함할 수 있습니다.

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -17,51 +17,51 @@ lastupdated: "2017-10-27"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Tutorial: Construindo um diálogo complexo
+# 튜토리얼: 복잡한 대화 상자 빌드
 {: #tutorial}
 
-Neste tutorial, você usará o serviço {{site.data.keyword.conversationshort}} para criar um diálogo que ajuda os usuários a interagir com um painel de carro inteligente.
+이 튜토리얼에서 {{site.data.keyword.conversationshort}} 서비스를 사용하여 사용자가 코그너티브 자동차 대시보드와 상호작용하는 데 도움이 되는 대화 상자를 작성합니다.
 {: shortdesc}
 
-## Objetivos do aprendizado
+## 학습 목표
 
-Quando terminar o tutorial, você entenderá como:
+튜토리얼을 완료할 때까지 다음을 수행하는 방법을 파악합니다.
 
-- Definir entidades
-- Planejar um diálogo
-- Usar condições de resposta e nó em um diálogo
+- 엔티티 정의
+- 대화 상자 플랜
+- 대화 상자에서 노드 및 응답 조건 사용
 
-### Duração
-Este tutorial levará aproximadamente de 2 a 3 horas para ser concluído.
+### 기간
+이 튜토리얼을 완료하는 데 약 2 - 3시간이 걸립니다.
 
-### Pré-requisito
+### 전제조건
 
-Antes de iniciar, conclua o [Tutorial de Introdução](getting-started.html). 
+시작하기 전에 [시작하기 튜토리얼](getting-started.html)을 완료하십시오. 
 
-Você usará a área de trabalho do tutorial de Conversa que você criou e incluirá nós no diálogo simples que você construiu como parte do exercício de introdução.
+사용자가 작성한 {{site.data.keyword.conversationshort}} 튜토리얼 작업공간을 사용하고 시작하기 연습의 일부로 빌드된 단순 대화 상자에 노드를 추가하십시오. 
 
-## Etapa 1: incluir intenções e exemplos
+## 1단계: 인텐트 및 예제 추가
 {: #intents}
 
-Inclua uma intenção na guia Intenções. Uma intenção é o propósito ou objetivo expresso em entrada do usuário.
+인텐트 탭에서 인텐트를 추가하십시오. 인텐트는 사용자 입력에 표현된 목적입니다.
 
-1.  Na página Intenções da área de trabalho do tutorial de Conversa, clique em **Criar Novo**.
-1.  Inclua o nome de intenção a seguir e, em seguida, pressione Enter:
+1.  {{site.data.keyword.conversationshort}} 튜토리얼 작업공간의 인텐트 페이지에서, **인텐트 추가**를 클릭하십시오. 
+1.  다음과 같은 인텐트 이름을 추가하고 **인텐트 작성**을 클릭하십시오. 
 
     ```
     turn_on
     ```
     {: codeblock}
 
-    Um `#` é anexado ao nome da intenção que você especificar. A intenção `#turn_on` indica que o usuário deseja ligar um dispositivo como o rádio, limpadores de para-brisa ou faróis.
-1.  No campo **Exemplo do usuário**, digite a elocução a seguir e, em seguida, pressione Enter:
+    `#`은 지정한 인텐트 이름 앞에 추가됩니다. `#turn_on` 인텐트는 사용자가 라디오, 와이퍼 또는 헤드라이트와 같은 어플라이언스를 켜려고 함을 표시합니다.
+1.  **사용자 예제 추가** 필드에서, 다음 표현을 입력한 다음 **예제 추가**를 클릭하십시오. 
 
     ```
     I need lights
     ```
     {: codeblock}
 
-1.  Inclua mais esses 5 exemplos para ajudar o Watson a reconhecer a intenção `#turn_on`.
+1.  5개가 넘는 다음 예제를 추가하여 Watson이 `#turn_on` 인텐트를 인식하도록 합니다.
 
     ```
     Play some tunes
@@ -73,38 +73,36 @@ Inclua uma intenção na guia Intenções. Uma intenção é o propósito ou obj
     ```
     {: codeblock}
 
-1.  Clique em **Pronto** para incluir a intenção.
+1.  `#turn_on` 인텐트 추가를 완료하려면, **닫기**![닫기 화살표](images/close_arrow.png) 아이콘을 클릭하십시오. 
 
-Agora você tem três intenções, `#turn_on`, `#greeting` e `#goodbye`, todas com elocuções de exemplo. Esses exemplos ajudam a treinar o Watson para reconhecer as intenções na entrada do usuário.
+이제 사용자는 방금 추가한 `#turn_on` 인텐트와 필수 단계로 완료한 *튜토리얼 시작하기*에 추가된 `#hello` 및 `#goodbye` 인텐트를 포함하여 3 개의 인텐트를 가지고 있습니다. 각 인텐트는 Watson이 사용자 입력의 인텐트를 인식하는데 도움이 되는 예제 표현 세트를 가지고 있습니다. 
 
-## Etapa 2: incluir entidades
+## 2단계: 엔티티 추가
 {: #entities}
 
-Uma definição de entidade inclui um conjunto de *valores* de entidade que podem ser usados para acionar respostas diferentes. Cada valor de entidade pode ter vários *sinônimos*, que definem diferentes maneiras com que o mesmo valor pode ser especificado na entrada do usuário.
+엔티티 정의에는 여러 응답을 트리거하는 데 사용할 수 있는 엔티티 *값* 세트가 포함됩니다. 각 엔티티 값에는 여러 *동의어*가 포함될 수 있으며, 이러한 동의어는 동일한 값을 사용자 입력에 지정할 수 있는 여러 방법을 정의합니다.
 
-Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #turn_on para representar o que o usuário deseja ligar.
+#turn_on 인텐트가 있는 사용자 입력에서 발생할 수 있는 엔티티를 작성하여 사용자가 켜려는 대상을 나타내십시오.
 
-1.  Clique na guia **Entidades** para abrir a página Entidades.
-1.  Clique em **Criar novo**.
-1.  Inclua o nome da entidade a seguir e, em seguida, pressione Enter:
+1.  **엔티티** 탭을 클릭하여 엔티티 페이지를 여십시오.
+1.  **엔티티 추가**를 클릭하십시오.
+1.  다음 엔티티 이름을 추가한 다음 Enter를 누르십시오.
 
     ```
     appliance
     ```
     {: codeblock}
 
-    Um `@` é anexado ao nome da entidade que você especificar. A entidade `@appliance` representa um dispositivo no carro que um usuário pode querer ligar.
-1.  Clique no comutador para **Ativar** a correspondência difusa.
-    Essa configuração ajuda o serviço a reconhecer referências a entidades na entrada do usuário mesmo quando a entidade é especificada de uma maneira que não corresponde exatamente à sintaxe usada aqui.
-1.  Inclua o seguinte valor no campo **Valor**, mas não pressione Enter:
+    `@`는 지정한 엔티티 이름 앞에 추가됩니다. `@appliance` 엔티티는 사용자가 켜려는 자동차의 어플라이언스를 나타냅니다.
+1.  다음 값을 **값 이름** 필드에 추가하십시오. 
 
     ```
     radio
     ```
     {: codeblock}
 
-    O valor representa um dispositivo específico que os usuários podem desejar ativar.
-1.  Inclua outras maneiras para especificar a entidade de dispositivo de rádio no campo **Sinônimos**. Pressione a guia para dar o foco no campo e digite os seguintes sinônimos. Pressione Enter após cada sinônimo.
+    값은 사용자가 켜려는 특정 어플라이언스를 나타냅니다.
+1.  **동의어** 필드에 라디오 어플라이언스 엔티티를 지정하는 다른 방법을 추가하십시오. **탭**을 눌러 필드에 초점을 맞춘 후 다음 동의어를 입력하십시오. 각 동의어 다음에 **Enter**를 누르십시오.
 
     ```
     music
@@ -112,175 +110,178 @@ Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #tu
     ```
     {: codeblock}
 
-1.  Clique no ícone **Incluir um novo valor** ![plus sign](images/add.png) para incluir outros tipos de dispositivos.
-    - Valor: `headlights`. Sinônimo: `lights`.
-    - Valor: `air conditioning`. Sinônimos: `air` e `AC`.
-1.  Clique em **Concluído** para incluir a entidade **@appliance**.
-1.  Repita as Etapas 2-8 para criar a entidade @`genre` com correspondência difusa ativada e esses valores e sinônimos:
-    - Valor: `classical`. Sinônimo: `symphonic`.
-    - Valor: `rhythm and blues` Sinônimo: `r&b`.
-    - Valor: `rock`. Sinônimo: `rock & roll`, `rock and roll` e `pop`.
+1.  `@appliance` 엔티티에 대한 `radio` 값 정의를 완료하려면 **값 추가**를 클릭하십시오.
+1.  어플라이언스의 기타 유형을 추가하십시오.
 
-Você definiu duas entidades: `@appliance` (representando um dispositivo que o robô pode ligar) e `@genre` (representando um gênero musical que o usuário pode optar por ouvir).
+    - 값: `headlights`. 동의어: `lights`.
+    - 값: `air conditioning`. 동의어: `air`와 `AC`.
 
-Quando a entrada do usuário é recebida, o serviço {{site.data.keyword.conversationshort}} identifica as intenções e entidades. Agora é possível definir um diálogo que usa intenções e entidades para escolher a resposta correta.
+1.  `@appliance` 엔티티에 대한 유사 일치를 **켜는** 토글을 클릭하십시오.
+    이 설정을 사용하면 엔티티가 여기서 사용하는 구문과 정확하게 일치하지 않는 방식으로 지정된 경우에도 서비스가 사용자 입력에서 엔티티에 대한 참조를 인식할 수 있습니다.
+1.  `@appliance` 엔티티 추가를 완료하려면 **닫기**![닫기 화살표](images/close_arrow.png) 아이콘을 클릭하십시오.
+1.  2 - 8단계를 반복하여 유사 일치를 켠 상태의 @`genre` 엔티티 및 다음 값과 동의어를 작성하십시오.
 
-## Etapa 3: criar um diálogo complexo
+    - 값: `classical`. 동의어: `symphonic`.
+    - 값: `rhythm and blues`. 동의어: `r&b`.
+    - 값: `rock`. 동의어: `rock & roll`, `rock and roll` 및 `pop`.
+
+다음 두 개의 엔티티를 정의했습니다. `@appliance`(봇이 켤 수 있는 어플라이언스를 나타냄) 및 `@genre`(사용자가 청취하도록 선택할 수 있는 음악 장르를 나타냄).
+
+사용자 입력이 수신되면 {{site.data.keyword.conversationshort}} 서비스가 인텐트와 엔티티를 둘 다 식별합니다. 이제 인텐트와 엔티티를 사용하여 올바른 응답을 선택하는 대화 상자를 정의할 수 있습니다.
+
+## 3단계: 복잡한 대화 상자 작성
 {: #complex-dialog}
 
-Nesse diálogo complexo, você criará ramificações de diálogo que manipularão a intenção #turn_on que você definiu previamente.
+이 복잡한 대화 상자에서 이전에 정의한 #turn_on 인텐트를 처리하는 대화 상자 분기를 작성합니다.
 
-### Inclua um nó base para #turn_on
-Crie uma ramificação de diálogo para responder à intenção #turn_on. Inicie criando o nó base:
+### #turn_on에 대한 루트 노드 추가
+#turn_on 인텐트에 응답하는 대화 상자 분기를 작성하십시오. 루트 노드 작성을 시작하십시오.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **#greeting** e, em seguida, selecione **Incluir nó abaixo**.
-1.  Comece digitando `#turn_on` no campo de condição e, em seguida, selecione-o na lista.
-    Essa condição é acionada por qualquer entrada que corresponda à intenção #turn_on.
-1.  Não insira uma resposta nesse nó. Clique em ![Fechar](images/close.png) para fechar a visualização de edição de nó.
+1.  **#hello** 노드에 있는 추가 아이콘![추가 옵션](images/kabob.png)을 클릭한 다음 **아래 노드 추가**를 선택하십시오.
+1.  조건 필드에 `#turn_on`을 입력하기 시작한 후 나타나는 목록에서 선택하십시오.
+    이 조건은 #turn_on 인텐트와 일치하는 입력을 통해 트리거됩니다.
+1.  이 노드에서 응답을 입력하지 마십시오. 노드 편집 보기를 닫으려면 ![닫기](images/close.png)를 클릭하십시오.
 
-### Cenários
-O diálogo precisa determinar qual dispositivo o usuário deseja ligar. Para lidar com isso, crie várias respostas com base em condições adicionais.
+### 시나리오
+대화 상자는 사용자가 켜려는 어플라이언스를 판별해야 합니다. 이를 처리하려면 추가 조건에 따라 여러 응답을 작성하십시오.
 
-Há três cenários possíveis, com base nas intenções e entidades que você definiu:
+정의한 인텐트와 인텐트에 따라 세 가지 가능한 시나리오가 있습니다.
 
-**Cenário 1**: o usuário deseja ligar a música, caso em que o robô deve perguntar pelo gênero.
+**시나리오 1**: 사용자가 음악을 틀기 원하며, 이 경우 봇이 장르에 대해 질문해야 합니다.
 
-**Cenário 2**: o usuário deseja ligar qualquer outro dispositivo válido, caso em que o robô repete o nome do dispositivo solicitado em uma mensagem que indica que está sendo ligado.
+**시나리오 2**: 사용자가 다른 올바른 어플라이언스를 켜려고 하며, 이 경우 봇은 요청된 어플라이언스를 켜고 있다는 메시지에 이 어플라이언스의 이름을 반영합니다.
 
-**Cenário 3**: o usuário não especifica um nome de dispositivo reconhecível e, nesse caso, o robô deve solicitar esclarecimento.
+**시나리오 3**: 사용자가 인식 가능한 어플라이언스 이름을 지정하지 않으며, 이 경우 봇은 분류에 대해 질문해야 합니다.
 
-Inclua nós que verifiquem essas condições do cenário nesse pedido para que o diálogo avalie a condição mais específica primeiro.
+대화 상자가 먼저 가장 구체적인 조건을 평가하도록 이러한 시나리오 조건을 순서대로 검사하는 노드를 추가하십시오.
 
-### Direcionamento do cenário 1
+### 시나리오 1 처리
 
-Inclua nós que direcionem o cenário 1, que significa que o usuário deseja ligar a música. Em resposta, o robô deve perguntar pelo gênero musical.
+사용자가 음악을 틀려고 한다는 시나리오 1을 처리하는 노드를 추가하십시오. 응답에서 봇은 음악 장르에 대해 질문해야 합니다.
 
-#### Inclua um nó-filho que verifica se o tipo de dispositivo é música
+#### 어플라이언스 유형이 음악인지 여부를 검사하는 하위 노드 추가
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **#turn_on** e selecione **Incluir nó-filho**.
-1.  No campo de condição, insira `@appliance:radio`.
-    Essa condição é verdadeira se o valor da entidade @appliance é `radio` ou um de seus sinônimos, conforme definido na guia Entidades.
-1.  No campo de resposta, insira `What kind of music would you like to hear?`
-1.  Nomeie o nó `Music`.
-1.  Clique em ![Fechar](images/close.png) para fechar a visualização de edição de nó.
+1.  **#turn_on** 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭하고 **하위 노드 추가**를 선택하십시오.
+1.  조건 필드에 `@appliance:radio`를 입력하십시오.
+    엔티티 탭에 정의된 대로 @appliance 엔티티 값이 `radio`이거나 동의어 중 하나인 경우 이 조건은 true입니다.
+1.  응답 필드에 `What kind of music would you like to hear?`를 입력하십시오.
+1.  노드 이름을 `Music`으로 지정하십시오.
+1.  노드 편집 보기를 닫으려면 ![닫기](images/close.png)를 클릭하십시오.
 
-#### Inclua um salto do nó #turn_on para o nó Music
+#### #turn_on 노드에서 Music 노드로 점프 추가
 
-Salte diretamente do nó `#turn on` para o nó `Music` sem pedir qualquer entrada adicional do usuário. Para fazer isso, é possível usar uma ação **Ir para**.
+더 이상 사용자 입력을 요청하지 않고 `#turn on` 노드에서 `Music` 노드로 직접 점프하십시오. 이렇게 하기 위해 **점프** 조치를 사용할 수 있습니다.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **#turn_on** e selecione **Ir para**.
-1.  Selecione o nó-filho **Music** e, em seguida, selecione **Se o robô reconhecer (condição)** para indicar que você deseja processar a condição do nó Music.
+1.  **#turn_on** 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭하고 **점프**를 선택하십시오.
+1.  **Music** 하위 노드를 선택한 다음 **If bot recognizes(조건)**를 선택하여 Music 노드의 조건을 처리하려고 함을 표시하십시오.
 
-![Ir para anterior](images/tut-dialog-jumpto.png)
+![이전으로 점프](images/tut-dialog-jumpto.png)
 
-Observe que você tinha que criar o nó de destino (o nó para o qual você deseja saltar) antes de ter incluído a ação **Ir para** ação.
+**점프** 조치를 추가하기 전에 대상 노드(점프할 노드)를 작성해야 했습니다.
 
-Depois de criar o relacionamento Ir para, você verá uma nova entrada na árvore:
+점프 관계를 작성하면 트리에 새 항목이 표시됩니다.
 
-![Ir para próximo](images/tut-dialog-jump2.png)
+![이후로 점프](images/tut-dialog-jump2.png)
 
-#### Inclua um nó-filho que verifica o gênero musical
+#### 음악 장르를 검사하는 하위 노드 추가
 
-Agora inclua um nó para processar o tipo de música que o usuário solicita.
+사용자가 요청하는 음악 유형을 처리하도록 노드를 추가하십시오.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **Music** e selecione **Incluir nó-filho**.
-    Esse nó-filho é avaliado somente depois que o usuário responde à pergunta sobre o tipo de música que deseja ouvir. Como precisamos de uma entrada do usuário antes desse nó, não há necessidade de usar uma ação **Ir para**.
-1.  Inclua `@genre` no campo de condição. Essa condição é verdadeira sempre que um valor válido para a entidade @genre é detectado.
-1.  Insira `OK! Playing @genre.` como a resposta. Essa resposta reitera o valor gênero que o usuário fornece.
+1.  **Music** 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭하고 **하위 노드 추가**를 선택하십시오.
+    이 하위 노드는 사용자가 들으려는 음악 유형에 대한 질문에 응답한 후에만 평가됩니다. 이 노드 전에 사용자 입력이 필요하므로 **점프** 조치를 사용할 필요가 없습니다.
+1.  조건 필드에 `@genre`를 추가하십시오.  이 조건은 @genre 엔티티의 올바른 값이 발견될 때마다 true입니다.
+1.  `OK! Playing @genre.`를 응답으로 입력하십시오. 이 응답은 사용자가 제공하는 장르 값을 반복합니다.
 
-#### Inclua um nó que manipule tipos de gênero não reconhecidos em respostas do usuário
+#### 사용자 응답에서 인식되지 않는 장르 유형을 처리하는 노드 추가
 
-Inclua um nó para responder quando o usuário não especificar um valor reconhecido para @genre.
+사용자가 @genre에 대해 인식되는 값을 지정하지 않을 때 응답할 노드를 추가하십시오.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó *@genre* e selecione **Incluir nó abaixo** para criar um nó de mesmo nível.
-1.  Insira `true` no campo de condição.
-    A condição verdadeira é uma condição especial. Ela especifica que se o fluxo de diálogo atinge esse nó, ele deve sempre ser avaliado como verdadeiro. (Se o usuário especificar um valor @genre válido, esse nó nunca será atingido.)
-1.  Insira `I'm sorry, I don't understand. I can play classical, rhythm and blues, or rock music.` como a resposta.
+1.  *@genre* 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭하여 **아래에 노드 추가**를 선택하여 피어 노드를 작성하십시오.
+1.  조건 필드에 `true`를 입력하십시오.
+    true 조건은 특수 조건입니다. 대화 상자 플로우가 이 노드에 도달하는 경우 항상 true로 평가되도록 지정합니다. (사용자가 올바른 @genre 값을 지정하면 이 노드에 결코 도달하지 않습니다.)
+1.  `I'm sorry, I don't understand. I can play classical, rhythm and blues, or rock music.`을 응답으로 입력하십시오.
 
-Isso cuida de todos os casos em que o usuário pede para ligar a música.
+사용자가 음악을 틀도록 요청하는 모든 경우를 처리합니다.
 
-#### Teste o diálogo para música
+#### 음악을 위한 대화 상자 테스트
 
-1.  Selecione o ícone ![Pergunte ao Watson](images/ask_watson.png) para abrir a área de janela de bate-papo.
-1.  Digite `Play music`.
-    O robô reconhece a intenção #turn_on e a entidade @appliance:music e responde pedindo por um gênero musical.
+1.  ![Watson에게 질문](images/ask_watson.png) 아이콘을 선택하여 대화 분할창을 여십시오.
+1.  `Play music`을 입력하십시오.
+    봇은 #turn_on 인텐트와 @appliance:music 엔티티를 인식하고 음악 장르에 대해 질문하여 응답합니다.
 
-1.  Digite um valor @genre válido (por exemplo, `rock`).
-    O robô reconhece a entidade @genre e responde da maneira apropriada.
+1.  올바른 @genre 값(예: `rock`)을 입력하십시오.
+    봇은 @genre 엔티티를 인식하고 적절하게 응답합니다.
 
-    ![Mostra uma solicitação bem-sucedida para reproduzir música](images/tut-test-music.png)
+    ![음악 재생 요청 성공 표시](images/tut-test-music.png)
 
-1.  Digite `Play music` novamente, mas desta vez especifique uma resposta inválida para o gênero. O robô responde que ele não entende.
+1.  `Play music`을 다시 입력하지만 이번에는 장르에 대한 올바르지 않은 응답이 지정됩니다. 봇은 이해하지 못한다고 응답합니다.
 
-### Direcionamento do cenário 2
+### 시나리오 2 처리
 
-Vamos incluir nós direcionem o cenário 2, que significa que o usuário deseja ligar outro dispositivo válido. Nesse caso, o robô repete o nome do dispositivo solicitado em uma mensagem que indica que ele está sendo ligado.
+사용자가 다른 올바른 어플라이언스를 켜려고 한다는 시나리오 2를 처리하는 노드를 추가합니다. 이 경우 봇은 요청된 어플라이언스를 켜고 있다는 메시지에 이 어플라이언스의 이름을 반영합니다.
 
-#### Inclua um nó-filho que verifica qualquer dispositivo
+#### 어플라이언스를 검사하는 하위 노드 추가
 
-Inclua um nó que é acionado quando qualquer outro valor válido para @appliance é fornecido pelo usuário.
-Para os outros valores de @appliance, o robô não precisa solicitar qualquer entrada adicional. Ele apenas retorna uma resposta positiva.
+사용자가 다른 올바른 @appliance 값만 제공하는 경우에 트리거되는 노드를 추가하십시오.
+다른 @appliance 값의 경우 봇이 추가 입력을 요청할 필요가 없습니다. 단지 긍정 응답을 리턴합니다.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **Music** e, em seguida, selecione **Incluir nó abaixo** para criar um nó de mesmo nível que é avaliado após a condição @appliance:music ser avaliada.
-1.  Insira `@appliance` como a condição do nó.
-    Essa condição é acionada se a entrada do usuário incluir qualquer valor reconhecido para a entidade @appliance além da música.
-1.  Insira `OK! Turning on the @appliance.` como a resposta.
-    Essa resposta reitera o valor do dispositivo que o usuário forneceu.
+1.  **Music** 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭한 다음 **아래에 노드 추가**를 선택하여 @appliance:music 조건이 평가된 후 평가되는 피어 노드를 작성하십시오.
+1.  `@appliance`를 노드 조건으로 입력하십시오.
+    사용자 입력에 음악 외에 @appliance 엔티티에 대해 인식되는 값이 포함되면 이 조건이 트리거됩니다.
+1.  `OK! Turning on the @appliance.`를 응답으로 입력하십시오.
+    이 응답은 사용자가 제공한 어플라이언스 값을 반복합니다.
 
-#### Teste o diálogo com outros dispositivos
+#### 다른 어플라이언스를 사용하여 대화 상자 테스트
 
-1.  Selecione o ícone ![Pergunte ao Watson](images/ask_watson.png) para abrir a área de janela de bate-papo.
-1.  Digite `lights on`.
+1.  ![Watson에게 질문](images/ask_watson.png) 아이콘을 선택하여 대화 분할창을 여십시오.
+1.  `lights on`을 입력하십시오.
 
-    O robô reconhece a intenção #turn_on e a entidade @appliance:headlights e responde com `OK, turning on the headlights`.
+    봇은 #turn_on 인텐트와 @appliance:headlights 엔티티를 인식하고 `OK, turning on the headlights`로 응답합니다.
 
-    ![Mostra uma solicitação bem-sucedida para ligar as luzes](images/tut-test-lights.png)
+    ![등 켜기 요청 성공 표시](images/tut-test-lights.png)
 
-1.  Digite `turn on the air`.
+1.  `turn on the air`를 입력하십시오.
 
-    O robô reconhece a intenção #turn_on e a entidade @appliance: (air conditioning) e responde com `OK, turning on the air
-conditioning.`
+    봇은 #turn_on 인텐트와 @appliance:(air conditioning) 엔티티를 인식하고 `OK, turning on the air conditioning.`으로 응답합니다.
 
-1.  Tente variações em todos os comandos suportados com base nas elocuções de exemplo e sinônimos de entidade definidos.
+1.  정의한 예제 표현과 엔티티 동의어에 따라 지원되는 모든 명령에 대한 변형을 시도하십시오.
 
-### Direcionamento do cenário 3
+### 시나리오 3 처리
 
-Agora inclua um nó de mesmo nível que é acionado se o usuário não especificar um tipo de dispositivo válido.
+이제 사용자가 올바른 어플라이언스 유형을 지정하지 않는 경우 트리거되는 피어 노드를 추가하십시오.
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **@appliance** e, em seguida, selecione **Incluir nó abaixo** para criar um nó de mesmo nível que é avaliado após a condição @appliance ser avaliada.
-1.  Insira `true` no campo de condição.
-    (Se o usuário especificar um valor @appliance válido, esse nó nunca será atingido.)
-1.  Insira `I'm sorry, I'm not sure I understood you. I can turn on music, headlights, or air conditioning.` como a resposta.
+1.  **@appliance** 노드에서 추가 아이콘(![추가 옵션](images/kabob.png))을 클릭한 다음 **아래에 노드 추가**를 선택하여 @appliance 조건이 평가된 후 평가되는 피어 노드를 작성하십시오.
+1.  조건 필드에 `true`를 입력하십시오.
+    (사용자가 올바른 @appliance 값을 지정하면 이 노드에 결코 도달하지 않습니다.)
+1.  `I'm sorry, I'm not sure I understood you. I can turn on music, headlights, or air conditioning.`을 응답으로 입력하십시오.
 
-#### Teste mais
+#### 추가 테스트
 
-1.  Tente mais variações de elocução para testar o diálogo.
+1.  추가 표현 변형을 시도하여 대화 상자를 테스트하십시오.
 
-    Se o robô não reconhecer a intenção correta, você pode treiná-lo diretamente da janela de bate-papo. Selecione a seta ao lado da intenção incorreta e escolha a correta na lista.
+    봇이 올바른 인텐트 인식에 실패하면 대화 창에서 직접 이 봇을 재훈련할 수 있습니다. 올바르지 않은 인텐트 옆에 있는 화살표를 선택하고 목록에서 올바른 인텐트를 선택하십시오.
 
-    ![Mostra a escolha de uma intenção diferente e a reeducação](images/tut-change-intent.gif)
+    ![다른 인텐트 선택 및 재훈련 표시](images/tut-change-intent.gif)
 
-#### O que fazer em seguida
+선택적으로, **자동차 대시보드 - 샘플**을 검토하여 더 긴 대화 상자 및 추가 기능을 사용하여 이 동일한 유스 케이스를 더욱 자세히 볼 수 있습니다. 
 
-Revise opcionalmente a área de trabalho **Painel do carro - Amostra** para ver esse mesmo caso de uso desenvolvido ainda mais com um diálogo mais longo e funcionalidade adicional.
+1.  탐색 메뉴에서 **작업공간으로 돌아가기** 단추(![메뉴에 작업공간으로 돌아가기 단추 표시](images/workspaces-button.png)를 클릭하십시오.
 
-1.  Clique no botão **Voltar para áreas de trabalho** ![Mostra o botão Voltar para áreas de trabalho no menu](images/workspaces-button.png) no menu de navegação.
+1.  **자동차 대시보드 - 샘플** 타일에서 **샘플 편집**을 클릭하십시오.
 
-1.  No quadro **Painel do carro - Amostra**, clique em **Editar amostra**.
-
-## Etapa 4: Implementar a área de trabalho do tutorial
+## 다음 단계
 {: #deploy}
 
-Agora que você construiu e testou sua área de trabalho, é possível implementá-la conectando-a a uma interface com o usuário. Há várias maneiras de fazer isso.
+작업공간을 빌드하고 테스트했으므로 사용자 인터페이스에 연결하여 배치할 수 있습니다. 이를 수행할 수 있는 다양한 방법이 있습니다.
 
-### Teste no Slack
+### Slack에서 테스트
 
-É possível usar a ferramenta de implementação de teste para [implementar sua área de trabalho](test-deploy.html) como um robô de bate-papo em um canal do Slack em apenas algumas etapas. Essa opção é a maneira mais rápida e fácil de implementar sua área de trabalho para teste, mas há limitações.
+테스트 배치 도구를 사용하면 몇 단계만 거쳐 Slack 채널에 챗봇으로 [작업공간을 배치](test-deploy.html)할 수 있습니다. 이 옵션은 테스트를 위해 작업공간을 배치하는 가장 빠르고 쉬운 방법이지만 제한사항이 있습니다.
 
-### Construa seu próprio aplicativo front-end
+### 고유 프론트 엔드 애플리케이션 빌드
 
-É possível usar os SDKs do Watson para [construir seu próprio](develop-app.html) aplicativo front-end que se conecta à sua área de trabalho usando a API de REST de Conversação.
+{{site.data.keyword.conversationshort}} REST API를 사용하여 작업공간에 연결하는 프론트 엔드 애플리케이션을 [빌드](develop-app.html)하는 Watson SDK를 사용할 수 있습니다. 
 
-### Implementar para mídia social ou canais de mensagens
+### 소셜 미디어 또는 메시징 채널에 배치
 
-É possível usar o [Botkit framework](integrations.html) para construir um aplicativo robô que você pode integrar com a mídia social e canais de mensagens como Slack, Facebook e Twilio.
+[Botkit 프레임워크](integrations.html)를 사용하여 Slack, Facebook 및 Twilio와 같은 소셜 미디어 및 메시징 채널과 통합할 수 있는 봇 애플리케이션을 빌드할 수 있습니다.
