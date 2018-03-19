@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -154,23 +154,6 @@ A medida que realiza cambios en el diálogo, puede probarlo en cualquier momento
 Si determina que se están reconociendo intenciones o entidades erróneas, es posible que tenga que modificar las definiciones de las intenciones o entidades.
 
 Si se están reconociendo las intenciones y entidades correctas, pero se activan los nodos erróneos en el diálogo, asegúrese de que las condiciones se han escrito adecuadamente. 
-
-## Búsqueda en diálogos
-{: #search}
-
-Utilice la función de búsqueda para encontrar condiciones y títulos en el diálogo. 
-
-1.  Seleccione el icono de búsqueda: ![Icono de búsqueda](images/search_icon.png). 
-
-1.  Especifique una frase o término de búsqueda. 
-
-    **Nota**: La primera vez que efectúa la búsqueda, se crea un índice por lo que es posible que vea un mensaje para que espere mientras se indexa el contenido. 
-
-### Resultados
-
-Se mostrarán los nodos que contienen su término de búsqueda, con los correspondientes ejemplos. Seleccione un resultado para editarlo. 
-
-  ![Devolución de búsqueda de intenciones](images/search_dialog.png)
 
 ## Copia de un nodo de diálogo
 {: #copy-node}

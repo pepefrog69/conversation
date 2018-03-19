@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-02-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -154,23 +154,6 @@ Para criar um diálogo, conclua as etapas a seguir:
 Se você determinar que intenções ou entidades erradas estão sendo reconhecidas, poderá precisar modificar suas definições de intenção ou entidade.
 
 Se as intenções e entidades corretas estão sendo reconhecidas, mas os nós errados estão sendo acionados em seu diálogo, certifique-se de que suas condições estejam escritas corretamente.
-
-## Procurando seu diálogo
-{: #search}
-
-Use o recurso Procurar para localizar condições e títulos em seu diálogo.
-
-1.  Selecione o ícone Procurar: ![Ícone Procurar](images/search_icon.png)
-
-1.  Inserir um termo de procura ou frase.
-
-    **Nota**: na primeira vez que você procurar, um índice será criado; você poderá ver uma mensagem para esperar enquanto os seus conteúdos estiverem sendo indexados.
-
-### Resultados
-
-Os nós contendo seu termo de procura, com exemplos correspondentes, são mostrados. Selecione qualquer resultado para abri-lo para edição.
-
-  ![Retorno de procura de intenção](images/search_dialog.png)
 
 ## Copiando um nó de diálogo
 {: #copy-node}

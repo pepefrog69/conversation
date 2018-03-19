@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-16"
+lastupdated: "2018-03-19"
 
 ---
 
@@ -74,11 +74,11 @@ Digressions allow for the user to break away from a dialog branch in order to te
     ![Shows the digression happening in the Try it out pane.](images/tut-dig-digression.png)
 1.  **Optional**: To complete the dialog flow, type `8pm` for the reservation time and `2` for the number of guests.
 
-Congratulations! You have successfully digressed away from and returned to a dialog.
+Congratulations! You have successfully digressed away from and returned to a dialog flow.
 
 ## Step 3: Disabling slot digressions
 
-In this step, you will prevent users from digressing away from the restaurant booking node with slots and see how the setting change impacts the dialog flow.
+In this step, you will edit the digression settting for the restaurant booking node to prevent users from digressing away from it, and see how the setting change impacts the dialog flow.
 
 1.  Let's look at the current digression settings for the **Restaurant booking** node. Click the node to open it in edit view.
 
@@ -102,12 +102,14 @@ In this step, you will prevent users from digressing away from the restaurant bo
 
 1.  Ask, `What time do you close?`
 
-    The service recognizes that the question triggers the #restaurant_opening_hours intent, but ignores it and displays the prompt associated with the @sys-time slot again instead. You cannot digress away from the restaurant booking process.
+    The service recognizes that the question triggers the #restaurant_opening_hours intent, but ignores it and displays the prompt associated with the @sys-time slot again instead.
+
+You successfully prevented the user from digressing away from the restaurant booking process.
 
 ## Step 4: Digressing to a node that does not return
 {: #digress-without-return}
 
-You can configure a dialog node to not return to a node that was digressed away from to trigger the current node. To demonstrate this, you will change the digression setting for the restaurant hours node. You will then digress away from the **Job opportunities** dialog to ask about hours, and see that the service does not return to where it left off.
+You can configure a dialog node to not go back to the node that the service digressed away from for the current node to be processed. To demonstrate this, you will change the digression setting for the restaurant hours node. In Step 2, you saw that after digressing away from the restaurant booking node to go to the restaurant opening hours node, the service went back to the restaurant booking node to continue with the reservation process. In this exercise, after you change the setting, you will digress away from the **Job opportunities** dialog to ask about restaurant opening hours and see that the service does not return to where it left off.
 
 1.  Click to open the **Restaurant opening hours** node.
 
@@ -125,7 +127,7 @@ You can configure a dialog node to not return to a node that was digressed away 
 
     The service digresses away from the Job opportunities node to the Restaurant opening hours node to answer your question. The service responds with `The restaurant is open from 8:00 AM to 10:00 PM.`
 
-    Unlike in the previous test, this time the dialog does not pick up where it left off in the Job opporutnities node. The service does not return to the dialog that was in progress because you changed the setting on the Restaurant opening hours node to not return.
+    Unlike in the previous test, this time the dialog does not pick up where it left off in the **Job opporutnities** node. The service does not return to the dialog that was in progress because you changed the setting on the **Restaurant opening hours** node to not return.
 
     ![Shows a conversation that does not return after a digression](images/tut-dig-noreturn.png)
 
