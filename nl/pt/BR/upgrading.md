@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-02-09"
 
 ---
 
@@ -17,41 +17,58 @@ lastupdated: "2017-07-06"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Fazendo upgrade de áreas de trabalho
+# Fazendo upgrade
 
-O serviço de Conversa regularmente inclui e atualiza recursos. Embora algumas dessas mudanças sejam aplicadas automaticamente para sua área de trabalho, as atualizações que têm um grande impacto requerem uma atualização manual.
+Saiba como fazer upgrade de seu plano de serviço.
 {: shortdesc}
 
-Se você tiver uma instância que foi criada antes de 3 de fevereiro de 2017 e sua área de trabalho tiver uma atualização disponível, o ícone de atualização (![ícone de atualização](images/upgrade.png)) será exibido para indicar que um upgrade está disponível. Selecione este ícone para abrir o diálogo da área de trabalho Upgrade.
+## Atualizando seu plano
+{: #plan-upgrade}
 
-Ao fazer upgrade da área de trabalho, a versão mais recente da API é ativada na ferramenta e o painel "Experimente" começa a usar os recursos mais recentes.
+É possível explorar o serviço {{site.data.keyword.conversationshort}} amplamente com o plano Lite. No entanto, há limites para o que pode ser feito.
 
-Depois de atualizar uma área de trabalho, você não pode reverter sua área de trabalho para uma versão anterior.
+### Limites por artefato
+Para obter informações sobre limites de artefatos por plano, consulte esses tópicos:
+
+- [Áreas de Trabalho](configure-workspace.html#workspace-limits)
+- [Nós de diálogo](dialog-build.html#dialog-node-limits)
+- [Intenções](intents.html#intent-limits)
+- [Entidades](entities.html#entity-limits)
+- [Logs](logs_convo.html#log-limits)
+
+### Limites da chamada API
+O número de chamadas API permitidas por instância depende de seu plano de serviço. Consulte a descrição do plano para obter detalhes.
+
+Se você tiver um plano Lite e atingir o limite de sua chamada API, mas os registros mostrarem que você fez menos chamadas do que o esperado, lembre-se de que o plano Lite armazena informações de log por apenas 7 dias.
+
+Para atualizar seu plano, conclua essas etapas:
+
+1.  No menu do {{site.data.keyword.Bluemix_notm}}, selecione **Serviços** > **Painel**.
+1.  Selecione a instância de serviço que você deseja atualizar para abri-la.
+1.  Clique em **Planejar** na área de janela de navegação.
+   Aqui é possível ver seu plano atual e outras opções de plano disponíveis e fazer mudanças.
+
+Para obter respostas às perguntas comuns sobre assinaturas, consulte [Gerenciando faturamento e uso ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](/docs/billing-usage/how_charged.html){: new_window}.
+
+É possível aprender mais sobre serviços hospedados pelo IBM Cloud nos links a seguir:
+
+- [Termos dos serviços de nuvem](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
+- [Segurança e privacidade de dados de Serviços de nuvem](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
 
 ## Atualizando sua área de trabalho
-Para evitar entraves de funcionalidade em sua área de trabalho:
+{: #upgrade-workspace}
 
+O serviço {{site.data.keyword.conversationshort}} inclui e atualiza recursos regularmente. Embora algumas dessas mudanças sejam aplicadas automaticamente para sua área de trabalho, as atualizações que têm um grande impacto requerem uma atualização manual.
+
+Um upgrade está disponível para sua área de trabalho somente se o ícone de upgrade (![ícone de upgrade](images/upgrade.png)) é exibido.
+
+**Nota**: depois de fazer upgrade de uma área de trabalho, não é possível reverter sua área de trabalho para uma versão anterior.
+
+Para fazer upgrade de sua área de trabalho, conclua as etapas a seguir:
 1.  [Duplique sua área de trabalho](configure-workspace.html#exporting-and-copying-workspaces).
 2.  Atualize a área de trabalho duplicada
-3.  Teste se há problemas na área de trabalho submetida a upgrade.
 
-Ao concluir o teste em busca de problemas, aplique o upgrade ao aplicativo mudando a chamada API da mensagem para usar **03-02-2017** ou posterior.
-
-## Mudança nas ações Ir para
-O processamento de ações **Ir para** mudou com a liberação de 3 de fevereiro de 2017.
-
-Anteriormente, se você pulasse para a condição de um nó e nem o nó nem qualquer um de seus nós de mesmo nível tivessem uma condição que foi avaliada como verdadeira, o sistema pularia para o nó de nível raiz e procuraria por um nó cuja condição correspondesse à entrada. Em algumas situações, esse processamento criou um loop, o que impediu o progresso do diálogo.
-
-Sob o novo processo, se nem o nó de destino nem seus peers forem avaliados como verdadeiros, a rodada do diálogo será finalizada. Qualquer resposta que foi gerada será retornada para o usuário e uma mensagem de erro será retornada para o aplicativo:
-
-```
-Goto failed from node DIALOG_NODE_ID.
-Did not match the condition of the target node and any of the conditions of its subsequent siblings.
-```
-{: screen}
-
-A próxima entrada do usuário é manipulada no nível raiz do diálogo.
-
-Essa atualização pode mudar o comportamento de seu diálogo se você tiver ações **Ir para** destinadas a nós cujas condições sejam falsas.
-
-Se você deseja restaurar o modelo de processamento antigo, inclua um nó de mesmo nível final com uma condição `true`. Na resposta, use uma ação **Ir para** destinada à condição do primeiro nó no nível raiz de sua árvore de diálogos.
+    Quando você faz upgrade de sua área de trabalho, a versão mais recente da API é ativada na ferramenta e a área de janela "Experimente" começa a usar os recursos mais recentes.
+3.  Testar a área de trabalho atualizada.
+4.  Depois de avaliar a área de trabalho duplicada para entender como o upgrade impactará seu aplicativo, aplique o upgrade à sua área de trabalho primária.
+5.  Faça upgrade de seu aplicativo mudando a chamada API de mensagem para usar a versão mais recente da API.

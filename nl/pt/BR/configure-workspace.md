@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-02-15"
 
 ---
 
@@ -17,7 +17,7 @@ lastupdated: "2017-10-17"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Configurando uma área de trabalho de Conversa
+# Configurando uma área de trabalho do {{site.data.keyword.conversationshort}}
 
 O processamento de língua natural para o serviço {{site.data.keyword.conversationshort}} acontece dentro de uma *área de trabalho*, que é um contêiner para todos os artefatos que definem o fluxo de conversa para um aplicativo.
 {: shortdesc}
@@ -35,7 +35,7 @@ Conforme você inclui informações, a área de trabalho treina sozinha, portant
 
 O número de áreas de trabalho que você pode criar em uma única instância de serviço depende do seu plano de serviço {{site.data.keyword.conversationshort}}. A área de trabalho de amostra não conta para seu limite de áreas de trabalho, a menos que você edite ou duplique a amostra:
 
-| Plano de Serviço | Áreas de trabalho por instância de serviço |
+| Plano de Serviço     | Áreas de trabalho por instância de serviço |
 |------------------|--------------------------------:|
 | Standard/Premium |                              20 |
 | Lite*            |                               5 |
@@ -51,7 +51,7 @@ Você usa a ferramenta {{site.data.keyword.conversationshort}} para criar áreas
 
 1.  Se a página "Detalhes do Serviço" não estiver aberta, clique em sua instância de serviço do {{site.data.keyword.conversationshort}} no console. (Quando você cria uma instância de serviço, a página "Detalhes do Serviço" é exibida.)
 
-1.  Na página "Detalhes do Serviço", role para baixo para **Conjunto de ferramentas de conversa** e clique em **Ativar ferramenta**.
+1.  Clique em **Ativar ferramenta**.
 
 1.  Execute um dos seguintes procedimentos:
     - Para criar uma área de trabalho do início, clique em **Criar**.
@@ -85,12 +85,31 @@ A exportação de uma área de trabalho salva uma cópia de todos os dados da á
 
 A cópia de uma área de trabalho faz uma cópia completa da área de trabalho dentro da mesma instância de serviço. Use essa opção se você deseja adaptar uma área de trabalho existente enquanto preserva a versão original.
 
-- Para exportar uma área de trabalho existente para um arquivo JSON, clique no ícone de menu no quadro da área de trabalho e, em seguida, selecione **Fazer download como JSON**:
-
-    ![Captura de tela mostrando a opção de menu Fazer download como JSON](images/workspace_export.png)
-- Para criar uma cópia de uma área de trabalho existente dentro da mesma instância de serviço, clique no ícone de menu no quadro da área de trabalho e, em seguida, selecione **Duplicar**:
-
-    ![Captura de tela mostrando a opção de menu Duplicar](images/workspace_duplicate.png)
+- Para exportar uma área de trabalho existente para um arquivo JSON, clique no ícone de menu no tile de área de trabalho e, em seguida, selecione **Fazer download como JSON**.
+- Para criar uma cópia de uma área de trabalho existente dentro da mesma instância de serviço, clique no ícone de menu no tile de área de trabalho e, em seguida, selecione **Duplicar**.
 
     Especifique o nome, a descrição e o idioma para a nova área de trabalho. Todos os dados (incluindo intenções, entidades e diálogo) são incluídos na cópia.
 
+## Compartilhando a área de trabalho com membros da equipe
+{: #invite-others}
+
+Depois de criar a instância de serviço, é possível fornecer a outras pessoas acesso a ela. Junto, é possível definir os dados de treinamento e construir o diálogo.
+
+**Importante**: somente uma pessoa pode editar uma intenção, uma entidade ou um nó de diálogo de cada vez. Se múltiplas pessoas trabalham no mesmo item ao mesmo tempo, as mudanças feitas pela pessoa que as salva por último são as únicas mudanças aplicadas. As mudanças que são feitas durante o mesmo prazo por outra pessoa e são salvas primeiro não são retidas. Coordene as atualizações que você planeja fazer com seus membros da equipe para evitar que alguém perca o trabalho.
+
+Para compartilhar uma área de trabalho com outras pessoas, deve-se fornecer a elas acesso de desenvolvedor para a instância de serviço que hospeda a área de trabalho. Se a instância compartilhada hospeda outras áreas de trabalho que você não deseja que outros editem, certifique-se de tornar isso claro para qualquer convidado.
+
+1.  Acesse a página [Projetos ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.{DomainName}/developer/watson/projects) do {{site.data.keyword.watson}} Developer Console e efetue login. Clique em **Gerenciar > Conta > Usuários** no menu.
+1.  Clique em **Convidar usuários** e, em seguida, insira os endereços de e-mail das pessoas em sua equipe para quem você deseja fornecer acesso.
+1.  Na seção *Acesso ao Cloud Foundry*, escolha sua organização na lista *Organização*.
+
+    O campo *Funções de organização* é preenchido automaticamente com *Auditor*. É possível manter o valor padrão no campo.
+1.  Opcionalmente, limite o acesso que você está concedendo às áreas de trabalho em uma única região e espaço.
+1.  No campo *Funções de espaço*, escolha **Desenvolvedor**.
+
+    Veja [Funções do Cloud Foundry ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/docs/iam/cfaccess.html#cfroles) para obter mais informações sobre as funções.
+1.  Clique em **Convidar usuários**.
+
+Quando as pessoas convidadas efetuarem login na próxima vez no {{site.data.keyword.cloud_notm}}, sua organização será incluída na lista de contas delas.
+
+Com mais pessoas contribuindo para o desenvolvimento de área de trabalho, mudanças inesperadas podem ocorrer, incluindo exclusões de área de trabalho. Considere criar cópias de backup de sua área de trabalho em uma base regular, assim é possível recuperar para uma versão anterior, se necessário. Para criar um backup, simplesmente exportar a área de trabalho como um arquivo JSON.

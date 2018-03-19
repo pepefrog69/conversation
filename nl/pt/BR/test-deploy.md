@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-17"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -21,7 +21,7 @@ lastupdated: "2017-10-17"
 
 É possível usar a ferramenta de implementação de teste para integrar sua área de trabalho do {{site.data.keyword.conversationshort}} em uma equipe Slack como um usuário robô. Use esse método se você deseja testar rapidamente usando um robô Slack como a interface com o usuário para sua área de trabalho.
 
-A ferramenta de implementação de teste usa o serviço {{site.data.keyword.openwhisk}} para implementar um aplicativo Slack pré-construído para sua equipe como um usuário robô. Esse aplicativo manipula a comunicação com suas áreas de trabalho de conversação.
+A ferramenta de implementação de teste usa o serviço {{site.data.keyword.openwhisk}} para implementar um aplicativo Slack pré-construído para sua equipe como um usuário robô. Esse aplicativo manipula a comunicação com suas áreas de trabalho do {{site.data.keyword.conversationshort}}.
 
 ![Diagrama de visão geral da implementação de teste](images/testdeploy_diagram.png)
 
@@ -40,7 +40,7 @@ Para instalar seu aplicativo como um usuário robô:
 
    ![Opção de menu implementação rápida](images/deploy_menu_testdeploy.png)
 
-1. Em **Implementar com Funções de Nuvem**, clique em **Testar no Slack** e siga as instruções.
+1. Em **Implementar com o {{site.data.keyword.openwhisk_short}}**, clique em **Testar no Slack** e siga as instruções.
 
    ![Botão criar teste no Slack](images/testdeploy_testinslack.png)
 
@@ -61,6 +61,6 @@ Por exemplo, se sua área de trabalho usa uma variável de contexto chamada `dri
 ```
 {: codeblock}
 
-Para obter informações adicionais sobre modificação de valores de variáveis de contexto, consulte [Atualizando um valor de variável de contexto](dialog-build.html#updating-a-context-variable-value).
+Para obter informações adicionais sobre modificação de valores de variáveis de contexto, consulte [Atualizando um valor de variável de contexto](dialog-overview.html#updating-a-context-variable-value).
 
 **Nota:** quando tiver concluído o teste de sua área de trabalho, você poderá excluir a implementação de teste voltando para a ferramenta de implementação de teste e clicando em **Excluir teste**. Lembre-se de que você também deve separadamente desautorizar o aplicativo robô em sua equipe do Slack.

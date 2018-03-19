@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -44,12 +44,12 @@ A entidade do sistema @sys-currency detecta valores monetários que são express
 
 Para a entrada `twenty dollars` ou `$ 1,234.56`, @sys-currency retorna esses valores:
 
-| Atributo                    | Tipo   | Retornado para `twenty dollars` | Retornado para `$ 1,234.56` |
+| Atributo                   | Tipo   | Retornado para `twenty dollars` | Retornado para `$ 1,234.56` |
 |-----------------------------|--------|-------------------------------|-------------------------:|
 | @sys-currency               | sequência | 20                            |                  1234,56 |
-| @sys-currency.literal       | sequência | vinte dólares                 |                $ 1.234,56 |
-| @sys-currency.numeric_value | número    | 20                            |                  1234,56 |
-| @sys-currency.location      | matriz  | [0,14]                          |                    [0,9] |
+| @sys-currency.literal       | sequência | vinte dólares                |                $ 1.234,56 |
+| @sys-currency.numeric_value | número | 20                            |                  1234,56 |
+| @sys-currency.location      | matriz  | [0,14]                        |                    [0,9] |
 | @sys-currency.unit          | sequência | USD*                          |                      USD |
 
 *@sys-currency.unit sempre retorna o código de moeda ISO de 3 letras.
@@ -98,7 +98,7 @@ Em alguns códigos de idioma, uma frase como "na segunda-feira passada" é usada
 
 Como um exemplo, para sexta-feira, 16 de junho, em alguns códigos de idioma "na segunda-feira passada" pode referir-se a 12 de junho ou a 5 de junho, enquanto que em outros códigos de idioma se refere apenas a 5 de junho (a semana anterior). Essa mesma lógica vale para uma frase como "na próxima segunda-feira".
 
-O serviço de conversação trata a "última" e a "próxima" datas como referência ao último ou ao próximo dia mais imediato referenciado, que pode estar na mesma semana ou em uma semana anterior.
+O serviço {{site.data.keyword.conversationshort}} trata "última" e "próxima" datas como referência ao último ou próximo dia mais imediato referenciado, que pode estar na mesma semana ou em uma semana anterior.
 
 Para frases de tempo como "nos últimos 3 dias" ou "nas próximas 4 horas", a lógica é equivalente. Por exemplo, no caso de "nas próximas 4 horas", isso resulta em duas entidades `@sys-time`: uma do horário atual e uma das quatro horas posteriores à hora atual.
 
@@ -151,6 +151,7 @@ Para a entrada `at 6 pm` @sys-time retorna esses valores:
 - @sys-time sempre retorna o horário neste formato: HH:mm:ss.
 
 Para obter informações sobre o processamento de valores de data e hora, consulte a referência do método [Data e hora](dialog-methods.html#date-time).
+{: tip}
 
 ## Entidade @sys-location
 {: #sys-location}
@@ -163,7 +164,8 @@ Para obter informações sobre o processamento de valores de data e hora, consul
 - EUA
 - Nova Gales do Sul
 
-Para obter informações sobre o processamento de valores de Sequência, consulte a referência de método [Sequências](dialog-methods.html#strings).
+Para obter informações sobre o processamento de valores de sequência, veja a referência de método de [Sequências](dialog-methods.html#strings).
+{: tip}
 
 ## Entidade @sys-number
 {: #sys-number}
@@ -213,6 +215,7 @@ Você obtém resultados equivalentes para outros idiomas suportados.
   Use `@sys-number AND @sys-number<4` em vez disso. Se nenhum número estiver presente, a primeira condição será avaliada como falsa, o que resulta adequadamente na condição inteira sendo avaliada como falsa.
 
 Para obter informações sobre o processamento de valores numéricos, consulte a referência de método [Números](dialog-methods.html#numbers).
+{: tip}
 
 ## Entidade @sys-percentage
 {: #sys-percentage}
@@ -271,3 +274,4 @@ condição e o usuário especificar `0%` como o valor, o valor será reconhecido
 - Vijay
 
 Para obter informações sobre o processamento de valores de sequência, veja a referência de método de [Sequências](dialog-methods.html#strings).
+{: tip}

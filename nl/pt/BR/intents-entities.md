@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-01-09"
 
 ---
 
@@ -33,14 +33,16 @@ Como exemplo, suponha que queira criar um aplicativo de painel de carro intelige
     - `Headlights off`
     - `Turn the radio off`
     - `Stop the air conditioner`
+
 1.  Quando tiver uma lista de exemplos, classifique-os em categorias com base nos recursos que deseja que seu aplicativo suporte; essas categorias representam as intenções que você definirá, enquanto os exemplos ajudarão seu aplicativo a identificar essas intenções na nova entrada.
 
     Não faça suas intenções muito semelhantes. Intenções semelhantes podem ser difíceis para o serviço {{site.data.keyword.conversationshort}} distinguir. Se você achar que tem várias intenções com o mesmo significado, considere se pode combiná-las em uma única intenção e, em seguida, use as entidades para fornecer várias respostas possíveis para essa intenção.
     {: tip}
 
-    Como todos os exemplos acima representam a mesma intenção (desligar algo), você pode chamar essa categoria de `#turn_off`.
+    Como todos os exemplos anteriores representam a mesma intenção (desligar algo), você pode chamar essa categoria de `#turn_off`.
     Lembre-se de que a entrada de um cliente não precisa ser uma correspondência exata para qualquer um dos exemplos; as intenções são reconhecidas usando processamento de linguagem natural.
     {: tip}
+
 1.  Você poderia, então, usar uma entidade para representar o que o usuário deseja desligar. Para fazer isso, você pode criar uma entidade chamada `@accessory` e fornecer-lhe os valores possíveis a seguir:
 
     - `headlights`
@@ -51,4 +53,5 @@ Como exemplo, suponha que queira criar um aplicativo de painel de carro intelige
 1.  Quando a entrada do usuário é recebida, a conversa reconhece as intenções e entidades. Seu fluxo de diálogo pode, então, usá-las para fornecer a melhor resposta. Você deve criar uma entidade apenas para algo que importa em termos de mudar a forma como o aplicativo responde a uma intenção.
     Além das entidades definidas por você, o serviço fornece um conjunto de entidades do sistema que já estão definidas e disponíveis para seu uso. Para obter mais informações, consulte [Ativando entidades do sistema](entities.html#enable_system_entities).
     {: tip}
+
 1.  Continue refinando suas intenções, entidades e exemplos conforme necessário. Não pense em seu conjunto de intenções e entidades como produtos acabados. É provável que você, ao [construir seus diálogos](dialog-build.html), identifique intenções e entidades adicionais que precisem ser incluídas. Também é possível continuar reunindo entrada de novos clientes e usá-las para incluir novos exemplos; esse processo iterativo melhora a capacidade de seu aplicativo para reconhecer intenções e entidades com precisão.

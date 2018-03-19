@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-08"
+  years: 2015, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -17,12 +17,27 @@ lastupdated: "2017-08-08"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# Métodos para processar valores
+# Métodos de linguagem de expressão
 
-Use esses métodos para processar valores extraídos de elocuções do usuário que você deseja referenciar em uma variável de contexto, condição ou em outro lugar na resposta.
+É possível processar os valores extraídos de elocuções do usuário que você deseja referenciar em uma variável de contexto, condição ou em outro lugar na resposta.
 {: shortdesc}
 
->**Nota:** para métodos que envolvem expressões regulares, consulte [Referência da Sintaxe RE2](https://github.com/google/re2/wiki/Syntax) para obter detalhes sobre a sintaxe a ser usada ao especificar a expressão regular.
+## Sintaxe de avaliação
+
+Para expandir os valores de variáveis dentro de outras variáveis ou aplicar métodos para texto de saída ou variáveis de contexto, use a sintaxe de expressão `<? expression ?>`. Por exemplo:
+
+- **Incrementando uma propriedade numérica**
+    - `"output":{"number":"<? output.number + 1 ?>"}`
+- **Chamando um método em um objeto**
+    - `"context":{"toppings": "<? context.toppings.append( 'onions' ) ?>"}`
+
+As seções a seguir descrevem os métodos que podem ser usados para processar valores. Eles são organizados por tipo de dados:
+
+- [Matrizes](dialog-methods.html#arrays)
+- [Data e Hora](dialog-methods.html#date-time)
+- [Números](dialog-methods.html#numbers)
+- [Objetos](dialog-methods.html#objects)
+- [Sequências](dialog-methods.html#strings)
 
 ## Matrizes
 {: #arrays}
@@ -64,7 +79,7 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.contains(object value)
 
@@ -193,7 +208,7 @@ Resultado:
 ```json
 This is the array: onion;olives;ham;
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.remove(integer)
 
@@ -230,7 +245,7 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.removeValue(object)
 
@@ -267,7 +282,7 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.set(integer index, object value)
 
@@ -304,7 +319,7 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray.size()
 
@@ -341,7 +356,7 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### JSONArray split(String regexp)
 
@@ -374,12 +389,33 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### Suporte ao com.google.gson.JsonArray
+{: #com.google.gson.JsonArray}
+
+Além dos métodos integrados, é possível usar os métodos padrão da classe `com.google.gson.JsonArray`.
+
+#### Nova matriz
+
+new JsonArray().append('value')
+
+Para definir uma nova matriz que será preenchida com valores fornecidos pelos usuários, é possível instanciar uma matriz. Deve-se também incluir um valor do item temporário na matriz quando instanciá-la. É possível usar a sintaxe a seguir para fazer isso:
+
+```json
+{
+  "context":{
+    "answer": "<? output.answer?:new JsonArray().append('temp_value') ?>"
+  }
+```
+{: codeblock}
 
 ## Data e Hora
 {: #date-time}
 
 Vários métodos estão disponíveis para trabalhar com data e hora.
+
+Para obter informações sobre como reconhecer e extrair as informações de data e hora da entrada do usuário, veja [Entidades @sys-date e @sys-time](system-entities.html#sys-datetime).
 
 ### .after(String date/time)
 
@@ -452,9 +488,9 @@ Por exemplo, essa definição de variável de contexto cria uma variável $time 
 ```
 {: codeblock}
 
-O formato segue as regras [SimpleDateFormat](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html) de Java.
+O formato segue as regras do Java [SimpleDateFormat ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html){: new_window}.
 
->Nota: ao tentar formatar apenas o horário, a data é tratada como `1970-01-01`.
+**Nota**: ao tentar formatar somente o horário, a data é tratada como `1970-01-01`.
 
 ### .sameMoment(String date/time)
 
@@ -469,14 +505,147 @@ O formato segue as regras [SimpleDateFormat](http://docs.oracle.com/javase/6/doc
 
 - Determina se o valor de data/hora é anterior ou igual ao argumento de data/hora.
 
-Para obter informações sobre entidades do sistema que extraem valores de data e hora, consulte [Entidades @sys-date e @sys-time](system-entities.html#sys-datetime).
+### Suporte ao java.util.Date
+{: #java.util.Date}
+
+Além dos métodos integrados, é possível usar os métodos padrão da classe `java.util.Date`.
+
+#### Cálculos de data
+
+Para obter a data do dia que cai uma semana a partir de hoje, é possível usar a sintaxe a seguir.
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() + (7 * (24*60*60*1000L))) ?>"
+  }
+}
+```
+{: codeblock}
+
+Essa expressão obtém primeiro a data atual em milissegundos (desde 1 de janeiro de 1970, 0h GMT). Ela também calcula o número de milissegundos em 7 dias. (O `(24*60*60*1000L)` representa um dia em milissegundos.) Em seguida, ele inclui 7 dias na data atual. O resultado é a data integral do dia que cai uma semana a partir de hoje. Por exemplo, `Fri Jan 26 16:30:37 UTC 2018`. Observe que o horário está no fuso horário UTC. É possível sempre mudar o 7 para uma variável (`$number_of_days`, por exemplo) que você pode passar. Apenas certifique-se de que seu valor seja configurado antes dessa expressão ser avaliada.
+
+Se você deseja ser capaz de comparar subsequentemente a data com outra data que é gerada pelo serviço, deve-se reformatar a data. As entidades do sistema (`@sys-date`) e outros métodos integrados (`now()`) convertem as datas para o formato `yyyy-MM-dd`.
+
+```json
+{
+  "context": {
+    "week_from_today": "<? new Date(new Date().getTime() + (7 * (24*60*60*1000L))).format('yyyy-MM-dd') ?>"
+  }
+}
+```
+{: codeblock}
+
+Depois de reformatar a data, o resultado será `2018-01-26`. Agora, é possível usar uma expressão como `@sys-date.after($week_from_today)` em uma condição de resposta para comparar uma data especificada na entrada do usuário com a data salva na variável de contexto.
+
+A expressão a seguir calcula o horário daqui a 3 horas.
+
+```json
+{
+  "context": {
+    "future_time": "<? new Date(new Date().getTime() + (3 * (60*60*1000L)) -
+      (5 * (60*60*1000L))).format('h:mm a') ?>"
+  }
+}
+```
+{: codeblock}
+
+O valor `(60*60*1000L)` representa uma hora em milissegundos. Essa expressão inclui 3 horas no horário atual. Em seguida, recalcula o horário de um fuso horário UTC para o fuso horário EST subtraindo 5 horas dele. Também reformata os valores de data para incluir horas e minutos AM ou PM.
 
 ## Números
 {: #numbers}
 
-### Random()
+Esses métodos ajudam a obter e formatar valores de número.
 
-Retorna um número aleatório. Use uma das opções de sintaxe a seguir:
+Para obter informações sobre entidades do sistema que podem reconhecer e extrair números da entrada do usuário, veja [@sys-number entity](system-entities.html#sys-number).
+
+Se desejar que o serviço reconheça formatos numéricos específicos na entrada do usuário, como referências de números de ordem, pense em criar uma entidade padrão para capturá-los. Veja [Criando entidades](entities.html#creating-entities) para obter mais detalhes.
+
+### toDouble()
+
+  Converte o objeto ou campo no tipo de número Duplo. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
+
+### toInt()
+
+  Converte o objeto ou campo no tipo de número Inteiro. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
+
+### toLong()
+
+  Converte o objeto ou campo no tipo de número Longo. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
+
+  Se você especifica um tipo de número Longo em uma expressão SpEL, deve-se anexar um `L` ao número para identificá-lo como tal. Por exemplo, `5000000000L`. Essa sintaxe é necessária para quaisquer números que não se ajustam ao tipo de Número inteiro de 32 bits. Por exemplo, números que são maiores que 2^31 (2.147.483.648) ou menores que -2^31 (-2.147.483.648) são considerados tipos de número Longo. Os tipos de número Longo têm um valor mínimo de -2^63 e um valor máximo de 2^63-1.
+
+### Suporte a números do Java
+{: #java.lang.Number}
+
+### java.lang.Math()
+
+Executa operações numéricas básicas.
+
+É possível usar os métodos de Classe, incluindo estes:
+
+- max()
+
+```json
+{
+  "context": {
+    "bigger_number": "<? T(Math).max($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "The bigger number is $bigger_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- min()
+
+```json
+{
+  "context": {
+    "smaller_number": "<? T(Math).min($number1,$number2) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "The smaller number is $smaller_number."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+- pow()
+
+```json
+{
+  "context": {
+    "power_of_two": "<? T(Math).pow($base.toDouble(),2.toDouble()) ?>"
+  },
+  "output": {
+    "text": {
+      "values": [
+        "Your number $base to the second power is $power_of_two."
+      ],
+      "selection_policy": "sequential"
+    }
+  }
+}
+```
+{: codeblock}
+
+Veja a [documentação de referência do java.lang.Math](https://docs.oracle.com/javase/7/docs/api/java/lang/Math.html) para obter informações sobre outros métodos.
+
+### java.util.Random()
+
+Retorna um número aleatório. É possível usar uma das opções de sintaxe a seguir:
 
 - Para retornar um valor booleano aleatório (true ou false), use `<?new Random().nextBoolean()?>`.
 - Para retornar um número duplo aleatório entre 0 (incluído) e 1 (excluído), use `<?new Random().nextDouble()?>`
@@ -504,19 +673,16 @@ Condition = @sys-number
 ```
 {: codeblock}
 
-### toDouble()
+Veja a [documentação de referência do java.util.Random](https://docs.oracle.com/javase/7/docs/api/java/util/Random.html) para obter informações sobre outros métodos.
 
-  Converte o objeto ou campo no tipo de número Duplo. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
+Também é possível usar métodos padrão das classes a seguir:
 
-### toInt()
-
-  Converte o objeto ou campo no tipo de número Inteiro. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
-
-### toLong()
-
-  Converte o objeto ou campo no tipo de número Longo. Será possível chamar esse método em qualquer objeto ou campo. Se a conversão falhar, *null* será retornado.
-
-Para obter informações sobre entidades do sistema que extraem números, consulte [Entidade @sys-number](system-entities.html#sys-number).
+- `java.lang.Byte`
+- `java.lang.Integer`
+- `java.lang.Long`
+- `java.lang.Double`
+- `java.lang.Short`
+- `java.lang.Float`
 
 ## Objetos
 {: #objects}
@@ -593,10 +759,21 @@ Resultado:
   }
 }
 ```
-{: screen}
+{: codeblock}
+
+### Suporte ao com.google.gson.JsonObject
+{: #com.google.gson.JsonObject}
+
+Além dos métodos integrados, é possível usar métodos padrão da classe `com.google.gson.JsonObject`.
 
 ## Sequências
 {: #strings}
+
+Existem métodos que ajudam a trabalhar com texto.
+
+Para obter informações sobre como reconhecer e extrair determinados tipos de Sequências, como nomes de pessoas e locais, da entrada do usuário, veja [Entidades do sistema](system-entities.html).
+
+**Nota:** para métodos que envolvem expressões regulares, veja [Referência da Sintaxe RE2 ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://github.com/google/re2/wiki/Syntax){: new_window} para obter detalhes sobre a sintaxe a ser usada ao especificar a expressão regular.
 
 ### String.append(object)
 
@@ -633,7 +810,7 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.contains(string)
 
@@ -711,14 +888,14 @@ Resultado:
 
 ### String.find(string regexp)
 
-Esse método retorna true se qualquer segmento da sequência corresponde à expressão regular de entrada. É possível chamar esse método em um elemento JSONArray ou JSONObject, e ele converterá a matriz ou o objeto em uma sequência antes de fazer a comparação.
+Esse método retorna true se qualquer segmento da sequência corresponde à expressão regular de entrada.  É possível chamar esse método em um elemento JSONArray ou JSONObject, e ele converterá a matriz ou o objeto em uma sequência antes de fazer a comparação.
 
 Para essa entrada:
 
 ```
 "Hello 123456".
 ```
-{: screen}
+{: codeblock}
 
 Essa sintaxe:
 
@@ -788,7 +965,7 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.matches(string regexp)
 
@@ -870,7 +1047,7 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toLowerCase()
 
@@ -903,7 +1080,7 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.toUpperCase()
 
@@ -936,7 +1113,7 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
 ### String.trim()
 
@@ -973,6 +1150,86 @@ Resultados nessa saída:
   }
 }
 ```
-{: screen}
+{: codeblock}
 
-Para obter informações sobre entidades do sistema que extraem sequências, consulte [Entidades do Sistema](system-entities.html).
+### Suporte ao java.lang.String
+{: #java.lang.String}
+
+Além dos métodos integrados, é possível usar métodos padrão da classe `java.lang.String`.
+
+#### java.lang.String.format()
+
+É possível aplicar o método de Sequência Java padrão `format()` ao texto. Veja [Referência java.util.formatter ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html#syntax){: new_window} para obter informações sobre a sintaxe a ser usada para especificar os detalhes de formato.
+
+Por exemplo, a expressão a seguir toma três números inteiros decimais (1, 1 e 2) e os inclui em uma sentença.
+
+```json
+{
+  "formatted String": "<? T(java.lang.String).format('%d + %d equals %d', 1, 1, 2) ?>"
+}
+```
+{: codeblock}
+
+Resultado: `1 + 1 equals 2`.
+
+## Conversão indireta do tipo de dado
+
+Ao incluir uma expressão em texto, como parte de uma resposta do nó, por exemplo, o valor é renderizado como uma Sequência. Se você deseja que a expressão seja renderizada em seu tipo de dados original, não a demarque com texto.
+
+Por exemplo, é possível incluir essa expressão em uma resposta do nó de diálogo para retornar as entidades que são reconhecidas na entrada do usuário no formato de Sequência:
+
+```json
+  The entities are <? entities ?>.
+```
+{: codeblock}
+
+Se o usuário especifica *Hello now* como a entrada, as entidades @sys-date e @sys-time são acionadas pela referência `now`. O objeto de entidades é uma matriz, mas como a expressão está incluída em texto, as entidades são retornadas em formato de Sequência, como este:
+
+```json
+  The entities are 2018-02-02, 14:34:56.
+```
+{: codeblock}
+
+Se você não inclui texto na resposta, uma matriz é retornada no lugar. Por exemplo, se a resposta é especificada somente como uma expressão, não circundada por texto.
+
+```
+  <? entities ?>
+```
+{: codeblock}
+
+As informações de entidade são retornadas em seu tipo de dados nativos, como uma matriz.
+
+```json
+[
+  {
+    "entity":"sys-date","location":[6,9],"value":"2018-02-02","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  },
+  {
+    "entity":"sys-time","location":[6,9],"value":"14:33:22","confidence":1,"metadata":{"calendar_type":"GREGORIAN","timezone":"America/New_York"}
+  }
+  ]
+```
+{: codeblock}
+
+Como outro exemplo, a variável de contexto $array a seguir é uma matriz, mas a variável de contexto $string_array é uma sequência.
+
+```json
+{
+  "context": {
+    "array": [
+      "one",
+      "two"
+    ],
+    "array_in_string": "this is my array: $array"
+  }
+}
+```
+{: codeblock}
+
+Se você verificar os valores dessas variáveis de contexto na área de janela Experimente, verá seus valores especificados conforme a seguir:
+
+**$array** : `["one","two"]`
+
+**$array_in_string** : `"this is my array: [\"one\",\"two\"]"`
+
+É possível executar métodos de matriz subsequentemente na variável $array, tal como `<? $array.removeValue('two') ?>`, mas não a variável $array_in_string.

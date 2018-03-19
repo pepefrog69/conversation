@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-08-10"
+  years: 2015, 2018
+lastupdated: "2018-02-16"
 
 ---
 
@@ -16,6 +16,7 @@ lastupdated: "2017-08-10"
 {:java: .ph data-hd-programlang='java'}
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
+{:download: .download}
 
 # Tutorial de introdução
 {: #gettingstarted}
@@ -26,22 +27,45 @@ Neste tutorial curto, introduzimos a ferramenta do {{site.data.keyword.conversat
 ## Antes de iniciar
 {: #prerequisites}
 
-Se você já criou uma instância de serviço, você está pronto com esses pré-requisitos. Vá para a Etapa 1.
-{: tip}
+Será necessária uma instância de serviço para iniciar.
 
-1.  Acesse o serviço [{{site.data.keyword.conversationshort}} ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.{DomainName}/catalog/services/conversation/){: new_window} e inscreva-se para uma conta grátis do {{site.data.keyword.Bluemix_notm}} ou efetue login.
-1.  Depois de efetuar login, digite `conversation-tutorial` no campo **Nome do Serviço** da página {{site.data.keyword.conversationshort}} e clique em **Criar**.
+<!-- Remove the text marked `download` after there's no g-s tab in the catalog dashboard -->
+
+Você criou sua instância de serviço. Clique em **Gerenciar** e, em seguida,
+**Ativar ferramenta**. Acesse a Etapa 2.
+{: download tip}
+
+Se você criar um projeto com o serviço do {{site.data.keyword.conversationshort}}, estará pronto com esses pré-requisitos. Acesse a Etapa 1.
+
+1.  Acesse a página {{site.data.keyword.watson}} Developer Console [Services ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.{DomainName}/developer/watson/services){: new_window}.
+1.  Selecione {{site.data.keyword.conversationshort}}, clique em **Incluir serviços** e inscreva-se para uma conta do {{site.data.keyword.Bluemix_notm}} grátis ou efetue login.
+1.  Mude o nome do projeto para `conversation-tutorial` e, em seguida, clique em **Criar projeto**.
+
+<!-- Remove this text after dedicated instances have the developer console: begin -->
+
+Se você usa o {{site.data.keyword.Bluemix_dedicated_notm}}, crie sua instância de serviço na página [{{site.data.keyword.conversationshort}} ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.{DomainName}/catalog/services/conversation/){: new_window} no Catálogo.
+
+<!-- Remove this text after dedicated instances have the developer console: end -->
 
 ## Etapa 1: Ativar a ferramenta
 {: #launch-tool}
 
-Depois de criar a instância de serviço, você entrará no painel da instância. Ative a ferramenta {{site.data.keyword.conversationshort}} desde aqui.
+Depois de criar um projeto que inclui o serviço do {{site.data.keyword.conversationshort}}, você acessará a página de detalhes do projeto. Ative a ferramenta {{site.data.keyword.conversationshort}} desde aqui.
 
-Clique em **Gerenciar**, em seguida **Ativar ferramenta**.
+Clique em **ferramenta Ativar** para {{site.data.keyword.conversationshort}} em **Serviços**.
 
-![Mostra a página IBM Bluemix Watson Manage em que você ativa a ferramenta](images/gs-launch-tool.png)
+<!-- To do: Add screenshot for developer console -->
 
-Você pode ser solicitado a efetuar login na ferramenta separadamente. Nesse caso, forneça as credenciais do IBM Bluemix para efetuar login.
+Se você for solicitado a efetuar login na ferramenta, forneça suas credenciais do {{site.data.keyword.Bluemix_notm}}.
+
+Se você não estiver em uma página de detalhes do projeto para o serviço do {{site.data.keyword.conversationshort}}, acesse a página {{site.data.keyword.watson}} Developer Console [Projetos ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.{DomainName}/developer/watson/projects) e selecione o projeto.
+{: tip}
+
+<!-- Remove this text after dedicated instances have the developer console: begin -->
+
+{{site.data.keyword.Bluemix_dedicated_notm}}: selecione sua instância de serviço no Painel para ativar o conjunto de ferramentas.
+
+<!-- Remove this text after dedicated instances have the Developer Console: end -->
 
 ## Etapa 2: Criar uma área de trabalho
 {: #create-workspace}
@@ -51,9 +75,9 @@ Sua primeira etapa na ferramenta {{site.data.keyword.conversationshort}} é cria
 Uma [*área de trabalho*](configure-workspace.html) é um contêiner para os artefatos que define o fluxo de conversa.
 
 1.  Na ferramenta {{site.data.keyword.conversationshort}}, clique em **Criar**.
-1.  Dê à sua área de trabalho o nome `Conversation tutorial` e clique em **Criar**. Você entrará na guia **Intenções** de sua nova área de trabalho.
+1.  Forneça à sua área de trabalho o nome `{{site.data.keyword.conversationshort}} tutorial`. Se o diálogo que você planeja construir usará uma linguagem diferente do inglês, escolha a linguagem apropriada na lista. Clique em **Criar**. Você entrará na guia **Intenções** de sua nova área de trabalho.
 
-![Mostra uma animação de um usuário criando uma área de trabalho do tutorial de Conversa.](images/gs-create-workspace-animated.gif)
+![Mostra uma animação de um usuário criando uma área de trabalho do tutorial do {{site.data.keyword.conversationshort}}.](images/gs-create-workspace-animated.gif)
 
 ## Etapa 3: Criar intenções
 {: #create-intents}
@@ -63,19 +87,18 @@ Uma [intenção](intents.html) representa o propósito de uma entrada do usuári
 Para este exemplo, vamos manter as coisas simples e definir apenas duas intenções: uma para dizer olá e uma para dizer adeus.
 
 1.  Certifique-se de estar na guia Intenções. (Você já deve estar lá se você acabou de criar a área de trabalho.)
-1.  Clique em **Criar novo**.
-1.  Nomeie a intenção `hello`.
-1.  Digite `hello` como um **Exemplo do usuário** e pressione Enter.
+1.  Clique em **Incluir intenção**.
+1.  Nomeie a intenção `hello` e, em seguida, clique em **Criar intenção**.
+1.  Digite `hello` no campo **Incluir exemplo do usuário** e, em seguida, pressione **Enter**.
 
    *Exemplos* informam ao serviço {{site.data.keyword.conversationshort}} quais tipos de entrada do usuário você deseja corresponder à intenção. Quanto mais exemplos você fornecer, mais preciso o serviço pode ser em reconhecer as intenções dos usuários.
-1.  Inclua mais quatro exemplos e clique em **Concluído** para concluir a criação da intenção #hello:
+1.  Inclua mais quatro exemplos:
     - `good morning`
     - `greetings`
     - `hi`
     - `howdy`
 
-   ![Mostra uma animação de um usuário criando uma intenção #hello com elocuções de exemplo.](images/gs-add-intents-animated.gif)
-
+1.  Clique no ícone **Fechar** ![Seta de fechamento](images/close_arrow.png) para concluir a criação da intenção #hello.
 1.  Crie outra intenção chamada #goodbye com esses cinco exemplos:
     - `bye`
     - `farewell`
@@ -87,7 +110,18 @@ Você criou duas intenções, #hello e #goodbye e forneceu a entrada do usuário
 
 ![Mostra a página Intenções listando as intenções #goodbye e #hello](images/gs-add-intents-result.png)
 
-## Etapa 4: Construir um diálogo
+## Etapa 4: incluir intenções de um catálogo
+{: #add-catalog}
+
+Inclua os dados de treinamento que foram construídos pela IBM em sua área de trabalho, incluindo intenções de um catálogo. Em particular, você fornecerá a seu assistente acesso ao catálogo `Informações de negócios` para que o diálogo possa direcionar solicitações do usuário para informações de contato da empresa.
+
+1.  Na ferramenta {{site.data.keyword.conversationshort}}, clique na guia **Catálogo**.
+1.  Localize **Informações de negócios** na lista e, em seguida, clique em **Incluir no robô**.
+1.  Abra a guia **Intenções** para revisar as intenções e as elocuções de exemplo associadas que foram incluídas em seus dados de treinamento. É possível reconhecê-las porque cada nome de intenção inicia com o prefixo `#Business_Information_`. Você incluirá a intenção `#Business_Information_Contact_Us` em seu diálogo em uma etapa posterior.
+
+Você complementou com sucesso seus dados de treinamento com conteúdo pré-construído fornecido pela IBM.
+
+## Etapa 5: construir um diálogo
 {: #build-dialog}
 
 Um [diálogo](dialog-build.html) define o fluxo de sua conversa na forma de uma árvore lógica. Cada nó da árvore tem uma condição que o aciona, com base na entrada do usuário.
@@ -103,7 +137,7 @@ Vamos criar um diálogo simples que manipula nossas intenções #hello e #goodby
 
     ![Mostra a árvore de diálogo com os nós Bem-vindo e Qualquer outra coisa](images/gs-add-dialog-node-animated-cover.png)
 1.  Clique no nó **Bem-vindo** para abri-lo na visualização de edição.
-1.  Substitua a resposta padrão com o texto `Welcome to the Conversation tutorial!`.
+1.  Substitua a resposta padrão pelo texto `Welcome to the {{site.data.keyword.conversationshort}} tutorial!`.
 
     ![Mostra o nó Bem-vindo aberto na visualização de edição](images/gs-edit-welcome-node.png)
 1.  Clique em ![Fechar](images/close.png) para fechar a visualização de edição.
@@ -128,9 +162,11 @@ Agora vamos incluir nós para manipular nossas intenções entre o nó `Welcome`
 1.  Clique em ![Fechar](images/close.png) para fechar a visualização de edição.
 
    ![Mostra uma animação de um usuário incluindo um nó hello para o diálogo.](images/gs-add-dialog-node-animated.gif)
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) nesse nó e, em seguida, selecione **Incluir nó abaixo** para criar um nó de mesmo nível. No nó de mesmo nível, especifique `#goodbye` como a condição, e `OK. See you later!` como a resposta.
+1.  Clique no ícone Mais ![Mais opções](images/kabob.png) nesse nó e, em seguida, selecione **Incluir nó abaixo** para criar um nó de mesmo nível. No nó de mesmo nível, especifique `#Business_Information_Contact_Us` como a condição.
+1.  Inclua o texto a seguir como a resposta.
 
-    ![Incluindo nós para intenções](images/gs-add-dialog-nodes-result.png)
+    `Call us at 800-426-4968 or give us your feedback at https://www.ibm.com/scripts/contact/contact/us/en.`
+1.  Clique no ícone Mais ![Mais opções](images/kabob.png) nesse nó e, em seguida, selecione **Incluir nó abaixo** para criar outro nó peer. No nó de mesmo nível, especifique `#goodbye` como a condição, e `OK. See you later!` como a resposta.
 
 ### Testando o reconhecimento de intenção
 
@@ -145,7 +181,8 @@ Você construiu um diálogo simples para reconhecer e responder a ambas as entra
     - `good morning`
     - `sayonara`
 
-   ![Mostra uma animação do usuário testando o diálogo no painel Experimente](images/gs-test-dialog-animated.gif)
+   ![Mostra uma animação do usuário testando o diálogo na área de janela Experimente.](images/gs-test-dialog-animated.gif)
+1.  Insira `Who can I call if I have questions?` e pressione Enter. A saída indica que a intenção `#Business_Information_Contact_Us` foi reconhecida e a resposta que você incluiu para ela é exibida.
 
 O {{site.data.keyword.watson}} pode reconhecer suas intenções mesmo quando sua entrada não corresponde exatamente aos exemplos incluídos. O diálogo utiliza intenções para identificar o propósito da entrada do usuário independentemente do texto exato usado e então responde da maneira que você especificar.
 
@@ -153,7 +190,7 @@ O {{site.data.keyword.watson}} pode reconhecer suas intenções mesmo quando sua
 
 É isso. Você criou uma conversa simples com duas intenções e um diálogo para reconhecê-las.
 
-## Etapa 5: Revisar a área de trabalho de amostra
+## Etapa 6: revisar a área de trabalho de amostra
 {: #review-sample-workspace}
 
 Abra a área de trabalho de amostra para ver as intenções semelhantes àquelas que você acabou de criar e muitas mais, e ver como elas são usadas em um diálogo complexo.
@@ -164,7 +201,7 @@ Abra a área de trabalho de amostra para ver as intenções semelhantes àquelas
 
     ![Mostra o quadro amostra de painel do carro na página Áreas de trabalho](images/gs-workspace-car-sample.png)
 
-## O que fazer em seguida
+## Próximas etapas
 {: #next-steps}
 
 Este tutorial é construído em torno de um exemplo simples. Para um aplicativo real, você precisará definir algumas intenções mais interessantes, algumas entidades e um diálogo mais complexo.

@@ -31,7 +31,7 @@ Para obter informações adicionais sobre o método /logs `GET` e seu modelo de 
 
 O exemplo a seguir mostra o formulário geral de uma consulta de filtro:
 
-| Localização        | Operador de Consulta| Termo         |
+| Localização           | Operador de Consulta | Termo         |
 |:------------------:|:--------------:|:------------:|
 |`request.input.text`|`::`            |`"IBM Watson"`|
 
@@ -48,7 +48,7 @@ A filtragem por intenção ou entidade requer sintaxe um pouco diferente da filt
 
 É possível usar os operadores a seguir em sua consulta de filtro.
 
-| Operador | Descrição   |
+| Operador | Descrição |
 |:-------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `:` | Operador de consulta de correspondência difusa. Prefixe o termo de consulta com `:` se você deseja corresponder qualquer valor que contém o termo de consulta ou uma variante gramatical do termo de consulta. Correspondência difusa está disponível para texto de entrada do usuário, texto de saída de resposta e valores de entidade. |
 | `::` | Operador de consulta de correspondência exata. Prefixe o termo de consulta com `::` se você deseja corresponder apenas os valores que são exatamente iguais ao termo de consulta. |
@@ -60,7 +60,7 @@ A filtragem por intenção ou entidade requer sintaxe um pouco diferente da filt
 | `~` | Correspondência aproximada. Anexe esse operador seguido por `1` ou `2` para o fim do termo de consulta para especificar o número permitido de diferenças de caractere único entre a sequência de consulta e uma correspondência no objeto de resposta. Por exemplo, `car~1` corresponderia `car`, `cat` ou `cars`, mas não corresponderia `cats`. Este operador não é válido na filtragem de `log_id` ou qualquer campo de data ou hora ou com correspondência difusa. |
 | `*` | Operador curinga. Corresponde qualquer sequência de zero ou mais caracteres. Este operador não é válido na filtragem de `log_id` ou qualquer campo de data ou hora. |
 | `()`, `[]` | Operadores de agrupamento. Use para incluir um agrupamento lógico de várias expressões usando operadores booleanos. |
-| <code>&#124;</code> | Operador _or_ booleano. |
+| \| | Operador _or_ booleano. |
 | `,` | Operador _and_ booleano. |
 
 ### Filtrando por intenção ou entidade
@@ -103,7 +103,7 @@ Para filtrar em qualquer outro campo nos dados do log, especifique o local como 
 
 Os exemplos a seguir ilustram vários tipos de consultas usando esta sintaxe.
 
-| Descrição   | Consulta |
+| Descrição | Consulta |
 |---------|-----------|
 | A data da resposta é no mês de julho de 2017. | `response_timestamp>=2017-07-01,response_timestamp<2017-08-01` |
 | O registro de data e hora da resposta é anterior a `2016-11-01T04:00:00.000Z`. | `response_timestamp<2016-11-01T04:00:00.000Z` |
@@ -118,6 +118,7 @@ Os exemplos a seguir ilustram vários tipos de consultas usando esta sintaxe.
 | O texto de entrada do usuário contém uma sequência que consiste de `comm`, seguido por zero ou mais caracteres adicionais, seguido por `s`. | `request.input.text:comm*s` |
 | O ID de implementação no contexto corresponde a `my_app`. | `request.context.metadata.deployment::my_app` |
 | Uma entidade na resposta possui um valor de confiança maior que 0,8. | `response.intents:confidence>0.8` |
-| Um nome de intenção na resposta corresponde exatamente a `hello` ou `goodbye`. | <code>response.intents:intent::(hello&#124;goodbye)</code> |
+| Um nome de intenção na resposta corresponde exatamente a `hello` ou `goodbye`. | <code>response.intents:intent::(hello\|goodbye)</code> |
 | Uma intenção na resposta possui o nome `hello` e um valor de confiança igual ou maior que 0,8. | `response.intents:(intent:hello,confidence>=0.8)` |
 | Um nome de intenção na resposta corresponde exatamente a `order` e um nome de entidade na resposta corresponde exatamente a `beverage`. | `[response.intents:intent::order,response.entities:entity::beverage]` |
+<!-- -->

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-02-07"
 
 ---
 
@@ -27,23 +27,25 @@ Na tabela a seguir, o nível de suporte a recurso e idioma é indicado por estes
 - **Beta** - O recurso é suportado apenas como uma liberação Beta e ainda está passando por testes antes que seja disponibilizado nesse idioma.
 - **Em Branco** - Ausência de qualquer código indica que um recurso não está disponível nesse idioma.
 
-|                  | **[Definindo intenções](intents.html)**, **[entidades](entities.html)** e **[diálogo](dialog-build.html)** | **[Pontuação absoluta e 'Marcar como irrelevante'](intents.html#mark-irrelevant)** | **Entidades do sistema([número](system-entities.html#sys-number), [moeda](system-entities.html#sys-currency), [porcentagem](system-entities.html#sys-percentage), [data, hora](system-entities.html#sys-datetime))** | **[Correspondência difusa da entidade](entities.html#fuzzy-matching)** | **[Entidades baseadas em padrão](entities.html#pattern-entities)** |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **Inglês (en)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral </br> Beta ([local](system-entities.html#sys-location), [pessoa](system-entities.html#sys-person)) | Beta (Stemming, erro de ortografia e correspondência parcial) | Beta |
-| **Árabe (ar)**                    | disponibilidade geral | Beta | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Chinês (Simplificado) (zh-cn)**   | Beta | Beta | Beta |  | Beta |
-| **Chinês (Tradicional) (zh-tw)**  | Beta | Beta |  |  | Beta |
-| **Tcheco (cs)**                     | Beta | Beta | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Holandês (nl)**                     | Beta | Beta |  |  | Beta |
-| **Francês (fr)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Alemão (de)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Italiano (it)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Japonês (ja)**                  | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Coreano (ko)**                    | disponibilidade geral | disponibilidade geral | Beta | Beta (Apenas erro de ortografia) | Beta |
-| **Português (do Brasil) (pt-br)** | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta |
-| **Espanhol (es)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) | Beta ||
+|                  | **[Definindo intenções](intents.html)**, **[entidades](entities.html)** e **[diálogo](dialog-build.html)** | **[Pontuação absoluta e 'Marcar como irrelevante'](intents.html#mark-irrelevant)** | **Entidades do sistema([número](system-entities.html#sys-number), [moeda](system-entities.html#sys-currency), [porcentagem](system-entities.html#sys-percentage), [data, hora](system-entities.html#sys-datetime))** | **[Correspondência difusa da entidade](entities.html#fuzzy-matching)** |
+|:---|:---:|:---:|:---:|:---:|
+| **Inglês (en)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral </br> Beta ([local](system-entities.html#sys-location), [pessoa](system-entities.html#sys-person)) | Beta (Stemming, erro de ortografia e correspondência parcial) |
+| **Árabe (ar)**                    | disponibilidade geral | Beta | Beta | Beta (Apenas erro de ortografia) |
+| **Chinês (Simplificado) (zh-cn)**   | Beta | Beta | Beta |  |
+| **Chinês (Tradicional) (zh-tw)**  | Beta | Beta |  |  |
+| **Tcheco (cs)**                     | Beta | Beta | Beta | Beta (Apenas erro de ortografia) |
+| **Holandês (nl)**                     | Beta | Beta | Beta |  |
+| **Francês (fr)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Alemão (de)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Italiano (it)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Japonês (ja)**                  | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Coreano (ko)**                    | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Português (do Brasil) (pt-br)** | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) |
+| **Espanhol (es)**                   | disponibilidade geral | disponibilidade geral | disponibilidade geral | Beta (Apenas erro de ortografia) ||
 
 **Nota:** O serviço do {{site.data.keyword.conversationshort}} suporta vários idiomas, conforme observado, mas a interface do conjunto de ferramentas em si (descrições, rótulos, etc.) está em inglês. Todos os idiomas suportados podem ser inseridos e treinados por meio da interface em inglês.
+
+**Conformidade GB18030**: GB18030 é um padrão chinês que especifica uma página de códigos estendida para uso no mercado chinês. Esse padrão de página de códigos é importante para a indústria de software porque o Comitê técnico de normatização de tecnologia de informações da China tem exigido que qualquer aplicativo de software que for liberado para o mercado chinês após 1 de setembro de 2001 seja ativado para GB18030. O serviço {{site.data.keyword.conversationshort}} suporta essa codificação e é compatível com GB18030 certificado
 
 ## Mudando um idioma da área de trabalho
 
@@ -72,7 +74,7 @@ Ao terminar de fazer suas seleções, clique em **Atualizar** para salvar e reto
 ## Trabalhando com caracteres acentuados
 {: #working-with-accents}
 
-Em uma configuração de conversação, os usuários podem ou não usar acentos enquanto interagem com o serviço de Conversa. Dessa forma, ambas as versões, acentuadas e não acentuadas, de palavras podem ser tratadas da mesma forma para detecção de intenção e reconhecimento de entidade.
+Em uma configuração de conversa, os usuários podem ou não usar acentos enquanto interagem com o serviço {{site.data.keyword.conversationshort}}. Dessa forma, ambas as versões, acentuadas e não acentuadas, de palavras podem ser tratadas da mesma forma para detecção de intenção e reconhecimento de entidade.
 
 No entanto, para alguns idiomas, como o espanhol, alguns acentos podem alterar o significado da entidade. Dessa forma, para a detecção de entidade, embora a entidade original possa ter implicitamente um acento, o serviço também poderá corresponder à versão não acentuada da mesma entidade, mas com uma pontuação de confiança ligeiramente mais baixa.
 

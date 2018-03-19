@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-02-13"
 
 ---
 
@@ -42,7 +42,7 @@ Essa recomendação envolve levar frases individuais inseridas por usuários, qu
 Clique em **Iniciar** para iniciar a identificação de intenções.
 ![Página Melhorar intenções existentes](images/rec_improve_intent.png)
 
-Ao entrar ou sair de **Melhorar intenções existentes**, a barra de progresso mostra em quantas frases você agiu na sessão atual, fora do total de frases deixadas para o dia. Observe que se você sair e entrar novamente, a barra de progresso será iniciada do "vazio" novamente, mas isso não significa que seu trabalho anterior foi perdido - ela só não considerará o progresso da sessão atual.
+Ao entrar ou sair de **Melhorar intenções existentes**, a barra de progresso mostra em quantas frases você agiu na sessão atual, fora do total de frases deixadas para o dia. Observe que se você sair e entrar novamente, a barra de progresso será iniciada em `empty` novamente, mas isso não significa que seu trabalho anterior foi perdido, ela apenas não considerará o progresso da sessão atual.
 
 Selecione a melhor intenção para uma frase da lista fornecida ou selecione *Marcar como irrelevante*. As frases são incluídas nas intenções como exemplos (incluídas como dados de treinamento) assim que você clica em **Salvar**.
 

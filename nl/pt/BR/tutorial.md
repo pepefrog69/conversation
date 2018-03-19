@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -38,15 +38,15 @@ Este tutorial levará aproximadamente de 2 a 3 horas para ser concluído.
 
 Antes de iniciar, conclua o [Tutorial de Introdução](getting-started.html). 
 
-Você usará a área de trabalho do tutorial de Conversa que você criou e incluirá nós no diálogo simples que você construiu como parte do exercício de introdução.
+Você usará a área de trabalho de tutorial do {{site.data.keyword.conversationshort}} que você criou e incluirá nós no diálogo simples que você construiu como parte do exercício de introdução.
 
 ## Etapa 1: incluir intenções e exemplos
 {: #intents}
 
 Inclua uma intenção na guia Intenções. Uma intenção é o propósito ou objetivo expresso em entrada do usuário.
 
-1.  Na página Intenções da área de trabalho do tutorial de Conversa, clique em **Criar Novo**.
-1.  Inclua o nome de intenção a seguir e, em seguida, pressione Enter:
+1.  Na página Intenções da área de trabalho do tutorial do {{site.data.keyword.conversationshort}}, clique em **Incluir intenção**.
+1.  Inclua o nome da intenção a seguir e, em seguida, clique em **Criar intenção**:
 
     ```
     turn_on
@@ -54,7 +54,7 @@ Inclua uma intenção na guia Intenções. Uma intenção é o propósito ou obj
     {: codeblock}
 
     Um `#` é anexado ao nome da intenção que você especificar. A intenção `#turn_on` indica que o usuário deseja ligar um dispositivo como o rádio, limpadores de para-brisa ou faróis.
-1.  No campo **Exemplo do usuário**, digite a elocução a seguir e, em seguida, pressione Enter:
+1.  No campo **Incluir exemplo do usuário**, digite a elocução a seguir e, em seguida, clique em **Incluir exemplo**:
 
     ```
     I need lights
@@ -73,9 +73,9 @@ Inclua uma intenção na guia Intenções. Uma intenção é o propósito ou obj
     ```
     {: codeblock}
 
-1.  Clique em **Pronto** para incluir a intenção.
+1.  Clique no ícone **Fechar** ![Seta de fechamento](images/close_arrow.png) para concluir a inclusão da intenção `#turn_on`.
 
-Agora você tem três intenções, `#turn_on`, `#greeting` e `#goodbye`, todas com elocuções de exemplo. Esses exemplos ajudam a treinar o Watson para reconhecer as intenções na entrada do usuário.
+Agora você tem três intenções, a intenção `#turn_on` que acabou de ser incluída e as intenções `#hello` e `#goodbye` que foram incluídas no *Tutorial de introdução* que foi concluído como uma etapa de pré-requisito. Cada intenção tem um conjunto de elocuções de exemplo que ajudam a treinar o Watson para reconhecer as intenções na entrada do usuário.
 
 ## Etapa 2: incluir entidades
 {: #entities}
@@ -85,7 +85,7 @@ Uma definição de entidade inclui um conjunto de *valores* de entidade que pode
 Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #turn_on para representar o que o usuário deseja ligar.
 
 1.  Clique na guia **Entidades** para abrir a página Entidades.
-1.  Clique em **Criar novo**.
+1.  Clique em **Incluir entidade**.
 1.  Inclua o nome da entidade a seguir e, em seguida, pressione Enter:
 
     ```
@@ -94,9 +94,7 @@ Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #tu
     {: codeblock}
 
     Um `@` é anexado ao nome da entidade que você especificar. A entidade `@appliance` representa um dispositivo no carro que um usuário pode querer ligar.
-1.  Clique no comutador para **Ativar** a correspondência difusa.
-    Essa configuração ajuda o serviço a reconhecer referências a entidades na entrada do usuário mesmo quando a entidade é especificada de uma maneira que não corresponde exatamente à sintaxe usada aqui.
-1.  Inclua o seguinte valor no campo **Valor**, mas não pressione Enter:
+1.  Inclua o valor a seguir no campo **Nome do valor**:
 
     ```
     radio
@@ -104,7 +102,7 @@ Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #tu
     {: codeblock}
 
     O valor representa um dispositivo específico que os usuários podem desejar ativar.
-1.  Inclua outras maneiras para especificar a entidade de dispositivo de rádio no campo **Sinônimos**. Pressione a guia para dar o foco no campo e digite os seguintes sinônimos. Pressione Enter após cada sinônimo.
+1.  Inclua outras maneiras para especificar a entidade de dispositivo de rádio no campo **Sinônimos**. Pressione **Tab** para dar o foco no campo e, em seguida, insira os sinônimos a seguir. Pressione **Enter** após cada sinônimo.
 
     ```
     music
@@ -112,11 +110,17 @@ Crie entidades que podem ocorrer na entrada do usuário que tem a intenção #tu
     ```
     {: codeblock}
 
-1.  Clique no ícone **Incluir um novo valor** ![plus sign](images/add.png) para incluir outros tipos de dispositivos.
+1.  Clique em **Incluir valor** para concluir a definição do valor `radio` para a entidade `@appliance`.
+1.  Inclua outros tipos de dispositivos.
+
     - Valor: `headlights`. Sinônimo: `lights`.
     - Valor: `air conditioning`. Sinônimos: `air` e `AC`.
-1.  Clique em **Concluído** para incluir a entidade **@appliance**.
+
+1.  Clique na alternância para que a correspondência difusa seja **Ativada** para a entidade `@appliance`.
+    Essa configuração ajuda o serviço a reconhecer referências a entidades na entrada do usuário mesmo quando a entidade é especificada de uma maneira que não corresponde exatamente à sintaxe usada aqui.
+1.  Clique no ícone **Fechar** ![Seta de fechamento](images/close_arrow.png) para concluir a inclusão da entidade `@appliance`.
 1.  Repita as Etapas 2-8 para criar a entidade @`genre` com correspondência difusa ativada e esses valores e sinônimos:
+
     - Valor: `classical`. Sinônimo: `symphonic`.
     - Valor: `rhythm and blues` Sinônimo: `r&b`.
     - Valor: `rock`. Sinônimo: `rock & roll`, `rock and roll` e `pop`.
@@ -130,10 +134,10 @@ Quando a entrada do usuário é recebida, o serviço {{site.data.keyword.convers
 
 Nesse diálogo complexo, você criará ramificações de diálogo que manipularão a intenção #turn_on que você definiu previamente.
 
-### Inclua um nó base para #turn_on
-Crie uma ramificação de diálogo para responder à intenção #turn_on. Inicie criando o nó base:
+### Incluir um nó raiz para #turn_on
+Crie uma ramificação de diálogo para responder à intenção #turn_on. Inicie criando o nó raiz:
 
-1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **#greeting** e, em seguida, selecione **Incluir nó abaixo**.
+1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **#hello** e, em seguida, selecione **Incluir nó abaixo**.
 1.  Comece digitando `#turn_on` no campo de condição e, em seguida, selecione-o na lista.
     Essa condição é acionada por qualquer entrada que corresponda à intenção #turn_on.
 1.  Não insira uma resposta nesse nó. Clique em ![Fechar](images/close.png) para fechar a visualização de edição de nó.
@@ -185,7 +189,7 @@ Agora inclua um nó para processar o tipo de música que o usuário solicita.
 
 1.  Clique no ícone Mais ![Mais opções](images/kabob.png) no nó **Music** e selecione **Incluir nó-filho**.
     Esse nó-filho é avaliado somente depois que o usuário responde à pergunta sobre o tipo de música que deseja ouvir. Como precisamos de uma entrada do usuário antes desse nó, não há necessidade de usar uma ação **Ir para**.
-1.  Inclua `@genre` no campo de condição. Essa condição é verdadeira sempre que um valor válido para a entidade @genre é detectado.
+1.  Inclua `@genre` no campo de condição.  Essa condição é verdadeira sempre que um valor válido para a entidade @genre é detectado.
 1.  Insira `OK! Playing @genre.` como a resposta. Essa resposta reitera o valor gênero que o usuário fornece.
 
 #### Inclua um nó que manipule tipos de gênero não reconhecidos em respostas do usuário
@@ -260,15 +264,13 @@ Agora inclua um nó de mesmo nível que é acionado se o usuário não especific
 
     ![Mostra a escolha de uma intenção diferente e a reeducação](images/tut-change-intent.gif)
 
-#### O que fazer em seguida
-
-Revise opcionalmente a área de trabalho **Painel do carro - Amostra** para ver esse mesmo caso de uso desenvolvido ainda mais com um diálogo mais longo e funcionalidade adicional.
+Opcionalmente, é possível revisar a área de trabalho **Painel de carro - Amostra** para ver esse mesmo caso de uso desenvolvido ainda mais com um diálogo mais longo e funcionalidade adicional.
 
 1.  Clique no botão **Voltar para áreas de trabalho** ![Mostra o botão Voltar para áreas de trabalho no menu](images/workspaces-button.png) no menu de navegação.
 
 1.  No quadro **Painel do carro - Amostra**, clique em **Editar amostra**.
 
-## Etapa 4: Implementar a área de trabalho do tutorial
+## Próximas etapas
 {: #deploy}
 
 Agora que você construiu e testou sua área de trabalho, é possível implementá-la conectando-a a uma interface com o usuário. Há várias maneiras de fazer isso.
@@ -279,7 +281,7 @@ Agora que você construiu e testou sua área de trabalho, é possível implement
 
 ### Construa seu próprio aplicativo front-end
 
-É possível usar os SDKs do Watson para [construir seu próprio](develop-app.html) aplicativo front-end que se conecta à sua área de trabalho usando a API de REST de Conversação.
+É possível usar os SDKs do Watson para [construir seu próprio](develop-app.html) aplicativo de front-end que se conecta à sua área de trabalho usando a API de REST do {{site.data.keyword.conversationshort}}.
 
 ### Implementar para mídia social ou canais de mensagens
 
