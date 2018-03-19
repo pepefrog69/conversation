@@ -17,61 +17,61 @@ lastupdated: "2018-01-25"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 개요 페이지
+# Página Visão Geral
 
-**개선** 패널의 개요 페이지는 사용자와 작업공간 간의 대화 요약을 제공합니다. 사용자 대화에서 가장 자주 인식된 인텐트 및 엔티티 뿐만 아니라 지정된 시간 동안 트래픽의 양을 볼 수 있습니다.
+A página Visão geral do painel **Melhorar** fornece um resumo de conversas entre usuários e sua área de trabalho. É possível visualizar a quantia de tráfego para um determinado período de tempo, bem como as intenções e entidades que foram reconhecidas mais frequentemente nas conversas do usuário.
 {: shortdesc}
 
-개요 페이지에 표시된 통계는 사용자 대화 로그를 보유하는 기간보다 긴 시간 동안의 통계입니다. 이러한 통계는 외부 트래픽-사용자 또는 API 호출을 표시하는 작업 공간과 상호작용합니다. 도구의 *연습* 분할창을 통한 상호작용은 포함하지 않습니다. 
+As estatísticas que são exibidas na página Visão Geral cobrem um período de tempo maior que o período para o qual os logs de conversas do usuário são retidos. Essas estatísticas representam o tráfego externo - usuários ou chamadas de API - que tenham interagido com sua área de trabalho; elas não incluem as interações da área de janela *Experimente* na ferramenta.
 
-개요 페이지를 사용하여 다음과 같은 질문에 응답할 수 있습니다.
+É possível usar a página Visão Geral para responder perguntas como:
 
-* 작년에 최대 수의 대화와 최소 수의 대화가 있었던 달은 각각 언제입니까?
-* 첫 번째 분기 중에서 주당 평균 대화 수는 몇 개입니까?
-* 지난 주 가장 자주 나타난 인텐트는 무엇입니까?
-* 9월 중에 가장 자주 인식된 엔티티 값은 무엇입니까?
+* Quais meses tiveram o maior e o menor número de conversas no ano passado?
+* Qual era o número médio de conversas por semana durante o primeiro trimestre?
+* Quais intenções apareceram mais vezes na semana passada?
+* Quais valores de entidade foram reconhecidos na maioria das vezes durante setembro?
 
-개요 페이지를 열려면 탐색줄에서 **개요**를 선택하십시오. **개요**가 표시되지 않으면 ![메뉴](images/Menu_16.png) 메뉴를 사용하여 페이지를 여십시오.
+Para abrir a página Visão Geral, selecione **Visão Geral** na barra de navegação. Se **Visão Geral** não estiver visível, use o menu ![Menu](images/Menu_16.png) para abrir a página.
 
-  ![개요 페이지](images/oview.png)
+  ![Página Visão Geral](images/oview.png)
 
-페이지의 맨 위 부분에 다음 제어가 포함됩니다.
+A parte superior da página inclui os seguintes controles:
 
-* *데이터 새로 고치기* - 개요 페이지 통계를 즉시 새로 고칠 수 있도록 합니다. 개요 페이지에 표시된 데이터가 마지막으로 업데이트된 시기가 표시됩니다. 최신 데이터가 사용 가능한 경우 **데이터 새로 고치기**를 선택할 수 있습니다.
-* 기간 제어 - 데이터가 표시되는 기간을 선택하려면 이 제어를 사용하십시오.  이 제어는 페이지에 표시된 모든 데이터(그래프로 표시된 대화 수 뿐만 아니라 그래프와 함께 표시된 통계, 그리고 상위 인텐트와 엔티티 목록)에 영향을 줍니다.
+* *Atualizar dados* - Permite atualizar as estatísticas da página Visão Geral imediatamente. A página Visão Geral mostra quando os dados que ela exibe foram atualizados pela última vez. É possível selecionar **Atualizar dados** se você acha que dados mais recentes podem estar disponíveis.
+* Controle do período de tempo - Use este controle para escolher o período para o qual os dados são exibidos.  Esse controle afeta todos os dados mostrados na página: não apenas o número de conversações exibidas no gráfico, mas também as estatísticas exibidas juntamente com o gráfico e as listas de principais intenções e entidades.
 
-  ![기간 제어](images/oview-time.png)
+  ![Controle do período de tempo](images/oview-time.png)
 
-하루, 한 주, 한 달, 한 분기 또는 일 년 중 어느 데이터를 볼지 선택할 수 있습니다.  각각의 경우 그래프의 데이터 점은 해당 측정 기간에 맞게 조정됩니다.  예를 들어, 하루 동안의 그래프를 보는 경우 데이터가 시간별 값으로 제공되지만, 한 주 동안의 그래프를 보는 경우에는 데이터가 일별로 표시됩니다.  한 주는 항상 일요일부터 토요일까지입니다.  목요일로 시작해 다음 수요일로 끝나는 한 주나 1일이 아닌 다른 날짜로 시작되는 한 달과 같은 사용자 정의 기간은 작성할 수 없습니다.
+É possível escolher se deseja visualizar dados para um único dia, uma semana, um mês, um trimestre ou um ano.  Em cada caso, os pontos de dados no gráfico são ajustados para um período de medição apropriado.  Por exemplo, ao visualizar um gráfico para um dia, os dados são apresentados em valores por hora, mas ao visualizar um gráfico para uma semana, os dados são mostrados por dia.  Uma semana sempre é executada de domingo até sábado.  Não é possível criar períodos de tempo customizados, como uma semana que é executada de quinta à quarta-feira seguinte, ou um mês que começa em qualquer data diferente do dia primeiro.
 
-## 모든 대화
+## Todas as conversas
 
-그래프는 선택한 날짜 범위의 총 대화 수를 표시합니다.
+Um gráfico exibe o número total de conversas para o intervalo de data selecionado.
 
-**참고**: '대화'는 작업공간과의 모든 상호작용으로 간주되므로, 작업공간이 `Hi, how can I help you?`라고 한 다음 사용자가 해당 브라우저를 닫은 대화의 경우에도 이 대화가 총 대화 수에 포함됩니다.
+**Nota**: uma 'conversa' é considerada qualquer interação com a área de trabalho, portanto, se houver conversas nas quais o serviço inicia dizendo `Hi, how can I help you?` e, em seguida, o usuário fecha seu navegador sem responder, essa conversa é incluída na contagem total de conversas.
 
-**로그 보기**를 선택하여 [사용자 대화](logs_convo.html) 페이지를 열 수 있으며, 이 대화는 개요 페이지에서 선택한 기간과 일치하도록 필터링된 날짜 범위에 있습니다. [사용자 대화](logs_convo.html) 페이지는 총 *표현* 수를 표시합니다. 표현은 사용자가 작업공간으로 보내는 단일 메시지입니다. 각 대화는 여러 표현으로 구성될 수 있습니다. 따라서 [사용자 대화](logs_convo.html) 페이지의 결과 수는 이 개요 페이지에 표시된 대화 수와 다릅니다.
+É possível selecionar **Visualizar logs** para abrir a página [Conversas do usuário](logs_convo.html), com o intervalo de data filtrado para corresponder ao período de tempo que você selecionou para a página Visão Geral. A página [Conversas do usuário](logs_convo.html) exibe o número total de *elocuções*. Uma elocução é uma única mensagem que o usuário envia para a área de trabalho. Cada conversa pode ser composta por múltiplas elocuções. Portanto, o número de resultados na página [Conversas do usuário](logs_convo.html) é diferente do número de conversas mostrado nesta página Visão Geral.
 
-**참고**: 플랜 및 선택한 날짜 범위에 따라 데이터가 표시되지 않을 수 있습니다. 예를 들어, {{site.data.keyword.conversationshort}} [표준 서비스 플랜](logs_convo.html#log-limits)은 30일 동안만 대화를 보유합니다. 30일 보다 이전 날짜 범위를 선택할 경우, 데이터가 표시되지 않습니다. 
+**Nota**: dependendo de seu plano e o intervalo de data selecionado, você pode não ver nenhum dado. Por exemplo, o [plano de serviço Padrão](logs_convo.html#log-limits) do {{site.data.keyword.conversationshort}} retém conversas somente por 30 dias; se você escolher um intervalo de data mais antigo que 30 dias, não verá nenhum dado.
 
-그래프를 볼 때 다음에 표시된 대로 개별 데이터 점을 클릭하여 숫자 값을 볼 수 있습니다.
+Ao visualizar o gráfico, é possível clicar em um ponto de dados individual para ver o valor numérico, conforme mostrado aqui:
 
-![단일 데이터 점](images/oview-point.png)
+![Ponto de dados único](images/oview-point.png)
 
-그래프 아래에, 표시된 데이터와 관련된 통계가 표시됩니다.
+Abaixo do gráfico, estatísticas relacionadas aos dados exibidos são mostradas:
 
-* *총 대화 수* - 이 기간 중에 발생한 총 대화 수
-* *최대 대화 수* - 기간 내 단일 데이터 점에 대한 최대 대화 수
-* *낮은 이해도* - 낮은 이해도의 개별적인 표현 수. 이러한 대화는 인텐트로 분류되지 않으며 알려진 엔티티를 포함하지 않습니다. 잠재적 대화 상자 문제점을 식별하는 데 유용할 수 있습니다.
+* *Total de conversas* - o número total de conversas que ocorreram durante esse período
+* *Máx. de conversas* - o número máximo de conversas para um único ponto de dados dentro do período
+* *Entendimento fraco* - o número de elocuções individuais com entendimento fraco. Essas elocuções não são classificadas por uma intenção e não contêm nenhuma entidade conhecida. Isso pode ser útil para identificar problemas de diálogo potenciais.
 
-## 상위 인텐트 및 상위 엔티티
+## Intenções principais e Entidades principais
 
-지정된 기간 동안 가장 자주 인식된 인텐트와 엔티티를 볼 수도 있습니다. 기본적으로 각각 상위 세 개가 표시되지만 5나 10과 같은 더 큰 수로 변경할 수 있습니다.
+Também é possível visualizar as intenções e as entidades que foram reconhecidas com maior frequência durante o período especificado. Por padrão, você vê as três principais de cada, mas você pode mudar isso para um número maior, como 5 ou 10.
 
-* *상위 인텐트* - 인텐트는 단순 목록에 표시됩니다.  인텐트가 인식된 횟수를 보는 것 외에 **로그 보기** 링크를 사용하여 선택한 인텐트와 일치하도록 필터링된 인텐트가 있고 표시된 데이터와 일치하도록 필터링된 날짜 범위를 사용하는 사용자 대화 페이지를 열 수 있습니다.
+* *Intenções principais* - Intenções são mostradas em uma lista simples.  Além de ver o número de vezes que uma intenção foi reconhecida, é possível usar o link **Visualizar logs** para abrir a página Conversas do usuário com o intervalo de data filtrado para corresponder aos dados que você está visualizando e a intenção filtrada para corresponder à intenção selecionada.
 
-* *상위 엔티티*가 막대형 차트에 표시됩니다. 각 엔티티에 대해 막대를 선택하여 막대가 나타내는 숫자를 볼 수 있습니다.
+* *Entidades principais* são mostradas em um gráfico de barras. Para cada entidade, é possível selecionar a barra para ver o número que a barra representa.
 
-  ![엔티티 데이터 풍선](images/oview-entity.png)
+  ![Balão de dados da entidade](images/oview-entity.png)
 
-  **상위 값 표시**를 선택하여 기간 중에 이 엔티티에 대해 식별된 가장 흔한 값의 목록을 보십시오. **로그 보기**를 선택하여 선택한 엔티티와 일치하도록 필터링된 엔티티가 있고 표시된 데이터와 일치하도록 필터링된 날짜 범위를 사용하는 [사용자 대화](logs_convo.html) 페이지를 여십시오.
+  Selecione **Mostrar valores principais** para ver uma lista dos valores mais comuns que foram identificados para essa entidade durante o período de tempo. Selecione **Visualizar logs** para abrir a página [Conversas do usuário](logs_convo.html) com o intervalo de data filtrado para corresponder aos dados que você está visualizando e a entidade filtrada para corresponder à entidade selecionada.

@@ -17,58 +17,58 @@ lastupdated: "2018-02-09"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 업그레이드
+# Fazendo upgrade
 
-서비스 플랜 업그레이드 방법에 관해 학습합니다.
+Saiba como fazer upgrade de seu plano de serviço.
 {: shortdesc}
 
-## 플랜 업그레이드
+## Atualizando seu plano
 {: #plan-upgrade}
 
-라이트 플랜에서 {{site.data.keyword.conversationshort}} 서비스를 광범위하게 탐색할 수 있습니다. 하지만 수행할 수 있는 작업에는 한계가 있습니다.
+É possível explorar o serviço {{site.data.keyword.conversationshort}} amplamente com o plano Lite. No entanto, há limites para o que pode ser feito.
 
-### 아티팩트별 한계
-플랜당 아티팩트 한계에 대한 정보는 다음 주제를 참조하십시오.
+### Limites por artefato
+Para obter informações sobre limites de artefatos por plano, consulte esses tópicos:
 
-- [작업공간](configure-workspace.html#workspace-limits)
-- [대화 상자 노드](dialog-build.html#dialog-node-limits)
-- [인텐트](intents.html#intent-limits)
-- [엔티티](entities.html#entity-limits)
-- [로그](logs_convo.html#log-limits)
+- [Áreas de Trabalho](configure-workspace.html#workspace-limits)
+- [Nós de diálogo](dialog-build.html#dialog-node-limits)
+- [Intenções](intents.html#intent-limits)
+- [Entidades](entities.html#entity-limits)
+- [Logs](logs_convo.html#log-limits)
 
-### API 호출 한계
-인스턴스마다 허용되는 API 호출의 수는 서비스 플랜에 따라 다릅니다. 세부사항은 플랜 설명을 참조하십시오.
+### Limites da chamada API
+O número de chamadas API permitidas por instância depende de seu plano de serviço. Consulte a descrição do plano para obter detalhes.
 
-라이트 플랜이 있고 API 호출 한계에 도달하지만 예상보다 적은 호출을 작성했다고 로그에 표시되는 경우, 라이트 플랜이 7일 동안만 로그 정보를 저장한다는 사실을 기억하십시오.
+Se você tiver um plano Lite e atingir o limite de sua chamada API, mas os registros mostrarem que você fez menos chamadas do que o esperado, lembre-se de que o plano Lite armazena informações de log por apenas 7 dias.
 
-플랜을 업그레이드하려면 다음 단계를 완료하십시오.
+Para atualizar seu plano, conclua essas etapas:
 
-1.  {{site.data.keyword.Bluemix_notm}} 메뉴에서 **서비스** > **대시보드**를 선택하십시오.
-1.  업그레이드할 서비스 인스턴스를 선택하여 여십시오.
-1.  탐색 분할창에서 **플랜**을 클릭하십시오.
-   여기서 현재 플랜과 사용 가능한 다른 플랜 옵션을 보고 변경할 수 있습니다.
+1.  No menu do {{site.data.keyword.Bluemix_notm}}, selecione **Serviços** > **Painel**.
+1.  Selecione a instância de serviço que você deseja atualizar para abri-la.
+1.  Clique em **Planejar** na área de janela de navegação.
+   Aqui é possível ver seu plano atual e outras opções de plano disponíveis e fazer mudanças.
 
-등록에 대한 일반적인 질문의 응답은 [청구 및 사용 관리(![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘"))](/docs/billing-usage/how_charged.html){: new_window}를 참조하십시오.
+Para obter respostas às perguntas comuns sobre assinaturas, consulte [Gerenciando faturamento e uso ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](/docs/billing-usage/how_charged.html){: new_window}.
 
-다음 링크에서 IBM Cloud에서 호스팅하는 서비스에 대해 자세히 알아볼 수 있습니다. 
+É possível aprender mais sobre serviços hospedados pelo IBM Cloud nos links a seguir:
 
-- [Cloud Services terms](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
-- [Cloud Services data security and privacy](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
+- [Termos dos serviços de nuvem](http://www.ibm.com/software/sla/sladb.nsf/sla/saas)
+- [Segurança e privacidade de dados de Serviços de nuvem](http://www.ibm.com/software/sla/sladb.nsf/sla/csdsp)
 
-## 작업공간 업그레이드
+## Atualizando sua área de trabalho
 {: #upgrade-workspace}
 
-{{site.data.keyword.conversationshort}} 서비스는 기능을 정기적으로 추가하고 업데이트합니다. 이러한 변경사항 중 일부는 자동으로 작업공간에 적용되는 반면, 영향이 큰 업데이트에는 수동 업데이트가 필요합니다.
+O serviço {{site.data.keyword.conversationshort}} inclui e atualiza recursos regularmente. Embora algumas dessas mudanças sejam aplicadas automaticamente para sua área de trabalho, as atualizações que têm um grande impacto requerem uma atualização manual.
 
-업그레이드 아이콘(![업그레이드 아이콘](images/upgrade.png))이 표시된 경우에만 작업공간에 대한 업그레이드를 사용할 수 있습니다. 
+Um upgrade está disponível para sua área de trabalho somente se o ícone de upgrade (![ícone de upgrade](images/upgrade.png)) é exibido.
 
-**참고**: 작업공간을 업그레이드한 후 작업공간을 이전 버전으로 되돌릴 수 없습니다. 
+**Nota**: depois de fazer upgrade de uma área de trabalho, não é possível reverter sua área de trabalho para uma versão anterior.
 
-작업공간을 업그레이드하려면 다음 단계를 완료하십시오.
-1.  [작업공간 복제](configure-workspace.html#exporting-and-copying-workspaces).
-2.  복제 작업공간 업그레이드.
+Para fazer upgrade de sua área de trabalho, conclua as etapas a seguir:
+1.  [Duplique sua área de trabalho](configure-workspace.html#exporting-and-copying-workspaces).
+2.  Atualize a área de trabalho duplicada
 
-     작업공간을 업그레이드하는 경우 최신 버전의 API가 도구에서 사용 가능하며 "연습" 분할창이 최신 기능을 사용하도록 시작됩니다.
-3.  업그레이드된 작업공간을 테스트하십시오. 
-4.  업그레이드가 애플리케이션에 미치는 영향을 이해하기 위해 복제 작업공간을 평가한 후 기본 작업공간에 업그레이드를 적용하십시오.
-5.  최신 API 버전을 사용하도록 메시지 API 호출을 변경하여 애플리케이션을 업그레이드하십시오.
+    Quando você faz upgrade de sua área de trabalho, a versão mais recente da API é ativada na ferramenta e a área de janela "Experimente" começa a usar os recursos mais recentes.
+3.  Testar a área de trabalho atualizada.
+4.  Depois de avaliar a área de trabalho duplicada para entender como o upgrade impactará seu aplicativo, aplique o upgrade à sua área de trabalho primária.
+5.  Faça upgrade de seu aplicativo mudando a chamada API de mensagem para usar a versão mais recente da API.

@@ -17,109 +17,109 @@ lastupdated: "2018-01-30"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 엔티티 정의
+# Definindo entidades
 
-***엔티티*** 사용자의 목적에 관련된 데이터 유형 또는 오브젝트의 클래스를 나타냅니다. 사용자 입력에 언급된 엔티티를 인식하여 {{site.data.keyword.conversationshort}} 서비스가 인텐트를 충족시키기 위해 수행할 특정 조치를 선택할 수 있습니다.
+***Entidades*** representam uma classe de objeto ou um tipo de dados que é relevante para o propósito de um usuário. Ao reconhecer as entidades mencionadas na entrada do usuário, o serviço {{site.data.keyword.conversationshort}} pode escolher as ações específicas a serem tomadas para cumprir uma intenção.
 
 <iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/kAZ9m-oCKxM" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
-## 엔티티 한계
+## Limites de entidade
 {: #entity-limits}
 
-작성할 수 있는 엔티티, 엔티티 값 및 동의어의 수는 {{site.data.keyword.conversationshort}} 서비스 플랜에 따라 다릅니다.
+O número de entidades, valores de entidade e sinônimos que você pode criar depende de seu plano de serviço {{site.data.keyword.conversationshort}}:
 
-| 서비스 플랜      | 작업공간당 엔티티 | 작업공간당 엔티티 값 | 작업공간당 엔티티 동의어 |
+| Plano de Serviço      | Entidades por área de trabalho | Valores de entidade por área de trabalho | Sinônimos da entidade por área de trabalho |
 |-------------------|-----------------------:|----------------------------:|--------------------------------:|
-| 표준/프리미엄 |                          1000 |                            100,000 |                              100,000 |
-| 라이트              |                            25 |                            100,000 |                              100,000 |
+| Padrão/Premium |                          1000 |                            100.000 |                              100.000 |
+| Lite              |                            25 |                            100.000 |                              100.000 |
 
-사용할 시스템 엔티티가 플랜 사용량 총계에 포함됩니다.
+Entidades do sistema que você ativa para uso contam para o total de uso do seu plano.
 
-## 엔티티 작성
+## Criando entidades
 {: #creating-entities}
 
-{{site.data.keyword.conversationshort}} 도구를 사용하여 엔티티를 작성하십시오.
+Use a ferramenta {{site.data.keyword.conversationshort}} para criar entidades.
 
-1.  {{site.data.keyword.conversationshort}} 도구에서 작업공간을 연 다음 **엔티티** 탭을 클릭하십시오. **엔티티**가 표시되지 않으면 ![메뉴](images/Menu_16.png) 메뉴를 사용하여 페이지를 여십시오.
+1.  Na ferramenta do {{site.data.keyword.conversationshort}}, abra a sua área de trabalho e, em seguida, clique na guia **Entidades**. Se **Entidades** não estiver visível, use o menu ![Menu](images/Menu_16.png) para abrir a página.
 
-1.  **엔티티 추가**를 클릭하십시오.
+1.  Clique em **Incluir entidade**.
 
-        또한 **시스템 엔티티 사용**을 클릭하여 모든 유스 케이스에 적용할 수 있는 공통 엔티티 목록({{site.data.keyword.IBM_notm}}에서 제공됨)에서 선택할 수 있습니다. 세부사항은 [시스템 엔티티 사용](#enable_system_entities)을 참조하십시오.
+    Também é possível clicar em **Usar Entidades do Sistema** para selecionar desde uma lista de entidades comuns, fornecidas pelo {{site.data.keyword.IBM_notm}}, que podem ser aplicadas a qualquer caso de uso. Consulte [Ativando entidades do sistema](#enable_system_entities) para obter detalhes adicionais.
 
-1.  **엔티티 이름** 필드에서, 엔티티의 설명적 이름을 입력하십시오.
+1.  No campo **Nome da entidade**, digite um nome descritivo para a entidade.
 
-    엔티티 이름에 문자(유니코드), 숫자, 밑줄 및 하이픈이 포함될 수 있습니다. 예:
+    O nome da entidade pode conter letras (em Unicode), números, sublinhados e hifens. Por exemplo:
     - `@location`
     - `@menu_item`
     - `@product`
 
-    {{site.data.keyword.conversationshort}} 도구에서 엔티티 이름을 작성할 때 이 이름에 `@` 문자를 포함하지 마십시오. 엔티티 이름은 공백을 포함할 수 없으며 64자가 넘을 수 없습니다. 그리고 엔티티 이름은 시스템 엔티티에 예약된 `sys-` 문자열로 시작하면 안됩니다.
+    Não inclua o caractere `@` nos nomes de entidade ao criá-los na ferramenta {{site.data.keyword.conversationshort}}. Os nomes das entidades não podem conter espaços ou ter mais de 64 caracteres. E nomes de entidade não podem começar com a sequência `sys-`, que é reservada para entidades do sistema.
     {: tip}
 
-1.  **엔티티 작성**을 선택하십시오. 
+1.  Selecione **Criar entidade**.
 
-    ![엔티티 작성을 표시하는 화면 캡처](images/create_entity.png)
+    ![Captura de tela de criação de uma entidade](images/create_entity.png)
 
-1.  **값 이름** 필드에서, 엔티티에 가능한 값의 텍스트를 입력하고 `Enter` 키를 누르십시오. 엔티티 값은 길이가 최대 64자인 문자열일 수 있습니다.
+1.  No campo **Nome do valor**, digite o texto de um valor possível para a entidade e pressione a tecla `Enter`. Um valor de entidade pode ser qualquer sequência de até 64 caracteres de comprimento.
 
-    > **중요:** 엔티티 이름 또는 값에 민감한 정보 또는 개인 정보를 포함하지 마십시오. 이름 및 값은 앱에서 URL에 노출될 수 있습니다.
+    > **Importante:** Não inclua informações sensíveis ou pessoais em nomes de entidades ou valores. Os nomes e valores podem ser expostos em URLs em um aplicativo.
 
-1.  **유사 일치**의 경우 단추를 클릭하여 켜기 또는 끄기를 선택하십시오. 유사 일치의 기본값은 끄기입니다. 이 기능은 [지원되는 언어](lang-support.html) 주제에서 언급된 언어에 사용 가능합니다.
+1.  Para **Correspondência difusa**, clique no botão para selecionar ligada ou desligada; a correspondência difusa está desligada por padrão. Esse recurso está disponível para os idiomas observados no tópico [Idiomas suportados](lang-support.html).
  {: #fuzzy-matching}
 
-    유사 일치를 켜서 엔티티와 유사한 구문으로 사용자 입력 용어를 인식하는 서비스 기능을 개선할 수 있으며, 정확한 일치는 필요하지 않습니다. 유사 일치에 대한 세 가지 컴포넌트(어간 추출, 오타 및 부분 일치)가 있습니다.
-    - *어간 추출* - 기능이 여러 문법적 양식이 있는 엔티티 값의 어간 양식을 인식합니다. 예를 들어, 'bananas'의 어간은 'banana'이며 반면에 'running'의 어간은 'run'입니다.
-    - *오타* - 기능은 오타 또는 약간의 구문상 차이가 있음에도 적절한 엔티티에 사용자 입력을 맵핑할 수 있습니다. 예를 들어, *giraffe*를 동물 엔티티와 동의어로 정의하고, 사용자 입력이 *giraffes* 또는 *girafe*를 포함한다면, 유사 일치는 동물 엔티티에 용어를 올바르게 맵핑할 수 있습니다.
-    - *부분 일치* - 부분 일치를 사용하면 기능은 사용자 정의 엔티티에 있는 하위 문자열 기반 동의어를 자동으로 제안하며 정확한 엔티티 일치와 비교해 낮은 신뢰도 스코어를 지정합니다.
+    É possível ligar a correspondência difusa para melhorar a capacidade do serviço para reconhecer os termos de entrada do usuário com sintaxe que é semelhante à entidade, mas sem requerer uma correspondência exata. Há três componentes para correspondência difusa: stemming, erro de ortografia e correspondência parcial:
+    - *Stemming* - o recurso reconhece o formulário raiz de valores de entidade que possuem várias formas gramaticais. Por exemplo, a raiz das 'bananas' seria 'banana', enquanto a raiz de 'execução' seria 'executar'.
+    - *Erro de ortografia* - o recurso é capaz de mapear a entrada do usuário para a entidade correspondente apropriada apesar da presença de erros ortográficos ou pequenas diferenças de sintaxe. Por exemplo, se você define *girafa* como um sinônimo para uma entidade animal e a entrada do usuário contém os termos *girafas* ou *girafa*, a correspondência difusa é capaz de mapear o termo para a entidade animal corretamente.
+    - *Correspondência parcial* - com correspondência parcial, o recurso sugere automaticamente sinônimos baseados em subsequência presentes nas entidades definidas pelo usuário e designa uma pontuação de confiança inferior em comparação com a correspondência de entidade exata.
 
-    **참고** - 영어의 경우 유사 일치는 일부 공통된 올바른 영어 단어를 지정된 엔티티의 유사 일치로 캡처하는 일을 방지합니다. 이 기능은 표준 영어 사전에 있는 단어를 사용합니다. 영어 엔티티 값/동의어를 정의할 수도 있으며, 유사 일치는 정의된 엔티티 값/동의어만 일치시킵니다. 예를 들어, 유사 일치는 `unsure`라는 용어를 `insurance`와 일치시킬 수 있습니다. 그러나 `@option`과 같은 엔티티의 값/동의어로 정의된 `unsure`를 가지고 있는 경우, `unsure`는 항상 `@option`과 일치하며 `insurance`와 일치되지 않습니다.
+    **Nota** - para inglês, a correspondência difusa impede a captura de algumas palavras comuns válidas do inglês como correspondências difusas para uma determinada entidade. Esse recurso usa palavras do dicionário em inglês padrão. Também é possível definir um valor/sinônimo de entidade em inglês e a correspondência difusa corresponderá somente a seu valor/sinônimo de entidade definido. Por exemplo, a correspondência difusa pode corresponder o termo `unsure` com `insurance`; mas se você tiver `unsure` definido como um valor/sinônimo para uma entidade como `@option`, `unsure` sempre será correspondido com `@option` e não com `insurance`.
 
-1.  값 이름을 입력하면 *유형* 드롭다운 메뉴에서 `Synonyms` 또는 `Patterns`를 선택하여 해당 엔티티 값에 대한 동의어를 추가하거나 특정 패턴을 정의할 수 있습니다.
+1.  Depois de inserir um nome do valor, é possível incluir quaisquer sinônimos ou definir padrões específicos para esse valor de entidade selecionando `Synonyms` ou `Patterns` no menu suspenso *Tipo*.
 
-    ![값에 대한 유형 선택기](images/value_type.png)
+    ![Seletor de tipo para valor](images/value_type.png)
 
-    > **참고:** 단일 엔티티 값의 동의어나 패턴 중 *하나*를 추가할 수 있으며, 둘 다 추가할 수는 없습니다.
+    > **Nota:** É possível incluir *qualquer* sinônimo ou padrão para um valor de entidade única, você não pode incluir ambos.
 
-    - **동의어** 필드에 엔티티 값의 동의어를 입력하십시오. 동의어는 길이가 최대 64자인 문자열일 수 있습니다.
+    - No campo **Sinônimos**, digite quaisquer sinônimos para o valor da entidade. Um sinônimo pode ser qualquer sequência de até 64 caracteres de comprimento.
 
-      ![엔티티를 정의하는 화면 캡처](images/define_entity.png)
+      ![Captura de tela de definição de uma entidade](images/define_entity.png)
 
-    - **패턴** 필드를 사용하면 엔티티 값의 특정 패턴을 정의할 수 있습니다. 패턴은 필드에 정규식으로 입력**해야** 합니다.
+    - O campo **Padrões** permite definir padrões específicos para um valor de entidade. Um padrão **deve** ser inserido como uma expressão regular no campo.
 
-      ![패턴 엔티티를 정의하는 화면 캡처](images/patternents1.png)
+      ![Captura de tela de definição de uma entidade padrão](images/patternents1.png)
       {: #pattern-entities}
 
-      이 예제에서와 같이 *ContactInfo* 엔티티의 경우 전화, 이메일 및 웹 사이트 값의 패턴을 다음과 같이 정의할 수 있습니다.
-      - 전화
-        - `localPhone`: `(\d{3})-(\d{4})`, 예: 426-4968
-        - `fullUSphone`: `(\d{3})-(\d{3})-(\d{4})`, 예: 800-426-4968
-        - `internationalPhone`: `^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$`, 예: +44 1962 815000
-      - `email`: `\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b`, 예: name@ibm.com
-      - `website`: `(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`, 예: https://www.ibm.com
+      Como neste exemplo, para a entidade *ContactInfo*, os padrões para os valores de telefone, e-mail e website podem ser definidos como a seguir:
+      - Telefone
+        - `localPhone`: `(\d{3})-(\d{4})`, por exemplo, 426-4968
+        - `fullUSphone`: `(\d{3})-(\d{3})-(\d{4})`, por exemplo, 800-426-4968
+        - `internationalPhone`: `^(\(?\+?[0-9]*\)?)?[0-9_\- \(\)]*$`, por exemplo, +44 1962 815000
+      - `email`: `\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b`, por exemplo, nome@ibm.com
+      - `website`: `(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$`, por exemplo, https://www.ibm.com
 
-      패턴 엔티티를 사용하는 경우 종종 대화 상자 트리 내에서 컨텍스트 변수(또는 조치 변수)에 패턴과 일치하는 텍스트를 저장해야 합니다.
+      Geralmente ao usar as entidades padrão, será necessário armazenar o texto que corresponde ao padrão em uma variável de contexto (ou variável de ação) desde sua árvore de diálogos.
 
-      사용자에게 이메일 주소를 묻는 경우를 가정하십시오. 대화 상자 노드 조건에는 `@contactInfo:email`과 유사한 조건이 포함됩니다. 사용자 입력 이메일을 컨텍스트 변수로 지정하려면 다음 구문을 사용하여 대화 상자 노드의 응답 섹션 내에서 패턴 일치를 캡처할 수 있습니다.
+      Imagine um caso em que você está perguntando a um usuário por seu endereço de e-mail. A condição do nó de diálogo conterá uma condição semelhante a `@contactInfo:email`. Para designar o e-mail inserido pelo usuário como uma variável de contexto, a sintaxe a seguir pode ser usada para capturar a correspondência padrão dentro da seção de resposta do nó de diálogo:
 
       ```json
       {
           "context" : {
-              "email": "<? @contactInfo.literal ?>"
+              "e-mail": "<? @contactInfo.literal ?>"
           }
       }
       ```
       {: screen}
       {: #capture-group}
 
-      *그룹 캡처* - 정규식의 경우, 한 쌍의 일반 소괄호 안에 있는 패턴의 모든 파트는 그룹으로 캡처됩니다. 예를 들어, `fullUSphone` 엔티티 값에는 3 개의 캡처된 그룹이 포함되어 있습니다.
+      *Grupos de captura* - para expressões regulares, qualquer parte de um padrão dentro de um par de parênteses normais será capturada como um grupo. Por exemplo, o valor de entidade `fullUSphone` contém três grupos capturados:
 
-        - `(\d{3})` - US 지역 코드
-        - `(\d{3})` - 접두부
-        - `(\d{4})` - 전화번호
+        - `(\d{3})` - código de área dos EUA
+        - `(\d{3})` - prefixo
+        - `(\d{4})` - número da linha
 
-      그룹화는 예를 들어 {{site.data.keyword.conversationshort}} 서비스에서 사용자에게 전화 번호를 요청한 다음 응답에 제공된 번호의 지역 코드만 사용하려는 경우에 유용합니다.
+      O agrupamento pode ser útil se, por exemplo, você deseja que o serviço {{site.data.keyword.conversationshort}} pergunte aos usuários seus números de telefone e, então, use somente o código de área do número fornecido em uma resposta.
 
-      사용자가 입력한 지역 코드를 컨텍스트 변수로 지정하기 위해 다음 구문을 사용하여 대화 상자 노드의 응답 섹션 내에서 그룹 일치를 캡처할 수 있습니다.
+      Para designar o código de área inserido pelo usuário como uma variável de contexto, a sintaxe a seguir pode ser usada para capturar a correspondência do grupo dentro da seção de resposta do nó de diálogo:
 
         ```json
         {
@@ -130,67 +130,67 @@ lastupdated: "2018-01-30"
         ```
        {: screen}
 
-      대화 상자 런타임에서 캡처 그룹 사용에 대한 추가 정보를 보려면 [컨텍스트 변수에서 패턴 엔티티 값 저장](dialog-overview-context-groups.html)을 참조하십시오.
+      Para obter informações adicionais sobre o uso de grupos de captura no tempo de execução do diálogo, veja [Armazenando os valores de entidade padrão em variáveis de contexto](dialog-overview-context-groups.html).
 
-      {{site.data.keyword.conversationshort}} 서비스에서 사용되는 패턴 일치 엔진에는 몇 가지 구문 제한사항이 있으며, 이는 다른 정규식 엔진을 사용할 때 발생할 수 있는 성능 문제를 방지하기 위해 필요합니다.
-        - 엔티티 패턴에는 다음이 포함될 수 있습니다. 
-          - 긍정 반복(예: `x*+`)
-          - 역참조(예: `\g1`)
-          - 조건부 분기(예: `(?(cond)true)`)
-        - 패턴 엔티티가 유니 코드 문자로 시작하거나 끝나고 단어 경계를 포함하면(예:`\bš\b`) 패턴 일치가 단어 경계와 정확하게 일치하지 않습니다. 이 예제에서, `š zkouška` 입력의 경우, 일치는 올바른 `Group 0: 0-1 š`(_**`š`**_ `zkouška`) 대신에 `Group 0: 6-7 š` (`š zkou`_**`š`**_`ka`)을 리턴합니다. 
+      O mecanismo de correspondência padrão utilizado pelo serviço {{site.data.keyword.conversationshort}} tem algumas limitações de sintaxe, que são necessárias para evitar problemas de desempenho que podem ocorrer ao usar outros mecanismos de expressão regular.
+        - Os padrões de entidade não podem conter:
+          - Repetições positivas (por exemplo `x*+`)
+          - Referências anteriores (por exemplo `\g1`)
+          - Ramificações condicionais (por exemplo `(?(cond)true)`)
+        - Quando uma entidade padrão inicia ou termina com um caractere Unicode e inclui limites de palavras, por exemplo `\bš\b`, a correspondência de padrões não corresponde ao limite de palavra corretamente. Neste exemplo, para a entrada `š zkouška`, a correspondência retorna `Group 0: 6-7 š` (`š zkou`_**`š`**_`ka`), em vez do `Group 0: 0-1 š` correto (_**`š`**_ `zkouška`).
 
-      정규식 엔진은 Java 정규식 엔진을 대략적으로 반영합니다. API를 통해 또는 {{site.data.keyword.conversationshort}} 서비스 도구 UI 내에서 지원되지 않는 패턴을 업로드하려는 경우 {{site.data.keyword.conversationshort}} 서비스에 오류가 발생합니다.
+      O mecanismo de expressão regular baseia-se vagamente no mecanismo de expressão regular Java. O serviço {{site.data.keyword.conversationshort}} produzirá um erro se você tentar fazer upload de um padrão não suportado, por meio da API ou de dentro da Tooling UI do serviço {{site.data.keyword.conversationshort}}.
 
-1.  Click **값 추가**를 클릭하고 엔티티 값을 추가하는 프로세스를 반복하십시오.
+1.  Clique em **Incluir valor** e repita o processo para incluir mais valores de entidade.
 
-1.  엔티티 값 추가를 완료하면, ![닫기 화살표](images/close_arrow.png)를 선택하여 엔티티 작성을 완료하십시오. 
+1.  Quando tiver concluído a inclusão de valores de entidade, selecione ![Seta de fechamento](images/close_arrow.png) para concluir a criação da entidade.
 
-### 결과
+### Resultados
 
-작성한 엔티티가 **엔티티** 탭에 추가되며 시스템이 새 데이터에 대해 자체 훈련을 시작합니다.
+A entidade criada é incluída na guia **Entidades** e o sistema começa a treinar com os novos dados.
 
-## 엔티티 편집
+## Editando entidades
 
-목록에서 엔티티를 클릭하여 편집을 위해 열 수 있습니다. 엔티티를 이름 바꾸거나 삭제할 수 있으며, 값, 동의어 또는 패턴을 추가하거나 편집하거나 삭제할 수 있습니다.
+É possível clicar em qualquer entidade na lista para abri-la para edição. É possível renomear ou excluir entidades e é possível incluir, editar ou excluir valores, sinônimos ou padrões.
 
-> **참고**: `synonym`에서 `pattern`까지 엔티티 유형을 변경할 경우, 또는 그 반대의 경우, 기존 값은 변환되지만, 유용하지 않을 수도 있습니다.
+> **Nota**: se você muda o tipo de entidade de `synonym` para `pattern` ou vice-versa, os valores existentes são convertidos, mas podem não ser úteis no estado em que se encontram.
 
-## 엔티티 검색
+## Procurando entidades
 
-엔티티 이름, 값 및 동의어를 찾으려면 검색 기능을 사용하십시오.
+Use o recurso Procurar para localizar nomes de entidade, valores e sinônimos.
 
-1.  탐색줄에서 **엔티티** 탭을 선택한 다음 *내 엔티티*를 선택하십시오.
+1.  Selecione a guia **Entidades** na barra de navegação, em seguida, *Minhas entidades*.
 
-    ![엔티티 탭 개요](images/entity_oview.png)
+    ![Visão geral da guia Entidade](images/entity_oview.png)
 
-    **참고**: 시스템 엔티티는 검색할 수 없습니다.
+    **Nota**: as entidades do sistema não são pesquisáveis.
 
-1.  검색 아이콘 선택: ![검색 아이콘](images/search_icon.png)
+1.  Selecione o ícone Procurar: ![Ícone Procurar](images/search_icon.png)
 
-1.  검색어 또는 구를 입력하십시오.
+1.  Inserir um termo de procura ou frase.
 
-    ![엔티티 검색어](images/searchent_1.png)
+    ![Termo de procura de entidade](images/searchent_1.png)
 
-    **참고**: 처음 검색할 때 인덱스가 생성됩니다. 컨텐츠가 인덱스화하는 동안 기다리라는 메시지가 표시될 수 있습니다.
+    **Nota**: na primeira vez que você procurar, um índice será criado; você poderá ver uma mensagem para esperar enquanto os seus conteúdos estiverem sendo indexados.
 
-### 결과
+### Resultados
 
-검색어를 포함한 엔티티가 해당 예제와 함께 표시됩니다. 편집하기 위해 열려면 결과를 선택하십시오. 
+As entidades que contêm seu termo de procura, com exemplos correspondentes, são mostradas. Selecione qualquer resultado para abri-lo para edição.
 
-  ![엔티티 검색 리턴](images/searchent_2.png)
+  ![Retorno de procura de entidade](images/searchent_2.png)
 
-## 엔티티 가져오기
+## Importando entidades
 
-많은 수의 엔티티가 있는 경우 이러한 엔티티를 {{site.data.keyword.conversationshort}} 도구에서 하나씩 정의하는 것보다 쉼표로 구분된 값(CSV) 파일에서 가져오는 것이 더 쉽습니다.
+Se ver um grande número de entidades, você poderá achar mais fácil importá-los de um arquivo CSV (Comma-Separated Value) do que defini-los um por um na ferramenta {{site.data.keyword.conversationshort}}.
 
-1.  CSV 파일에 엔티티를 수집하거나 스프레드시트에서 CSV 파일로 내보내십시오. 파일의 각 행에 대한 필수 형식은 다음과 같습니다.
+1.  Colete as entidades em um arquivo CSV ou exporte-as de uma planilha para um arquivo CSV. O formato obrigatório para cada linha no arquivo é o seguinte:
 
     ```
     <entity>,<value>,<synonyms>
     ```
     {: screen}
 
-    여기서 &lt;entity&gt;는 엔티티 이름이고, &lt;value&gt;는 엔티티 값이며, &lt;synonyms&gt;는 해당 값에 대한 동의어의 쉼표로 구분된 목록입니다.
+    Em que &lt;entity&gt; é o nome de uma entidade, &lt;value&gt; é um valor para a entidade e &lt;synonyms&gt; é uma lista separada por vírgula de sinônimos para esse valor.
 
     ```
     weekday,Monday,Mon
@@ -208,7 +208,7 @@ lastupdated: "2018-01-30"
     ```
     {: screen}
 
-    CSV 파일 가져오기는 패턴을 지원합니다. `/`로 감싼 모든 문자열은 패턴(동의어와 대조적으로)으로 간주됩니다.
+    A importação de um arquivo CSV também suporta padrões. Qualquer sequência agrupada com `/` será considerada um padrão (em oposição a um sinônimo).
 
     ```
     ContactInfo,localPhone,/(\d{3})-(\d{4})/
@@ -219,57 +219,57 @@ lastupdated: "2018-01-30"
     ```
     {: screen}
 
-        UTF-8로 인코딩되고 BOM(Byte Order Mark)은 없는 CSV 파일을 저장하십시오. 최대 CSV 파일 크기는 10MB입니다. 더 큰 CSV 파일의 경우 여러 개의 파일로 분할하고 개별적으로 가져오는 것을 고려하십시오.  {{site.data.keyword.conversationshort}} 도구에서 작업공간을 연 다음 **엔티티** 탭을 클릭하십시오.
+    Salve o arquivo CSV com codificação UTF-8 e nenhuma marca de ordem de byte (BOM). O tamanho máximo do arquivo CSV é 10MB. Se seu arquivo CSV for maior, considere dividir isso em vários arquivos e importá-los separadamente.  Na ferramenta {{site.data.keyword.conversationshort}}, abra a sua área de trabalho e, em seguida, clique na guia **Entidades**.
     {: tip}
 
-1.  ![가져오기](images/importGA.png)를 클릭한 다음 파일을 끌어오거나, 찾아보기를 수행하여 컴퓨터에서 파일을 선택하십시오. 파일을 유효성 검증하여 가져오며, 시스템은 새 데이터에 대한 자체 훈련을 시작합니다.
+1.  Clique em ![Importar](images/importGA.png) e, em seguida, arraste um arquivo ou navegue para selecionar um arquivo de seu computador. O arquivo é validado e importado e o sistema começa a treinar com os novos dados.
 
-### 결과
+### Resultados
 
-엔티티 탭에서 가져온 엔티티를 볼 수 있습니다. 새 엔티티를 보려면 사용자는 페이지를 새로 고쳐야 합니다.
+É possível visualizar as entidades importadas na guia Entidades. Você pode precisar atualizar a página para ver as novas entidades.
 
-## 엔티티 내보내기
+## Exportando entidades
 {: #export_entities}
 
-여러 개의 인텐트를 CSV 파일로 내보낼 수 있으므로 다른 {{site.data.keyword.conversationshort}} 애플리케이션으로 가져와서 다시 사용할 수 있습니다.
+É possível exportar várias entidades para um arquivo CSV, depois é possível importar e reutilizá-las para outro aplicativo {{site.data.keyword.conversationshort}}.
 
-CSV 파일 내보내기는 패턴을 지원합니다. `/`로 감싼 모든 문자열은 패턴(동의어와 대조적으로)으로 간주됩니다.
+A exportação de um arquivo CSV suporta padrões. Qualquer sequência agrupada com `/` será considerada um padrão (em oposição a um sinônimo).
 {: tip}
 
-1.  원하는 엔티티를 선택하고 **내보내기**를 선택하십시오.
+1.  Selecione as entidades desejadas e, em seguida, selecione **Exportar**.
 
-    ![엔티티 단추 내보내기](images/ExportEntity.png)
+    ![Botão Exportar entidade](images/ExportEntity.png)
 
-## 엔티티 삭제
+## Excluindo entidades
 {: #delete_entities}
 
-삭제할 엔티티 수를 선택할 수 있습니다.
+É possível selecionar um número de entidades para exclusão.
 
-**중요**: 엔티티를 삭제하여 연관된 모든 값, 동의어 또는 패턴을 삭제하며 이러한 항목은 나중에 검색할 수 없습니다. 삭제된 컨텐츠를 더 이상 참조하지 않도록 이러한 엔티티 또는 값을 참조하는 모든 대화 상자 노드를 수동으로 업데이트해야 합니다.
+**IMPORTANTE**: Ao excluir entidades, você também estará excluindo todos os valores, sinônimos ou padrões associados e esses itens não podem ser recuperados posteriormente. Todos os nós de diálogo que referenciam essas entidades ou valores devem ser atualizados manualmente para não fazer referência ao conteúdo excluído.
 
-1.  원하는 엔티티를 선택하고 **삭제**를 선택하십시오.
+1.  Selecione as entidades desejadas e, em seguida, selecione **Excluir**.
 
-    ![엔티티 단추 삭제](images/DeleteEntity.png)
+    ![Botão Excluir entidade](images/DeleteEntity.png)
 
-## 시스템 엔티티 사용
+## Ativando entidades do sistema
 {: #enable_system_entities}
 
-{{site.data.keyword.conversationshort}} 서비스는 여러 *시스템 엔티티*를 제공하며, 이러한 엔티티는 모든 애플리케이션에 사용할 수 있는 공통 엔티티입니다. 시스템 엔티티를 사용하면 많은 유스 케이스에 공통인 훈련 데이터로 작업공간을 빠르게 채울 수 있습니다.
+O serviço {{site.data.keyword.conversationshort}} fornece um número de *entidades de sistema*, que são entidades comuns que você pode usar para qualquer aplicativo. A ativação de uma entidade do sistema torna possível preencher rapidamente sua área de trabalho com dados de treinamento que são comuns a muitos casos de uso.
 
-시스템 엔티티를 사용하여 이 엔티티가 나타내는 오브젝트 유형의 광범위한 값을 인식할 수 있습니다. 예를 들어, `@sys-number` 시스템 엔티티는 정수, 소수 또는 심지어 단어로 기록된 짝수를 포함한 숫자 값과 일치합니다.
+Entidades do Sistema podem ser usadas para reconhecer uma ampla variedade de valores para os tipos de objetos que eles representam. Por exemplo, a entidade do sistema `@sys-number` corresponde a qualquer valor numérico, incluindo números inteiros, frações decimais ou mesmo números gravados como palavras.
 
-시스템 엔티티는 중앙에서 유지보수되므로 업데이트가 자동으로 사용 가능합니다. 시스템 엔티티는 수정할 수 없습니다.
+As entidades do sistema são mantidas centralmente, portanto, quaisquer atualizações ficarão disponíveis automaticamente. Não é possível modificar entidades do sistema.
 
-1.  엔티티 탭에서 **시스템 엔티티**를 클릭하십시오.
+1.  Na guia Entidades, clique em **Entidades do sistema**.
 
-    !["시스템 엔티티" 탭의 화면 캡처](images/system_entities_1.png)
+    ![Captura de tela da guia "Entidades do sistema" ](images/system_entities_1.png)
 
-1.  시스템 엔티티 목록에서 검색하여 애플리케이션에 유용한 엔티티를 선택하십시오.
-    - 일치하는 입력 예제를 포함해 시스템 엔티티에 대한 자세한 정보를 보려면 목록에서 엔티티를 클릭하십시오.
-    - 사용 가능한 시스템 엔티티에 대한 세부사항은 [시스템 엔티티](system-entities.html)를 참조하십시오.
+1.  Navegue pela lista de entidades do sistema para escolher as que são úteis para seu aplicativo.
+    - Para consultar informações adicionais sobre uma entidade do sistema, incluindo exemplos de entrada correspondente, clique na entidade na lista.
+    - Para obter detalhes sobre as entidades do sistema disponíveis, consulte [Entidades do Sistema](system-entities.html).
 
-1.  시스템 엔티티 옆에 있는 전환 스위치를 클릭하여 이 엔티티를 사용 또는 사용 안함으로 설정하십시오.
+1.  Clique no interruptor de duas posições próximo a uma entidade do sistema para ativá-la ou desativá-la.
 
-### 결과
+### Resultados
 
-시스템 엔티티를 사용으로 설정하면 {{site.data.keyword.conversationshort}} 서비스가 재훈련을 시작합니다. 훈련이 완료되면 엔티티를 사용할 수 있습니다.
+Depois de ativar entidades do sistema, o serviço {{site.data.keyword.conversationshort}} começa a treinar novamente. Após o treinamento ser concluído, você poderá usar as entidades.

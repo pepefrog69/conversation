@@ -17,56 +17,56 @@ lastupdated: "2018-02-15"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 대화 상자 노드에서 프로그래밍 방식 호출 작성![베타](images/beta.png)
+# Fazendo chamadas programáticas de um nó de diálogo ![BETA](images/beta.png)
 {: #dialog-actions}
 
-외부 애플리케이션 또는 서비스를 프로그래밍 방식으로 호출하고 대화 상자 턴 내에서 발생하는 처리의 일부로 결과를 되돌릴 수 있는 동작을 정의합니다.
+Defina as ações que podem fazer chamadas programáticas para aplicativos ou serviços externos e obtenha de volta um resultado como parte do processamento que ocorre dentro de uma rodada de diálogo.
 {: shortdesc}
 
-외부 서비스를 사용하여 사용자가 수집한 정보의 유효성을 검증하거나 지원되는 SpEL 표현식 및 메소드를 사용하여 처리하기에 너무 복잡한 입력에 대한 계산 또는 문자열 조작을 수행할 수 있습니다. 또는 외부 웹 서비스와 상호작용하여 항공편의 예상 도착 시간을 확인하는 항공 교통 서비스 또는 날씨 예측 서비스와 같은 정보를 얻을 수 있습니다. 식당 예약 사이트와 같은 외부 애플리케이션과 상호작용하여 사용자 대신 간단한 트랜잭션을 완료할 수도 있습니다. 
+É possível usar um serviço externo para validar as informações que você coletou do usuário ou executar cálculos ou manipulações de sequência na entrada que são muito complexos para serem manipulados usando expressões e métodos SpEL suportados. Ou é possível interagir com um serviço da web externo para obter informações, como um serviço de tráfego aéreo para verificar o horário de chegada esperado de um voo ou um serviço meteorológico para obter uma previsão. É possível até mesmo interagir com um aplicativo externo, como um site de reserva de restaurante, para concluir uma transação simples em nome do usuário.
 
 <iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/y0A6X-KNoB8?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
-프로그래밍 방식 호출을 정의할 때, 다음 유형 중 하나를 선택하십시오.
+Ao definir a chamada programática, você escolhe um dos tipos a seguir:
 
-- **클라이언트**: 외부 클라이언트 애플리케이션이 프로그래밍 방식의 호출 또는 함수를 수행하고 결과를 대화 상자에 리턴하는 데 사용할 수 있는 표준화된 형식의 프로그래밍 방식 호출을 정의합니다.
-- **서버**: {{site.data.keyword.openwhisk_short}} 조치를 직접 호출하고 대화 상자에 결과를 리턴합니다.
+- **client**: define uma chamada programática em um formato padronizado que seu aplicativo cliente externo pode usar para executar a chamada ou função programática e retornar o resultado para o diálogo.
+- **server**: chama uma ação do {{site.data.keyword.openwhisk_short}} diretamente e retorna o resultado para o diálogo.
 
-    현재는 미국 남부나 독일 지역에서 호스팅되는 {{site.data.keyword.conversationshort}} 인스턴스에서 {{site.data.keyword.openwhisk_short}} 조치를 호출할 수 있습니다.
+    Atualmente, é possível chamar uma ação do {{site.data.keyword.openwhisk_short}} de instâncias do {{site.data.keyword.conversationshort}} que são hospedadas nas regiões de sul dos EUA ou Alemanha.
 
-    **참고**: 사용되는 {{site.data.keyword.openwhisk_short}} 인스턴스는 동일한 위치(미국 남부 또는 독일)에서 호스팅되는 인스턴스입니다. 따라서 예를 들어, 미국 남부에서 호스팅되는 {{site.data.keyword.conversationshort}} 서비스 인스턴스에서 액세스하려는 경우 독일에서 호스팅되는 {{site.data.keyword.openwhisk_short}} 인스턴스에 조치를 정의하지 마십시오. 
+    **Nota**: a instância do {{site.data.keyword.openwhisk_short}} que usada é aquela hospedada no mesmo local (sul dos EUA ou Alemanha). Portanto, não defina uma ação em uma instância do {{site.data.keyword.openwhisk_short}} que esteja hospedada na Alemanha se você planeja acessá-la de uma instância de serviço do {{site.data.keyword.conversationshort}} hospedada no sul dos EUA, por exemplo.
 
-    **중요**: 이 메소드를 사용하여 **5 초 이내**에 리턴할 수 있는 {{site.data.keyword.openwhisk_short}} 조치를 호출하십시오. {{site.data.keyword.openwhisk_short}}에 대한 요청은 개별 서비스 호출에 걸리는 시간이 오래 걸리는 경우, 시간 초과됩니다. 대화 상자에서 두 번 이상 외부 서비스를 호출하는 경우 호출이 완료될 수 있는 총 시간은 7 초입니다. 처음 3 번의 호출이 각각 2 초씩 완료되고 네 번째 호출이 1 초 이상 걸리면 네 번째 호출이 중지되고 호출에 대한 오류 메시지는 호출이 완료되지 않았음을 나타냅니다. 호출이 필요한 효율성이 떨어지는 서비스의 경우 클라이언트 애플리케이션을 통해 호출을 관리하고 정보를 대화 상자에 별도의 단계로 전달합니다. 
+    **Importante**: somente use esse método para fazer uma chamada para uma ação do {{site.data.keyword.openwhisk_short}} que você sabe que pode retornar em **menos de 5 segundos**. A solicitação para o {{site.data.keyword.openwhisk_short}} atingirá o tempo limite se uma chamada de serviço individual levar mais tempo que isso. E se seu diálogo fizer mais de uma chamada para um serviço externo, o período de tempo total permitido para as chamadas serem concluídas será de 7 segundos. Se as três primeiras chamadas forem concluídas em 2 segundos cada e a quarta levar mais de 1 segundo, a quarta chamada será interrompida e a mensagem de erro para a chamada indicará que a chamada não foi concluída. Para serviços menos eficientes que você precisa chamar, gerencie a chamada por meio do seu aplicativo cliente e transmita as informações para o diálogo como uma etapa separada.
 
-## 프로시저
+## Procedimento
 {: #call-action}
 
-대화 상자 노드에서 프로그래밍 방식 호출을 작성하려면, 다음 단계를 완료하십시오.
+Para fazer uma chamada programática de um nó de diálogo, conclua as etapas a seguir:
 
-1.  프로그래밍 방식 호출을 작성하려는 대화 상자 노드에서 JSON 편집기를 여십시오.
+1.  No nó de diálogo do qual você deseja fazer a chamada programática, abra o editor JSON.
 
-    - 노드에 대한 응답이 평가된 후에 실행되는 프로그래밍 방식 호출을 작성하려면 노드 응답에 대한 JSON 편집기를 여십시오.
+    - Para fazer uma chamada programática que é executada após a resposta para um nó ser avaliada, abra o editor JSON para a resposta do nó.
 
-      ![표준 노드 응답과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-response.png)
+      ![Mostra como acessar o editor da JSON associado com uma resposta de nó padrão.](images/contextvar-json-response.png)
 
-      노드에 대해 **다중 응답** 설정이 **켜져**있으면, **옵션**![고급 응답](images/kabob.png) 메뉴가 표시되기 전에 **응답 편집**![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오. 
+      Se a configuração **Múltiplas respostas** é **Ativado** para o nó, deve-se clicar no ícone **Editar resposta** ![Editar resposta](images/edit-slot.png) antes de o menu **Opções** ![Resposta avançada](images/kabob.png) ficar visível.
 
-      ![여러 조건부 응답을 사용하도록 설정된 표준 노드와 연결된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-multi-response.png)
+      ![Mostra como acessar o editor da JSON associado com um nó padrão que tem múltiplas respostas condicionais ativadas para ele.](images/contextvar-json-multi-response.png)
 
-    동일한 대화 상자 턴 내에서 외부 서비스의 응답을 표시하거나 추가로 처리하려면 이 조치를 수행하는 두 번째 노드를 추가하고 이 노드에서 점프하십시오.
+    Se deseja exibir ou processar ainda mais a resposta do serviço externo na mesma rodada de diálogo, deve-se incluir um segundo nó que faça isso e ir para ele por meio desse nó.
     {: tip}
 
-    - 개별 슬롯에서 사용할 수 있는 호출을 작성하려면 슬롯에 대한 **슬롯 편집** 아이콘 ![슬롯 편집 아이콘](images/edit-slot.png)을 클릭하고 다음 중 하나를 수행하십시오.
+    - Para fazer uma chamada que possa ser usada por um intervalo individual, clique no ícone **Editar intervalo** ![Editar intervalo](images/edit-slot.png) para o intervalo e, em seguida, faça uma das coisas a seguir:
 
-      - 슬롯 조건이 true로 평가된 후에 실행되는 프로그래밍 방식 호출을 작성하려면 슬롯 조건과 관련된 JSON 편집기를 여십시오.
+      - Para fazer uma chamada programática executada após a condição do intervalo ser avaliada como true, abra o editor JSON que está associado à condição do intervalo.
 
-        ![슬롯 조건과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-slot-condition.png)
+        ![Mostra como acessar o editor da JSON associado com uma condição do intervalo.](images/contextvar-json-slot-condition.png)
 
-      - 슬롯이 채워진 후 실행되는 프로그래밍 방식의 호출을 수행하려면 찾음 응답과 관련된 JSON 편집기를 여십시오. 이를 수행하려면, 슬롯에 대한 **옵션** ![옵션 아이콘](images/kabob.png) 메뉴에서, **조건부 응답 사용**을 클릭하십시오. 찾음 응답의 경우, **응답 편집** ![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오. 찾음 응답에 대한 **옵션** ![옵션 아이콘](images/kabob.png) 메뉴에서 **JSON 편집기 열기**를 클릭하십시오. 
+      - Para fazer uma chamada programática executada após o intervalo ser preenchido com êxito, abra o editor JSON que está associado com a resposta Localizado. Para fazer isso, no menu **Opções** ![Ícone Opções](images/kabob.png) para o intervalo, clique em **Ativar respostas condicionais**. Para a resposta Localizado, clique no ícone **Editar resposta** ![Editar resposta](images/edit-slot.png). No menu **Opções** ![Ícone Opções](images/kabob.png) para a resposta Localizado, clique em **Abrir editor JSON**.
 
-        ![슬롯에 대한 조건부 응답과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-slot-multi-response.png)
+        ![Mostra como acessar o editor da JSON associado com a resposta condicional para um intervalo.](images/contextvar-json-slot-multi-response.png)
 
-1.  프로그래밍 방식 호출을 정의하려면 다음 구문을 사용하십시오.
+1.  Use a sintaxe a seguir para definir a chamada programática.
 
     ```json
     {
@@ -92,51 +92,51 @@ lastupdated: "2018-02-15"
     ```
     {: codeblock}
 
-    `actions` 배열은 대화 상장에서 작성할 프로그래밍 방식 호출을 지정합니다. 이것은 프로그래밍 방식 호출을 5개까지 정의할 수 있습니다. JSON 배열에서 다음과 같은 이름 및 값 쌍을 지정하십시오.
+    A matriz `actions` especifica as chamadas programáticas a serem feitas no diálogo. É possível definir até 5 chamadas programáticas separadas. Especifique os pares de nome e valor a seguir na matriz JSON:
 
-    - `<actionName>`: 필수. 호출할 조치 및 서비스의 이름입니다. 이름은 최대 64자를 초과할 수 없습니다.
+    - `<actionName>`: necessário. O nome da ação ou do serviço a ser chamado. O nome não pode ter mais de 64 caracteres.
 
-       - 클라이언트 조치 유형의 경우, 사용자 원하는 이름으로 지정하십시오. 목표는 클라이언트 애플리케이션을 인식하고 처리 방법을 알 수 있는 이름을 지정하는 것입니다.
+       - Para tipos de ação do cliente, especifique um nome em qualquer sintaxe que você desejar. O objetivo é especificar um nome que seu aplicativo cliente reconheça e saiba como manipular.
 
-          예: `calculateRate`
+          Por exemplo: `calculateRate`
 
-       - {{site.data.keyword.openwhisk_short}} (서버) 조치 유형의 경우, 다음과 같은 구문을 사용하여 조치의 완전한 이름을 제공하십시오.`/<namespace>/[<package-name>]/<action name>`
+       - Para os tipos de ação do {{site.data.keyword.openwhisk_short}} (servidor), use esta sintaxe para fornecer o nome completo da ação: `/<namespace>/[<package-name>]/<action name>`
 
-         - 조치가 패키지의 일부인 경우, `<package-name>` 정보는 필수이며 패키지의 일부가 아닌 경우, 필수가 아닙니다.
-         - 연속적인 조치를 호출하는 경우, `<action name>` 대신 `<sequence name>`을 지정하십시오.
-         - 사용자 정의 조치에 대한 네임스페이스 구문은 다음과 같습니다. `<myIBMCloudOrganizationID>_<myIBMCloudSpace>`. 예: `/jdoeorg_prod10/search flights`
-         - {{site.data.keyword.openwhisk_short}}에 제공되는 조치는 다음과 같은 네임스페이스(`whisk.system`)를 가지고 있지만, 항상 네임스페이스를 확인해야 합니다. 예: `/whisk.system/weather/forecast`
+         - Se a ação fizer parte de um pacote, as informações do `<package-name>` serão necessárias; caso contrário, não.
+         - Se você estiver chamando uma sequência de ações, especifique o `<sequence name>` no lugar do `<action name>`.
+         - O namespace para uma ação definida pelo usuário geralmente tem a sintaxe: `<myIBMCloudOrganizationID>_<myIBMCloudSpace>`. Por exemplo: `/jdoeorg_prod10/search flights`
+         - As ações que são fornecidas com o {{site.data.keyword.openwhisk_short}} frequentemente têm o namespace: `whisk.system`, mas é sempre necessário verificar o namespace para ter certeza. Por exemplo: `/whisk.system/weather/forecast`
 
-    - `<type>`: 작성할 호출 유형을 나타냅니다. 다음 유형에서 선택하십시오.
+    - `<type>`: indica o tipo de chamada a ser feita. Escolha entre os tipos a seguir:
 
-      - **클라이언트**: 외부 클라이언트 애플리케이션이 호출 또는 함수를 수행하고 대화 상자를 대신하여 결과를 확보하는 데 사용할 수 있는 표준화된 형식의 프로그래밍 방식 호출 정보를 사용하여 메시지 응답을 보냅니다. 응답 본문에서 JSON 오브젝트를 호출할 서비스 또는 함수, 호출과 함께 전달할 관련 매개 변수 및 결과를 리턴하는 방법을 지정합니다. 
+      - **client**: envia uma resposta de mensagem com informações de chamada programática em um formato padronizado que seu aplicativo cliente externo pode usar para executar a chamada ou função e obter um resultado em nome do diálogo. O objeto JSON no corpo de resposta especifica o serviço ou a função a ser chamada, quaisquer parâmetros associados para passar com a chamada e como o resultado deve ser enviado de volta.
 
-      - **서버**: {{site.data.keyword.openwhisk_short}} 조치(하나 이상)를 직접 호출합니다. {{site.data.keyword.openwhisk}}를 사용하여 조치 자체를 별도로 정의해야 합니다. 자세한 정보는 [{{site.data.keyword.openwhisk_short}}조치 작성](dialog-actions.html#create-action)을 참조하십시오. 
+      - **server**: chama uma ação do {{site.data.keyword.openwhisk_short}} (uma ou mais) diretamente. Deve-se definir a ação em si separadamente usando o {{site.data.keyword.openwhisk}}. Para obter mais informações, veja [Criando uma ação do {{site.data.keyword.openwhisk_short}}](dialog-actions.html#create-action) abaixo.
 
-      유형을 지정하는 것은 선택사항입니다. 기본값은 `client`입니다. 
+      A especificação do tipo é opcional. O valor padrão é `client`.
 
-    - `<action_parameters>`: 외부 프로그램에서 예상하는 모든 매개변수는 JSON 오브젝트로 지정됩니다. 매개변수가 외부 프로그램에서 요구하는 경우에만 필요합니다.
+    - `<action_parameters>`: quaisquer parâmetros que são esperados pelo programa externo, especificado como um objeto JSON. Os parâmetros são necessários somente se requeridos pelo programa externo.
 
-    - `<result_variable_name>`: 외부 서비스 또는 프로그램에서 리턴되는 JSON 오브젝트를 참조하기 위해 사용하는 이름입니다. 결과는 /message 응답의 컨텍스트 섹션에 추가됩니다. 즉, 결과는 컨텍스트 변수로 저장되므로 노드 응답에 표시되거나 나중에 트리거되는 대화 상자 노드가 액세스할 수 있습니다. 컨텍스트 변수의 모든 기존 값이 조치에서 리턴하는 값으로 대체됩니다. 다음 구문을 사용하여 `result_variable_name`을 지정할 수 있습니다. 
+    - `<result_variable_name>`: o nome a ser usado para referenciar o objeto JSON que é retornado pelo serviço ou programa externo. O resultado é incluído na seção de contexto da resposta /message. Em outras palavras, o resultado é armazenado como uma variável de contexto para que possa ser exibido na resposta do nó ou acessado por nós de diálogo que forem acionados mais tarde. Qualquer valor existente para a variável de contexto é sobrescrito pelo valor retornado pela ação. É possível especificar o `result_variable_name` usando a sintaxe a seguir:
 
       - `my_result`
       - `$my_result`
 
-      이름은 최대 64자를 초과할 수 없습니다. 변수 이름은 다음 문자를 포함할 수 없습니다. 소괄호 `()`, 대괄호 (`[]`), 작은 따옴표(`'`), 인용 부호(`"`) 또는 백슬래시(`\`).
+      O nome não pode ter mais que 64 caracteres. O nome de variável não pode conter os caracteres a seguir: parênteses `()`, colchetes (`[]`), uma aspa simples (`'`), uma aspa (`"`) ou uma barra invertida (`\`).
 
-      /message 응답의 출력 또는 입력 섹션에 결과를 저장하는 경우, 다음 위치 키워드 중 하나를 `result_variable_name` 앞에 추가할 수 있습니다.
+      Se você deseja salvar o resultado para a seção de saída ou entrada da resposta /message, é possível pré-anexar uma das palavras-chave de local a seguir ao `result_variable_name`:
 
-       - `output.`: /message 응답의 출력 섹션에 결과를 추가합니다. 예: `output.my_result`.
-       - `input.`: /message 응답의 입력 섹션에 결과를 추가합니다. 예: `input.my_result`.
+       - `output.`: inclui o resultado para a seção de saída da resposta /message. Por exemplo, `output.my_result`.
+       - `input.`: inclui o resultado para a seção de entrada da resposta /message. Por exemplo, `input.my_result`.
 
-      `context.`를 지정할 수 있습니다. 위치 키워드 접두부는 다음과 같습니다. 예: `context.my_result`. 그러나, 결과가 기본적으로 컨텍스트에 추가되므로 수행할 필요는 없습니다.
+      É possível especificar um prefixo de palavra-chave de local `context.` também. Por exemplo, `context.my_result`. No entanto, isso não é necessário porque o resultado é incluído no contexto por padrão.
 
-      변수 이름에 마침표를 포함하여 중첩된 JSON 오브젝트를 작성할 수 있습니다. 예를 들어, 오늘과 내일의 날씨 서비스 예측에 대한 두개의 개별 요청에서 결과를 캡처하기 위해 다음 변수를 정의할 수 있습니다.
+      É possível incluir pontos no nome de variável para criar um objeto JSON aninhado. Por exemplo, é possível definir essas variáveis para capturar os resultados de duas solicitações separadas para um serviço meteorológico para as previsões de hoje e amanhã.
 
       - `context.weather.today`
       - `context.weather.tomorrow`
 
-      결과(`temp` 및 `rain` 매개변수 값)는 이 구조의 컨텍스트에 저장됩니다.
+      Os resultados (valores de parâmetro `temp` e `rain`) são armazenados no contexto desta estrutura:
       ```json
       {
         "weather": {
@@ -153,26 +153,26 @@ lastupdated: "2018-02-15"
       ```
       {: codeblock}
 
-      단일 JSON 조치 배열의 다중 조치가 동일한 컨텍스트 변수에 프로그래밍 방식 호출의 결과를 추가하면 컨텍스트가 업데이트되는 순서가 중요합니다.
+      Se múltiplas ações em uma única matriz de ação JSON incluem o resultado de sua chamada programática para a mesma variável de contexto, a ordem na qual o contexto é atualizado importa:
 
-      1. 배열의 서버 및 클라이언트 조합이 있는 경우, 서비스는 서버 유형 조치를 먼저 처리합니다. 그 결과, 배열의 마지막 클라이언트 유형 조치로 컨텍스트 변수에 대해 계산된 값은 모든 서버 유형 조치로 계산한 값을 겹쳐 씁니다.
-      1. 조치 유형별로 배열에 조치가 정의된 순서에 따라 컨텍스트 변수의 값이 설정되는 순서가 결정됩니다. 배열의 마지막 조치로 리턴한 컨텍스트 변수 값은 다른 조치로 계산한 값을 겹쳐 씁니다.
+      1. Se você tem uma combinação de ações do servidor e cliente na matriz, o serviço processa as ações do tipo do servidor primeiro. Como resultado, o valor que é calculado para a variável de contexto pela última ação do tipo de cliente na matriz sobrescreve o valor calculado para ela por quaisquer ações do tipo de servidor.
+      1. Por tipo de ação, a ordem na qual as ações são definidas na matriz determina a ordem na qual o valor da variável de contexto é configurado. O valor da variável de contexto retornado pela última ação na matriz sobrescreve os valores calculados por quaisquer outras ações.
 
-    - `<reference_to_credentials>`: {{site.data.keyword.openwhisk_short}} 신임 정보의 오브젝트 이름이 저장됩니다. 서버 조치에만 필요합니다. 이러한 신임 정보는 조치가 실행되는 {{site.data.keyword.openwhisk_short}} 인스턴스에 액세스하는 데 사용됩니다. 이것은 사용자의 {{site.data.keyword.Bluemix_notm}} 신임 정보가 아닙니다. 
+    - `<reference_to_credentials>`: o nome do objeto no qual as credenciais do {{site.data.keyword.openwhisk_short}} são armazenadas. Necessário somente para ações do servidor. Essas credenciais são usadas para acessar a instância do {{site.data.keyword.openwhisk_short}} na qual a ação é executada. Elas não são suas credenciais do {{site.data.keyword.Bluemix_notm}}.
 
-      신임 정보를 검색하려면, 다음 단계를 완료하십시오.
-      1.  [{{site.data.keyword.openwhisk_short}} API 키 ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://console.bluemix.net/openwhisk/learn/api-key){: new_window} 페이지로 이동하십시오. 
+      Para descobrir as credenciais, conclua as etapas a seguir:
+      1.  Acesse a chave API do [{{site.data.keyword.openwhisk_short}} ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/openwhisk/learn/api-key){: new_window}.
 
-          - 아직 계정을 작성하지 않은 경우, 계정을 작성하십시오.
-          - 로그인하지 않은 경우, 로그인하십시오.
+          - Se você ainda não tiver criado uma conta, faça isso.
+          - Se você não estiver com login efetuado, efetue login.
 
-      1.  신임 정보를 표시하려면, Click the **Auth 키 표시** 아이콘 ![Auth 키 표시](images/show-auth-icon.png)을 클릭하십시오. 콜론(:) 앞의 세그먼트는 사용자 ID입니다. 콜론 다음의 세그먼트는 사용자의 비밀번호입니다. 
+      1.  Clique no ícone **Mostrar chave de aut.** ![Mostrar chave de aut.](images/show-auth-icon.png) para mostrar as credenciais. O segmento antes de dois-pontos (:) é seu ID do usuário. O segmento após os dois-pontos é sua senha.
 
-      **주의**: 조치가 실행될 때 발생하는 모든 비용은 이 신임 정보를 소유한 사람에게 부과됩니다.
+      **Atenção**: quaisquer encargos incorridos quando a ação é executada são cobrados da pessoa que possui essas credenciais.
 
-      신임 정보를 보호하려면, {{site.data.keyword.conversationshort}} 작업영역에 신임 정보를 저장하지 마십시오. 대신, 컨텍스트의 일부로 클라이언트 애플리케이션에서 전달하십시오. 컨텍스트 변수를 메시지 컨텍스트의 $private 섹션에 중첩하여 정보가 Watson 로그에 저장되는 것을 방지할 수 있습니다. 예: `$private.my_credentials`.
+      Para proteger as credenciais, não as armazene na área de trabalho do {{site.data.keyword.conversationshort}}. Em vez disso, passe-as do aplicativo cliente como parte do contexto. É possível evitar que as informações sejam armazenadas em logs do Watson aninhando sua variável de contexto dentro da seção $private do contexto da mensagem. Por exemplo: `$private.my_credentials`.
 
-      사용자가 정의하는 신임 정보 오브젝트는 `user` 및 `password` 매개변수를 포함해야 합니다.
+      O objeto de credenciais que você define deve conter os parâmetros `user` e `password`.
 
       ```json
       {
@@ -182,62 +182,61 @@ lastupdated: "2018-02-15"
       ```
       {: codeblock}
 
-      대화 상자를 테스트하는 동안 도구의 "연습" 분할창에서 **컨텍스트 관리**를 클릭하여 실제 {{site.data.keyword.openwhisk_short}} 사용자 이름과 비밀번호 값으로 `$private.my_credentials` 컨텍스트 변수를 임시로 설정할 수 있습니다. 
+      Ao testar o diálogo, é possível configurar temporariamente a variável de contexto `$private.my_credentials` com seus valores reais de nome do usuário e senha do {{site.data.keyword.openwhisk_short}} clicando em **Gerenciar contexto** na área de janela "Experimente" no conjunto de ferramentas.
 
-      ![연습 컨텍스트 관리 인터페이스에서 $ private.my_credentials 컨텍스트 변수가 정의된 방법 표시](images/testing-creds.png)
+      ![Mostra como a variável de contexto $private.my_credentials é definida pela interface de gerenciamento de contexto de Experimente](images/testing-creds.png)
 
-## {{site.data.keyword.openwhisk_short}} 조치 작성
+## Criando uma ação do {{site.data.keyword.openwhisk_short}}
 {: #create-action}
 
-서버 유형 프로그래밍 방식 호출을 정의하도록 선택한 경우, 대화 상자에서 호출하기 전에 {{site.data.keyword.openwhisk}}에서 조치를 작성해야 합니다. 클라이언트 유형 프로그래밍 방식 호출을 정의하는 경우, 이 프로시저를 건너 뛰십시오.
+Se você escolhe definir uma chamada programática de tipo de servidor, então antes de poder chamá-la em um diálogo, deve-se criar a ação no {{site.data.keyword.openwhisk}}. Se você está definindo uma chamada programática de tipo de cliente, ignore esse procedimento.
 
-**참고:**{{site.data.keyword.openwhisk_short}} 조치를 실행하면 비용이 발생할 수 있습니다. 자세한 정보는 [가격 책정 ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://console.bluemix.net/openwhisk/learn/pricing){: new_window}을 참조하십시오. {{site.data.keyword.openwhisk_short}}는 테스트 중에 "연습" 분할 창에서 작성된 호출과 프로덕션의 애플리케이션에서 작성된 호출을 구분하지 않습니다. 
+**Nota:** a execução de uma ação do {{site.data.keyword.openwhisk_short}} pode incorrer em um custo. Para obter mais informações, veja [Precificação ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/openwhisk/learn/pricing){: new_window}. O {{site.data.keyword.openwhisk_short}} não distingue entre chamadas que são feitas da área de janela "Experimente" durante o teste e chamadas que são feitas de um aplicativo em produção.
 
-{{site.data.keyword.openwhisk_short}} 조치를 작성하려면, 다음 단계를 완료하십시오.
+Para criar uma ação do {{site.data.keyword.openwhisk_short}}, conclua as etapas a seguir:
 
-1.  브라우저에서 직접 코드를 작성할 수 있는 [온라인 {{site.data.keyword.openwhisk_short}}편집기 ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://console.ng.bluemix.net/openwhisk/create){: new_window}으로 이동하십시오. 
+1.  Acesse o [editor do {{site.data.keyword.openwhisk_short}} on-line ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.ng.bluemix.net/openwhisk/create){: new_window}, no qual é possível gravar o código diretamente em seu navegador.
 
-    또한 로컬로 작성하는 코드를 사용하여 조치를 정의할 수 있는 [명령행 인터페이스![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://console.bluemix.net/openwhisk/learn/cli){: new_window}도 설치할 수 있습니다. 
+    Há também uma [interface da linha de comandos ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/openwhisk/learn/cli){: new_window} que é possível instalar, que permite definir uma ação usando o código escrito localmente.
 
-1.  지원되는 프로그래밍 언어 중 하나를 사용하여 {{site.data.keyword.openwhisk_short}} 조치를 작성하십시오. 세부사항은 [{{site.data.keyword.openwhisk_short}} 문서 ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_actions.html){: new_window}를 참조하십시오. 
+1.  Crie uma ação do {{site.data.keyword.openwhisk_short}} usando uma das linguagens de programação suportadas. Veja a documentação do [{{site.data.keyword.openwhisk_short}} ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_actions.html){: new_window} para obter detalhes.
 
-    다음 팁을 염두에 두십시오.
+    Tenha em mente as dicas a seguir:
 
-    - 외부 서비스를 호출하는 방법은 [{{site.data.keyword.openwhisk_short}} 조치![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘") 예제](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_actions.html#openwhisk_apicall_action){: new_window}를 참조하십시오. 
-    - Watson 서비스를 호출하려면, 사용하려는 언어로 [Watson Developer Cloud SDK ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://github.com/watson-developer-cloud){: new_window}를 사용하십시오.
-    - {{site.data.keyword.openwhisk_short}} 조치가 모든 입력 매개 변수를 JSON 오브젝트로 승인하고 모든 출력을 JSON 오브젝트로 리턴하는지 확인하십시오.
-    - Node.js를 사용하여 {{site.data.keyword.openwhisk_short}} 조치를 작성하는 경우, `Promise`를 사용해야 합니다. 또한, `main` 함수에서 최종 결과를 리턴하는지 확인하십시오.
+    - Consulte o [exemplo de uma ação do {{site.data.keyword.openwhisk_short}} ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_actions.html#openwhisk_apicall_action){: new_window} para ver como chamar um serviço externo.
+    - Para fazer uma chamada para um serviço do Watson, use o [Watson Developer Cloud SDK ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://github.com/watson-developer-cloud){: new_window} para a linguagem que você deseja usar.
+    - Certifique-se de que sua ação do {{site.data.keyword.openwhisk_short}} aceite quaisquer parâmetros de entrada como um objeto JSON e retorne qualquer saída como um objeto JSON.
+    - Se você estiver usando Node.js para escrever sua ação do {{site.data.keyword.openwhisk_short}}, certifique-se de usar `Promise` para processamento assíncrono. Certifique-se também de retornar o resultado final da função `main`.
 
-    대체적인 방법으로 연속적인 조치를 작성할 수 있습니다.
+    Como alternativa, é possível criar uma sequência de ações.
     {: tip}
 
-## 핸들링 오류
+## Manipulando erros
 
-{{site.data.keyword.openwhisk_short}} 조치에서 오류가 발생하면, 오류 메시지가 대화 상자로 리턴되고 `cloud_functions_call_error`라는 응답 변수의 특성으로 저장됩니다. {{site.data.keyword.openwhisk_short}} 조치가 외부 서비스에서 응답을 받지 못하거나 Cloud Function 조치가 실패한 경우, 오류가 발생할 수 있습니다. Cloud Function 신임 정보가 제공되지 않거나 올바르지 않은 경우, 오류가 리턴됩니다. 이 컨텍스트 변수는 서버 조치에만 사용됩니다. 클라이언트 애플리케이션에서 오류 정보를 캡처하여 컨텍스트 변수로 대화 상자에 리턴하는 유사한 오브젝트를 작성하는 것을 고려하십시오. 
+Se a ação do {{site.data.keyword.openwhisk_short}} encontra um erro, a mensagem de erro é retornada ao diálogo e armazenada como uma propriedade da variável de resposta denominada `cloud_functions_call_error`. O erro pode ocorrer se sua ação do {{site.data.keyword.openwhisk_short}} não pode obter uma resposta de um serviço externo ou se a ação do Cloud Function falha, por exemplo. Se as credenciais do Cloud Function não são fornecidas ou estão incorretas, um erro é retornado. Essa variável de contexto é usada somente para ações do servidor; em seu aplicativo cliente, considere criar um objeto semelhante que capture informações de erro e as retorna ao diálogo como uma variável de contexto.
 
-먼저 오류를 확인하기 위해 대화 상자 노드 응답을 조건화할 수 있습니다. 예를 들어, 이 표현식을 응답 조건에 추가하여 오류가 발생하지 않은 경우에만 {{site.data.keyword.openwhisk_short}} 조치 결과를 참조하는 응답이 표시되도록 할 수 있습니다.
+É possível condicionar a resposta do nó de diálogo para primeiro verificar erros. Por exemplo, é possível assegurar que a resposta que referencia um resultado da ação do {{site.data.keyword.openwhisk_short}} seja mostrada somente se nenhum erro foi encontrado, incluindo esta expressão na condição de resposta:
 
 ```json
   $forecast_result.cloud_functions_call_error == null
 ```
 {: codeblock}
 
-클라이언트 유형 프로그래밍 방식 호출의 경우, 컨텍스트 변수(`action_error`)를 정의하여 오류 처리에 대한 정보를 전달할 수 있습니다. 결과 변수의 일부로 서비스에 다시 전달할 수 있습니다. 그러면, 다음과 같은 응답 조건을 정의하여 오류가 발생하지 않은 경우에만 응답을 표시할 수 있습니다. 
+Para uma chamada programática de tipo de cliente, é possível passar informações sobre o processamento de erro definindo uma variável de contexto, como `action_error`. É possível passá-las de volta para o serviço como parte da variável de resultado. Será possível então exibir uma resposta somente se nenhum erro tiver sido encontrado, definindo uma condição de resposta como esta:
 
 ```json
   $forecast_result.action_error == null
 ```
 {: codeblock}
 
-## 클라이언트 호출 예제
+## Exemplo de chamada de cliente
 {: #action-client-example}
 
-다음 예제는 외부 날씨 서비스에 대한 호출을 보여줍니다. 노드 응답과 연관된 JSON 편집기에 추가됩니다. 노드 레벨 응답이 트리거될 때까지 슬롯은 사용자로부터 날짜 및 위치 정보를 수집하여 저장합니다. 이 예제에서는 호출할 서비스가 `/weather`라고 이름 지정된 엔드포인트를 가지고 있고, `location` 및 `date` 매개변수를 사용하고 JSON 오브젝트(`{"forecast": "<value>"}`)를 리턴합니다.
+O exemplo a seguir mostra como uma chamada para um serviço meteorológico externo pode se parecer. Ele é incluído no editor JSON associado à resposta do nó. Até a resposta no nível do nó ser acionada, os intervalos coletaram e armazenaram as informações de data e local do usuário. Este exemplo assume que o serviço que será chamado tem um terminal nomeado `/weather` e que toma os parâmetros `location` e `date` e retorna um objeto JSON, `{"forecast": "<value>"}`.
 
  ``` json
 {
-  "actions": [
-    {
+  "ações": [ {
       "name": "MyWeatherFunction",
       "type": "client",
       "parameters": {
@@ -251,10 +250,10 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-일반적으로, 이 서비스는 새로운 사용자 입력이 필요한 경우(예:상위 노드를 실행한 후 해당 하위 노드 중 하나를 실행하기 전에)에만 POST /message 요청을 통해 클라이언트에게 리턴됩니다. 그러나, 노드에 클라이언트 조치를 추가한 경우, 평가 후에 서비스는 항상 클라이언트로 리턴되어 조치 호출의 결과가 리턴될 수 있습니다. 하위 노드로 직접 점프하도록 구성된 노드와 같이 사용자 입력을 대기하지 않도록 하기 위해 서비스는 다음 값을 메시지 컨텍스트에 추가합니다.
+Normalmente, o serviço somente é retornado ao cliente de uma solicitação POST /message quando a nova entrada do usuário é necessária, como depois de executar um pai e antes de executar um dos seus nós-filhos. No entanto, se você inclui uma ação do cliente em um nó, então após a avaliação, o serviço sempre é retornado ao cliente para que o resultado da chamada de ação possa ser retornado. Para evitar a espera da entrada do usuário quando não deveria, como para um nó que está configurado para ir diretamente para um nó-filho, o serviço inclui o valor a seguir no contexto da mensagem:
 
 ```json
-  {
+{
     "context": {
       "skip_user_input": true
     }
@@ -262,14 +261,13 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-클라이언트가 사용자 입력을 받지 않고 조치 수행을 원하는 경우, 동일한 규칙에 따라 상위 노드에 'skip_user_input` 컨텍스트 변수를 추가하여 클라이언트 애플리케이션과 통신할 수 있습니다.
+Se você deseja que o cliente execute uma ação, mas não obtenha a entrada do usuário, é possível seguir a mesma convenção e incluir a variável de contexto `skip_user_input` no nó pai para comunicar isso ao aplicativo cliente.
 
-클라이언트 애플리케이션은 컨텍스트에서 항상 `skip_user_input` 변수를 검사해야 합니다. 존재하는 경우, 사용자로부터 새로운 입력을 요청하지 않고, 그 대신에 조치를 실행하고, 결과를 메시지에 추가한 다음, 서비스로 다시 전달합니다. 새 POST 메시지 요청에는 이전 POST 메시지 응답(즉, 컨텍스트, 입력, 인텐트, 엔티티 및 선택적으로 출력 섹션)으로 리턴한 메시지가 포함되어야 하며 프로그래밍 방식의 호출을 정의하는 JSON 오브젝트 대신 프로그래밍 방식 호출에서 리턴된 결과를 포함해야합니다.
+Seu aplicativo cliente deve sempre verificar a variável `skip_user_input` no contexto. Se presente, ele não solicita nova entrada do usuário, mas em vez disso executa a ação, inclui seu resultado na mensagem e a transmite de volta para o serviço. A nova solicitação de mensagem POST deve incluir a mensagem retornada pela resposta de mensagem POST anterior (ou seja, o contexto, entrada, intenções, entidades e, opcionalmente, a seção de saída) e, em vez do objeto JSON que define a chamada programática a ser feita, ela deve incluir o resultado que foi retornado da chamada programática.
 
-이 노드 후에 점프하는 하위 노드에서, 사용자에게 표시할 응답을 추가하십시오.
+Em um nó-filho para o qual você vai depois desse nó, inclua a resposta a ser mostrada para o usuário:
 
-``` json
-{
+``` json {
   "output": {
     "text": {
       "values": [
@@ -280,19 +278,18 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-다음 다이어그램에서는 클라이언트 호출을 사용하여 일기 예보 정보를 가져오고 이를 사용자에게 리턴하는 방법을 보여줍니다.
+O diagrama a seguir ilustra como é possível usar uma chamada do cliente para obter informações de previsão meteorológica e retorná-la ao usuário.
 
-![일기 예보를 요청하고, 대화 상자가 클라이언트 앱에 요청을 보내고, 클라이언트 앱이 외부 서비스에 요청을 전송하는 것을 표시](images/forecast.png)
+![Mostra alguém solicitando uma previsão meteorológica e o diálogo enviando a solicitação a um aplicativo do cliente, que então a envia ao serviço externo](images/forecast.png)
 
-## 서버 호출 예제
+## Exemplo de chamada do servidor
 {: #action-server-example}
 
-다음 예제는 {{site.data.keyword.openwhisk_short}} 조치에 대한 호출을 표시합니다. 이 예제는 [Utilities package ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.bluemix.net/docs/openwhisk/openwhisk_actions.html#openwhisk_create_action_sequence){: new_window}에 정의된 {{site.data.keyword.openwhisk_short}} `echo` 조치를 사용하는 방법을 표시합니다. 조치는 텍스트 문자열을 사용하여 리턴합니다.
+O exemplo a seguir mostra como uma chamada a uma ação do {{site.data.keyword.openwhisk_short}} pode se parecer. Este exemplo mostra como usar a ação `echo` do {{site.data.keyword.openwhisk_short}} que está definida no [pacote de Utilitários ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/docs/openwhisk/openwhisk_actions.html#openwhisk_create_action_sequence){: new_window} fornecido com o serviço. A ação toma uma sequência de texto e a retorna.
 
  ``` json
-{
-  "actions": [
-    {
+     {
+  "ações": [ {
       "name": "/whisk.system/utils/echo",
       "type":"server",
       "parameters": {
@@ -306,10 +303,10 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-`context.my_input_returned` 변수에 저장된 {{site.data.keyword.openwhisk_short}} 조치의 결과물은 이제 후속 대화 노드에서 액세스할 수 있습니다.
+A saída da ação do {{site.data.keyword.openwhisk_short}}, que é armazenada na variável `context.my_input_returned`, agora pode ser acessada por nós de diálogo subsequentes.
 
  ``` json
- {
+     {
   "output": {
     "text": {
       "values": [
@@ -321,18 +318,18 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-다음 다이어그램은 내장된 {{site.data.keyword.openwhisk_short}} 에코 서비스를 호출하는 간단한 예제를 사용하여 {{site.data.keyword.openwhisk_short}} 조치를 호출하는 방법을 보여줍니다. 이는 사용자에게 입력을 요청하고 에코 서비스에 전달합니다. 에코 서비스는 사용자에게 표시되는 동일한 텍스트를 리턴합니다.
+O diagrama a seguir ilustra como chamar uma ação do {{site.data.keyword.openwhisk_short}} com um exemplo simples que chama o serviço de eco integrado do {{site.data.keyword.openwhisk_short}}. Ele pede ao usuário a entrada e a passa para o serviço de eco. O serviço de eco retorna o mesmo texto de volta, que é exibido para o usuário.
 
-![텍스트를 입력하는 사용자를 표시하고 대화 상자가 요청을 {{site.data.keyword.openwhisk_short}} 서비스로 보낸 다음 해당 텍스트를 대화 상자로 리턴합니다.](images/echo-via-cf.png)
+![Mostra alguém inserindo texto e o diálogo enviando a solicitação para o serviço {{site.data.keyword.openwhisk_short}}, retornando o texto para o diálogo.](images/echo-via-cf.png)
 
-### Echo 조치 예제
+### Exemplo de ação de eco
 
-이미 {{site.data.keyword.openwhisk_short}} 내장 Echo 조치를 호출하도록 설정된 대화 상자가 있는 작업영역을 보려면 다음 단계를 완료하십시오.
+Para ver uma área de trabalho com um diálogo já configurado para chamar a ação de Eco integrada do {{site.data.keyword.openwhisk_short}}, conclua as etapas a seguir:
 
-1.  [CloudFunctionsEcho.json ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://github.com/watson-developer-cloud/community/raw/master/conversation/cloud-functions-echo.json){: new_window} 파일을 다운로드하십시오.
-1.  JSON 파일을 새 작업공간으로 가져오십시오.
-1.  대화 상자를 검토하여 Echo 조치 호출이 지정된 방식을 확인하십시오.
-1.  "연습" 분할 창에서, **컨텍스트 관리**를 클릭하고, 그런 다음, 컨텍스트 변수를 {{site.data.keyword.openwhisk_short}} 사용자 이름 및 비밀번호에 설정하십시오(임시).
+1.  Faça download do arquivo [CloudFunctionsEcho.json ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://github.com/watson-developer-cloud/community/raw/master/conversation/cloud-functions-echo.json){: new_window}.
+1.  Importe o arquivo JSON como uma nova área de trabalho.
+1.  Revise o diálogo para ver como a chamada para a ação de Eco é especificada.
+1.  Na área de janela "Experimente", clique em **Gerenciar contexto** e, em seguida, configure (temporariamente) as variáveis de contexto para seu nome do usuário e senha do {{site.data.keyword.openwhisk_short}}.
 
     ```json
     $private.my_credentials
@@ -343,26 +340,24 @@ lastupdated: "2018-02-15"
     ```
     {: codeblock}
 
-1.  일부 사항을 입력하여 대화 상자를 테스트하십시오.
+1.  Teste o diálogo inserindo uma entrada.
 
-    서비스는 {{site.data.keyword.openwhisk_short}} Echo 조치를 사용하여 사용자가 입력한 내용을 반복합니다.
+    O serviço usará a ação de Eco do {{site.data.keyword.openwhisk_short}} para repetir o que você inserir.
 
-## 고급 서버 호출 예제
+## Exemplo de chamada do servidor avançado
 {: #advanced-action-server-example}
 
-단일 대화 상자 플로우 내에서 다중 조치를 호출할 수 있습니다. 단일 대화 상자 노드에서 하나의 `actions` JSON 오브젝트당 5개까지의 조치를 호출할 수 있습니다. 그러나, `actions` JSON 배열에 정의된 모든 서버 유형 조치는 모두 병렬로 처리됩니다. 따라서, 사용자는 하나의 서버 유형 조치를 호출하여 그 결과를 동일한 'actions` 블록의 두 번째 서버 유형 조치로 전달할 수 없습니다. 특정 순서의 서버 조치를 호출하는 가장 좋은 방법은 {{site.data.keyword.openwhisk_short}} 순서를 사용하는 것입니다. 실행 시에, 이 접근법은 대화 상자가 하나의 외부 호출만으로 다중 조치를 완료하기 때문에 더 빠릅니다. 순서를 사용하려면, `actions` 블록 정의에 있는 조치 이름 대신 순서 이름을 참조하십시오. 또는 한 노드에서 첫 번째 서버 유형 조치를 호출하고 다음 서버 유형 조치를 호출하는 하위 노드로 이동할 수 있습니다.
+É possível chamar múltiplas ações de dentro de um único fluxo de diálogo. Na verdade, é possível chamar até cinco ações dentro de um objeto JSON `actions` em um único nó de diálogo. No entanto, quaisquer ações de tipo de servidor definidas em uma matriz JSON `actions` são todas processadas em paralelo. Portanto, não é possível chamar uma ação de tipo de servidor e passar o resultado disso para uma segunda ação de tipo de servidor no mesmo bloco `actions`. A melhor maneira de chamar ações do servidor em uma ordem específica é usar uma sequência do {{site.data.keyword.openwhisk_short}}. No tempo de execução, essa abordagem é mais rápida porque o diálogo somente tem que fazer uma chamada externa para concluir múltiplas ações. Para usar uma sequência, apenas referencie o nome da sequência em vez de um nome de ação na definição de bloco `actions`. Como alternativa, é possível chamar a primeira ação de tipo de servidor de um nó e ir para um nó-filho que chame a próxima ação de tipo de servidor.
 
-클라이언트 유형과 서버 유형 조치가 혼합된 하나의`actions` 배열을 정의하는 경우, 대화 상자 노드가 실행될 때 클라이언트 조치는 모든 서버 유형 조치가 처리될 때까지 클라이언트로 전송되지 않습니다.
+Se você define uma matriz `actions` que tem uma combinação de ações de tipo de cliente e tipo de servidor, quando o nó de diálogo é executado, as ações do cliente não são enviadas para o cliente até que todas as ações de servidor tenham sido processadas.
 {: tip}
 
-다음 예제는 {{site.data.keyword.openwhisk_short}} 조치에 대한 호출을 표시합니다.
+Os exemplos a seguir mostram como uma chamada para uma ação do {{site.data.keyword.openwhisk_short}} pode se parecer.
 
-이 예제에서는 {{site.data.keyword.openwhisk_short}} 조치를 사용하여 도시 이름을 가져와서 제공된 위치의 위도와 경도 좌표를 리턴하는 외부 서비스를 호출하는 방법을 표시합니다.
+Este exemplo mostra como usar uma ação do {{site.data.keyword.openwhisk_short}} para chamar um serviço externo que toma um nome de cidade e retorna as coordenadas de latitude e longitude do local fornecido.
 
-``` json
-{
-  "actions": [
-        {
+``` json {
+  "ações": [ {
       "name": "/jdoeorg_prod/get coordinates",
       "type":"server",
       "parameters": {
@@ -376,7 +371,7 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-`$my_coordinates` 컨텍스트 변수는 `get coordinates` 서비스로 리턴한 두 개의 값을 다음과 같이 저장합니다.
+A variável de contexto `$my_coordinates` salva os dois valores que são retornados pelo serviço `get coordinates` como este:
 
 ```json
 {
@@ -386,12 +381,10 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-이 예제에서는 {{site.data.keyword.openwhisk_short}} 서비스와 함께 제공되는 [Weather package ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://console.bluemix.net/docs/openwhisk/openwhisk_weather.html#openwhisk_catalog_weather){: new_window}에 정의된 {{site.data.keyword.openwhisk_short}} `forecast` 조치를 사용하는 방법을 표시합니다. 이 조치는 위도 및 경도 좌표와 시간 주기가 필요합니다. 지정된 기간 동안 지정된 위치에 대한 예측 정보가 있는 JSON 오브젝트를 리턴합니다. 이전 조치로 리턴하는 좌표는 `$my_coordinates.lat` 및 `$my_coordinates.long`으로 지정됩니다.
+Este exemplo mostra como usar a ação `forecast` do {{site.data.keyword.openwhisk_short}} que está definida no [pacote Weather ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://console.bluemix.net/docs/openwhisk/openwhisk_weather.html#openwhisk_catalog_weather){: new_window} fornecido com o serviço {{site.data.keyword.openwhisk_short}}. A ação espera as coordenadas de latitude e longitude e um período. Ela retorna um objeto JSON com informações de previsão para o local especificado durante o período especificado. As coordenadas, que são retornadas pela ação anterior, são especificadas como `$my_coordinates.lat` e `$my_coordinates.long`.
 
- ``` json
-{
-  "actions": [
-    {
+ ``` json {
+  "ações": [ {
       "name": "/whisk.system/weather/forecast",
       "type":"server",
       "parameters": {
@@ -409,12 +402,11 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-**참고**: 사용자 이름 및 비밀번호는 매개변수로 표시됩니다. 이러한 정보는 이 특정 조치가 요청할 때에만 존재하며, 또한, 백엔드에서 제공된 조치가 호출하는 외부 날씨 서비스에 필요한 신임 정보를 정의합니다. 이것은 IBM Cloud Function 계정 신임 정보와는 다릅니다. 이 신임 정보를 비공개로 유지하려면 다음 단계를 수행하십시오.
+**Nota**: um nome do usuário e uma senha são listados como parâmetros. Eles estão presentes somente porque essa ação específica os requer; juntos eles definem as credenciais requeridas pelo serviço Weather externo que a ação fornecida chama no backend. Eles são diferentes das credenciais de conta do IBM Cloud Function. Execute também as etapas para manter essas credenciais privadas.
 
-`context.forecasts` 변수에 저장된 {{site.data.keyword.openwhisk_short}} 조치의 출력은 이제 후속 대화 상자 노드에서 액세스가 가능합니다.
+A saída da ação do {{site.data.keyword.openwhisk_short}}, que é armazenada na variável `context.forecasts`, agora pode ser acessada pelos nós de diálogo subsequentes.
 
- ``` json
- {
+ ``` json {
   "output": {
     "text": {
       "values": [
@@ -426,6 +418,6 @@ lastupdated: "2018-02-15"
 ```
 {: codeblock}
 
-다음 다이어그램은 복합 상호작용을 보여줍니다. 사용자가 날씨 예보를 요청합니다. 대화 상자 노드의 슬롯은 사용자 위치 및 기간 정보를 프롬프트합니다. {{site.data.keyword.openwhisk_short}} 예보 서비스를 호출하려면, 지리적 좌표를 제공해야 합니다. 따라서, 대화 상자는 {{site.data.keyword.openwhisk_short}} 서비스에 요청을 전송하여 사용자가 제공한 위치에 대한 위도 및 경도 정보를 먼저 가져와서 좌표 정보를 리턴하는 외부 서비스로 전달합니다. 후속 노드에서, 대화 상자는 사용자로 부터 확보한 기간 정보와 함께 새로 확보한 좌표 정보를 {{site.data.keyword.openwhisk_short}} 내장된 예측 서비스로 보내 예측 세부 정보를 얻습니다. 대화 상자는 {{site.data.keyword.openwhisk_short}} 예측 서비스에서 제공한 예측 결과를 표시하여 사용자의 질문에 응답합니다.
+O diagrama a seguir ilustra uma interação complexa. Um usuário pede uma previsão meteorológica. Os intervalos no nó de diálogo solicitam ao usuário as informações de local e de período. Para chamar o serviço de previsão do {{site.data.keyword.openwhisk_short}}, deve-se fornecer coordenadas geográficas. Portanto, o diálogo primeiro obtém detalhes de latitude e longitude para o local fornecido pelo usuário enviando uma solicitação ao serviço {{site.data.keyword.openwhisk_short}}, que a passa para um serviço externo que retorna as informações de coordenadas. Em um nó subsequente, o diálogo envia as informações de coordenadas recém-obtidas junto com as informações do período obtidas do usuário para o serviço de previsão integrado do {{site.data.keyword.openwhisk_short}} para obter os detalhes da previsão. O diálogo então responde a pergunta do usuário mostrando o resultado de previsão que foi fornecido pelo serviço de previsão do {{site.data.keyword.openwhisk_short}}.
 
-![날씨 예보를 요청하고 대화 상자가 Cloud Function 서비스에 요청을 전송하여 외부 서비스에 전달하는 것을 표시.](images/forecast-via-cf.png)
+![Mostra alguém solicitando uma previsão meteorológica e o diálogo enviando a solicitação ao serviço Cloud Function para passá-la ao serviço externo.](images/forecast-via-cf.png)

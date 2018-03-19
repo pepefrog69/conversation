@@ -18,268 +18,271 @@ lastupdated: "2018-02-16"
 {:swift: .ph data-hd-programlang='swift'}
 {:table: .aria-labeledby="caption"}
 
-# 대화 상자 작성
+# Criando um diálogo
 {: #dialog-build}
 
-대화 상자를 작성하려면 {{site.data.keyword.conversationshort}} 도구를 사용하십시오.
+Use a ferramenta {{site.data.keyword.conversationshort}} para criar seu diálogo.
 {: shortdesc}
 
-## 대화 상자 노드 한계
+## Limites do nó de diálogo
 {: #dialog-node-limits}
 
-작성할 수 있는 대화 상자 노드의 수는 서비스 플랜에 따라 다릅니다.
+O número de nós de diálogo que podem ser criados depende de seu plano de serviço.
 
-| 서비스 플랜     | 작업공간당 대화 상자 노드 |
+| Plano de Serviço     | Nós de diálogo por área de trabalho |
 |------------------|---------------------------:|
-| 표준/프리미엄 |                    100,000 |
-| 라이트             |                     25,000 |
-{: caption="서비스 플랜 세부사항" caption-side="top"}
+| Standard/Premium |                    100.000 |
+| Lite             |                     25.000 |
+{: caption="Detalhes do plano de serviço" caption-side="top"}
 
-트리 깊이 한계: 서비스가 2,000개의 대화 상자 노드 하위를 지원합니다. 도구는 20개 이하에서 가장 잘 작동합니다.
+Limite de profundidade da árvore: o serviço suporta 2.000 descendentes de nó do diálogo; o conjunto de ferramentas é melhor executado com 20 ou menos.
 
-## 프로시저
+## Procedimento
 {: #dialog-procedure}
 
-대화 상자를 작성하려면 다음 단계를 완료하십시오.
+Para criar um diálogo, conclua as etapas a seguir:
 
-1.  탐색줄에서 **빌드** 페이지를 열고 **대화 상자** 탭을 클릭한 다음 **작성**을 클릭하십시오.
+1.  Abra a página **Construir** na barra de navegação, clique na guia **Diálogo** e, em seguida, clique em **Criar**.
 
-    처음에 대화 상자 빌더를 열 때 다음 노드가 작성됩니다.
-    - **Welcome**: 첫 번째 노드입니다. 처음 서비스를 사용할 때 사용자에게 표시되는 인사가 포함됩니다. 인사를 편집할 수 있습니다.
-    - **Anything else**: 최종 노드입니다. 입력이 인식되지 않을 때 사용자에게 응답하는 데 사용되는 구가 포함됩니다. 제공된 응답을 바꾸거나 유사한 의미의 응답을 추가하여 대화에 다양성을 추가할 수 있습니다. 또한 서비스가 정의된 각 응답을 차례로 리턴할지 아니면 임의 순서로 리턴할지를 선택할 수 있습니다.
-1.  대화 상자 트리에 노드를 추가하려면 **Welcome** 노드에서 **추가**(![추가 아이콘](images/kabob.png)) 아이콘을 클릭한 다음 **아래에 노드 추가**를 선택하십시오.
-1.  충족될 때 서비스를 트리거하여 노드를 처리하는 조건을 입력하십시오.
+    Quando você abre o construtor de diálogo pela primeira vez, os nós a seguir são criados para você:
+    - **Welcome**: o primeiro nó. Ele contém uma saudação que é exibida para seus usuários quando eles se relacionam pela primeira vez com o serviço. É possível editar a saudação.
+    - **Anything else**: O nó final. Ele contém frases que são usadas para responder aos usuários quando suas entradas não são reconhecidas. É possível substituir as respostas que são fornecidas ou incluir mais respostas com um significado semelhante para incluir variedade à conversa. Também é possível escolher se deseja que o serviço retorne cada resposta que está definida por vez ou as retorne em ordem aleatória.
+1.  Para incluir mais nós na árvore de diálogo, clique no ícone **Mais** ![Ícone Mais](images/kabob.png) no nó **Bem-vindo** e, em seguida, selecione **Incluir nó abaixo**.
+1.  Insira uma condição que, quando atendida, aciona o serviço para processar o nó.
 
-    조건 정의를 시작하면 옵션을 표시하는 상자가 표시됩니다. 다음 문자 중 하나를 입력한 다음 표시되는 옵션 목록에서 값을 선택할 수 있습니다.
+    À medida que você começa a definir uma condição, uma caixa será exibida mostrando suas opções. É possível inserir um dos caracteres a seguir e, em seguida, escolher um valor na lista de opções que é exibida.
 
     <table>
-    <caption>조건 빌더 구문</caption>
+    <caption>Sintaxe do construtor de condição</caption>
     <tr>
-      <th>문자</th>
-      <th>이러한 아티팩트 유형에 정의된 값 나열</th>
+      <th>Caractere</th>
+      <th>Lista os valores definidos para esses tipos de artefato</th>
     </tr>
     <tr>
       <td>`#`</td>
-      <td>intents</td>
+      <td>intenções</td>
     </tr>
     <tr>
       <td>`@`</td>
-      <td>엔티티</td>
+      <td>entidades</td>
     </tr>
     <tr>
       <td>`@{entity-name}:`</td>
-      <td>{entity-name} 값</td>
+      <td>Valores de {entity-name}</td>
     </tr>
     <tr>
       <td>`$`</td>
-      <td>대화 상자의 다른 위치에서 정의하거나 참조한 컨텍스트 변수</td>
+      <td>Variáveis de contexto que você definiu ou referenciou em outro lugar no diálogo</td>
     </tr>
     </table>
 
-    이러한 옵션을 사용하는 새 조건을 정의하여 인텐트, 엔티티, 엔티티 값 또는 컨텍스트 변수를 새로 작성할 수 있습니다. 이러한 방식으로 아티팩트를 작성하는 경우 아티팩트를 완전하게 작성하는 데 필요한 다른 단계로 돌아가 이를 완료해야 합니다(예: 인텐트를 위한 샘플 표현 정의).
+    É possível criar uma nova intenção, entidade, valor de entidade ou variável de contexto definindo uma nova condição que a use. Se você criar um artefato dessa maneira, certifique-se de voltar e concluir quaisquer outras etapas que sejam necessárias para que o artefato seja criado completamente, tal como definir elocuções de amostra para uma intenção.
 
-    둘 이상의 조건에 따라 트리거되는 노드를 정의하려면 하나의 조건을 입력한 다음 그 옆에 있는 더하기 부호(+) 아이콘을 클릭하십시오. 다중 조건에 `AND` 대신 `OR` 연산자를 적용하려면 필드 사이에 표시되는 `and`를 클릭하여 연산자 유형을 변경하십시오. AND 연산은 OR 연산 앞에서 실행되지만 소괄호를 사용하여 순서를 변경할 수 있습니다. 예를 들어,
-    `$isMember:true AND ($memberlevel:silver OR $memberlevel:gold)`입니다.
+    Para definir um nó que é acionado com base em mais de uma condição, insira uma condição e, em seguida, clique no ícone de sinal de mais (+) próximo a ela. Se você deseja aplicar um operador `OR` nas várias condições em vez de `AND`, clique no `and` que é exibido entre os campos para mudar o tipo de operador. As operações AND são executadas antes das operações OR, mas você pode mudar a ordem usando parênteses. Por exemplo:
+    `$isMember:true AND ($memberlevel:silver OR $memberlevel:gold)`
 
-    정의하는 조건의 길이는 500자 미만이어야 합니다.
+    A condição que você define deve ser menor que 500 caracteres de comprimento.
 
-조건에서 값을 테스트하는 방법에 대한 자세한 정보는 [조건](dialog-overview.html#conditions)을 참조하십시오.
-1.  **선택사항**: 이 노드에서 사용자로부터 여러 정보를 수집하려면 **사용자 정의**를 클릭하고 **슬롯**을 사용하십시오. 세부사항은 [슬롯을 사용하여 정보 수집](dialog-slots.html)을 참조하십시오.
-1.  응답을 입력하십시오.
-    - 서비스가 사용자에게 응답으로 표시할 텍스트를 추가하십시오.
-    - 특정 조건에 따라 다른 응답을 정의하려면, **사용자 정의**를 클릭하고 **다중 응답**을 사용하십시오.
-    - 조건부 응답 또는 응답에 다양성을 추가하는 방법에 관한 정보는 [응답](dialog-overview.html##responses)을 참조하십시오.
+    Para obter mais informações sobre como testar valores em condições, consulte [Condições](dialog-overview.html#conditions).
+1.  **Opcional**: se você deseja coletar várias partes de informações do usuário nesse nó, clique em **Customizar** e ative **Intervalos**. Veja [Reunindo informações com intervalos](dialog-slots.html) para obter mais detalhes.
+1.  Insira uma resposta.
+    - Inclua o texto que você deseja que o serviço exiba para o usuário como uma resposta.
+    - Se você deseja definir respostas diferentes com base em determinadas condições, clique em **Customizar** e ative **Múltiplas respostas**.
+    - Para obter informações sobre respostas condicionais ou como incluir uma variedade de respostas, veja [Respostas](dialog-overview.html##responses).
 
-1.  현재 노드가 처리된 후 수행할 작업을 지정하십시오. 다음 옵션 중에서 선택할 수 있습니다.
+1.  Especifique o que fazer após o nó atual ser processado. É possível escolher entre as opções a seguir:
 
-    - **사용자 입력 대기**: 사용자가 새 입력을 제공할 때까지 서비스를 일시정지합니다.
-    - **사용자 입력 건너뛰기**: 서비스가 첫 번째 하위 노드로 직접 점프합니다. 이 옵션은 현재 노드가 적어도 하나의 하위 노드를 가질 경우에만 사용 가능합니다.
-    - **점프**: 서비스는 사용자가 지정한 노드를 처리하여 대화 상자를 계속 진행합니다. 서비스가 대상 노드의 조건을 평가할지 또는 대상 노드의 응답으로 직접 건너 뛸지 여부를 선택할 수 있습니다. 세부사항은 [조치로 점프 구성](dialog-overview.html#jump-to-config)을 참조하십시오.
+    - **Aguardar entrada do usuário**: o serviço pausa até que uma nova entrada seja fornecida pelo usuário.
+    - **Ignorar entrada do usuário**: o serviço vai diretamente para o primeiro nó-filho. Essa opção estará disponível somente se o nó atual tiver pelo menos um nó-filho.
+    - **Ir para**: o serviço continua o diálogo processando o nó que você especifica. É possível escolher se o serviço deve avaliar a condição do nó de destino ou ir diretamente para a resposta do nó de destino. Veja [Configurando a ação Ir para](dialog-overview.html#jump-to-config) para obter mais detalhes.
 
-1.  **선택사항**: 노드의 이름을 지정하십시오.
+1.  **Opcional**: nomeie o nó.
 
-    대화 상자 노드 이름에는 문자(유니코드), 숫자, 공백, 밑줄, 하이픈 및 마침표가 포함될 수 있습니다.
+    O nome do nó de diálogo pode conter letras (em Unicode), números, espaços, sublinhados, hifens e pontos.
 
-    노드 이름을 지정하면 쉽게 용도를 기억할 수 있고 최소화되었을 때도 노드를 찾을 수 있습니다. 이름을 제공하지 않으면 노드 조건이 이름으로 사용됩니다.
+    A nomeação do nó torna mais fácil para você lembrar de seu propósito e localizar o nó quando ele é minimizado. Se você não fornecer um nome, a condição de nó será usada como o nome.
 
-1.  노드를 추가하려면 트리에서 노드를 선택한 다음 **추가**(![추가 아이콘](images/kabob.png)) 아이콘을 클릭하십시오.
-    - 기존 노드의 조건이 충족되지 않는 경우 다음에 검사하는 피어 노드를 작성하려면 **아래에 노드 추가**를 선택하십시오.
-    - 기존 노드의 조건을 검사하기 전에 검사하는 피어 노드를 작성하려면 **위에 노드 추가**를 선택하십시오.
-    - 선택한 노드에 하위 노드를 작성하려면 **하위 노드 추가**를 선택하십시오. 하위 노드는 상위 노드 다음에 처리됩니다.
-    - 현재 노드를 복사하려면, **복제**를 선택하십시오.
+1.  Para incluir mais nós, selecione um nó na árvore e, em seguida, clique no ícone **Mais** ![Ícone Mais](images/kabob.png).
+    - Para criar um nó de mesmo nível que será verificado em seguida se a condição para o nó existente não for atendida, selecione **Incluir nó abaixo**.
+    - Para criar um nó de mesmo nível que será verificado antes de a condição para o nó existente ser verificada, selecione **Incluir nó acima**.
+    - Para criar um nó-filho para o nó selecionado, selecione **Incluir nó-filho**. Um nó-filho é processado após seu nó pai.
+    - Para copiar o nó atual, selecione **Duplicar**.
 
-대화 상자 노드가 처리되는 순서에 대한 자세한 정보는 [대화 상자 개요](dialog-overview.html#dialog-flow)를 참조하십시오.
-1.  빌드할 때 대화 상자를 테스트하십시오.
-   자세한 정보는 [대화 상자 테스트](#test)를 참조하십시오.
+    Para obter mais informações sobre a ordem na qual os nós de diálogo são processados, consulte [Visão Geral do Diálogo](dialog-overview.html#dialog-flow).
+1.  Teste o diálogo à medida que você o constrói.
+   Consulte [Testando seu diálogo](#test) para obter informações adicionais.
 
-## 대화 상자 테스트
+## Testando seu diálogo
 {: #test}
 
-대화 상자를 변경하면 언제든 이 대화 상자를 테스트하여 입력에 응답하는 방식을 볼 수 있습니다.
+À medida que você faz mudanças em seu diálogo, é possível testá-lo a qualquer momento para ver como ele reage à entrada.
 
-1.  대화 상자 탭에서 ![Watson에게 질문](images/ask_watson.png) 아이콘을 클릭하십시오.
-1.  대화 분할창에서 몇 가지 텍스트를 입력한 다음 Enter를 누르십시오.
+1.  Na guia Diálogo, clique no ícone ![Pergunte ao Watson](images/ask_watson.png).
+1.  Na área de janela de bate-papo, digite algum texto e, em seguida, pressione Enter.
 
-    시스템이 대화 상자 테스트를 시작하기 전에 최신 변경사항에 대한 훈련을 완료했는지 확인하십시오. 시스템이 여전히 훈련 중인 경우 *연습* 분할창에 메시지가 표시됩니다. {: tip}
+    Certifique-se de que o sistema tenha concluído o treinamento sobre suas mudanças mais recentes antes de iniciar a testar o diálogo. Se o sistema ainda estiver treinando, uma mensagem será exibida na área de janela *Experimente*:
+    {: tip}
 
-    ![훈련 메시지 화면 캡처](images/training.png)
-1.  대화 상자가 올바르게 입력을 해석했고 적절한 응답을 선택했는지 보려면 응답을 확인하십시오.
+    ![Captura de tela da mensagem de treinamento](images/training.png)
+1.  Verifique a resposta para ver se o diálogo interpretou corretamente sua entrada e escolheu a resposta apropriada.
 
-    대화 창은 입력에서 인식된 인텐트와 엔티티를 표시합니다.
+    A janela de bate-papo indica quais intenções e entidades foram reconhecidas na entrada:
 
-    ![테스트 대화 상자 출력의 화면 캡처](images/test_dialog_output.png)
-1.  대화 상자 트리의 어느 노드가 응답을 트리거했는지 알고 싶은 경우, **위치** ![위치](images/location.png) 아이콘 옆을 클릭하십시오. 대화 상자 탭에 아직 없는 경우, 여십시오. 
+    ![Captura de tela da saída de diálogo de teste](images/test_dialog_output.png)
+1.  Se você deseja saber qual nó na árvore de diálogo acionou uma resposta, clique no ícone **Local** ![Local](images/location.png) próximo a ele. Se você ainda não estiver na guia Diálogo, abra-a.
 
-    소스 노드에 초점이 맞춰지고 서비스가 트리를 통과하여 이동한 경로가 강조 표시됩니다. 새 테스트 사항을 입력하는 것과 같은 다른 조치를 수행할 때까지 강조 표시됩니다.
-1.  컨텍스트 변수값을 검사하거나 설정하려면 **컨텍스트 관리** 링크를 클릭하십시오.
+    É dado o foco ao nó de origem e a rota que o serviço atravessou na árvore para chegar até ele é destacada. Ela permanece destacada até que você execute outra ação, como inserir uma nova entrada de teste.
+1.  Para verificar ou configurar o valor de uma variável de contexto, clique no link **Gerenciar contexto**.
 
-    대화 상자에서 정의한 컨텍스트 변수가 표시됩니다.
+    Quaisquer variáveis de contexto que você definiu no diálogo serão exibidas.
 
-    또한 `$timezone` 컨텍스트 변수가 나열됩니다. *연습* 분할창 사용자 인터페이스는 웹 브라우저에서 사용자 로케일 정보를 가져오고 이 정보를 사용하여 `$timezone` 컨텍스트 변수를 설정합니다. 이 컨텍스트 변수를 사용하면 테스트 대화 상자 교환에서 시간 참조를 쉽게 처리할 수 있습니다. 사용자 애플리케이션에서 유사한 작업을 고려하십시오. 지정되지 않은 경우 그리니치 평균시(GMT)가 사용됩니다.
+    Além disso, uma variável de contexto `$timezone` é listada. A interface com o usuário da área de janela *Experimente* obtém informações de código de idioma do usuário do navegador da web e as usa para configurar a variável de contexto `$timezone`. Esta variável de contexto torna mais fácil lidar com referências de horário em trocas de diálogo de teste. Considere fazer algo semelhante em seu aplicativo de usuário. Se não especificado, a Hora de Greenwich (GMT) é usada.
 
-    변수를 추가하고 해당 값을 설정하여 다음 테스트 대화 상자 턴에서 대화 상자가 응답하는 방식을 볼 수 있습니다. 이 기능은 예를 들어, 사용자가 제공한 컨텍스트 변수값에 따라 다른 응답을 표시하도록 대화 상자를 설정하는 경우에 유용합니다.
+    É possível incluir uma variável e configurar seu valor para ver como o diálogo responde na próxima rodada do diálogo de teste. Esse recurso é útil se, por exemplo, o diálogo foi configurado para mostrar diferentes respostas com base em um valor de variável de contexto que é fornecido pelo usuário.
 
-    1.  컨텍스트 변수를 추가하려면 변수 이름을 지정하고 **Enter**를 누르십시오.
-    1.  컨텍스트 변수의 기본값을 정의하려면 목록에 추가한 컨텍스트 변수를 찾은 다음 이 변수에 맞는 값을 지정하십시오.
+    1.  Para incluir uma variável de contexto, especifique o nome da variável e pressione **Enter**.
+    1.  Para definir um valor padrão para a variável de contexto, localize a variável de contexto incluída na lista e, em seguida, especifique um valor para ela.
 
-    자세한 정보는 [컨텍스트 변수](dialog-runtime.html#context)를 참조하십시오.
+    Veja [Variáveis de contexto](dialog-runtime.html#context) para obter mais detalhes.
 
-1.  대화 상자와 계속 상호작용하여 대화가 이를 통해 플로우되는 방법을 확인하십시오.
-    - 테스트 표현을 찾아 다시 제출하기 위해 위로 키를 눌러 최근 입력을 모두 볼 수 있습니다.
-    - 대화 분할창에서 이전 테스트 표현을 제거하고 다시 시작하려면 **지우기** 링크를 클릭하십시오. 테스트 표현 및 응답이 제거될 뿐만 아니라 이 조치가 대화 상자와 상호작용의 결과로 설정된 컨텍스트 변수값을 모두 지웁니다. 명시적으로 설정하거나 변경하는 컨텍스트 변수값은 지워지지 않습니다.
+1.  Continue interagindo com o diálogo para ver como a conversa flui através dele.
+    - Para localizar e reenviar uma elocução de teste, é possível pressionar a tecla Para Cima para percorrer suas entradas recentes.
+    - Para remover elocuções de teste anteriores da área de janela de bate-papo e recomeçar, clique no link **Limpar**. Não apenas as elocuções e respostas de teste são removidas, mas essa ação também limpa os valores de quaisquer variáveis de contexto que foram configuradas como resultado de suas interações com o diálogo. Os valores de variáveis de contexto que você configurar ou mudar explicitamente não serão limpos.
 
-### 다음에 수행할 작업
+### O que fazer em seguida
 
-잘못된 인텐트 또는 엔티티를 인식하고 있는지 판별하는 경우 인텐트 또는 엔티티 정의를 수정해야 합니다.
+Se você determinar que intenções ou entidades erradas estão sendo reconhecidas, poderá precisar modificar suas definições de intenção ou entidade.
 
-올바른 인텐트와 엔티티가 인식되지만 대화 상자에서 잘못된 노드가 트리거되는 경우 조건이 올바르게 작성되었는지 확인하십시오. 
+Se as intenções e entidades corretas estão sendo reconhecidas, mas os nós errados estão sendo acionados em seu diálogo, certifique-se de que suas condições estejam escritas corretamente.
 
-## 대화 상자 검색
+## Procurando seu diálogo
 {: #search}
 
-검색 기능을 사용하여 대화 상자에서 조건 및 제목을 찾으십시오.
+Use o recurso Procurar para localizar condições e títulos em seu diálogo.
 
-1.  검색 아이콘 선택: ![검색 아이콘](images/search_icon.png)
+1.  Selecione o ícone Procurar: ![Ícone Procurar](images/search_icon.png)
 
-1.  검색어 또는 구를 입력하십시오. 
+1.  Inserir um termo de procura ou frase.
 
-    **참고**: 처음 검색할 때 인덱스가 생성됩니다. 컨텐츠가 인덱스화하는 동안 기다리라는 메시지가 표시될 수 있습니다. 
+    **Nota**: na primeira vez que você procurar, um índice será criado; você poderá ver uma mensagem para esperar enquanto os seus conteúdos estiverem sendo indexados.
 
-### 결과
+### Resultados
 
-검색어를 포함한 노드가 해당 예제와 함께 표시됩니다. 편집하기 위해 열려면 결과를 선택하십시오. 
+Os nós contendo seu termo de procura, com exemplos correspondentes, são mostrados. Selecione qualquer resultado para abri-lo para edição.
 
-  ![인텐트 검색 리턴](images/search_dialog.png)
+  ![Retorno de procura de intenção](images/search_dialog.png)
 
-## 대화 상자 노드 복사
+## Copiando um nó de diálogo
 {: #copy-node}
 
-노드를 복제하여 대화 상자 트리 바로 아래에 피어 노드로 정확히 해당 노드의 복사본을 생성할 수 있습니다. 복사된 노드 자체가 원래 노드와 동일한 이름이 부여되지만, 복사는 `- copy`*`n`* 추가되므로 여기서 *`n`*은 1부터 시작하는 숫자입니다. 동일한 노드를 두 번 이상 복제하면 이름의 *`n`*이 각 사본마다 하나씩 증가하여 사본을 서로 구별하는 데 도움이 됩니다. 노드에 이름이 없는 경우, `copy`*`n`*이라는 이름이 부여됩니다. 
+É possível duplicar um nó para criar uma cópia exata dele como um nó de mesmo nível diretamente abaixo dele na árvore de diálogo. O nó copiado em si recebe o mesmo nome que o nó original, mas com `- copy`*`n`* anexado a ele, em que *`n`* é um número que inicia com 1. Se você duplica o mesmo nó mais de uma vez, o *`n`* no nome é incrementado por um para cada cópia para ajudá-lo a distinguir uma cópia da outra. Se o nó não tem nome, ele recebe o nome `copy`*`n`*.
 
-사용자가 하위 노드를 포함하는 노드를 복제하는 경우 하위 노드도 함께 복제됩니다. 복사된 하위 노드는 원래 하위 노드와 정확히 동일한 이름을 가집니다. 원래의 하위 노드로부터 복사된 하위 노드를 구별하는 유일한 방법은 상위 노드 이름의 `copy` 참조입니다. 
+Ao duplicar um nó que tem nós-filhos, os nós-filhos são duplicados também. Os nós-filhos copiados têm exatamente os mesmos nomes que os nós-filhos originais. A única maneira de distinguir um nó-filho copiado de um nó filho original é a referência `copy` no nome do nó pai.
 
-1.  복사하려는 노드에서, **추가** ![추가 아이콘](images/kabob.png) 아이콘을 클릭한 다음 **복제**를 선택하십시오. 
-1.  복사된 노드의 이름을 바꾸거나 조건을 편집하여 다른 노드와 구분하십시오. 
+1.  No nó que você deseja copiar, clique no ícone **Mais** ![Ícone Mais](images/kabob.png) e, em seguida, selecione **Duplicar**.
+1.  Considere renomear os nós copiados ou editar suas condições para torná-los distintos.
 
-## 대화 상자 노드 이동
+## Movendo um nó de diálogo
 {: #move-node}
 
-작성하는 각 노드를 대화 상자 트리의 다른 위치로 이동할 수 있습니다.
+Cada nó que você cria pode ser movido para outro lugar na árvore de diálogo.
 
-이전에 작성된 노드를 플로우의 다른 영역으로 이동하여 대화를 변경할 수 있습니다. 다른 분기의 동위 또는 피어가 되도록 노드를 이동할 수 있습니다.
+Você pode desejar mover um nó criado anteriormente para outra área do fluxo para mudar a conversa. É possível mover nós para que se tornem irmãos ou de mesmo nível em outra ramificação.
 
-1.  이동할 노드에서 **추가**(![추가 아이콘](images/kabob.png)) 아이콘을 클릭한 다음 **이동**을 선택하십시오.
-1.  이 노드를 이동할 위치에서 가까운 트리에 있는 대상 노드를 선택하십시오. 이 노드를 대상 노드 앞이나 뒤에 배치할지 또는 대상 노드의 하위 노드로 만들지 선택하십시오. 
+1.  No nó que você deseja mover, clique no ícone **Mais** ![ícone Mais](images/kabob.png) e, em seguida, selecione **Mover**.
+1.  Selecione um nó de destino que esteja localizado na árvore perto de onde você deseja mover este nó. Escolha se deseja colocar esse nó antes ou após o nó de destino ou torná-lo um filho do nó de destino.
 
-## 폴더가 있는 대화 상자 구성
+## Organizando o diálogo com pastas
 {: #folders}
 
-대화 상자 노드를 폴더에 추가하여 함께 그룹화할 수 있습니다. 노드를 그룹화해야 하는 다양한 이유는 다음과 같습니다. 
+É possível agrupar os nós de diálogo incluindo-os em uma pasta. Há muitos motivos para agrupar os nós, incluindo:
 
-- 유사한 주제를 처리하는 노드를 함께 유지하면 쉽게 찾을 수 있습니다. 예를 들어, *사용자 계정* 폴더의 사용자 계정에 대한 질문을 처리하는 노드와 *지불* 폴더의 지불 관련 쿼리를 처리하는 노드를 그룹화할 수 있습니다. 
-- 특정 조건이 충족되는 경우에만 대화 상자에서 처리할 노드 세트를 함께 그룹화합니다. 예를 들어, `$isPlatinumMember`와 같은 조건을 사용하면 현재 사용자가 추가 서비스를 받을 자격이 있는 경우에만 처리해야 하는 추가 서비스를 제공하는 노드를 그룹화할 수 있습니다. 
-- 작업 중에 런타임에서 노드를 숨기려면, 조건이 `false`인 폴더에 노드를 추가하여 노드가 처리되지 않도록 할 수 있습니다. 
-- 한 번에 여러 루트 노드로 노드에 들어가기위한 동일한 구성 설정을 적용하려는 경우, 자세한 정보는 [다이그레션(Digression)](dialog-runtime.html#digressions)을 참조하십시오. 
+- Para manter os nós que direcionam um assunto semelhante juntos para torná-los mais fáceis de serem localizados. Por exemplo, você pode agrupar os nós que direcionam perguntas sobre contas do usuário em uma pasta *Conta do usuário* e os nós que manipulam consultas relacionadas a pagamento em uma pasta *Pagamento*.
+- Para agrupar um conjunto de nós que você deseja que o diálogo processe somente se uma determinada condição for atendida. Use uma condição, como `$isPlatinumMember`, por exemplo, para agrupar os nós que oferecem serviços extras que deverão ser processados somente se o usuário atual estiver autorização para receber os serviços extras.
+- Para ocultar os nós do tempo de execução enquanto você trabalha neles. É possível incluir os nós em uma pasta com uma condição `false` para evitar que eles sejam processados.
+- Para aplicar as mesmas definições de configuração de digressão em um nó para múltiplos nós raiz de uma vez. Veja [Digressões](dialog-runtime.html#digressions) para obter mais informações.
 
-폴더의 다음 특성은 폴더의 노드가 처리되는 방식에 영향을 미칩니다. 
+Estas características da pasta afetam como os nós em uma pasta são processados:
 
-- 조건: 지정된 경우, 서비스는 먼저 서비스 내의 노드를 처리할지 여부를 판별하기 위해 폴더 조건을 평가합니다. 
-- 사용자 정의: 폴더에 적용하는 모든 구성 설정은 폴더의 노드에 상속됩니다. 예를 들어, 폴더의 다이그레션(Digression) 설정을 변경하면, 폴더의 모든 노드가 변경 내용을 상속합니다. 
-- 트리 계층: 폴더의 노드는 폴더가 루트 또는 하위 레벨의 대화 상자 트리에 추가되는지 여부에 따라 루트 또는 하위 노드로 간주됩니다. 루트 레벨 폴더에 추가하는 루트 레벨 노드는 계속 루트 노드로 작동합니다. 예를 들어 폴더의 하위 노드가되지 않습니다. 그러나, 루트 노드를 다른 노드의 하위 폴더로 이동하면 루트 노드는 다른 노드의 하위 노드가 됩니다. 
+- Condição: se especificada, o serviço primeiro avalia a condição da pasta para determinar se deve processar os nós dentro dela.
+- Customizações: todas as definições de configuração que você aplica à pasta são herdadas pelos nós na pasta. Se você muda as configurações de digressão da pasta, por exemplo, as mudanças são herdadas por todos os nós na pasta.
+- Hierarquia em árvore: os nós em uma pasta são tratados como nós raiz ou filho com base em se a pasta está incluída na árvore de diálogo no nível raiz ou filho. Quaisquer nós de nível raiz que você inclui em uma pasta de nível raiz continuam funcionando como nós raiz; eles não se tornam os nós-filhos da pasta, por exemplo. No entanto, se você move os nós de nível raiz para uma pasta que é uma filha de outro nó, os nós raiz tornam-se filhos desse outro nó.
 
-폴더는 노드가 평가되는 순서에 영향을주지 않습니다. 노드는 처음부터 마지막까지 계속 처리됩니다. 서비스가 트리를 따라 이동할 때 폴더를 발견하는 경우 폴더 조건이 true면 폴더의 첫번째 노드를 즉시 처리하고 거기서부터 순서대로 계속 처리합니다. 폴더에 폴더 조건이 없는 경우, 서비스에 대해 투명합니다. 
+As pastas não têm impacto sobre a ordem na qual os nós são avaliados. Os nós continuam a ser processados do primeiro ao último. Conforme o serviço desce a árvore, quando ele encontra uma pasta, se a condição da pasta é true, ele processa imediatamente o primeiro nó na pasta e continua descendo a árvore na ordem. Se uma pasta não tem uma condição da pasta, ela é transparente para o serviço.
 
-### 폴더 추가
+### Incluindo uma pasta
 {: #folders-add}
 
-대화 트리에 폴더를 추가하려면 다음 단계를 완료하십시오.
+Para incluir uma pasta em uma árvore de diálogo, conclua as etapas a seguir:
 
-1.  **대화 상자** 탭의 트리 보기에서, **폴더 추가**를 클릭하십시오. 
+1.  Na visualização em árvore da guia **Diálogo**, clique em **Incluir pasta**.
 
-    폴더는 **Anything else** 노드 바로 앞에 있는 대화 상자 트리 끝에 추가됩니다. 트리의 기존 노드를 선택하지 않은 경우에는 선택한 노드 아래에 추가됩니다. 
+    A pasta é incluída no final da árvore de diálogo, um pouco antes do nó **Qualquer outra coisa**. A menos que um nó existente na árvore esteja selecionado, nesse caso, ele é incluído abaixo do nó selecionado.
 
-    트리의 다른 위치에 폴더를 추가하려면 노드를 추가하려는 지점 위에서 **추가**![추가 아이콘](images/kabob.png) 아이콘을 클릭한 다음 **폴더 추가**를 선택하십시오. 
+    Se você deseja incluir a pasta em outro lugar na árvore, no nó acima do ponto em que você deseja incluí-la, clique no ícone **Mais** ![Ícone Mais](images/kabob.png) e, em seguida, selecione **Incluir pasta**.
 
-    기존 대화 상자 분기 내의 하위 노드 아래에 폴더를 추가할 수 있습니다. 이를 수행하려면, 하위 노드에서 **추가** ![추가 아이콘](images/kabob.png) 아이콘을 클릭하고 **폴더 추가**를 선택하십시오. 
+    É possível incluir uma pasta abaixo de um nó-filho em uma ramificação de diálogo existente. Para fazer isso, clique em **Mais** ![Ícone Mais](images/kabob.png) no nó filho e, em seguida, selecione **Incluir pasta**.
 
-    폴더가 편집 보기에서 열립니다. 
+    A pasta é aberta na visualização de edição.
 
-1.  **선택사항**: 폴더 이름을 지정하십시오. 
+1.  **Opcional**: nomeie a pasta.
 
-1.  **선택사항**: 폴더에 대한 조건을 정의하십시오. 
+1.  **Opcional**: defina uma condição para a pasta.
 
-    조건을 지정하지 않은 경우, `true`가 사용되고 폴더의 노드가 항상 처리됨을 의미합니다. 
+    Se você não especifica uma condição, `true` é usado, significando que os nós na pasta são sempre processados.
 
-1.  폴더에 대화 상자 노드를 추가하십시오. 
+1.  Inclua nós de diálogo na pasta.
 
-    - 폴더에 기존 대화 상자 노드를 추가하려면, 한번에 하나씩 폴더로 이동해야 합니다. 
+    - Para incluir nós de diálogo existentes na pasta, deve-se movê-los para a pasta um por vez.
 
-      이동하려는 노드에서 **추가** ![추가 아이콘](images/kabob.png) 아이콘을 클릭하고 **이동**을 선택한 다음 폴더를 클릭하십시오. 이동 대상으로 **대상 폴더**를 선택하십시오. 
+      No nó que você deseja mover, clique no ícone **Mais** ![Ícone Mais](images/kabob.png), selecione **Mover** e, em seguida, clique na pasta. Selecione **Para a pasta** como o destino para o qual mover.
 
-      노드를 이동하면 폴더 내의 트리 시작 부분에 추가됩니다. 따라서, 예를 들어, 연속적인 루트 대화 상자 노드의 순서를 유지하려면 마지막 노드부터 먼저 시작하여 이동하십시오. {: tip}
+      Conforme você move os nós, eles são incluídos no início da árvore dentro da pasta. Portanto, se você deseja reter a ordem de um conjunto de nós de diálogo raiz consecutivos, por exemplo, mova-os iniciando com o último nó primeiro.
+      {: tip}
 
-    - 폴더에 새 대화 상자 노드를 추가하려면, 폴더에서 **추가** ![추가 아이콘](images/kabob.png) 아이콘을 클릭한 다음, **폴더에 노드 추가**를 선택하십시오. 
+    - Para incluir um novo nó de diálogo na pasta, clique no ícone **Mais** ![Ícone Mais](images/kabob.png) na pasta e, em seguida, selecione **Incluir nó na pasta**.
 
-      대화 상자 노드는 폴더 내에서 대화 상자 트리의 끝에 추가됩니다. 
+      O nó de diálogo é incluído no final da árvore de diálogo dentro da pasta.
 
-### 폴더 삭제
+### Excluindo uma pasta
 {: #folders-delete}
 
-폴더만 단독으로 삭제하거나 폴더와 폴더 내의 모든 대화 상자 노드를 삭제할 수 있습니다. 
+É possível excluir uma pasta sozinha ou a pasta e todos os seus nós de diálogo.
 
-폴더를 삭제하려면 다음 단계를 완료하십시오.
+Para excluir uma pasta, conclua as etapas a seguir:
 
-1.  **대화 상자** 탭의 트리 보기에서, 삭제하려는 폴더를 찾으십시오. 
+1.  Na visualização em árvore da guia **Diálogo**, localize a pasta que você deseja excluir.
 
-1.  폴더에서 **추가**![추가 아이콘](images/kabob.png) 아이콘을 클릭한 다음 **삭제**를 선택하십시오. 
+1.  Clique no ícone **Mais** ![Ícone Mais](images/kabob.png) na pasta e, em seguida, selecione **Excluir**.
 
-1.  다음 중 하나를 수행하십시오.
+1.  Execute um dos seguintes procedimentos:
 
-    - 폴더만 삭제하고 폴더에 있는 대화 상자 노드를 유지하려면 **폴더 내의 노드 삭제** 확인란의 선택을 해제한 다음, **예, 삭제하십시오**를 클릭하십시오. 
-    - 폴더와 폴더에 있는 모든 대화 상자 노드를 삭제하려면, **예, 삭제하십시오**를 클릭하십시오. 
+    - Para excluir somente a pasta e manter os nós de diálogo que estão na pasta, desmarque a caixa de seleção **Excluir os nós dentro da pasta** e, em seguida, clique em **Sim, excluir isso**.
+    - Para excluir a pasta e todos os seus nós de diálogo, clique em **Sim, excluir isso**.
 
-폴더만 삭제한 경우 폴더에 있던 노드가 대화 상자 트리에서 폴더가 사용된 지점에 표시됩니다. 
+Se você excluiu somente a pasta, os nós que estavam na pasta são exibidos na árvore de diálogo no ponto em que a pasta ficava.
 
-## 해당 노드 ID로 대화 상자 노드 찾기
+## Localizando um nó de diálogo pelo ID do nó
 {: #get-node-id}
 
-다음 이유로 알려진 노드 ID와 연관된 대화 상자 노드를 찾을 수 있습니다.
+Talvez você deseje localizar o nó de diálogo que está associado a um ID de nó conhecido por qualquer um dos motivos a seguir:
 
-- 로그를 검토하며, 로그는 해당 노드 ID로 대화 상자 섹션을 참조합니다.
-- 대화 상자 트리에서 볼 수 있는 노드에 API 메시지 출력의 `nodes_visited` 특성에 나열된 노드 ID를 맵핑하려고 합니다.
-- 대화 상자 런타임 오류 메시지가 구문 오류에 대해 알리며, 노드 ID를 사용하여 수정해야 하는 노드를 식별합니다.
+- Você está revisando logs e o log refere-se a uma seção do diálogo pelo ID do nó.
+- Você deseja mapear os IDs de nó listados na propriedade `nodes_visited` da saída de mensagem da API para nós que você pode ver em sua árvore de diálogo.
+- Uma mensagem de erro de tempo de execução do diálogo informa você sobre um erro de sintaxe e usa um ID de nó para identificar o nó que você precisa corrigir.
 
-노드 ID를 기준으로 노드를 검색하려면 다음 단계를 완료하십시오.
+Para descobrir um nó com base em seu ID do nó, conclua as etapas a seguir:
 
-1.  도구의 대화 상자 탭을 사용하여 대화 상자 트리에서 노드를 선택하십시오.
-1.  현재 노드에 대해 열려 있는 경우 편집 보기를 닫으십시오.
-1.  웹 브라우저의 위치 필드에 다음 구문이 있는 URL이 표시됩니다.
+1.  Na guia Diálogo do conjunto de ferramentas, selecione qualquer nó em sua árvore de diálogo.
+1.  Feche a visualização de edição se ela estiver aberta para o nó atual.
+1.  No campo de local do navegador da web, deve ser exibida uma URL que possa a sintaxe a seguir:
 
-    `https://watson-conversation.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id`
+    `    https://watson-conversation.ng.bluemix.net/space/instance-id/workspaces/workspace-id/build/dialog#node=node-id
+    `
 
-1.  현재 `node-id` 값을 찾을 노드의 ID로 바꾸고 URL을 편집한 다음 새 URL을 제출하십시오.
-1.  필요한 경우 편집된 URL을 다시 강조표시하고 다시 제출하십시오.
+1.  Edite a URL substituindo o valor de `node-id` atual pelo ID do nó que você deseja localizar e, em seguida, envie a nova URL.
+1.  Se necessário, destaque a URL editada novamente e reenvie-a.
 
-도구가 새로 고쳐지고 대화 상자 노드에 대한 초점을 지정한 노드 ID로 바꿉니다. 노드 ID가 슬롯, 슬롯 핸들러, 슬롯 핸들러 또는 조건부 응답인 경우 슬롯 또는 조건부 응답이 정의된 노드가 초점을 맞추고 해당 모달이 표시됩니다.
+O conjunto de ferramentas é atualizado e muda o foco para o nó de diálogo com o ID do nó que você especificou. Se o ID do nó é para um intervalo, um manipulador de intervalo ou uma resposta condicional, o nó no qual o intervalo ou resposta condicional é definido recebe foco e o modal correspondente é exibido.
 
-**참고**: 계속 노드를 찾을 수 없는 경우, 작업공간을 내보내고 JSON 편집기를 사용하여 작업공간 JSON 파일을 검색할 수 있습니다.
+**Nota**: caso o nó ainda não possa ser localizado, será possível exportar a área de trabalho e usar um editor JSON para procurar o arquivo JSON da área de trabalho.

@@ -17,20 +17,20 @@ lastupdated: "2018-02-16"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 대화 상자 처리 방법
+# Como o diálogo é processado
 {: #dialog-runtime}
 
-사용자가 실행 중에 배치된 {{site.data.keyword.conversationshort}} 서비스의 인스턴스와 상호작용할 때 대화 상자가 처리하는 방법에 대해 이해합니다.
+Entenda como seu diálogo é processado quando uma pessoa interage com sua instância do serviço {{site.data.keyword.conversationshort}} implementado no tempo de execução.
 {: shortdesc}
 
-## 대화 상자 호출 분석
+## Anatomia de uma chamada de diálogo
 {: message-anatomy}
 
-각 사용자 표현은 /message API 호출로 대화 상자에 전달됩니다. 여기에는 자세한 정보를 요청하는 대화 상자에서 사용자가 프롬프트에 대해 응답하는 표현이 포함됩니다. 일부 구독 플랜은 API 호출 세트 번호를 포함하는데, 이것은 호출의 구성을 이해하는 도움이 됩니다. 단일 /message API 호출은 사용자로부터의 입력과 대화 상자에서의 해당 응답으로 구성된 단일 대화 상자 턴과 동일합니다. 
+Cada elocução do usuário é passada para o diálogo como uma chamada de API /message. Isso inclui elocuções que os usuários fazem em resposta a prompts do diálogo que fazem perguntas a eles para obter mais informações. Alguns planos de assinatura incluem um número configurado de chamadas API, assim isso ajuda a entender o que constitui uma chamada. Uma única chamada API /message é equivalente a uma única rodada de diálogo, que consiste em uma entrada do usuário e uma resposta correspondente do diálogo.
 
-/message API 호출 요청 및 응답의 본문에는 다음 오브젝트가 포함됩니다. 
+O corpo da solicitação e resposta de chamada API /message inclui os objetos a seguir:
 
-- `context`: 지속될 변수를 포함합니다. 한 호출에서 다음 호출로 정보를 전달하려면 애플리케이션 개발자는 각 후속 API 호출마다 이전 API 호출의 응답 컨텍스트를 전달해야 합니다. 예를 들어, 대화 상자는 사용자의 이름을 수집한 다음 후속 노드에서 사용자를 이름으로 참조할 수 있습니다.
+- `context`: contém as variáveis que devem ser persistidas. Para passar informações de uma chamada para a próxima, o desenvolvedor de aplicativos deve passar o contexto de resposta da chamada API anterior com cada chamada API subsequente. Por exemplo, o diálogo pode coletar o nome do usuário e, então, referir-se ao usuário pelo nome em nós subsequentes.
 
   ```json
   {
@@ -40,9 +40,9 @@ lastupdated: "2018-02-16"
   ```
   {: codeblock}
 
-  자세한 정보는 [대화 상자 턴에서 정보 보유](dialog-runtime.html#context)를 참조하십시오. 
+  Veja [Retendo informações em rodadas de diálogo](dialog-runtime.html#context) para obter mais informações.
 
-- `input`: 사용자 제출한 텍스트 문자열입니다. 텍스트 문자열은 최대 2,048 자를 포함할 수 있습니다.
+- `input`: a sequência de texto que foi enviada pelo usuário. A sequência de texto pode conter até 2.048 caracteres.
 
   ```json
   {
@@ -52,91 +52,90 @@ lastupdated: "2018-02-16"
   ```
   {: codeblock}
 
-- `output`: 사용자에게 대화 상자 응답을 표시합니다. 이 섹션을 사용하여 지속되지 않는 변수와 같은 오브젝트를 정의할 수 있습니다. 예를 들어, 대화 상자에서 정의한 `temp`라고 하는 컨텍스트 변수를 영구적으로 삭제하려면, 다음 표현식을 사용할 수 있습니다.
+- `output`: a resposta de diálogo a ser exibida para o usuário. É possível usar esta seção para definir objetos, como variáveis, que não se destinam a ser persistidos. Por exemplo, se você deseja excluir permanentemente uma variável de contexto nomeada `temp` que foi definida em outro lugar no diálogo, é possível usar a expressão a seguir para fazer isso.
 
   ```json
   {
   "output": {
-    "text" : {},
-    "deleted_variable" : "<? context.remove('temp') ?>"
+    "texto" : {}, "deleted_variable" : "<? context.remove('temp') ?>"
   ```
   {: codeblock}
 
-  출력 오브젝트에 관한 자세한 정보는 [복합 응답](dialog-overview.html#complex)을 참조하십시오. 
+  Veja [Uma resposta complexa](dialog-overview.html#complex) para obter mais informações sobre o objeto de saída.
 
-/message API 호출에 관한 자세한 정보는 [API reference ![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://www.ibm.com/watson/developercloud/conversation/api/v1/){: new_window}를 참조하십시오.
+É possível aprender mais sobre a chamada de API /message na [Referência de API ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://www.ibm.com/watson/developercloud/conversation/api/v1/){: new_window}.
 
-## 대화 상자 턴에서 정보 보유
+## Retendo informações em rodadas de diálogo
 {: #context}
 
-대화 상자는 Stateless이므로 사용자와의 상호작용에서 다음 상호작용까지의 정보를 유지하지 않습니다. 애플리케이션에 필요한 모든 정보를 계속 유지하는 것은 애플리케이션 개발자의 책임입니다. 애플리케이션은 메시지 API 응답에서 컨텍스트 오브젝트를 찾아서 저장하고 대화 플로우의 일부로 수행된 다음 /message API 요청과 함께 컨텍스트 오브젝트에 전달해야 합니다.
+O diálogo é stateless, significando que ele não retém informações de uma interação com o usuário para a próxima. É responsabilidade do desenvolvedor de aplicativos manter quaisquer informações contínuas que o aplicativo precisa. O aplicativo deve procurar e armazenar o objeto de contexto na resposta da API da mensagem e passá-lo no objeto de contexto com a próxima solicitação de API /message que for feita como parte do fluxo de conversa.
 
-정보를 보존하는 가장 간단한 방법은 예를 들어, - 웹 브라우저와 같이 클라이언트 애플리케이션의 메모리에 전체 컨텍스트 오브젝트를 저장하는 것입니다. 애플리케이션이 점점 더 복잡해짐에 따라, 또는 전달하고 개인 식별 정보를 저장해야 하는 경우, 데이터베이스에서 정보를 저장하고 검색할 수 있습니다.
+A maneira mais simples de reter as informações é armazenar o objeto de contexto inteiro na memória no aplicativo cliente, um navegador da web, por exemplo. Conforme um aplicativo se torna mais complexo ou se ele precisa passar e armazenar informações pessoalmente identificáveis, é possível armazenar e recuperar as informações de um banco de dados.
 
-애플리케이션은 대화 상자에 정보를 전달할 수 있고, 대화 상자에서 이 정보를 업데이트하고 애플리케이션 또는 후속 노드에 다시 전달할 수 있습니다. 대화 상자는 컨텍스트 변수를 사용하여 수행합니다.
+O aplicativo pode passar informações para o diálogo e o diálogo pode atualizar essas informações e passá-las de volta para o aplicativo ou para um nó subsequente. O diálogo faz isso usando variáveis de contexto.
 
-컨텍스트 변수는 노드에서 정의하고 선택적으로 기본값을 지정하는 변수입니다. 기타 노드 또는 애플리케이션 로직은 나중에 컨텍스트 변수의 값을 설정하거나 변경할 수 있습니다.
+Uma variável de contexto é uma variável que você define em um nó e, opcionalmente, para a qual especifica um valor padrão. Outros nós ou lógicas de aplicativo podem posteriormente configurar ou mudar o valor da variável de contexto.
 
-노드 실행 여부를 판별하기 위해 대화 상자 노드 조건에서 컨텍스트 변수를 참조하여 컨텍스트 변수값에 대해 조건을 지정할 수 있습니다. 그리고 대화 상자 노드 응답 조건에서 컨텍스트 변수를 참조하여 외부 서비스 또는 사용자가 제공하는 값에 따라 서로 다른 응답을 표시할 수 있습니다.
+É possível condicionar com relação aos valores das variáveis de contexto referenciando uma variável de contexto de uma condição de nó de diálogo para determinar se deve executar um nó. E você pode referenciar uma variável de contexto de condições de resposta do nó de diálogo para mostrar diferentes respostas, dependendo de um valor fornecido por um serviço externo ou pelo usuário.
 
-### 애플리케이션에서 컨텍스트 전달
+### Transmitindo o contexto do aplicativo
 {: #context-from-app}
 
-컨텍스트 변수를 설정하고 대화 상자에 컨텍스트 변수를 전달하여 애플리케이션에서 대화 상자로 정보를 전달하십시오.
+Transmita informações do aplicativo para o diálogo configurando uma variável de contexto e transmitindo a variável de contexto para o diálogo.
 
-예를 들어, 애플리케이션은 $time_of_day 컨텍스트 변수를 설정하고, 정보를 사용하여 사용자에게 표시되는 인사를 사용자 조정할 수 있는 대화 상자에 이 변수를 전달할 수 있습니다.
+Por exemplo, seu aplicativo pode configurar uma variável de contexto $time_of_day e transmiti-la para o diálogo, que pode usar as informações para customizar a saudação exibida para o usuário.
 
-![애플리케이션에서 대화 상자로 전달되는 $time_of_day 컨텍스트 변수의 값을 검사하기 위해 응답 조건을 사용하는 Welcome 노드 표시](images/set-context.png)
+![Mostra um nó Welcome que usa condições de resposta para verificar o valor da variável de contexto $time_of_day que é transmitida para o diálogo desde o aplicativo.](images/set-context.png)
 
-이 예제에서 대화 상자는 애플리케이션이 변수를 다음 값 중 하나로 설정한다고 인식합니다. *morning*, *afternoon* 또는 *evening*. 또한 각 값을 검사하고 존재하는 값에 따라 적절한 인사를 리턴할 수 있습니다. 변수가 전달되지 않거나 예상 값 중 하나와 일치하지 않는 값을 포함하는 경우, 보다 일반적인 인사가 사용자에게 표시됩니다.
+Neste exemplo, o diálogo sabe que o aplicativo configura a variável com um destes valores: *manhã*, *tarde* ou *noite*. Ele pode verificar cada valor e, dependendo de qual valor estiver presente, retornar a saudação apropriada. Se a variável não for transmitida ou possuir um valor que não corresponde a um dos valores esperados, uma saudação mais genérica será exibida para o usuário.
 
-### 노드 간 컨텍스트 전달
+### Transmitindo o contexto de nó para nó
 {: #context-node-to-node}
 
-대화 상자는 컨텍스트 변수를 추가하여 하나의 노드에서 다른 노드로 정보를 전달하거나 컨텍스트 변수값을 업데이트할 수 있습니다. 대화 상자가 사용자로부터 정보를 요청하여 가져오는 경우 정보를 추적하고 나중에 대화에서 참조할 수 있습니다.
+O diálogo também pode incluir variáveis de contexto para transmitir informações de um nó para outro ou para atualizar os valores de variáveis de contexto. Conforme o diálogo pede e obtém informações do usuário, ele pode rastrear as informações e fazer referência a elas mais tarde na conversa.
 
-예를 들어, 하나의 노드에서 사용자에게 이름을 묻고 후속 노드에서 이름별로 주소를 지정할 수 있습니다.
+Por exemplo, em um nó você pode perguntar o nome dos usuários e, em um nó posterior, tratá-los pelo nome.
 
-![사용자에게 이름을 묻고 이 이름을 컨텍스트 변수로 저장하는 소개 노드를 표시합니다. 다음 노드는 $username 컨텍스트 변수를 사용하여 이름으로 사용자를 참조합니다.](images/set-context-username.png)
+![Mostra um nó de introduções que pergunta o nome do usuário e o armazena como uma variável de contexto. O próximo nó refere-se ao usuário por nome usando a variável de contexto $username.](images/set-context-username.png)
 
-이 예제에서 시스템 엔티티 @sys-person은 입력에서 사용자 이름(사용자가 제공하는 경우)을 추출하는 데 사용됩니다. JSON 편집기에서 username 컨텍스트 변수가 정의되고 @sys-person 값으로 설정됩니다. 후속 노드에서 $username 컨텍스트 변수는 이름별로 사용자 주소를 지정하도록 응답에 포함됩니다.
+Neste exemplo, a entidade do sistema @sys-person será usada para extrair o nome do usuário da entrada, se o usuário fornecer um. No editor JSON, a variável de contexto username é definida e configurada com o valor @sys-person. Em um nó subsequente, a variável de contexto $username é incluída na resposta para tratar o usuário pelo nome.
 
-## 컨텍스트 변수 정의
+## Definindo uma variável de contexto
 {: #context-var-define}
 
-다음 편집기 중 하나로 변수의 이름 및 값 쌍을 정의하여 컨텍스트 변수를 정의하십시오.
+Defina uma variável de contexto definindo um par de nome e valor para a variável em um dos editores a seguir:
 
-- **컨텍스트 편집기**: 컨텍스트 변수 이름 및 값 정보로 채울 수 있는 노드 편집 보기에 있는 **변수** 필드 및 해당 **값** 필드를 표시합니다. 
+- **Editor de contexto**: mostra um campo **Variável** e um campo **Valor** correspondente na visualização de edição do nó que é possível preencher com as informações de nome e valor da variável de contexto.
 
-  **참고**: 이 필드는 사용자가 추가하는 노드에서 자동으로 표시됩니다. 서비스의 이전 버전을 사용하여 작성한 노드의 경우, 추가할 수 있는 필드에 대한 컨텍스트 편집기를 열어야 합니다.
+  **Nota**: esses campos são exibidos automaticamente nos nós que você inclui. Para os nós que foram criados com uma versão anterior do serviço, deve-se abrir o editor de contexto para os campos a serem incluídos.
 
-- **JSON 편집기**: 열면, {{site.data.keyword.conversationshort}} 서비스로 전송되는 /message API 요청과 함께 전달되는 기본 JSON 컨텐츠에 대한 보기를 제공합니다. JSON 본문의 `"context":{}` 섹션에 이름 및 값 쌍을 추가하여 컨텍스트 변수를 정의할 수 있습니다. 
+- **Editor JSON**: quando aberto, ele fornece uma visualização para o conteúdo JSON subjacente que é passado com a solicitação de API /message enviada ao serviço {{site.data.keyword.conversationshort}}. É possível definir variáveis de contexto incluindo pares de nome e valor para a seção `"context":{}` do corpo JSON.
 
-이름 및 값 쌍은 다음 요구사항을 충족해야 합니다.
+O par de nome e valor deve atender a estes requisitos:
 
-- `name`에는 대소문자 영문자, 숫자 문자(0 - 9) 및 밑줄이 포함될 수 있습니다.
+- O `name` pode conter quaisquer caracteres alfabéticos em maiúsculas e minúsculas, caracteres numéricos (0-9) e sublinhados.
 
-  **참고**: 마침표 및 하이픈과 같은 기타 문자를 이름에 포함할 수 있습니다. 그러나, 만약 그렇게 한다면, 변수를 참조할 때마다 다음 접근 방법 중 하나를 사용해야 합니다.
+  **Nota**: é possível incluir outros caracteres, como pontos e hifens, no nome. No entanto, caso faça isso, deve-se usar uma das abordagens a seguir cada vez que referenciar subsequentemente a variável:
 
   - **context['variable-name']**
 
-      전체 SpEL 표현식 구문.
+      A sintaxe da expressão SpEL integral.
   - **$(variable-name)**
 
-      변수 이름이 소괄호로 묶여 있는 단축 구문.
-    세부사항은 [오브젝트 액세스 및 평가](expression-language.html#shorthand-syntax-for-context-variables)를 참조하십시오.
+      Sintaxe abreviada com o nome de variável entre parênteses.
+    Consulte [Acessando e avaliando objetos](expression-language.html#shorthand-syntax-for-context-variables) para obter mais detalhes.
 
-- `value`는 지원되는 JSON 유형일 수 있습니다(예: 단순 문자열 변수, 숫자,또는 JSON 배열). JSON 편집기를 사용하여 컨텍스트 변수를 정의하는 경우, JSON 오브젝트를 값으로 지정할 수도 있습니다.
+- O `value` pode ser qualquer tipo JSON suportado, tal como uma variável de sequencia de caracteres simples, um número ou uma matriz JSON. Quando você define a variável de contexto usando o editor JSON, também é possível especificar um objeto JSON como o valor.
 
-다음 표에서는 컨텍스트 변수 편집기 필드에 이름 및 값 쌍을 정의하는 방법을 보여줍니다.
+A tabela a seguir mostra como definir pares de nome e valor em campos do editor de variável de contexto:
 
-| Variable       | Value              |
+| Variável       | Valor              |
 |:---------------|--------------------|
 | dessert        | cake               |
 | toppings_array | ["onion","olives"] |
 | age            | 18                 |
 
-다음 JSON 샘플은 $dessert 문자열, $toppings_array 배열 및 $age number 컨텍스트 변수의 값을 정의합니다.
+A amostra JSON a seguir define valores para a sequência $dessert, a matriz $toppings_array e as variáveis de contexto numéricas $age:
 
 ```json
 {
@@ -149,41 +148,41 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-컨텍스트 변수를 정의하려면 다음 단계를 완료하십시오.
+Para definir uma variável de contexto, conclua as etapas a seguir:
 
-1.  대화 상자 노드 평가 중에 설정할 것을 원하는 시간을 나타내는 노드의 섹션에 컨텍스트 변수를 정의하십시오.
+1.  Defina a variável de contexto na seção do nó que representa o horário em que você deseja que a variável seja configurada durante a avaliação do nó de diálogo.
 
-    **참고**: 이 노드에 정의되어 있는 기존 컨텍스트 변수 값이 해당 **변수** 및 **값** 필드 세트에 표시됩니다. 사용자가 이 노드의 편집 보기에서 표시되지 않게 하려면, 컨텍스트 편집기를 닫아야 합니다. 편집기를 열 때 사용했던 동일한 메뉴에서 편집기를 닫을 수 있습니다. 다음 단계에서는 메뉴에 액세스하는 방법을 설명합니다. 
+    **Nota**: quaisquer valores das variáveis de contexto existentes que estão definidos para esse nó são exibidos em um conjunto de campos **Variável** e **Valor** correspondentes. Se você não deseja que eles sejam exibidos na visualização de edição do nó, deve-se fechar o editor de contexto. É possível fechar o editor no mesmo menu que é usado para abri-lo; as etapas a seguir descrevem como acessar o menu.
 
-    - 노드 응답이 처리된 후 설정되거나 변경되는 컨텍스트 변수를 추가하려면, 응답 섹션에 컨텍스트 변수를 추가하십시오. 
+    - Para incluir uma variável de contexto que é configurada ou mudada após a resposta do nó ser processada, inclua a variável de contexto na seção de resposta.
 
-      응답과 관련된 **옵션** ![고급 응답](images/kabob.png)아이콘을 클릭한 후 다음 옵션 중 하나를 선택하여 편집기를 선택하십시오. 
+      Clique no ícone **Opções** ![Resposta avançada](images/kabob.png) que está associado com a resposta e, em seguida, escolha um editor selecionando uma das opções a seguir:
 
-      - **JSON 편집기 열기**
-      - **컨텍스트 편집기 열기**
+      - **Abrir o editor da JSON**
+      - **Abrir o editor de contexto**
 
-      ![표준 노드 응답과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-response.png)
+      ![Mostra como acessar o editor da JSON associado com uma resposta de nó padrão.](images/contextvar-json-response.png)
 
-      **다중 응답** 설정이 노드에 대해 **켜져 있는**경우, **응답 편집** ![응답 편집](images/edit-slot.png) 아이콘을 먼저 클릭해야 합니다. 
+      Se a configuração **Múltiplas respostas** é **Ativado** para o nó, deve-se clicar primeiro no ícone **Editar resposta** ![Editar resposta](images/edit-slot.png).
 
-      ![여러 조건부 응답을 사용하도록 설정된 표준 노드와 연결된 JSON 편집기에 액세스하는 방법 표시. ](images/contextvar-json-multi-response.png)
+      ![Mostra como acessar o editor da JSON associado com um nó padrão que tem múltiplas respostas condicionais ativadas para ele.](images/contextvar-json-multi-response.png)
 
-    - 슬롯 조건이 충족된 후에 설정되거나 업데이트되는 컨텍스트 변수를 추가하려면, **슬롯 편집** ![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오. *슬롯 구성* 보기 머리글에 있는 **옵션** ![고급 응답](images/kabob.png) 메뉴에서, **JSON 편집기 열기**를 클릭하십시오. (슬롯에 대한 자세한 정보는 , [슬롯으로 정보 수집](dialog-slots.html)을 참조하십시오.)
+    - Para incluir uma variável de contexto que é configurada ou atualizada após uma condição do intervalo ser atendida, clique no ícone **Editar intervalo** ![Editar resposta](images/edit-slot.png). No menu **Opções** ![Resposta avançada](images/kabob.png) no cabeçalho de visualização *Configurar intervalo*, clique em **Abrir editor JSON**. (Para obter mais informações sobre intervalos, veja [Reunindo informações com intervalos](dialog-slots.html).)
 
-      **참고**: 컨텍스트 편집기를 사용하여 대화 노드의 이 단계에서 설정되는 컨텍스트 변수를 정의할 수 있는 방법이 현 시점에선 없습니다. 
+      **Nota**: atualmente não há como usar o editor de contexto para definir as variáveis de contexto configuradas durante esta fase de avaliação do nó de diálogo.
 
-      ![슬롯 조건과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-slot-condition.png)
+      ![Mostra como acessar o editor da JSON associado com uma condição do intervalo.](images/contextvar-json-slot-condition.png)
 
-    - 슬롯에 대한 응답 조건이 충족된 후에 처리되는 컨테스트 변수를 추가하려면, **슬록 편집** ![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오. **옵션** ![고급 응답](images/kabob.png) 아이콘을 클릭한 후 **조건부 응답 사용**을 선택하십시오. 컨텍스트 변수를 연관시키려는 응답 다음의 **응답 편집** ![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오. 응답 섹션의 **옵션** ![고급 응답](images/kabob.png) 아이콘을 클릭하고 다음 옵션 중 하나를 선택하여 편집기를 선택하십시오. 
+    - Para incluir uma variável de contexto que é processada após uma condição de resposta para um intervalo ser atendida, clique no ícone **Editar intervalo** ![Editar resposta](images/edit-slot.png). Clique no ícone **Opções** ![Resposta avançada](images/kabob.png) e, em seguida, selecione **Ativar respostas condicionais**. Clique no ícone **Editar resposta** ![Editar resposta](images/edit-slot.png) ao lado da resposta com a qual você deseja associar a variável de contexto. Clique no ícone **Opções** ![Resposta avançada](images/kabob.png) na seção de resposta e, em seguida, escolha um editor selecionando uma das opções a seguir:
 
-      - **JSON 편집기 열기**
-      - **컨텍스트 편집기 열기**
+      - **Abrir o editor da JSON**
+      - **Abrir o editor de contexto**
 
-      ![슬롯에 대한 조건부 응답과 관련된 JSON 편집기에 액세스하는 방법 표시.](images/contextvar-json-slot-multi-response.png)
-1.  컨텍스트 편집기에 있는 컨텍스트 변수를 정의하려면, **변수** 및 **값** 필드에 추가 이름 및 값 쌍을 추가해야 합니다.
-1.  JSON 편집기의 컨텍스트 변수를 정의하려면, 다음 추가 단계를 완료하십시오.
+      ![Mostra como acessar o editor JSON associado à resposta condicional para um intervalo.](images/contextvar-json-slot-multi-response.png)
+1.  Para definir a variável de contexto no editor de contexto, inclua o par de nome e valor de variável nos campos **Variável** e **Valor**.
+1.  Para definir a variável de contexto no editor JSON, conclua estas etapas adicionais:
 
-    - 없는 경우, `"context":{}` 블록을 추가하십시오.
+    - Inclua um bloco `"context":{}` se um não estiver presente.
 
       ```json
       {
@@ -193,23 +192,21 @@ lastupdated: "2018-02-16"
       ```
       {: codeblock}
 
-    - 컨텍스트 블록에서 정의할 각 컨텍스트 변수의 이름과 값 쌍을 추가하십시오.
+    - No bloco de contexto, inclua um par de nome e valor para cada variável de contexto que você deseja definir.
 
       ```json
       {
-            "context":{
+        "context":{
           "name": "value"
-      },
-        "output": {}
-      }
+      }, "output": {} }
       ```
       {: codeblock}
 
-    이 예에서, `new_variable` 이름의 변수가 이미 변수가 있는 컨텍스트 블록에 추가되었습니다. 
+    Neste exemplo, uma variável nomeada `new_variable` é incluída em um bloco de contexto que já contém uma variável.
 
     ```json
     {
-          "context":{
+      "context":{
         "existing_variable": "value",
         "new_variable":"value"
       }
@@ -217,14 +214,14 @@ lastupdated: "2018-02-16"
     ```
     {: codeblock}
 
-    나중에 컨텍스트 변수를 참조하려면 *name*이 정의된 컨텍스트 변수의 이름인 `$name` 구문을 사용하십시오. 예: `$new_variable`.
+    Para referenciar a variável de contexto subsequentemente, use a sintaxe `$name` em que *name* é o nome da variável de contexto que você definiu. Por exemplo, `$new_variable`.
 
-## 공통 컨텍스트 변수 태스크
+## Tarefas comuns de variável de contexto
 {: #context-common-tasks}
 
-사용자가 입력한 전체 문자열을 저장하려면 `input.text`를 사용하십시오. 
+Para armazenar a sequência inteira que foi fornecida pelo usuário como entrada, use `input.text`:
 
-| Variable | Value            |
+| Variável | Valor            |
 |----------|------------------|
 | repeat   | `<?input.text?>` |
 
@@ -237,9 +234,9 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-컨텍스트 변수에 엔티티 값을 저장하려면 다음 구문을 사용하십시오.
+Para armazenar o valor de uma entidade em uma variável de contexto, use esta sintaxe:
 
-| Variable | Value            |
+| Variável | Valor            |
 |----------|------------------|
 | place    | @place           |
 
@@ -247,14 +244,14 @@ lastupdated: "2018-02-16"
 {
   "context": {
     "place": "@place"
-      }
+  }
 }
 ```
 {: codeblock}
 
-편집기를 사용하여 컨텍스트 변수에 JSON 오브젝트를 추가할 수 있습니다. 다음 표현식은 함께 사용자의 전체 이름을 형성하는 첫 번째 값과 마지막 값의 세트를 포함하는 full_name 오브젝트를 정의합니다.
+É possível incluir um objeto JSON em uma variável de contexto usando um ou outro editor. A expressão a seguir define um objeto full_name que contém um conjunto de primeiro e último valores, que juntos formam o nome completo de uma pessoa.
 
-| Variable      | Value            |
+| Variável      | Valor            |
 |---------------|------------------|
 | full_name     | { "first":"Paul", "last":"Smith" } |
 
@@ -270,13 +267,13 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-응답에서 `$full_name.first`를 지정한 경우, `Paul`이 표시됩니다.
+Se você especifica `$full_name.first` na resposta, `Paul` é exibido.
 
-사용자가 사용자 입력에서 추출할 문자열의 값을 저장하려면 사용자 입력에 정규식을 적용해 추출 방법을 사용하는 SpEL 표현식을 포함할 수 있습니다. 다음 표현식은 사용자 입력에서 숫자를 추출하고 `$number` 컨텍스트 변수에 저장합니다. 
+Para armazenar o valor de uma sequência extraída da entrada do usuário, é possível incluir uma expressão SpEL que usa o método de extração para aplicar uma expressão regular à entrada do usuário. A expressão a seguir extrai um número da entrada do usuário e o salva na variável de contexto `$number`.
 
-| Variable | Value                               |
+| Variável | Valor                               |
 |----------|-------------------------------------|
-| number   | `<?input.text.extract('[\d]+',0)?>` |
+| número   | `<?input.text.extract('[\d]+',0)?>` |
 
 ```json
 {
@@ -287,28 +284,28 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-사용자가 JSON 편집기에서 정규식을 정의할 때 표현식에서 사용하는 백 슬래시를 다른 백 슬래시(`\\`)로 이스케이프해야 합니다. 사용자가 컨텍스트 변수 편집기를 사용하여 정의하는 정규식에서는 백 슬래시를 이스케이프할 필요가 없습니다.
+Quando você define uma expressão regular no editor JSON, deve-se escapar quaisquer barras invertidas usadas na expressão com outra barra invertida (`\\`). Você não precisa escapar as barras invertidas em expressões regulares definidas usando o editor de variável de contexto.
 {: tip}
 
-패턴 엔티티의 값을 저장하려면 엔티티 이름에 .literal을 추가하십시오. 이 구문을 사용하면 지정된 패턴과 일치한 사용자 입력의 정확한 범위의 텍스트가 변수에 저장됩니다.
+Para armazenar o valor de uma entidade padrão, anexe .literal ao nome da entidade. O uso desta sintaxe assegura que a extensão exata de texto da entrada do usuário que correspondeu ao padrão especificado seja armazenada na variável.
 
-| Variable | Value            |
+| Variável | Valor            |
 |----------|------------------|
 | email    | @email.literal   |
 
 ```json
 {
   "context": {
-    "email": "<? @email.literal ?>"
+    "e-mail": "<? @email.literal?>"
   }
 }
 ```
 {: codeblock}
 
-## 컨텍스트 변수 삭제
+## Excluindo uma variável de contexto
 {: #context-delete}
 
-컨텍스트 변수를 삭제하려면, 변수를 널로 설정하십시오.
+Para excluir uma variável de contexto, configure a variável para nulo.
 
 ```json
 {
@@ -319,24 +316,23 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-컨텍스트 변수의 모든 추적을 제거하려는 경우, JSONObject.remove(string) 메소드를 사용하여 컨텍스트 오브젝트에서 삭제할 수 있습니다. 그러나 제거를 수행하려면 변수를 사용해야 합니다. 현재 호출 이후엔 저장되지 않으므로 메시지 출력에 새 변수를 정의하십시오.
+Se você deseja remover todo rastreio da variável de contexto, é possível usar o método JSONObject.remove(string) para excluí-lo do objeto de contexto. No entanto, deve-se usar uma variável para executar a remoção. Defina a nova variável na saída de mensagem para que ela não seja salva além da chamada atual.
 
 ```json
 {
   "output": {
-    "text" : {},
-    "deleted_variable" : "<? context.remove('order_form') ?>"
+    "texto" : {}, "deleted_variable" : "<? context.remove('order_form') ?>"
   }
 }
 ```
 {: codeblock}
 
-또는, 애플리케이션 로직에서 컨텍스트 변수를 삭제할 수 있습니다.
+Como alternativa, é possível excluir a variável de contexto na sua lógica de aplicativo.
 
-### 연산 순서
+### Ordem de operação
 {: #context-order-of-ops}
 
-컨텍스트 변수를 정의한 순서로 서비스에서 평가되는 순서를 판별할 수 없습니다. 서비스는 JSON 이름과 값 쌍으로 정의된 변수를 임의 순서로 평가합니다. 목록의 첫 번째 컨텍스트 변수가 목록의 두 번째 변수 앞에서 실행되지 않으므로 첫 번째 컨텍스트 변수에 값을 설정하지 말고 두 번째에서 사용할 수 있도록 요청하십시오. 예를 들어, 0과 노드에 전달된 몇 가지 높은 값 사이의 난수를 리턴하는 로직을 구현하는 데 두 개의 컨텍스트 변수를 사용하지 마십시오.
+A ordem na qual você define as variáveis de contexto não determina a ordem na qual elas são avaliadas pelo serviço. O serviço avalia as variáveis, que são definidas como pares de nome e valor JSON, em ordem aleatória. Não configure um valor na primeira variável de contexto e espere ser capaz de usá-lo na segunda, porque não há garantia de que a primeira variável de contexto em sua lista será executada antes da segunda em sua lista. Por exemplo, não use duas variáveis de contexto para implementar a lógica que retorna um número aleatório entre zero e algum valor mais alto que é transmitido ao nó.
 
 ```json
 "context": {
@@ -346,7 +342,7 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-$answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스트 변수의 값에 의존하지 않도록 복잡한 표현식을 사용하십시오.
+Use uma expressão um pouco mais complexa para evitar ter que depender do valor da variável de contexto $upper ser avaliado antes da variável de contexto $answer ser avaliada.
 
 ```json
 "context": {
@@ -355,25 +351,25 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-### 패턴 엔티티 값 저장
+### Armazenando valores de entidade padrão
 {: #context-pattern-entities}
 
-컨텍스트 변수에 패턴 엔티티 값을 저장하려면 엔티티 이름에 .literal을 추가하십시오. 이 구문을 사용하면 지정된 패턴과 일치한 사용자 입력의 정확한 범위의 텍스트가 변수에 저장됩니다.
+Para armazenar o valor de uma entidade padrão em uma variável de contexto, anexe .literal ao nome da entidade. O uso desta sintaxe assegura que a extensão exata de texto da entrada do usuário que correspondeu ao padrão especificado seja armazenada na variável.
 
 ```json
 {
   "context": {
-    "email": "<? @email.literal ?>"
+    "e-mail": "<? @email.literal?>"
   }
 }
 ```
 {: codeblock}
 
-그룹이 정의된 패턴 엔티티에 단일 그룹의 텍스트를 저장하려면 저장하려는 그룹의 배열 번호를 지정하십시오. 예를 들어, 엔티티 패턴은 @phone_number 엔티티에 대해 다음과 같이 정의되어 있다고 가정합니다. (소괄호는 패턴 그룹을 나타냅니다.)
+Para armazenar o texto de um único grupo em uma entidade padrão com grupos definidos, especifique o número da matriz do grupo que você deseja armazenar. Por exemplo, suponha que o padrão de entidade seja definido como a seguir para a entidade @phone_number. (Lembre-se, os parênteses denotam grupos padrão):
 
 `\b((958)|(555))-(\d{3})-(\d{4})\b`
 
-사용자 입력에 지정된 전화 번호의 지역 번호만 저장하려면 다음 구문을 사용할 수 있습니다.
+Para armazenar somente o código de área do número do telefone especificado na entrada do usuário, é possível usar a sintaxe a seguir:
 
 ```json
 {
@@ -384,19 +380,19 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-그룹은 그룹 패턴 정의에 사용되는 정규식으로 구분됩니다. 예를 들어, `@phone_number` 엔티티에 정의된 패턴과 일치하는 사용자 입력이 `958-234-3456`이면, 다음과 같은 그룹이 작성됩니다.
+Os grupos são delimitados pela expressão regular que é usada para definir o padrão de grupo. Por exemplo, se a entrada do usuário que corresponde ao padrão definido na entidade `@phone_number` é: `958-234-3456`, os grupos a seguir são criados:
 
-| 그룹 번호 | Regex 엔진 값  | 대화 상자 값   | 설명 |
+| Número do grupo | Valor do mecanismo Regex  | Valor do diálogo   | Explicação |
 |--------------|---------------------|----------------|-------------|
-| groups[0]    | `958-234-3456`      | `958-234-3456` | 첫 번째 그룹은 항상 전체 일치 문자열. |
-| groups[1]    | `((958)`l`(555))`   | `958`          | 첫 번째 정의된 그룹에 대한 regex와 일치하는 다음과 같은 문자열: `((958)`l`(555))`. |
-| groups[2]    | `(958)`             | `958`          | OR 표현식의 첫 번째 피연산자로 포함된 그룹과 일치하는 문자열: `((958)`l`(555))` |
-| groups[3]    | `(555)`             | `null`         | OR 표현식의 두 번째 피연산자로 포함된 그룹과 일치하는 문자열: `((958)`l`(555))` |
-| groups[4]    | `(\d{3})`           | `234`          | 그룹에 대해 정의된 정규식과 일치하는 문자열. |
-| groups[5]    | `(\d{4})`           | `3456`         | 그룹에 대해 정의된 정규식과 일치하는 문자열. |
-{: caption="그룹 세부사항" caption-side="top"}
+| groups[0]    | `958-234-3456`      | `958-234-3456` | O primeiro grupo é sempre a sequência de correspondência total. |
+| groups[1]    | `((958)`l`(555))`   | `958`          | A sequência que corresponde ao regex para o primeiro grupo definido, que é `((958)`l`(555))`. |
+| groups[2]    | `(958)`             | `958`          | Correspondência com relação ao grupo incluído como o primeiro operando na expressão OR `((958)`l`(555))` |
+| groups[3]    | `(555)`             | `null`         | Nenhuma correspondência com relação ao grupo que é incluído como o segundo operando na expressão OR `((958)`l`(555))` |
+| groups[4]    | `(\d{3})`           | `234`          | Sequência que corresponde à expressão regular que está definida para o grupo. |
+| groups[5]    | `(\d{4})`           | `3456`         | Sequência que corresponde à expressão regular que está definida para o grupo. |
+{: caption="Detalhes do grupo" caption-side="top"}
 
-관심있는 입력 섹션을 캡처하는데 사용할 그룹 번호를 해독하려면, 한 번에 모든 그룹에 대한 정보를 추출 할 수 있습니다. 그룹화된 모든 패턴 엔티티 일치 배열을 리턴하는 컨텍스트 변수를 작성하려면 다음 구문을 사용하십시오.
+Para ajudá-lo a decifrar qual número de grupo usar para capturar a seção de entrada em que você está interessado, é possível extrair informações sobre todos os grupos de uma vez. Use a sintaxe a seguir para criar uma variável de contexto que retorna uma matriz de todas as correspondências de entidade padrão agrupadas:
 
 ```json
 {
@@ -407,11 +403,11 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-"연습" 분할창을 사용하여 테스트 전화번호 값을 입력하십시오. `958-123-2345`의 경우, 이 표현식은 `$array_of_matched_groups`를 `["958-123-2345","958","958",null,"123","2345"]`로 설정합니다.
+Use a área de janela "Experimente" para inserir alguns valores de número de telefone de teste. Para a entrada `958-123-2345`, essa expressão configura `$array_of_matched_groups` para `["958-123-2345","958","958",null,"123","2345"]`.
 
-그런 다음 배열의 각 값을 0부터 시작하여 그룹 번호를 시작할 수 있습니다. 
+É possível então contar cada valor na matriz iniciando com 0 para obter o número do grupo para ele.
 
-| 배열 요소 값 | 배열 요소 번호 |
+| Valor do elemento de matriz | Número do elemento de matriz |
 |---------------------|----------------------|
 | "958-123-2345"      | 0 |
 | "958"               | 1 |
@@ -419,11 +415,11 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 | null                | 3 |
 | "123"               | 4 |
 | "2345"              | 5 |
-{: caption="배열 요소" caption-side="top"}
+{: caption="Elementos de matriz" caption-side="top"}
 
-예를 들어, 전화번호의 마지막 4자리를 캡처하려면, 그룹 #5가 필요하다는 것을 쉽게 알 수 있습니다.
+É fácil determinar que, para capturar os últimos quatro dígitos do número de telefone, você precisa do grupo #5, por exemplo.
 
-그룹화된 패턴 엔티티를 표시하기 위해 작성된 JSONArray 구조를 리턴하려면 다음 구문을 사용하십시오.
+Para retornar a estrutura JSONArray que é criada para representar a entidade padrão agrupada, use a sintaxe a seguir:
 
 ```json
 {
@@ -434,7 +430,7 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-이 표현식은 `$json_matched_groups`를 다음과 같은 JSON 배열로 설정합니다.
+Essa expressão configura `$json_matched_groups` para a matriz JSON a seguir:
 
 ```json
 [
@@ -448,9 +444,9 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-**참고**: `location`은 0부터 시작하는 문자 오프셋을 사용하여 발견된 엔티티 값이 입력 텍스트에서 시작하고 끝나는 위치를 표시하는 엔티티의 속성입니다.
+**Nota**: `local` é uma propriedade de uma entidade que usa um deslocamento de caractere baseado em zero para indicar onde o valor de entidade detectado inicia e termina no texto de entrada.
 
-두 개의 전화번호가 입력에 제공될 것으로 예상되면 두 개의 전화번호를 확인할 수 있습니다. 예를 들어, 다음 구문을 사용하여 두 번째 번호의 지역 번호를 캡처합니다.
+Se você espera que dois números de telefone sejam fornecidos na entrada, é possível verificar dois números de telefone. Se presentes, use a sintaxe a seguir para capturar o código de área do segundo número, por exemplo.
 
 ```json
 {
@@ -461,18 +457,18 @@ $answer 컨텍스트 변수가 평가되기 전에 평가되는 $upper 컨텍스
 ```
 {: codeblock}
 
-입력이 `내 전화번호를 958-234-3456에서 555-456-5678으로 변경`이면, `$second_areacode`는 `555`입니다.
+Se a entrada é `I want to change my phone number from 958-234-3456 to 555-456-5678`, `$second_areacode` é igual a `555`.
 
-## 컨텍스트 변수값 업데이트
+## Atualizando um valor da variável de contexto
 {: #context-update}
 
-노드가 이미 설정된 컨텍스트 변수값을 설정하면 이 변수값이 이전 값을 겹쳐씁니다.
+Se um nó configura o valor de uma variável de contexto que já foi configurado, o valor anterior é sobrescrito.
 
-### 복합 JSON 오브젝트 업데이트
+### Atualizando um objeto JSON complexo
 
-JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐씁니다. 컨텍스트 변수가 JSON 오브젝트와 같은 복합 유형인 경우 JSON 병합 프로시저가 변수 업데이트에 사용됩니다. 병합 오퍼레이션은 새로 정의된 특성을 추가하고 오브젝트의 기존 특성을 겹쳐씁니다.
+Os valores anteriores são sobrescritos para todos os tipos de JSON, exceto um objeto JSON. Se a variável de contexto é um tipo complexo tal como o objeto JSON, um procedimento de mesclagem JSON é usado para atualizar a variável. A operação de mesclagem inclui quaisquer propriedades recém-definidas e sobrescreve quaisquer propriedades existentes do objeto.
 
-이 예제에서 이름 컨텍스트 변수는 복합 오브젝트로 정의됩니다.
+Neste exemplo, uma variável de contexto name é definida como um objeto complexo.
 
 ```json
 {
@@ -487,7 +483,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
 ```
 {: codeblock}
 
-대화 상자 노드는 다음 값으로 컨텍스트 변수 JSON 오브젝트를 업데이트합니다.
+Um nó de diálogo atualiza o objeto JSON da variável de contexto com os valores a seguir:
 
 ```json
 {
@@ -499,7 +495,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
 ```
 {: codeblock}
 
-결과는 다음 컨텍스트입니다.
+O resultado é este contexto:
 
 ```json
 {
@@ -512,17 +508,17 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
 ```
 {: codeblock}
 
-오브젝트에서 수행할 수 있는 메소드에 관한 자세한 정보는 [표현식 언어 메소드](dialog-methods.html#objects)를 참조하십시오.
+Veja [Métodos de linguagem de expressão](dialog-methods.html#objects) para obter mais informações sobre os métodos que podem ser executados em objetos.
 
-### 배열 업데이트
+### Atualizando matrizes
 
-대화 상자 컨텍스트 데이터에 값 배열이 있는 경우, 값을 추가하거나 값을 제거하거나 값을 모두 바꿔 배열을 업데이트할 수 있습니다.
+Se seus dados de contexto de diálogo contiverem uma matriz de valores, você poderá atualizar a matriz anexando valores, removendo um valor ou substituindo todos os valores.
 
-이러한 조치 중 하나를 선택하여 배열을 업데이트하십시오. 각각의 경우에 조치가 적용되기 전 배열, 조치, 그리고 조치가 적용된 후 배열이 표시됩니다.
+Escolha uma dessas ações para atualizar a matriz. Em cada caso, vemos a matriz antes da ação, a ação e a matriz após a ação ter sido aplicada.
 
-- **추가**: 배열의 끝에 값을 추가하려면 `append` 메소드를 사용하십시오.
+- **Anexar**: para incluir valores no final de uma matriz, use o método `append`.
 
-    다음 대화 상자 런타임 컨텍스트의 경우:
+    Para esse Contexto de tempo de execução de diálogo:
 
     ```json
     {
@@ -533,7 +529,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
     ```
     {: codeblock}
 
-    다음 업데이트를 작성하십시오.
+    Faça essa atualização:
 
     ```json
     {
@@ -544,7 +540,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
     ```
     {: codeblock}
 
-    결과:
+    Resultado:
 
     ```json
     {
@@ -555,11 +551,11 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
     ```
     {: codeblock}
 
-- **제거**: 요소를 제거하려면 `remove` 메소드를 사용하고 배열에 해당 값 또는 위치를 지정하십시오.
+- **Remover**: Para remover um elemento, use o método `remove` e especifique seu valor ou posição na matriz.
 
-    - **값을 기준으로 제거**는 값을 기준으로 배열에서 요소를 제거합니다.
+    - **Remover por valor** remove um elemento de uma matriz por seu valor.
 
-        다음 대화 상자 런타임 컨텍스트의 경우:
+        Para esse Contexto de tempo de execução de diálogo:
 
         ```json
         {
@@ -570,7 +566,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-        다음 업데이트를 작성하십시오.
+        Faça essa atualização:
 
         ```json
         {
@@ -581,7 +577,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-        결과:
+        Resultado:
 
         ```json
         {
@@ -592,9 +588,9 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-    - **위치를 기준으로 제거**: 인덱스 위치를 기준으로 배열에서 요소 제거:
+    - **Remover por posição**: removendo um elemento de uma matriz por sua posição de índice:
 
-        다음 대화 상자 런타임 컨텍스트의 경우:
+        Para esse Contexto de tempo de execução de diálogo:
 
         ```json
         {
@@ -605,7 +601,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-        다음 업데이트를 작성하십시오.
+        Faça essa atualização:
 
         ```json
         {
@@ -616,7 +612,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-        결과:
+        Resultado:
 
         ```json
         {
@@ -627,9 +623,9 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-- **겹쳐쓰기**: 배열에서 값을 겹쳐쓰려면 배열을 새 값으로 설정하십시오.
+- **Sobrescrever**: para sobrescrever os valores em uma matriz, simplesmente configure a matriz com os novos valores:
 
-    다음 대화 상자 런타임 컨텍스트의 경우:
+    Para esse Contexto de tempo de execução de diálogo:
 
         ```json
         {
@@ -640,7 +636,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-    다음 업데이트를 작성하십시오.
+    Faça essa atualização:
 
         ```json
         {
@@ -651,7 +647,7 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-    결과:
+    Resultado:
 
         ```json
         {
@@ -662,130 +658,130 @@ JSON 오브젝트를 제외한 모든 JSON 유형에 대해 이전 값을 겹쳐
         ```
         {: codeblock}
 
-배열에서 수행할 수 있는 메소드에 관한 자세한 정보는 [표현식 언어 메소드](dialog-methods.html#arrays)를 참조하십시오.
+Veja [Métodos de linguagem de expressão](dialog-methods.html#arrays) para obter mais informações sobre os métodos que podem ser executados em matrizes.
 
-## 다이그레션(Digression)
+## Digressões
 {: #digressions}
 
-다이그레션(Digression)은 사용자가 한 목표를 처리하도록 설계된 대화 상자 플로우의 중간에 있는 경우 발생하며 갑자기 다른 목표를 충족하도록 설계된 대화 상자 플로우를 시작하는 주제로 전환합니다. 대화 상자는 항상 사용자가 주제를 변경하는 기능을 지원합니다. 처리중인 대화 상자 분기의 어떤 노드도 사용자의 최신 입력 목표와 일치하지 않으면 대화 상자는 다시 트리로 이동하여 루트 노드 조건에서 적절한 일치 항목을 확인합니다. 노드 당 사용 가능한 다이그레션(Digression) 설정에서 이 동작을 훨씬 더 맞춤 설정하는 기능을 제공합니다.
+Uma digressão ocorre quando um usuário está no meio de um fluxo de diálogo projetado para endereçar um objetivo e alterna abruptamente os tópicos para iniciar um fluxo de diálogo projetado para endereçar um objetivo diferente. O diálogo sempre suportou a capacidade do usuário de mudar assuntos. Se nenhum dos nós na ramificação de diálogo que está sendo processada corresponde ao objetivo da entrada mais recente do usuário, a conversa volta para a árvore para verificar as condições do nó raiz para uma correspondência apropriada. As configurações de digressão que estão disponíveis por nó fornecem a capacidade de customizar esse comportamento ainda mais.
 
-다이그레션(Digression) 설정을 사용하면, 디그레션이 발생했을 때 중단된 대화 상자 플로우로 대화를 되돌릴 수 있습니다. 예를 들어, 사용자가 새 전화를 주문하고 있지만 주제를 전환하여 태블릿에 대해 질문합니다. 대화 상자는 태블릿에 대한 질문에 답변한 다음 전화를 주문하는 과정에서 중단한 위치로 사용자를 되돌릴 수 있습니다. 다이그레션(Digression)의 발생 및 리턴을 허용하면 사용자는 실행 중에 대화 플로우를 보다 잘 제어 할 수 있습니다. 다이그레션(Digression)은 주제를 변경할 수 있고, 관련이 없는 주제에 대한 대화 상자 플로우를 끝까지 따라갈 수 있으며 전에 있었던 곳으로 돌아갈 수 있습니다. 그 결과 사용자 간의 대화를 보다 밀접하게 시뮬레이션하는 대화 상자 플로우입니다.
+Com as configurações de digressão, é possível permitir que a conversa retorne para o fluxo de diálogo que foi interrompido quando a digressão ocorreu. Por exemplo, o usuário pode estar pedindo um novo telefone, mas alterna os tópicos para perguntar sobre tablets. Seu diálogo pode responder à pergunta sobre tablets e depois levar o usuário de volta para onde ele parou no processo de pedir um telefone. Permitir que digressões ocorram e retornem fornece a seus usuários mais controle sobre o fluxo da conversa no tempo de execução. Eles podem mudar tópicos, seguir um fluxo de diálogo sobre o tópico não relacionado até seu término e, em seguida, retornar para onde estavam antes. O resultado é um fluxo de diálogo que simula mais estritamente uma conversa entre humanos.
 
-다음 이미지는 대화 상자 트리 사용자 인터페이스의 모형을 사용하여 다이그레션(Digression)의 개념을 설명합니다. 이것은 진행 중인 대화 상자 플로우로 돌아가는 다이그레션(Digression)을 허용하도록 구성된 대화 상자 노드와 상호 작용하는 방법을 보여줍니다. 사용자가 저녁 식사 예약에 필요한 정보를 제공하기 시작합니다. #reservation 노드의 슬롯을 채우는 중에 사용자는 채식 메뉴 옵션에 대해 질문합니다. 대화 상자는 루트 노드(#cuisine 의도를 조건으로 하는 노드)중에서 노드를 찾아 사용자의 새 질문에 응답합니다. 그런 다음 원래 대화 상자 노드에서 다음 빈 슬롯에 대한 프롬프트를 표시하여 진행 중인 대화로 돌아갑니다.
+A imagem a seguir usa um modelo da interface com o usuário da árvore de diálogo para ilustrar o conceito de uma digressão. Ela mostra como um usuário interage com os nós de diálogo que são configurados para permitir digressões que retornam ao fluxo de diálogo que estava em andamento. O usuário começa a fornecer as informações necessárias para fazer uma reserva de jantar. No meio de preenchimento de intervalos no nó #reservation, o usuário faz uma pergunta sobre as opções de menu vegetariano. O diálogo responde à nova pergunta do usuário localizando um nó que a endereça entre os nós raiz (um nó que condiciona na intenção #cuisine). Em seguida, retorna à conversa que estava em andamento mostrando o prompt para o próximo intervalo vazio do nó de diálogo original.
 
-![저녁 식사 예약에 대한 세부 정보를 제공하는 사람이 채식 옵션에 대해 질문하고 답변을 얻은 다음 예약 세부 정보를 제공하는 것으로 돌아가는 것을 표시합니다.](images/digression.gif)
+![Mostra alguém que está fornecendo detalhes sobre uma reserva de jantar perguntar a respeito de opções vegetarianas, obter uma resposta e então retornar para fornecer detalhes de reserva.](images/digression.gif)
 
-### 시작하기 전에
+### Antes de iniciar
 
-전체 대화 상자를 테스트할 때 다이그레션(Digression)을 허용하고 발생해서 돌아오는 시기와 위치를 결정하십시오. 다음 다이그레션(Digression) 제어는 노드에 자동으로 적용됩니다. 사용자가 이 기본 동작을 변경하려는 경우에만 조치를 수행하십시오.
+Ao testar seu diálogo geral, decida quando e onde faz sentido permitir que digressões e devoluções de digressões ocorram. Os controles de digressão a seguir são aplicados aos nós automaticamente. Tome a ação somente se desejar mudar esse comportamento padrão.
 
-- 대화 상자의 모든 루트 노드는 기본적으로 대상을 다이그레션(Digression)할 수 있도록 구성됩니다. 하위 노드는 다이그레션(Digression)의 대상이 될 수 없습니다.
-- 슬롯이 있는 노드는 다이그레션(Digression)을 방지하도록 구성됩니다. 기타 모든 노드는 다이그레션(Digression)을 허용하도록 구성됩니다. 그러나 다음과 같은 상황에서는 대화가 노드에서 벗어날 수 없습니다.
+- Cada nó raiz em seu diálogo está configurado para permitir que as digressões os destinem por padrão. Os nós-filhos não podem ser o destino de uma digressão.
+- Os nós com intervalos são configurados para evitar digressões fora. Todos os outros nós são configurados para permitir digressões fora. No entanto, a conversa não pode digressionar fora de um nó sob as circunstâncias a seguir:
 
-  - 현재 노드의 하위 노드 중 하나가 `anything_else` 또는 `true` 조건을 포함하는 경우
+  - Se algum dos nós-filhos do nó atual contém a condição `anything_else` ou `true`
 
-    이러한 조건은 항상 참으로 평가된다는 점에서 특별합니다. 알려진 동작으로 인해, 대화 상자에서 종종 상위 노드가 특정 하위 노드를 연속적으로 평가하도록 강제합니다. 기존의 대화 상자 플로우 논리를 위반하지 않기 위해, 이런 경우 다이그레션(Digression)은 허용되지 않습니다. 그러한 노드에서 다이그레션(Digression)을 가능하게 하기 전에 하위 노드의 조건을 다른 것으로 변경해야 합니다. 
+    Essas condições são especiais por serem sempre avaliadas como true. Por causa de seu comportamento conhecido, elas são frequentemente usadas em diálogos para forçar um nó pai a avaliar um nó-filho específico sucessivamente. Para evitar a quebra da lógica do fluxo de diálogo existente, a digressão não é permitida neste caso. Antes de poder ativar digressões fora de, por exemplo, um nó, deve-se mudar a condição do nó-filho para outra coisa.
 
-  - 노드가 다른 노드로 점프하거나 처리 된 후 사용자 입력을 생략하도록 구성된 경우
+  - Se o nó estiver configurado para ir para outro nó ou ignorar a entrada do usuário após ela ser processada
 
-    노드의 마지막 단계 섹션은 노드가 처리된 후 발생할 일을 지정합니다. 대화 상자가 다른 노드로 직접 이동하도록 구성될 때, 종종 특정 순서를 따르는지 확인하십시오. 그리고 노드가 사용자 입력을 건너뛰도록 구성된 경우, 이는 대화 상자가 현재 노드 다음의 첫 번째 하위 노드를 연속적으로 처리하도록 하는 것과 동일합니다. 기존 대화 상자 플로우 논리를 위반하지 않도록 하기 위해 이런 경우 다이그레션(Digression)은 허용되지 않습니다. 이 노드에서 다이그레션(Digression)을 가능하게 하기 전에 최종 단계 섹션에서 지정된 내용을 변경해야 합니다. 
+    A seção de etapa final de um nó especifica o que deve acontecer após o nó ser processado. Quando o diálogo é configurado para ir diretamente para outro nó, é frequentemente para assegurar que uma sequência específica seja seguida. E quando o nó é configurado para ignorar entrada do usuário, é equivalente a forçar o diálogo para processar o primeiro nó-filho após o nó atual sucessivamente. Para evitar a quebra da lógica do fluxo de diálogo existente, as digressões não são permitidas em qualquer um desses casos. Antes de poder ativar as digressões fora desse nó, deve-se mudar o que é especificado na seção de etapa final.
 
-### 다이그레션(Digression) 사용자 정의
+### Customizando digressões
 {: #enable-digressions}
 
-귀하는 다이그레션(Digression)의 시작과 끝을 정의하지 않습니다. 사용자는 실행 중에 다이그레션(Digression) 플로우를 완전히 제어합니다. 사용자는 각 노드가 사용자가 주도하는 다이그레션(Digression)에 참여할지 여부만 지정합니다. 각 노드에 대해 다음을 구성합니다. 
+Você não define o início e o término de uma digressão. O usuário está inteiramente no controle do fluxo de digressão no tempo de execução. Você somente especifica como cada nó deve ou não deve participar em uma digressão liderada pelo usuário. Para cada nó, você configura se:
 
-- 다이그레션(Digression)은 노드에서 시작하거나 떠날 수 있음
-- 다른 곳에서 시작하는 다이그레션(Digression)은 대상이 될 수 있으며 노드에 들어갈 수 있음
-- 다른 곳에서 시작하여 노드에 들어간 다이그레션(Digression)은 현재 대화 상자 플로우가 완료된 후 중단된 대화 상자 플로우로 돌아와야함
+- uma digressão pode ser iniciada no nó e deixar o nó
+- uma digressão iniciada em outro lugar pode destinar e inserir o nó
+- uma digressão que é iniciada em outro lugar e insere o nó deve retornar para o fluxo de diálogo interrompido após o fluxo de diálogo atual ser concluído
 
-개별 노드의 다이그레션(Digression) 동작을 변경하려면, 다음 단계를 완료하십시오.
+Para mudar o comportamento de digressão para um nó individual, conclua as etapas a seguir:
 
-1.  편집 보기를 열려면 노드를 클릭하십시오.
+1.  Clique no nó para abrir sua visualização de edição.
 
-1.  **사용자 정의**를 클릭하고, **다이그레션(Digression)** 탭을 클릭하십시오.
+1.  Clique em **Customizar** e, em seguida, clique na guia **Digressões**.
 
-    구성 옵션은 편집 중인 노드가 루트 노드, 하위 노드, 하위 노드 또는 슬롯이 있는 노드인지 여부에 따라 다릅니다.
+    As opções de configuração diferem dependendo se o nó que você está editando é um nó raiz, um nó-filho, um nó com filhos ou um nó com intervalos.
 
-    **이 노드에서 다이그레션(Digression) 벗어나기**
+    **Digressions fora desse nó**
 
-    이전에 나열된 상황이 적용되지 않으면 다음과 같은 선택을 할 수 있습니다.
+    Se as circunstâncias listadas anteriormente não se aplicam, é possível fazer as opções a seguir:
 
-    - **모든 노드 유형**: 사용자가 현재 대화 상자 분기의 끝에 도달하기 전에 현재 노드에서 벗어날 수 있도록 허용할지 여부를 선택합니다.
+    - **Todos os tipos de nós**: escolha se deseja permitir a digressão do nó atual pelos usuários antes de atingirem o término da ramificação do diálogo atual.
 
-    - **하위 노드가 있는 모든 노드**: 현재 노드의 응답이 이미 표시되고 하위 노드가 노드의 목표에 부수적인 경우 대화가 다이그레션(Digression) 후 현재 노드로 돌아갈지 여부를 선택하십시오. 대화 상자가 현재 노드로 돌아가는 것을 방지하고 분기 처리를 계속하려면, *이 노드의 응답 후에 실행된 다이그레션(Digression)에서 돌아오기 허용*을 **No**로 설정하십시오. 
+    - **Todos os nós que têm filhos**: escolha se você deseja que a conversa volte para o nó atual após uma digressão se a resposta do nó atual já foi exibida e seus nós-filhos são incidentais com o objetivo do nó. Configure a alternância *Permitir retorno de digressões acionadas após a resposta deste nó* para **Não** para evitar que o diálogo retorne para o nó atual e continue a processar sua ramificação.
 
-      예를 들어, 사용자가 `컵케이크를 판매하십니까?`라고 문의하고 사용자가 주제를 변경하기 전에 `우리는 다양한 맛과 크기의 컵케이크를 제공합니다`라는 응답이 표시되면, 대화 상자가 중단된 위치로 돌아가는 것을 원하지 않을 수도 있습니다. 특히 하위 노드가 사용자로부터 가능한 후속 질문만 처리하고 안전하게 무시할 수 있습니다. 
+      Por exemplo, se o usuário pergunta `Deseja vender cupcakes?` e a resposta `Oferecemos cupcakes em uma variedade de sabores e tamanhos` é exibida antes de o usuário mudar os assuntos, você talvez não deseje que o diálogo retorne para onde parou. Especialmente, se os nós-filhos direcionam somente perguntas de acompanhamento possíveis do usuário e podem ser ignorados com segurança.
 
-      그러나, 노드가 하위 노드에 의존하여 질문을 처리하는 경우, 강제로 대화로 돌아가고 현재 분기의 노드 처리를 계속하기를 원할 수도 있습니다. 예를 들어, 초기 응답은 `우리는 모든 모양과 크기의 컵케이크를 제공합니다. 어떤 메뉴를 보고 싶습니까?: 무 글루텐, 유제품 또는 일반? `일 수 있습니다. 사용자가 이 시점에서 주제를 변경하면, 사용자가 메뉴 유형을 선택하고 원하는 정보를 얻을 수 있도록 대화 상자로 돌아가기를 원할 수 있습니다. 
+      No entanto, se o nó depende de seus nós-filhos para direcionar a questão, você pode desejar forçar a conversa para retornar e continuar processando os nós na ramificação atual. Por exemplo, a resposta inicial pode ser `We offer cupcakes in all shapes and sizes. Which menu do you want to see: gluten-free, dairy-free, or regular?` Se o usuário muda os assuntos neste momento, você pode desejar que o diálogo seja retornado para que o usuário possa escolher um tipo de menu e obter as informações desejadas.
 
-    - **슬롯이 있는 노드**: 모든 슬롯이 채워지기 전에 사용자가 노드에서 벗어날 수 있도록 허용할지 여부를 선택하십시오. *슬롯을 채우는 중에 다이그레션(Digression) 벗어나기 허용*을 **Yes**로 설정하여 다이그레션(Digression) 벗어나기를 사용하십시오. 
+    - **Nós com intervalos**: escolha se você deseja permitir aos usuários digressionar fora do nó antes de todos os intervalos serem preenchidos. Configure a alternância *Permitir digressões fora durante o preenchimento de intervalo* para **Sim** para ativar digressões fora.
 
-      사용 가능한 경우, 대화가 다이그레션(Digression)에서 돌아오면 사용자가 계속 정보를 제공할 수 있도록 채워지지 않은 다음 슬롯에 대한 프롬프트가 표시됩니다. 사용 가능하지 않은 경우, 슬롯을 채울 수 있는 값을 포함하지 않는 사용자 입력 내용은 무시됩니다. 그러나 슬롯 핸들러를 정의하여 사용자가 노드와 상호작용하는 동안 사용자가 요청할 수 있는 원치 않는 질문을 처리 할 수 있습니다. 자세한 정보는 [슬롯 추가](dialog-slots.html#add-slots)를 참조하십시오. 
+      Se ativado, quando a conversa retorna da digressão, o prompt para o próximo intervalo vazio é exibido para encorajar o usuário a continuar fornecendo informações. Se desativado, quaisquer entradas enviadas pelo usuário que não contêm um valor que possa preencher um intervalo são ignoradas. No entanto, é possível direcionar questões não solicitadas que você prevê que os usuários podem perguntar enquanto interagem com o nó definindo manipuladores de intervalos. Consulte [Incluindo intervalos](dialog-slots.html#add-slots) para obter mais informações.
 
-      다음 이미지는 슬롯이 있는 #reservation 노드(앞의 그림 참조)에서 다이그레션(Digression)을 벗어나는 구성에 관한 방법을 보여줍니다.
+      A imagem a seguir mostra como as digressões fora do nó #reservation com intervalos (mostrados na ilustração anterior) são configuradas.
 
-      ![슬롯이 있는 노드에서 다이그레션(Digression) 벗어나기 설정 표시.](images/digress-away-slots-full.png)
+      ![Mostra as configurações de digressões fora de um nó com intervalos.](images/digress-away-slots-full.png)
 
-    - **슬롯이 있는 노드**: **돌아가기를 허용하는 슬롯에서 노드로만 벗어나기** 선택란을 선택하여 현재 노드로 돌아가는 경우에만 사용자가 벗어날 수 있는지 여부를 선택합니다.
+    - **Nós com intervalos**: escolha se o usuário será permitido somente digressionar fora se ele retornar para o nó atual marcando a caixa de seleção **Somente digressionar de intervalos para os nós que permitem devoluções**.
 
-      선택한 경우, 대화 상자에서 노드와 관련없는 질문에 답하는 노드를 찾으면 다이그레션(Digression) 후 돌아가도록 구성되지 않은 루트 노드는 무시됩니다. 사용자가 필수 슬롯을 채우기 전에 노드를 영구적으로 떠날 수 없도록 하려면 이 선택란을 선택하십시오.
+      Quando selecionado, conforme o diálogo procura um nó para responder à pergunta não relacionada do usuário, ele ignora quaisquer nós raiz que não estão configurados para retornar após a digressão. Marque essa caixa de seleção se você deseja evitar que os usuários sejam capazes de deixar permanentemente o nó antes de terem concluído o preenchimento dos intervalos necessários.
 
-    **이 노드에 다이그레션(Digression)**
+    **Digressões neste nó**
 
-    노드에 다이그레션(Digression)이 작동하는 방법에 대해 다음과 같은 선택을 할 수 있습니다.
+    É possível fazer as opções a seguir sobre como as digressões em um nó se comportam:
 
-    - 사용자가 노드에 들어갈 수 없도록 합니다. 자세한 정보는 [루트 노드에 다이그레션(Digression) 사용 안함](#diable-digressions)을 참조하십시오.
+    - Evitar que os usuários possam digressionar no nó. Veja [Desativando digressões em um nó raiz](#diable-digressions) para obter mais detalhes.
 
-    - 노드에 다이그레션(Digression)이 사용 가능한 경우, 대화 상자가 멀리 떨어져 있는 대화 상자 플로우로 되돌아가야 하는지 여부를 선택하십시오. 선택한 경우, 현재 노드의 분기 처리가 완료된 후, 대화 상자 플로우는 중단된 노드로 다시 이동합니다. 나중에 대화 상자로 돌아가려면, **다이그레션(Digression) 후 돌아가기**를 선택하십시오.
+    - Quando as digressões no nó são ativadas, escolha se o diálogo deve voltar para o fluxo de diálogo do qual ele é digressionado. Quando selecionado, após a ramificação do nó atual terminar de ser processada, o fluxo de diálogo volta para o nó interrompido. Para fazer o diálogo retornar depois disso, selecione **Retornar após digressão**.
 
-    다음 이미지는 #cuisine 노드(앞의 그림 참조)에 다이그레션(Digression) 구성 방법을 보여줍니다.
+    A imagem a seguir mostra como as digressões no nó #cuisine (mostrado na ilustração anterior) são configuradas.
 
-    ![슬롯이 있는 노드에서 다이그레션(Digression) 벗어나기 설정 표시.](images/digress-into-cuisine-full.png)
+    ![Mostra as configurações de digressões fora de um nó com intervalos.](images/digress-into-cuisine-full.png)
 
-1.  **적용**을 클릭하십시오.
+1.  Clique em **Aplicar**.
 
-1.  "연습" 분할창을 사용하여 다이그레션(Digression) 동작을 테스트하십시오.
+1.  Use a área de janela "Experimente" para testar o comportamento de digressão.
 
-    다시 말씀드리지만, 귀하는 다이그레션(Digression)의 시작과 끝을 정의할 수 없습니다. 사용자는 다이그레션(Digression)이 발생하는 시기와 위치를 제어합니다. 단일 노드가 하나의 노드에 참여하는 방식을 결정하는 설정만 적용할 수 있습니다. 다이그레션(Digression)은 예측할 수 없기 때문에 구성 결정이 전반적인 대화에 어떻게 영향을 미치는지 알기 어렵습니다. 사용자가 작성한 선택의 효과를 확인하려면 대화 상자를 테스트해야 합니다.
+    Novamente, não é possível definir o início e o término de uma digressão. O usuário controla onde e quando as digressões acontecem. É possível aplicar somente configurações que determinam como um único nó participa de uma. Como as digressões são imprevisíveis, é difícil saber como suas decisões de configuração impactarão a conversa geral. Para realmente ver o impacto das opções feitas, deve-se testar o diálogo.
 
-#reservation 및 #cuisine 노드는 단일 사용자 지정 다이그레션(Digression)에 참여할 수 있는 두 개의 대화 상자 분기를 나타냅니다. 각각의 개별 노드에 구성되는 다이그레션(Digression) 설정은 실행 중에 이런 유형의 다이그레션(Digression)을 가능하게 하는 요소입니다.
+Os nós #reservation e #cuisine representam duas ramificações de diálogo que podem participar de uma única digressão direcionada ao usuário. As configurações de digressão definidas para cada nó individual são o que torna esse tipo de digressão possível no tempo de execução.
 
-![두 개의 대화 상자는 예약 슬롯 노드에서 다이그레션(Digression) 벗어나기 설정과 요리 노드에 다이그레션(Digression)을 설정하는 방법을 표시합니다.](images/digression-settings.png)
+![Mostra dois diálogos, um que configura as digressões fora do nó de intervalos de reserva e um que configura a digressão no nó cuisine.](images/digression-settings.png)
 
-### 루트 노드에 다이그레션(Digression) 사용 안함
+### Desativando digressões em um nó raiz
 {: #disable-digressions}
 
-플로우가 루트 노드로 들어가면 해당 노드에 대해 구성된 대화 상자의 과정을 따릅니다. 따라서 노드 분기의 끝에 도달하기 전에 일련의 하위 노드를 처리한 다음 중단하도록 구성된 경우 중단된 대화 상자 플로우로 돌아갑니다. 대화 테스트를 통해 루트 노드가 너무 자주 또는 예기치 않은 시간에 트리거되거나 대화 상자가 복잡하고 사용자가 너무 멀리 떨어져 임시 다이그레션(Digression)의 좋은 후보가 될 수 있음을 알 수 있습니다. 사용자가 벗어나는 것을 허용하지 않도록 결정한 경우 루트 노드가 다이그레션(Digression)을 허용하지 않도록 구성할 수 있습니다.
+Quando um fluxo digressiona em um nó raiz, ele segue o caminho do diálogo que está configurado para esse nó. Em seguida, ele pode processar uma série de nós-filhos antes de atingir o final da ramificação de nós e, então, se configurado para fazer isso, volta para o fluxo de diálogo que foi interrompido. Por meio do teste de diálogo, você pode achar que um nó raiz é acionado com muita frequência, ou em horários inesperados, ou que seu diálogo é muito complexo e leva o usuário muito longe do curso para ser um bom candidato a uma digressão provisória. Se você determina que prefere não permitir que usuários digressionem nele, é possível configurar o nó raiz para não permitir digressões dentro dele.
 
-루트 노드 전체에 다이그레션(Digression)을 사용 안하려면, 다음 단계를 수행하십시오.
+Para desativar completamente as digressões em um nó raiz, conclua as etapas a seguir:
 
-1.  편집하려는 루트 노드를 열려면 클릭하십시오.
-1.  **사용자 정의**를 클릭하고 **다이그레션(Digression)** 탭을 클릭하십시오.
-1.  *이 노드에 다이그레션(Digression) 허용*을 **Off**로 설정하십시오.
-1.  **적용**을 클릭하십시오.
+1.  Clique para abrir o nó raiz que você deseja editar.
+1.  Clique em **Customizar** e, em seguida, clique na guia **Digressões**.
+1.  Configure a alternância *Permitir digressões neste nó* para **Desativado**.
+1.  Clique em **Aplicar**.
 
-여러 루트 노드로 다이그레션(Digression)을 방지하고 각 노드를 개별적으로 편집하지 않으려면 노드를 폴더에 추가 할 수 있습니다. 폴더의 *사용자 정의* 페이지에서 *이 노드에 다이그레션(Digression) 허용*을 **Off**로 설정하여 모든 노드에 한 번에 구성을 적용할 수 있습니다. 자세한 정보는 [폴더가 있는 대화 상자 구성](dialog-build.html#folders)을 참조하십시오.
+Se você decide que deseja evitar digressões em vários nós raiz, mas não deseja editar cada um individualmente, é possível incluir os nós em uma pasta. Na página *Customizar* da pasta, é possível configurar a alternância *Permitir digressões neste nó* para **Desativado** para aplicar a configuração a todos os nós de uma vez. Veja [Organizando o diálogo com pastas](dialog-build.html#folders) para obter mais informações.
 
-### 디자인 고려사항
+### Considerações de design
 {: #digression-design-considerations}
 
-- **대체 노드 확산 방지**: 많은 대화 상자 디자이너는 사용자가 분기에 걸리지 않도록 하기 위해 모든 대화 상자 분기 끝에 `true` 또는 `anything_else` 조건이 있는 노드를 포함합니다. 이 디자인은 사용자 입력이 예상한 내용과 일치하지 않고 처리할 특정 대화 상자 노드를 포함할 경우 일반 메시지를 리턴합니다. 그러나, 사용자가 이 접근 방식을 사용하는 대화 상자 플로우에서 벗어날 수 없습니다.
+- **Evite proliferação do nó de fallback**: muitos designers de diálogo incluem um nó com uma condição `true` ou `anything_else` no término de cada ramificação de diálogo como uma maneira de evitar que os usuários fiquem presos na ramificação. Esse design retorna uma mensagem genérica se a entrada do usuário não corresponde nada que você previu e incluiu um nó de diálogo específico para direcionar. No entanto, os usuários não podem digressionar fora de fluxos de diálogo que usam essa abordagem.
 
-  이 방법을 사용하는 모든 분기를 평가하여 분기에서 다이그레션(Digression) 벗어나기를 허용하는 것이 더 나은지 여부를 결정하십시오. 사용자 입력이 예상한 내용과 일치하지 않으면 트리에서 완전히 다른 대화 상자 플로우와 일치하는 내용을 찾을 수 있습니다. 일반 메시지에 응답하는 대신 나머지 대화 상자를 효과적으로 사용하여 사용자의 입력을 처리할 수 있습니다. 그리고 루트 레벨 `Anything else` 노드는 다른 루트 노드가 처리할 수 없는 입력에 항상 응답할 수 있습니다.
+  Avalie as ramificações que usam essa abordagem para determinar se seria melhor permitir digressões fora da ramificação. Se a entrada do usuário não corresponde nada que você previu, ela pode localizar uma correspondência com relação a um fluxo de diálogo totalmente diferente em sua árvore. Em vez de responder com uma mensagem genérica, é possível colocar efetivamente o resto do diálogo para trabalhar para tentar direcionar a entrada do usuário. Além disso, o nó `Anything else` de nível raiz pode sempre responder à entrada que nenhum dos outros nós raiz pode direcionar.
 
-- **종료 노드로 이동 재검토**: 많은 대화 상자가 `오늘 귀하의 질문에 답변을 드렸습니까?`라고 하는 표준 종료 질문을 하도록 설계되어 있습니다. 사용자는 다른 노드로 점프하도록 구성된 노드에서 벗어날 수 없습니다. 따라서, 모든 최종 분기 노드를 공통 종료 노드로 점프하도록 구성하면 다이그레션(Digression)은 발생하지 않습니다. 메트릭 또는 다른 방법을 통해 사용자 만족 추적을 고려하십시오.
+- **Reconsidere saltos para um nó de fechamento**: muitos diálogos são projetados para fazer uma pergunta de fechamento padrão, como `Did I answer your question today?` Os usuários não podem digressionar fora dos nós que estão configurados para ir para outro nó. Então, se você configura todos os nós de ramificação final para ir para um nó de fechamento comum, as digressões não podem ocorrer. Considere rastrear a satisfação do usuário por meio de métricas ou algum outro meio.
 
-- **가능한 다이그레션(Digression) 체인 테스트**: 사용자가 현재 노드에서 다이그레션(Digression) 벗어나기를 허용하는 다른 노드로 벗어나 있는 경우, 사용자는 다른 노드에서 벗어나 잠재적으로 이 패턴을 한 번 이상 반복할 수 있습니다. 다이그레션(Digression) 체인의 모든 노드가 디그레션 후 리턴하도록 구성되어 있는 경우, 사용자는 결국 현재 대화 상자 노드로 돌아옵니다. 그러나 개별 노드가 예상대로 작동하는지 여부를 결정하기 위해 여러 번 벗어나는 테스트 시나리오. 
+- **Teste possíveis cadeias de digressão**: se um usuário digressiona fora do nó atual para outro nó que permite digressões fora, o usuário pode potencialmente digressionar fora daquele outro nó e repetir esse padrão uma ou mais vezes novamente. Se todos os nós na cadeia de digressão forem configurados para retornar após a digressão, o usuário será eventualmente trazido de volta ao nó de diálogo atual. No entanto, teste os cenários que digressionam múltiplas vezes para determinar se os nós individuais funcionam conforme o esperado.
 
-- **현재 노드에 우선순위가 있음**: 현재 플로우가 사용자 입력을 처리할 수 없는 경우 현재 플로우 외부의 노드는 다이그레션(Digression) 대상으로 간주됩니다. 특히 다이그레션(Digression) 벗어나기를 허용하는 슬롯이 있는 노드에서 중요한 것은 사용자에게 필요한 정보를 명확히 하고 사용자가 값을 제공한 후에 표시되는 확인 문장을 추가하는 것입니다.
+- **Lembre-se de que o nó atual tem prioridade**: lembre-se de que os nós fora do fluxo atual somente são considerados como destinos de digressão se o fluxo atual não pode direcionar a entrada do usuário. É ainda mais importante em um nó com intervalos que permite digressões fora, em particular, deixar claro aos usuários quais informações são necessárias deles e incluir instruções de confirmação que são exibidas após o usuário fornecer um valor.
 
-  모든 슬롯은 슬롯 채우기 처리 중에 채워질 수 있습니다. 따라서, 슬롯이 사용자 입력을 캡처할 수 있습니다. 예를 들어, 저녁 식사 예약을 작성하는 데 필요한 정보를 수집하는 슬롯이 있는 노드가 포함될 수 있습니다. 슬롯 중 하나가 날짜 정보를 수집합니다. 예약 세부사항을 제공하는 중에 사용자는 `내일 날씨는 어떻습니까?`라고 문의할 수 있습니다. 귀하는 사용자에게 답변 가능한 #forecast 조건이 있는 루트 노드를 가지고 있을 수 있습니다. 그렇지만, 사용자의 입력에 `내일`이란 단어가 포함되어 있고 슬롯이 있는 예약 노드가 처리 중이기 때문에 서비스는 사용자가 예약 날짜를 제공하거나 업데이트한다고 가정합니다. *현재 노드가 항상 우선순위를 갖습니다.* 명확한 확인 문장을 정의한 경우, 예를 들어, `예약 날짜를 내일로 설정, 확인`, 사용자는 잘못된 의사 소통이 있었음을 깨닫고 이를 정정합니다.
+  Qualquer intervalo pode ser preenchido durante o processo de preenchimento de intervalo. Portanto, um intervalo pode capturar entrada do usuário inesperadamente. Por exemplo, talvez você tenha um nó com intervalos que coleta as informações necessárias para fazer uma reserva de jantar. Um dos intervalos coleta informações de data. Ao fornecer os detalhes de reserva, o usuário pode perguntar `What's the weather meant to be tomorrow?` Você pode ter um nó raiz que condiciona em #forecast o que pode responder ao usuário. No entanto, como a entrada do usuário inclui a palavra `tomorrow` e o nó de reserva com intervalos está sendo processado, o serviço presume que o usuário está fornecendo ou atualizando a data de reserva. *O nó atual sempre tem prioridade.* Se você define uma instrução de confirmação clara, como `Ok, setting the reservation date to tomorrow,` é mais provável que o usuário perceba que houve um erro de comunicação e o corrige.
 
-  반대로, 슬롯을 채우는 동안 사용자가 슬롯 중 어느 곳에서도 예상하지 않는 값을 제공하면, 사용자가 절대 벗어나려고 하지 않은 전혀 관련없는 루트 노드와 일치할 가능성이 있습니다.
+  Por outro lado, enquanto preenche os intervalos, se o usuário fornece um valor que não é esperado por nenhum dos intervalos, há uma chance que ele corresponderá com relação a um nó raiz completamente não relacionado para o qual o usuário nunca pretendeu digressionar.
 
-  다이그레션(Digression) 동작을 구성하려면 많은 테스트가 필요합니다.
+  Certifique-se de fazer vários testes enquanto você configura o comportamento de digressão.
 
-- **슬롯 핸들러 대신 다이그레션(Digression)을 사용할때**: 사용자가 언제든지 문의할 수 있는 일반적인 질문의 경우, 다이그레션(Digression)을 허용하는 루트 노드를 사용하고 입력을 처리한 다음 진행 중인 플로우로 되돌아갑니다. 슬롯이 있는 노드의 경우, 사용자가 슬롯을 채우는 동안 문의할 수 있는 관련 질문 유형을 예상하고 노드에 핸들러를 추가하여 해결하십시오.
+- **Ao usar digressões em vez de manipuladores de intervalos**: para perguntas gerais que os usuários podem fazer a qualquer momento, use um nó raiz que permita digressões nele, processe a entrada e depois volte para o fluxo que estava em andamento. Para os nós com intervalos, tente prever os tipos de perguntas relacionadas que os usuários podem desejar fazer ao preencher os intervalos e direcione-os incluindo manipuladores no nó.
 
-  예를 들어, 슬롯이 있는 노드가 보험 청구를 작성하는 데 필요한 정보를 수집하는 경우, 보험에 대한 일반적인 질문을 처리하는 핸들러를 추가할 수 있습니다. 그러나 도움말을 가져오는 방법이나 상점 위치 또는 회사의 기록에 대한 질문은 루트 레벨 노드를 사용하십시오.
+  Por exemplo, se o nó com intervalos coleta as informações necessárias para preencher uma solicitação de seguro, você pode desejar incluir manipuladores que direcionam perguntas comuns sobre o seguro. No entanto, para perguntas sobre como obter ajuda, ou seus locais de lojas ou o histórico de sua empresa, use um nó de nível raiz.

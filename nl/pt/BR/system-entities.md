@@ -17,260 +17,261 @@ lastupdated: "2018-01-24"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 시스템 엔티티 세부사항
+# Detalhes da entidade do sistema
 
-이 참조 섹션에서는 사용 가능한 시스템 엔티티에 대한 완전한 정보를 제공합니다. 시스템 엔티티 및 사용 방법에 대한 자세한 정보를 보려면 [엔티티 정의](entities.html#enable_system_entities)를 참조하고 "시스템 엔티티 사용"을 검색하십시오.
+Essa seção de referência fornece informações completas sobre as entidades do sistema disponíveis. Para obter mais informações sobre entidades do sistema e como usá-las, consulte [Definindo entidades](entities.html#enable_system_entities) e procure por "Ativando entidades do sistema".
 {: shortdesc}
 
-시스템 엔티티는 [지원되는 언어](lang-support.html) 주제에 설명된 언어에서 사용 가능합니다.
+As entidades do sistema estão disponíveis para idiomas anotados no tópico [Idiomas suportados](lang-support.html).
 
-## @sys-currency 엔티티
+## Entidade @sys-currency
 {: #sys-currency}
 
-@sys-currency 시스템 엔티티는 통화 기호 또는 통화 특정 용어가 포함된 표현에 표시된 통화 값을 발견합니다. 숫자 값이 리턴됩니다.
+A entidade do sistema @sys-currency detecta valores monetários que são expressos em uma elocução com um símbolo monetário ou termos específicos da moeda. Um valor numérico é retornado.
 
-### 인식되는 형식
+### Formatos reconhecidos
 
-- 20 cents
-- Five dollars
+- 20 centavos
+- Cinco dólares
 - $10
 
-### 메타데이터
+### Metadados
 
-- `.numeric_value`: 정수 또는 실수인 표준 숫자 값(기본 단위)
-- `.unit`: 기본 단위 통화 코드(예: 'USD' 또는 'EUR')
+- `.numeric_value`: o valor numérico canônico como um número inteiro ou um duplo, em unidades base
+- `.unit`: o código de moeda de unidade base (por exemplo, 'USD' ou 'EUR')
 
-### 리턴
+### Retorna
 
-입력 `twenty dollars` 또는 `$1,234.56`의 경우, @sys-currency는 다음 값을 리턴합니다.
+Para a entrada `twenty dollars` ou `$ 1,234.56`, @sys-currency retorna esses valores:
 
-| 속성                   | 유형   | `twenty dollars`에 대해 리턴됨 | `$1,234.56`에 대해 리턴됨 |
+| Atributo                   | Tipo   | Retornado para `twenty dollars` | Retornado para `$ 1,234.56` |
 |-----------------------------|--------|-------------------------------|-------------------------:|
-| @sys-currency               | 문자열 | 20                            |                  1234.56 |
-| @sys-currency.literal       | 문자열 | twenty dollars                |                $1,234.56 |
-| @sys-currency.numeric_value | 숫자 | 20                            |                  1234.56 |
-| @sys-currency.location      | 배열  | [0,14]                        |                    [0,9] |
-| @sys-currency.unit          | 문자열 | USD*                          |                      USD |
+| @sys-currency               | sequência | 20                            |                  1234,56 |
+| @sys-currency.literal       | sequência | vinte dólares                |                $ 1.234,56 |
+| @sys-currency.numeric_value | número | 20                            |                  1234,56 |
+| @sys-currency.location      | matriz  | [0,14]                        |                    [0,9] |
+| @sys-currency.unit          | sequência | USD*                          |                      USD |
 
-*@sys-currency.unit은 항상 3자의 ISO 통화 코드를 리턴합니다.
+*@sys-currency.unit sempre retorna o código de moeda ISO de 3 letras.
 
-입력 `veinte euro` 또는 <code>&euro;1.234,56</code>(스페인어)의 경우 @sys-currency가 다음 값을 리턴합니다.
+Para a entrada `veinte euro` ou <code>&euro;1,234.56</code>, em espanhol, @sys-currency retorna esses valores:
 
-| 속성                   | 유형   | `veinte euro`에 대해 리턴됨 | <code>&euro;1.234,56</code>에 대해 리턴됨 |
+| Atributo                   | Tipo   | Retornado para `veinte euro` | Retornado para <code>&euro; 1,234.56</code> |
 |-----------------------------|--------|-----------------------------|-------------------------:|
-| @sys-currency               | 문자열 | 20                          |                  1234.56 |
-| @sys-currency.literal       | 문자열 | veinte euro                 |                &euro;1.234,56 |
-| @sys-currency.numeric_value | 숫자 | 20                          |                  1234.56 |
-| @sys-currency.location      | 배열  |[0,11]                       |                     [0,9]|
-| @sys-currency.unit          | 문자열 | EUR*                        |                     EUR  |
-*@sys-currency.unit은 항상 3자의 ISO 통화 코드를 리턴합니다.
+| @sys-currency               | sequência | 20                          |                  1234,56 |
+| @sys-currency.literal       | sequência | veinte euro                 |                &euro; 1.234,56 |
+| @sys-currency.numeric_value | número | 20                          |                  1234,56 |
+| @sys-currency.location      | matriz  |[0,11]                       |                     [0,9]|
+| @sys-currency.unit          | sequência | EUR*                        |                     EUR  |
+*@sys-currency.unit sempre retorna o código de moeda ISO de 3 letras.
 
-지원되는 다른 언어 및 자국 통화에 대해서도 동등한 결과를 얻습니다.
+Você obtém resultados equivalentes para outros idiomas e moedas nacionais suportados.
 
-### @system-currency 사용 팁
+### Dicas de uso de @system-currency
 
-- 통화 값은 @sys-number 엔티티의 인스턴스로 인식됩니다. 개별 조건을 사용하여 통화 값과 숫자 둘 다 검사하는 경우, 숫자를 검사하는 조건 위에 통화를 검사하는 조건을 배치하십시오.
+- Os valores de moeda também são reconhecidos como instâncias de entidades @sys-number. Se você estiver usando condições separadas para verificar os valores de moeda e os números, coloque a condição que verifica a moeda acima daquela que verifica um número.
 
-- @sys-currency 엔티티를 노드 조건으로 사용하고 사용자가 `$0`을 값으로 지정하면, 값이 통화로 올바르게 인식되지만 조건은 통화 0이 아닌 숫자 0으로 평가됩니다. 그 결과 예상 응답을 리턴하지 않습니다. 0을 올바르게 처리하는 방식으로 통화 값을 검사하려면 노드 조건에서 `entities['sys-currency']` 구문을 사용하십시오.
+- Se você usar a entidade @sys-currency como uma condição de nó e o usuário especificar `$0` como o valor, o valor será reconhecido como uma moeda corretamente, mas a condição será avaliada para o número zero, não a moeda zero. Como resultado, ela não retorna a resposta esperada. Para procurar valores de moeda de uma maneira que manipule zeros corretamente, use a sintaxe `entities['sys-currency']` na condição do nó.
 
-## @sys-date 및 @sys-time 엔티티
+## Entidades @sys-date e @sys-time
 {: #sys-datetime}
 
-`@sys-date` 시스템 엔티티는 `Friday`, `today` 또는 `November 1`과 같은 언급을 추출합니다. 이 엔티티의 값은 해당 날짜를 "yyyy-MM-dd" 형식의 문자열(예: "2016-11-21")로 저장합니다. 시스템은 날짜의 누락된 요소(예: "November 21"의 연도)를 현재 날짜 값으로 보완합니다.
+A entidade do sistema `@sys-date` extrai menções como `Friday`, `today` ou `November 1`. O valor dessa entidade armazena a data inferida correspondente como uma sequência no formato "aaaa-MM-dd", por exemplo, "2016-11-21". O sistema aumenta elementos ausentes de uma data (como o ano para "21 de novembro") com os valores de data atuais.
 
-**참고:** - 영어 로케일의 경우에만 날짜 입력을 위한 기본 시스템 동작이 MM/DD/YYYY입니다. 처음 두 숫자가 12보다 큰 경우에만 DD/MM/YYYY로 변경됩니다. 저장되는 값의 형식은 여전히 "yyyy-MM-dd"입니다.
+**Nota:** - apenas para o idioma inglês, o comportamento do sistema padrão para a entrada de data é MM/DD/AAAA. Isso mudará para DD/MM/AAAA apenas se os primeiros dois números forem maiores que 12. O valor armazenado ainda estará no formato "aaaa-MM-dd".
 
-`@sys-time` 시스템 엔티티는 `2pm`, `at 4` 또는 `15:30`과 같은 언급을 추출합니다. 이 엔티티의 값은 "HH:mm:ss" 형식의 문자열로 시간을 저장합니다. 예를 들어, "13:00:00"입니다.
+A entidade do sistema `@sys-time` extrai menções como `2pm`, `at 4` ou `15:30`. O valor dessa entidade armazena a hora como uma sequência no formato "HH :mm:ss". Por exemplo, "13:00:00."
 
-### 날짜-시간 언급
+### Menções de data/hora
 
-날짜 및 시간 언급(예: `now` 또는 `two hours from now`)은 두 개의 개별 엔티티 언급으로 추출됩니다(하나의 `@sys-date` 및 하나의 `@sys-time`). 이러한 두 개의 언급은 전체 날짜-시간 언급을 포괄하는 동일한 리터럴 문자열을 공유하는 경우를 제외하고 서로 연결되지 않습니다.
+Menções de data e hora, como `now` ou `two hours from now` são extraídas como duas menções de entidade separadas - uma `@sys-date` e uma `@sys-time`. Essas duas menções não estão vinculadas uma com a outra, exceto que elas compartilham a mesma sequência literal que estende a menção de data/hora completa.
 
-다중 단어 날짜-시간 언급(예: `on Monday at 4pm`)도 두 개의 @sys-date 및 @sys-time 언급으로 추출됩니다. 또한 연속하여 함께 언급되는 경우 전체 날짜-시간 언급을 포괄하는 단일 리터럴 문자열을 공유합니다.
+Menções com várias palavras, data e hora como `on Monday at 4pm` também são extraídas como duas menções @sys-date e @sys-time. Quando mencionadas juntas consecutivamente, elas também compartilham uma única sequência literal que abrange a menção de data/hora completa.
 
-### 날짜 및 시간 범위
+### Intervalos de data e hora
 
-날짜 범위 언급(예: `the weekend`, `next week` 또는 `from Monday to Friday`)은 범위의 시작과 끝을 표시하는 `@sys-date` 엔티티 언급의 쌍으로 추출됩니다. 마찬가지로 시간 범위의 언급(`from 2 to 3`)은 두 개의 `@sys-time` 엔티티로 추출되며, 시작 시간과 끝 시간을 표시합니다. 쌍으로 된 두 개의 엔티티는 전체 날짜 또는 시간 범위 언급에 해당하는 리터럴 문자열을 공유합니다.
+Menções de um intervalo de data, como `the weekend`, `next week` ou `from Monday to Friday` são extraídas como um par de menções de entidade `@sys-date` que mostram o início e o término do intervalo. Da mesma forma, menções de intervalos de tempo como `from 2 to 3` são extraídos como duas entidades `@sys-time`, mostrando os horários de início e de encerramento. As duas entidades no par compartilham uma sequência literal que corresponde à menção do intervalo de data ou hora integral.
 
-### `지난` 및 `다음` 날짜와 시간
+### `Last` e `Next` datas e horas
 
-일부 로케일에서 "last Monday"와 같은 구는 이전 주의 월요일만 지정하는 데 사용됩니다. 이와 반대로 다른 로케일은 "last Monday"를 사용하여 월요일이었던 지난 요일을 지정하지만 같은 주 또는 이전 주의 월요일일 수 있습니다.
+Em alguns códigos de idioma, uma frase como "na segunda-feira passada" é usada para especificar a segunda-feira da semana anterior apenas. Em contraste, outros códigos de idioma usar "na segunda-feira passada" para especificar o último dia que foi uma segunda-feira, mas que pode ter sido na mesma semana ou na semana anterior.
 
-한 예로, 6월 16일 금요일인 경우 어떤 로케일에서는 "last Monday"가 6월 12일 또는 6월 5일을 나타내는 반면, 다른 로케일에서는 6월 5일만 나타냅니다(이전 주). 동일한 로직이 "next Monday"와 같은 구에서도 유효합니다.
+Como um exemplo, para sexta-feira, 16 de junho, em alguns códigos de idioma "na segunda-feira passada" pode referir-se a 12 de junho ou a 5 de junho, enquanto que em outros códigos de idioma se refere apenas a 5 de junho (a semana anterior). Essa mesma lógica vale para uma frase como "na próxima segunda-feira".
 
-{{site.data.keyword.conversationshort}} 서비스는 "지난" 날짜 및 "다음" 날짜를 참조된 가장 가까운 지난 요일이나 다른 요일을 나타내는 것으로 간주하며, 이 날짜는 같은 주나 이전 주의 요일일 수 있습니다.
+O serviço {{site.data.keyword.conversationshort}} trata "última" e "próxima" datas como referência ao último ou próximo dia mais imediato referenciado, que pode estar na mesma semana ou em uma semana anterior.
 
-"for the last 3 days" 또는 "in the next 4 hours"와 같은 시간 구에서 로직은 동일합니다. 예를 들어, "in the next 4 hours"의 경우, 두 개의 `@sys-time` 엔티티(현재 시간의 엔티티와 현재 시간보다 4시간 뒤의 엔티티)가 생깁니다.
+Para frases de tempo como "nos últimos 3 dias" ou "nas próximas 4 horas", a lógica é equivalente. Por exemplo, no caso de "nas próximas 4 horas", isso resulta em duas entidades `@sys-time`: uma do horário atual e uma das quatro horas posteriores à hora atual.
 
-### 시간대
+### Fusos horários
 
-현재 시간과 관련된 날짜나 시간의 언급은 선택한 시간대와 관련하여 해결됩니다. 기본적으로 UTC(GMT)입니다. 즉, 기본적으로 UTC와 다른 시간대에 있는 REST API 클라이언트는 현재 UTC 시간에 따라 추출된 `now` 값을 관찰합니다.
+Menções de uma data ou hora que são relativas ao horário atual são resolvidas com relação a um fuso horário escolhido. Por padrão, este é UTC (GMT). Isso significa que, por padrão, os clientes da API de REST localizados em fusos horários diferentes de UTC observarão o valor de `now` extraído de acordo com o horário UTC atual.
 
-선택적으로 REST API 클라이언트는 로컬 시간대를 컨텍스트 변수 `$timezone`으로 추가할 수 있습니다. 이 컨텍스트 변수는 모든 클라이언트 요청과 함께 보내야 합니다. 예를 들어, `$timezone` 값은 `America/Los_Angeles`, `EST` 또는 `UTC`여야 합니다. 지원되는 시간대의 전체 목록은 [지원되는 시간대](supported-timezones.html)를 참조하십시오.
+Opcionalmente, o cliente da API de REST pode incluir o fuso horário local como a variável de contexto `$timezone`. Essa variável de contexto deve ser enviada com cada solicitação do cliente. Por exemplo, o valor `$timezone` deve ser `America/Los_Angeles`, `EST` ou `UTC`. Para obter uma lista completa de fusos horários suportados, consulte [Fusos horários suportados](supported-timezones.html).
 
-`$timezone` 변수가 제공되는 경우 관련 @sys-date 및 @sys-time 언급의 값은 UTC 대신 클라이언트 시간대에 따라 계산됩니다.
+Quando a variável `$timezone` é fornecida, os valores das menções @sys-date e @sys-time relativas são calculadas com base no fuso horário do cliente em vez de UTC.
 
-#### 시간대와 관련된 언급의 예제
+#### Exemplos de menções relativas aos fusos horários
 
-- now
-- in two hours
-- today
-- tomorrow
-- 2 days from now
+- agora
+- em duas horas
+- hoje
+- amanhã
+- 2 dias a partir de agora
 
-### 인식되는 형식
+### Formatos reconhecidos
 
-- November 21
-- 10:30
-- at 6 pm
-- this weekend
+- 21 de novembro
+- 10h30
+- às 18h
+- nesse fim de semana
 
-### 리턴
+### Retorna
 
-입력 `November 21`의 경우 @sys-date가 다음 값을 리턴합니다.
+Para a entrada `November 21` @sys-date retorna esses valores:
 
-| 속성               | 유형   | `November 21`에 대해 리턴됨 |
+| Atributo               | Tipo   | Retornado para `November 21` |
 |-------------------------|--------|---------------------------:|
-| @sys-date.literal       | 문자열 |                November 21 |
-| @sys-date               | 문자열 |                20xx-11-21 *|
-| @sys-date.location      | 배열 |                     [0,11]  |
-| @sys-date.calendar_type | 문자열 |                  GREGORIAN |
+| @sys-date.literal       | sequência |                21 de novembro |
+| @sys-date               | sequência |                20xx-11-21 *|
+| @sys-date.location      | matriz |                     [0,11]  |
+| @sys-date.calendar_type | sequência |                  GREGORIANO |
 
-- @sys-date는 항상 yyyy-MM-dd 형식의 날짜를 리턴합니다.
-- \* 다음 일치 날짜를 리턴합니다. 날짜가 이미 올해를 지난 경우 다음 연도의 날짜를 리턴합니다.
+- @sys-date sempre retorna a data neste formato: aaaa-MM-dd.
+- \* Retorna a próxima data de correspondência. Se essa data já passou este ano, retorna a data do ano seguinte.
 
-입력 `at 6 pm`의 경우 @sys-time이 다음 값을 리턴합니다.
+Para a entrada `at 6 pm` @sys-time retorna esses valores:
 
-| 속성               | 유형   | `at 6 pm`에 대해 리턴됨 |
+| Atributo               | Tipo   | Retornado para `at 6 pm` |
 |-------------------------|--------|-----------------------:|
-| @sys-time.literal       | 문자열 |                at 6 pm |
-| @sys-time               | 문자열 |               18:00:00 |
-| @sys-time.location      | 배열 |                   [0,7]|
-| @sys-time.calendar_type | 문자열 |              GREGORIAN |
+| @sys-time.literal       | sequência |                at 6 pm |
+| @sys-time               | sequência |               18:00:00 |
+| @sys-time.location      | matriz |                   [0,7]|
+| @sys-time.calendar_type | sequência |              GREGORIANO |
 
-- @sys-time은 항상 HH:mm:ss 형식으로 시간을 리턴합니다.
+- @sys-time sempre retorna o horário neste formato: HH:mm:ss.
 
-날짜 및 시간 값 처리에 대한 정보는 [날짜 및 시간](dialog-methods.html#date-time) 메소드 참조를 참조하십시오.
+Para obter informações sobre o processamento de valores de data e hora, consulte a referência do método [Data e hora](dialog-methods.html#date-time).
 {: tip}
 
-## @sys-location 엔티티
+## Entidade @sys-location
 {: #sys-location}
 
-**베타([지원되는 언어](lang-support.html) 주제에 설명된 언어의 경우)**: @sys-location 시스템 엔티티는 사용자 입력에서 장소 이름(국가, 시/도, 도시, 소도시 등)을 추출합니다. 엔티티 값은 위치의 시스템 표준 값이 아닙니다.
+**BETA, para idiomas observados no tópico [Idiomas Suportados](lang-support.html)**: a entidade do sistema @sys-location extrai nomes de locais (país, estado/município, cidade, etc). da entrada dos usuários. O valor da entidade não é um valor padrão do sistema para o local.
 
-### 인식되는 형식
+### Formatos reconhecidos
 
 - Boston
-- 대표전화서비스: 02-3781-7114
-- New South Wales
+- EUA
+- Nova Gales do Sul
 
-문자열 값 처리에 대한 정보는 [문자열](dialog-methods.html#strings) 메소드 참조를 참조하십시오.
+Para obter informações sobre o processamento de valores de sequência, veja a referência de método de [Sequências](dialog-methods.html#strings).
 {: tip}
 
-## @sys-number 엔티티
+## Entidade @sys-number
 {: #sys-number}
 
-@sys-number 시스템 엔티티는 숫자나 단어를 사용하여 작성된 숫자를 발견합니다. 어느 경우에나 숫자 값이 리턴됩니다.
+A entidade do sistema @sys-number detecta números que são gravados usando numerais ou palavras. Seja qual for o caso, um valor numérico será retornado.
 
-### 인식되는 형식
+### Formatos reconhecidos
 
 - 21
-- twenty one
-- 3.13
+- vinte e um
+- 3,13
 
-### 메타데이터
+### Metadados
 
-- `.numeric_value` - 정수 또는 실수인 표준 숫자 값
+- `.numeric_value` - o valor numérico canônico como um número inteiro ou um duplo
 
-### 리턴
+### Retorna
 
-입력 `twenty` 또는 `1,234.56`의 경우 @sys-number가 다음 값을 리턴합니다.
+Para a entrada `twenty` ou `1,234.56`, @sys-number retorna esses valores:
 
-| 속성                   | 유형   | `twenty`에 대해 리턴됨 | `1,234.56`에 대해 리턴됨 |
+| Atributo                   | Tipo   | Retornado para `twenty` | Retornado para `1,234.56` |
 |-----------------------------|--------|-------------------|------------------------:|
-| @sys-number               | 문자열 | 20                |                 1234.56 |
-| @sys-number.literal       | 문자열 | twenty            |                1,234.56 |
-| @sys-number.location      | 배열 |  [0,6]             |                    [0,8]|
-| @sys-number.numeric_value | 숫자 | 20                |                 1234.56 |
+| @sys-number               | sequência | 20                |                 1234,56 |
+| @sys-number.literal       | sequência | vinte            |                1,234.56 |
+| @sys-number.location      | matriz |  [0,6]             |                    [0,8]|
+| @sys-number.numeric_value | número | 20                |                 1234,56 |
 
-입력 `veinte` 또는 `1.234,56`(스페인어)의 경우 @sys-number가 다음 값을 리턴합니다.
+Para a entrada `veinte` ou `1.234,56`, em espanhol, @sys-number retorna esses valores:
 
-| 속성                   | 유형   | `veinte`에 대해 리턴됨 | `1.234,56`에 대해 리턴됨 |
+| Atributo                   | Tipo   | Retornado para `veinte` | Retornado para `1.234,56` |
 |-----------------------------|--------|-----------------------|------------------------:|
-| @sys-number               | 문자열 | 20                    |                 1234.56 |
-| @sys-number.literal       | 문자열 | veinte                |                1.234,56 |
-| @sys-number.location      | 배열  | [0,6]                 |                   [0,8] |
-| @sys-number.numeric_value | 숫자 | 20                    |                 1234.56 |
+| @sys-number               | sequência | 20                    |                 1234,56 |
+| @sys-number.literal       | sequência | veinte                |                1.234,56 |
+| @sys-number.location      | matriz  | [0,6]                 |                   [0,8] |
+| @sys-number.numeric_value | número | 20                    |                 1234,56 |
 
-지원되는 다른 언어에 대해서도 동등한 결과를 얻습니다.
+Você obtém resultados equivalentes para outros idiomas suportados.
 
-### @system-number 사용 팁
+### Dicas de uso de @system-number
 
-- @sys-number 엔티티를 노드 조건으로 사용하고 사용자가 0을 값으로 지정하면, 0 값은 숫자로 올바르게 인식되지만 조건은 false로 평가되며 연관된 응답을 올바르게 리턴할 수 없습니다. 0을 올바르게 처리하는 방식으로 숫자를 검사하려면 노드 조건에서 `entities['sys-number']` 구문을 사용하십시오.
+- Se você usar a entidade @sys-number como uma condição de nó e o usuário especificar zero como o valor, o valor 0 será reconhecido corretamente como um número, mas a condição será avaliada como false e não poderá retornar a resposta associada corretamente. Para procurar números de uma maneira que manipule os zeros corretamente, use a sintaxe `entities['sys-number']` na condição do nó.
 
-- @sys-number를 사용하여 조건에서 숫자 값을 비교하는 경우 숫자의 존재에 대한 검사를 별도로 포함해야 합니다. 숫자가 없으면 @sys-number가 널로 평가되며, 그 결과 숫자가 없더라도 비교 시 true로 평가됩니다.
+- Se você usar @sys-number para comparar valores numéricos em uma condição, certifique-se de incluir separadamente uma verificação para a presença de um número em si. Se nenhum número for localizado, @sys-number será avaliado como nulo, o que pode resultar em sua comparação sendo avaliada como verdadeira mesmo quando nenhum número está presente.
 
-  예를 들어, 숫자가 없는 경우 `@sys-number`가 널로 평가되므로 `@sys-number<4`를 단독으로 사용하지 마십시오. 널이 4보다 작으므로, 숫자가 없더라도 조건은 true로 평가됩니다.
+  Por exemplo, não use `@sys-number<4` sozinho porque se nenhum número for localizado, `@sys-number` será avaliado como nulo. Como nulo é menor que 4, a condição será avaliada como verdadeira, embora nenhum número esteja presente.
 
-  대신 `@sys-number AND @sys-number<4`를 사용하십시오. 숫자가 없는 경우 첫 번째 조건이 false로 평가되며 그에 따라 전체 조건이 false로 평가됩니다.
+  Use `@sys-number AND @sys-number<4` em vez disso. Se nenhum número estiver presente, a primeira condição será avaliada como falsa, o que resulta adequadamente na condição inteira sendo avaliada como falsa.
 
-숫자 값 처리에 대한 정보는 [숫자](dialog-methods.html#numbers) 메소드 참조를 참조하십시오.
+Para obter informações sobre o processamento de valores numéricos, consulte a referência de método [Números](dialog-methods.html#numbers).
 {: tip}
 
-## @sys-percentage 엔티티
+## Entidade @sys-percentage
 {: #sys-percentage}
 
-@sys-percentage 시스템 엔티티는 백분율 기호가 포함된 표현에 표시되거나 단어 `percent`를 사용하여 작성된 백분율을 발견합니다. 어느 경우에나 숫자 값이 리턴됩니다.
+A entidade do sistema @sys-percentage detecta porcentagens expressas em uma elocução com o símbolo percentual ou escrita usando a palavra `percent`. Seja qual for o caso, um valor numérico será retornado.
 
-### 인식되는 형식
+### Formatos reconhecidos
 
 - 15%
-- 10 percent
+- 10 por cento
 
-### 메타데이터
+### Metadados
 
-`.numeric_value`: 정수 또는 실수인 표준 숫자 값
+`.numeric_value`: o valor numérico canônico como um número inteiro ou um duplo
 
-### 리턴
+### Retorna
 
-입력 `1,234.56%`의 경우 @sys-percentage가 다음 값을 리턴합니다.
+Para a entrada `1,234.56%`, @sys-percentage retorna esses valores:
 
-| 속성                     | 유형   | `1,234.56%`에 대해 리턴됨 |
+| Atributo                     | Tipo   | Retornado para `1,234.56%` |
 |-------------------------------|--------|-------------------------:|
-| @sys-percentage               | 문자열 |                  1234.56 |
-| @sys-percentage.literal       | 문자열 |                1,234.56% |
-| @sys-percentage.location      | 배열  |                    [0,9] |
-| @sys-percentage.numeric_value | 숫자 |                  1234.56 |
+| @sys-percentage               | sequência |                  1234,56 |
+| @sys-percentage.literal       | sequência |                1,234.56% |
+| @sys-percentage.location      | matriz  |                    [0,9] |
+| @sys-percentage.numeric_value | número |                  1234,56 |
 
-입력 `1.234,56%`(스페인어)의 경우 @sys-currency가 다음 값을 리턴합니다.
+Para a entrada `1.234,56%`, em espanhol, @sys-currency retorna esses valores:
 
-| 속성                     | 유형   | `1.234,56%`에 대해 리턴됨 |
+| Atributo                     | Tipo   | Retornado para `1.234,56%` |
 |-------------------------------|--------|-------------------------:|
-| @sys-percentage               | 문자열 |                  1234.56 |
-| @sys-percentage.literal       | 문자열 |                1.234,56% |
-| @sys-percentage.location      | 배열  |                    [0,9] |
-| @sys-percentage.numeric_value | 숫자 |                  1234.56 |
+| @sys-percentage               | sequência |                  1234,56 |
+| @sys-percentage.literal       | sequência |                1.234,56% |
+| @sys-percentage.location      | matriz  |                    [0,9] |
+| @sys-percentage.numeric_value | número |                  1234,56 |
 
-지원되는 다른 언어에 대해서도 동등한 결과를 얻습니다.
+Você obtém resultados equivalentes para outros idiomas suportados.
 
-### @system-percentage 사용 팁
+### Dicas de uso @system-percentage
 
-- 백분율 값은 @sys-number 엔티티의 인스턴스로 인식됩니다. 개별 조건을 사용하여 백분율 값과 숫자 둘 다 검사하는 경우, 숫자를 검사하는 조건 위에 백분율을 검사하는 조건을 배치하십시오.
+- Os valores de porcentagem também são reconhecidos como instâncias de entidades @sys-number. Se você estiver usando condições separadas para verificar os valores de porcentagem e números, coloque a condição que verifica uma porcentagem acima daquela que verifica um número.
 
-- @sys-percentage 엔티티를 노드 조건으로 사용하고 사용자가 `$0%`를 값으로 지정하는 경우, 값이 백분율로 올바르게 인식되지만 조건은 백분율 0%가 아닌 숫자 0으로 평가됩니다. 따라서 예상 응답을 리턴하지 않습니다. 백분율 0을 올바르게 처리하는 방식으로 백분율을 검사하려면 노드 조건에서 `entities['sys-percentage']` 구문을 사용하십시오.
+- Se você usar a entidade @sys-percentage como um nó de
+condição e o usuário especificar `0%` como o valor, o valor será reconhecido como uma porcentagem corretamente, mas a condição será avaliada para o número zero, não a porcentagem 0%. Portanto, ela não retornará a resposta esperada. Para verificar as porcentagens de forma que manipule nenhuma porcentagem corretamente, use a sintaxe `entities['sys-percentage']` na condição de nó.
 
-- `1-2%`와 같은 값을 입력하는 경우 값 `1%` 및 `2%`가 시스템 엔티티로 리턴됩니다. 인덱스는 1%와 2% 사이의 범위 전체에 있으며 두 엔티티 모두 동일한 인덱스를 가집니다.
+- Se você inserir um valor como `1-2%`, os valores `1%` e `2%` serão retornados como entidades do sistema. O índice será o intervalo inteiro entre 1% e 2%, e ambas as entidades terão o mesmo índice.
 
-## @sys-person 엔티티
+## Entidade @sys-person
 {: #sys-person}
 
-**베타([지원되는 언어](lang-support.html) 주제에 설명된 언어의 경우)**: @sys-person 시스템 엔티티는 사용자 입력에서 이름을 추출합니다. 이름은 개별적으로 인식되므로, "Will"이 "William"으로 간주되지 않으며, 그 반대의 경우도 마찬가지입니다. 엔티티의 값은 이름의 시스템 표준 값이 아닙니다.
+**BETA, para idiomas observados no tópico [Idiomas Suportados](lang-support.html)**: a entidade do sistema @sys-person extrai os nomes da entrada do usuário. Os nomes são reconhecidos individualmente, para que "Will" não seja tratado como "William" ou vice-versa. O valor da entidade não é um valor padrão do sistema para o nome.
 
-### 인식되는 형식
+### Formatos reconhecidos
 
 - Will
 - Jane Doe
 - Vijay
 
-문자열 값 처리에 대한 정보는 [문자열](dialog-methods.html#strings) 메소드 참조를 참조하십시오.
+Para obter informações sobre o processamento de valores de sequência, veja a referência de método de [Sequências](dialog-methods.html#strings).
 {: tip}

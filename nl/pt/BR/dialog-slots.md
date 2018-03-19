@@ -18,215 +18,216 @@ lastupdated: "2018-02-16"
 {:swift: .ph data-hd-programlang='swift'}
 {:table: .aria-labeledby="caption"}
 
-# 슬롯을 사용하여 정보 수집
+# Reunindo informações com intervalos
 {: #dialog-slots}
 
-대화 상자 노드에 슬롯을 추가하여 해당 노드 내에서 사용자로부터 여러 정보를 수집하십시오. 슬롯은 사용자의 속도에 맞춰 정보를 수집합니다. 사용자가 미리 제공하는 세부사항이 저장되고 서비스는 제공되지 않은 세부사항만 요청합니다.
+Inclua intervalos em um nó de diálogo para reunir várias partes de informações de um usuário dentro desse nó. Os intervalos coletam informações no ritmo dos usuários. Detalhes que o usuário fornece inicialmente são salvos e o serviço pede apenas os detalhes não fornecidos.
 
 <iframe class="embed-responsive-item" id="youtubeplayer" type="text/html" width="640" height="390" src="https://www.youtube.com/embed/ES4GHcDsSCI?rel=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen> </iframe>
 
-## 슬롯 추가 이유
+## Por que incluir intervalos?
 {: #why-add-slots}
 
-사용자에게 정확하게 응답하기 위해 필요한 정보를 가져오려면 슬롯을 사용하십시오. 예를 들어, 사용자가 운영 시간을 묻지만 상점 위치에 따라 시간이 다른 경우, 대답하기 전에 방문할 상점 위치에 대한 후속 질문을 할 수 있습니다. 그런 다음 제공된 위치 정보를 고려하는 응답 조건을 추가할 수 있습니다.
+Use intervalos para obter as informações de que precisa antes de poder responder com precisão ao usuário. Por exemplo, se os usuários perguntarem sobre as horas de funcionamento, mas as horas diferirem por localização da loja, você poderá fazer uma pergunta complementar sobre qual local da loja eles planejam visitar antes de responder. Em seguida, será possível incluir condições de resposta que considerem as informações de local fornecidas.
 
-![상점 오픈 시간을 묻는 질문에 응답하기 전에 위치 정보를 묻습니다.](images/op-hours.png)
+![Solicita informações do local antes de responder à pergunta: Quando você abre?.](images/op-hours.png)
 
-슬롯을 사용하면 사용자를 위해 복잡한 태스크(예: 저녁 식사 예약)를 완료하는 데 필요한 여러 정보를 수집할 수 있습니다.
+Os intervalos podem ajudá-lo a coletar várias partes de informações que você precisa para concluir uma tarefa complexa para um usuário, tal como fazer uma reserva para jantar.
 
-![저녁 식사 예약에 필요한 정보를 입력하라는 프롬프트를 표시하는 네 개의 슬롯을 표시합니다.](images/reservation.png)
+![Mostra quatro intervalos que solicitam as informações necessárias para fazer uma reserva para jantar.](images/reservation.png)
 
-사용자가 한 번에 여러 개의 슬롯 값을 제공할 수 있습니다. 예를 들어, 입력에 `6명, 저녁식사, 오후 7시`라는 정보가 포함될 수 있습니다. 하나의 입력에 두 개의 누락된 필수 값(예약 손님 수와 시간)이 있습니다. 서비스가 두 값을 모두 인식하고 해당 슬롯에 하나씩 저장합니다. 그리고 다음 빈 슬롯과 연관된 프롬프트를 표시합니다.
+O usuário pode fornecer valores para vários intervalos de uma vez. Por exemplo, a entrada poderia incluir as informações `There will be 6 of us dining at 7 PM.` Esta entrada contém dois dos valores necessários ausentes: o número de convidados e o horário da reserva. O serviço reconhece e armazena ambos, cada um em seu intervalo correspondente. Ele então exibe o prompt que está associado ao próximo intervalo vazio.
 
-![두 개의 슬롯이 채워지고 서비스가 남은 하나를 입력하라는 프롬프트를 표시한다는 내용을 보여줍니다.](images/pass-in-info.png)
+![Mostra que dois intervalos foram preenchidos e o serviço solicita o restante.](images/pass-in-info.png)
 
-슬롯을 사용하면 서비스가 사용자 목적을 다시 설정하지 않고도 후속 질문에 응답할 수 있습니다. 예를 들어, 사용자는 일기 예보에 대해 물은 다음 다른 위치나 다른 날짜의 날씨에 대한 후속 질문을 할 수 있습니다. 필수 예보 변수(예: 위치 및 날짜)를 슬롯에 저장한 다음 사용자가 새 변수값에 대해 후속 질문을 하는 경우, 슬롯 값을 제공된 새 값으로 겹쳐쓰고 새 정보를 반영하는 응답을 제공할 수 있습니다. (대화 상자에서 외부 서비스를 호출하는 방법에 대한 자세한 정보는 다음을 참조하십시오. [대화 상자 노드에서 프로그래밍 방식 호출 작성](dialog-actions.html)).
+Os intervalos tornam possível para o serviço responder às perguntas complementares sem precisar restabelecer o objetivo do usuário. Por exemplo, um usuário pode solicitar uma previsão do tempo, então fazer uma pergunta complementar sobre o clima em outro local ou em um dia diferente. Se você salvar as variáveis de previsão necessárias, como local e dia, em intervalos, se um usuário fizer uma pergunta complementar com novos valores de variáveis, você poderá sobrescrever os valores de intervalo com os novos valores fornecidos, e dar uma resposta que reflita as novas informações. (Para obter mais informações sobre como chamar um serviço externo por meio de um diálogo, veja [Fazendo chamadas programáticas por meio de um nó de diálogo](dialog-actions.html)).
 
-![누군가가 일기 예보에 대해 물은 다음 다른 위치와 시간의 날씨에 대해 후속 질문을 한다는 내용을 표시합니다.](images/follow-up.png)
+![Mostra alguém solicitando uma previsão do tempo e, em seguida, complementando com uma pergunta sobre o clima para um local ou horário diferente.](images/follow-up.png)
 
-슬롯을 사용하면 사용자와 서비스 간에 자연스러운 대화 상자 플로우를 생성할 수 있으며, 많은 개별 노드를 사용하여 정보를 수집할 때보다 쉽게 관리할 수 있습니다.
+O uso de intervalos produz um fluxo de diálogo mais natural entre o usuário e o serviço e é mais fácil para você gerenciar do que tentar coletar as informações usando muitos nós separados.
 
-## 슬롯 추가
+## Incluindo intervalos
 {: #add-slots}
 
-1.  수집할 정보 단위를 식별하십시오. 예를 들어, 사용자를 위해 피자를 주문하기 위해 다음 정보를 수집할 수 있습니다.
+1.  Identifique as unidades de informações que deseja coletar. Por exemplo, para pedir uma pizza para alguém, você pode desejar coletar as informações a seguir:
 
-    - 배달 시간
-    - 크기
+    - Horário da entrega
+    - Tamanho
 
-1.  대화 상자 작성을 시작하지 않은 경우, 작성하려면, [대화 상자 작성](dialog-build.html)의 지시사항을 따르십시오. 
+1.  Se você não começou a criar um diálogo, siga as instruções em [Criando um diálogo](dialog-build.html) para criar um.
 
-1.  대화 상자 편집 보기에서, **사용자 정의**를 클릭한 후 **슬롯** 다음의 토글을 클릭하여 **켜십시오**. 
+1.  Na visualização de edição do nó de diálogo, clique em **Customizar** e, em seguida, clique na alternância próxima a **Intervalos** para **Ativar**.
 
-    **참고**: **모든 정보 프롬프트** 선택란에 대한 자세한 정보는 [한 번에 모든 정보 요청](dialog-slots.html#slots-prompt-for-everything)을 참조하십시오. 
+    **Nota**: para obter mais informações sobre a caixa de seleção **Solicitar tudo**, veja [Perguntando tudo de uma vez](dialog-slots.html#slots-prompt-for-everything).
 
-1.  **필수 정보의 각 단위를 위한 슬롯을 추가하십시오**. 각 슬롯에 다음 세부사항을 지정하십시오.
+1.  **Inclua um intervalo para cada unidade de informações necessárias**. Para cada intervalo, especifique estes detalhes:
 
-    - **검사 대상**: 사용자 응답에서 슬롯 프롬프트로 추출할 정보 유형을 식별하십시오. 대부분의 경우, 엔티티 값을 확인하십시오. 표시되는 조건 빌더는 확인할 수 있는 엔티티를 제안합니다. 그러나, 인텐트를 확인할 수도 있습니다. 필드에 인텐트 이름만 입력하면 됩니다. 여기에 AND 및 OR 연산자를 사용하여 복잡한 조건을 정의할 수 있습니다.
+    - **Verificar**: identifique o tipo de informações que deseja extrair da resposta do usuário para o prompt do intervalo. Na maioria dos casos, você verifica os valores de entidade. Na verdade, o construtor de condição que é exibido sugere entidades que você pode procurar. No entanto, também é possível verificar uma intenção; apenas digite o nome da intenção no campo. É possível usar os operadores AND e OR aqui para definir condições mais complexas.
 
-      **중요**: *검사 대상* 값은 먼저 조건으로 사용되지만, 그런 다음 *다른 이름으로 저장* 필드에서 이름을 지정한 컨텍스트 변수 값이 됩니다. 사용자가 값이 저장되는 방법을 변경하려는 경우, 재형식화, 예를 들어, 값을 직접 **검사 대상** 필드에 재형식화하는 표현식을 추가하십시오.
+      **Importante**: o valor em *Verificar* é usado primeiro como uma condição, mas depois torna-se o valor da variável de contexto que você nomeia no campo *Salvar como*. Se você deseja mudar como o valor é salvo, reformate-o, por exemplo, inclua a expressão que formata o valor diretamente no campo **Verificar**.
 
-      예를 들어, 엔티티에 정의된 정규식 패턴이 있는 경우, 엔티티 이름을 추가한 후에 `.literal`을 추가하십시오. 정의된 엔티티 목록에서 `@email`을 선택한 후, 예를 들어, `@email.literal`을 포함하도록 **검사 대상** 필드를 편집하십시오. `.literal` 특성을 추가하여, 사용자가 입력한 패턴에 기반하여 이메일 주소로 식별되는 정확한 텍스트를 캡처하도록 표시하십시오. 이 구문을 **검사 대상** 필드에서 직접 변경하십시오. 
+      Por exemplo, se há padrões de expressão regular definidos para a entidade, depois de incluir o nome da entidade, anexe `.literal` a ele. Depois de escolher `@email` na lista de entidades definidas, por exemplo, edite o campo **Verificar** para conter `@email.literal`. Incluindo a propriedade `.literal`, você indica que deseja capturar o texto exato que foi inserido pelo usuário e foi identificado como um endereço de e-mail com base em seu padrão. Faça essa mudança de sintaxe diretamente no campo **Verificar**.
 
-      **경고** 저장하기 전에 값에 대한 복잡한 표현식을 적용하려는 경우, JSON 편집기를 열어 복잡한 SpEL 표현식을 정의할 수 있습니다. 그러나, JSON 편집기에 정의된 복잡한 표현식은 JSON 편집기를 종료할 때 **검사 대상** 필드에 반영되지 않습니다. 그리고 복잡한 표현식을 정의한 후 언제든지 **검사 대상** 필드를 클릭하여 초점을 지정하면 표현식이 제거됩니다. 
+      **Aviso** se você deseja aplicar uma expressão complexa ao valor antes de salvá-lo, é possível abrir o editor JSON para definir a expressão SpEL complexa. No entanto, a expressão complexa definida no editor JSON não é refletida no campo **Verificar** quando você sai do editor JSON. E se você clica no campo **Verificar** para dar o foco a ele a qualquer momento depois de definir a expressão complexa, a expressão é removida.
 
-      컨텍스트 변수값을 검사하지 마십시오. 검사 대상 값은 또한 저장된 값이므로 조건에 컨텍스트 변수를 사용하면 컨텍스트에서 사용될 때 예기치 않은 동작이 발생할 수 있습니다. 지정된 컨텍스트 변수가 설정된 경우에만 응답을 표시하기 위해 선택적 슬롯을 사용하지 마십시오. 변수가 정되어 있는 경우, 선택적 슬롯에 대해 정의한 슬롯 찾음 응답이 다른 모든 슬롯에서 반복적으로 리턴되는 응답과 함께 표시됩니다.
+      Evite verificar os valores das variáveis de contexto. Como o valor que você verifica também é o valor salvo, ao usar uma variável de contexto na condição, isso pode levar a um comportamento inesperado quando ela é usada no contexto. Não tente usar um intervalo opcional para exibir uma resposta somente se uma dada variável de contexto estiver configurada. Se a variável estiver configurada, a resposta Localizado do intervalo que você definir para o intervalo opcional será exibida juntamente com a resposta retornada por todos os outros intervalos, repetidamente.
       {: tip}
 
-    - **다른 이름으로 저장**: 슬롯 프롬프트에 대한 사용자 응답의 관심 값을 저장할 컨텍스트 변수의 이름을 제공하십시오. 대화 상자에 이전에 사용된 컨텍스트 변수를 지정하지 마십시오. 대신 값을 포함할 수 있습니다. 슬롯에 대한 컨텍스트 변수가 널인 경우에만 슬롯에 대한 프롬프트가 표시됩니다.
+    - **Salvar como**: forneça um nome para a variável de contexto na qual armazenar o valor de interesse da resposta do usuário no prompt do intervalo. Não especifique uma variável de contexto que foi usada anteriormente no diálogo e, portanto, pode ter um valor. Somente quando a variável de contexto para o intervalo é nula que o prompt para o intervalo é exibido.
 
-    - **프롬프트**: 사용자로부터 필요한 정보를 유도하는 문장을 작성하십시오. 이 프롬프트를 표시한 후 대화가 일시정지되고 서비스는 사용자가 응답하기를 기다립니다.
+    - **Prompt**: grave uma instrução que extraia a parte das informações que você precisa do usuário. Após exibir esse prompt, a conversa pausa e o serviço aguarda o usuário responder.
 
-    - 사용자가 초기 슬롯 프롬프트에 응답하여 필요한 정보를 제공하는지 여부에 따라 다른 후속 명령문을 표시하려면 슬롯(**슬롯 편집** 클릭 ![슬롯 편집](images/edit-slot.png) 아이콘)을 편집하고 정의할 수 있습니다. 
+    - Se você deseja que diferentes instruções de acompanhamento sejam mostradas com base em se o usuário fornece as informações necessárias em resposta ao prompt do intervalo inicial, é possível editar o intervalo (clicando no ícone **Editar intervalo** ![Editar intervalo](images/edit-slot.png)) e defini-las:
 
-      - **찾음**: 사용자가 예상 정보를 제공한 후에 표시됩니다. 
+      - **Localizado**: exibido após o usuário fornecer as informações esperadas.
 
-      - **찾을 수 없음**: 사용자가 제공한 정보가 이해되지 않거나 예상된 형식으로 제공되지 않은 경우 표시됩니다. 슬롯이 채워지거나 슬롯 핸들러에서 사용자 입력을 이해하고 처리하면 이 명령문은 결코 표시되지 않습니다. 
+      - **Não localizado**: exibido se as informações fornecidas pelo usuário não são compreendidas ou não são fornecidas no formato esperado. Se o intervalo é preenchido com êxito ou a entrada do usuário é compreendida e manipulada por um manipulador de intervalo, essa instrução nunca é exibida.
 
-      찾음 및 찾을 수 없음 응답과 관련된 조치와 조건을 정의하는 방법에 관한 정보는 [찾음 및 찾을 수 없음 응답에 조건 추가](dialog-slots.html#slot-handler-next-steps)를 참조하십시오. 
+      Para obter informações sobre como definir condições e ações associadas para respostas Localizado e Não localizado, veja [Incluindo condições em respostas Localizado e Não localizado](dialog-slots.html#slot-handler-next-steps).
 
-    이 테이블은 사용자가 두 가지 정보(피자 크기 및 배달 시간)를 수집하여 피자를 주문하는 데 도움이 되는 노드의 예제 슬롯 값을 보여줍니다. 
+    Esta tabela mostra valores de intervalo de exemplo para um nó que ajuda os usuários a fazerem um pedido de pizza coletando duas informações, o tamanho da pizza e o horário da entrega.
 
     <table>
-    <caption>피자 주문에 대한 예제 슬롯</caption>
+    <caption>Intervalos de exemplo para pedido de pizza</caption>
     <tr>
-      <th>검사 대상</th>
-      <th>다른 이름으로 저장</th>
-      <th>프롬프트</th>
-      <th>발견한 경우 후속 문장</th>
-      <th>찾을 수 없는 경우 후속 문장</th>
+      <th>Verificar</th>
+      <th>Salvar como</th>
+      <th>Prompt</th>
+      <th>Acompanhar, se localizado</th>
+      <th>Acompanhar, se não localizado</th>
     </tr>
     <tr>
       <td>@size</td>
       <td>$size</td>
-      <td>What size pizza would you like?</td>
-      <td>$size it is.</td>
-      <td>What size did you want? We have small, medium, and large.</td>
+      <td>Que tamanho de pizza você gostaria?</td>
+      <td>É $size.</td>
+      <td>Qual tamanho você deseja? Temos pequeno, médio e grande.</td>
     </tr>
     <tr>
       <td>@sys-time</td>
       <td>$time</td>
-      <td>When do you need the pizza by?</td>
-      <td>For delivery by $time.</td>
-      <td>What time did you want it delivered? We need at least a half hour to prepare it.</td>
+      <td>Para quando você precisa da pizza?</td>
+      <td>Para entrega às $time.</td>
+      <td>Em que horário você deseja que ela seja entregue? Precisamos de pelo menos meia hora para prepará-la.</td>
     </tr>
     </table>
 
-1.  **슬롯을 선택적 또는 특정 조건 하에서 사용 안함으로 설정하십시오**. 선택적으로 다음과 같은 방법으로 슬롯을 구성할 수 있습니다. 
+1.  **Torne um intervalo opcional ou desative-o sob determinadas condições**. É possível opcionalmente configurar um intervalo destas maneiras:
 
-    - **선택적**: 슬롯을 선택적으로 작성하려면 프롬프트없이 슬롯을 추가하십시오. 서비스는 사용자에게 정보를 요구하지 않지만 사용자 입력의 정보를 찾고, 사용자가 제공하는 경우 값을 저장합니다. 예를 들어, 사용자가 지정하는 경우 식이 제한 정보를 캡처하는 슬롯을 추가할 수 있습니다. 하지만 대부분의 경우 관련이 없으므로 모든 사용자에게 식이 제한 정보를 요청하지는 않으려고 합니다.
+    - **Opcional**: para tornar um intervalo opcional, inclua um intervalo sem um prompt. O serviço não pergunta ao usuário as informações, mas procura as informações na entrada do usuário e salva o valor se o usuário o fornece. Por exemplo, você pode incluir um intervalo que captura informações de restrição alimentar caso o usuário especifique alguma. No entanto, você não deseja solicitar informações de dieta a todos os usuários, pois isso é irrelevante na maioria dos casos.
 
        <table>
-       <caption>선택적 슬롯</caption>
+       <caption>Intervalo opcional</caption>
        <tr>
-          <th>정보</th>
-          <th>검사 대상</th>
-          <th>다른 이름으로 저장</th>
+          <th>Informações</th>
+          <th>Verificar</th>
+          <th>Salvar como</th>
        </tr>
        <tr>
-          <td>Wheat restriction</td>
+          <td>Restrição de trigo</td>
           <td>@dietary</td>
           <td>$dietary</td>
       </tr>
       </table>
 
-          슬롯을 선택사항으로 설정하는 경우, 슬롯에 값이 제공되지 않은 경우에도 의미가 통하도록 말할 수 있으면 노드 레벨 응답 텍스트에서 해당 컨텍스트 변수만 참조하십시오. 예를 들어, 다음과 같은 요약문을 말할 것 입니다. `I am ordering a $size $dietary pizza for delivery at $time.` 결과 텍스트는 `글루텐 프리` 또는 `유제품 프리`같은 식이 제한 정보가 제공되는지 여부를 판단합니다. 결과는 `I am ordering a large gluten-free pizza for delivery at 3:00PM.` 또는 `I am ordering a large pizza for delivery at 3:00PM.`입니다. {: tip}
+      Se você tornar um intervalo opcional, referencie sua variável de contexto no texto da resposta no nível do nó apenas se puder descrevê-la de maneira que faça sentido mesmo que não seja fornecido nenhum valor para o intervalo. Por exemplo, você pode escrever uma instrução de resumo como esta, `I am ordering a $size $dietary pizza for delivery at $time.` O texto resultante faz sentido se as informações de restrição alimentar, como `gluten-free` ou `dairy-free`, são fornecidas ou não. O resultado é `I am ordering a large gluten-free pizza for delivery at 3:00PM.` ou `I am ordering a large pizza for delivery at 3:00PM.`
+      {: tip}
 
-    - **조건부**: 특정 조건에서만 슬롯을 사용하려면 해당 슬롯에 조건을 추가할 수 있습니다. 예를 들어, 슬롯 1에서 미팅 시작 시간을 요청하는 경우 슬롯 2는 미팅 소요 시간을 캡처한 다음 슬롯 2 값이 제공되지 않은 경우에만 슬롯 3을 사용하고 미팅 종료 시간을 요청할 수 있습니다. 슬롯을 조건부로 작성하려면, 슬롯을 편집하고 **추가** ![추가 아이콘](images/kabob.png) 메뉴에서, **조건 사용**을 선택하십시오. 슬롯을 사용하기 위해 충족해야 하는 조건을 정의하십시오. 
+    - **Condicional**: se você deseja que um intervalo seja ativado apenas sob determinadas condições, é possível incluir uma condição para isso. Por exemplo, se o intervalo 1 pede um horário de início de reunião, o intervalo 2 captura a duração da reunião e o intervalo 3 captura o horário de encerramento, você pode desejar ativar o intervalo 3 (e pedir o horário de encerramento de reunião) somente se um valor para o intervalo 2 não é fornecido. Para tornar um intervalo condicional, edite o intervalo e, em seguida, no menu **Mais** ![Ícone Mais](images/kabob.png), selecione **Ativar condição**. Defina a condição que deve ser atendida para que o intervalo seja ativado.
 
-      이전 슬롯에서 컨텍스트 변수의 값은 슬롯이 나열되는 순서가 평가되는 순서이기 때문에 조건부로 지정할 수 있습니다. 그러나 이 슬롯을 평가할 때 사용자가 신뢰할 수 있는 슬롯 컨텍스트 변수 값에 대한 조건만 존재합니다. 예를 들어, 이전 슬롯이 필요한지 확인하십시오.  {: tip}
-1.  **사용자를 추적하십시오**. 상호작용 중에 사용자가 노드 목적과 관계없는 질문을 할 때 응답을 제공하는 슬롯 핸들러를 선택적으로 정의할 수 있습니다. 
+      É possível condicionar no valor de uma variável de contexto de um intervalo anterior porque a ordem na qual os intervalos são listados é a ordem na qual eles são avaliados. No entanto, condicione somente em um valor da variável de contexto de intervalo que você possa estar certo de que existirá quando esse intervalo for avaliado. Certifique-se de que o intervalo anterior seja necessário, por exemplo.
+    {: tip}
+1.  **Mantenha os usuários no trilho**. É possível opcionalmente definir manipuladores de intervalo que fornecem respostas às perguntas que os usuários podem fazer durante a interação que são tangenciais ao propósito do nó.
 
-    예를 들어, 사용자가 토마토 소스 레시피 또는 성분을 볼 수 있는 곳에 대해 물을 수 있습니다. 이와 같이 관계없는 질문을 처리하려면 **핸들러 관리** 링크를 클릭하고 각 예상 질문에 대한 조건과 응답을 추가하십시오. 
+    Por exemplo, o usuário pode perguntar sobre a receita de molho de tomate ou onde você obtém seus ingredientes. Para manipular essas perguntas fora do tópico, clique no link **Gerenciar manipuladores** e inclua uma condição e resposta para cada pergunta prevista.
 
-    ![소스 레시피에 대해 사용자가 질문함을 표시합니다. 응답은 'I'll take it to my grave'입니다.](images/sauce.png)
+    ![Mostra um usuário perguntar sobre a receita do molho. A resposta é: Eu a levarei para o túmulo'.](images/sauce.png)
 
-    관계없는 질문에 응답하면 현재 빈 슬롯과 연관된 프롬프트가 표시됩니다. 
+    Depois de responder à pergunta fora do tópico, o prompt associado ao intervalo vazio atual é exibido.
 
-    사용자가 노드 레벨 응답이 표시될 때까지 언제든지 대화 상자 노드 플로우 중에 슬롯 핸들러 조건과 일치하는 입력을 제공하는 경우에 이 조건이 트리거됩니다.
-슬롯 핸들러를 사용하는 다양한 방법에 관한 자세한 정보는 [프로세스 종료 요청 핸들링](dialog-slots.html#slots-node-level-handler)을 참조하십시오.
-1.  **노드 레벨 응답을 추가하십시오**. 노드 레벨 응답은 모든 필수 슬롯이 채워지기 전에는 실행되지 않습니다. 수집한 정보를 요약하는 응답을 추가할 수 있습니다. 예: `A $size pizza is scheduled for delivery at $time. Enjoy!`
+    Essa condição é acionada se o usuário fornece entrada que corresponde às condições do manipulador de intervalo a qualquer momento durante o fluxo do nó de diálogo até que a resposta no nível do nó seja exibida. Veja [Manipulando solicitações para sair de um processo](dialog-slots.html#slots-node-level-handler) para obter mais maneiras de usar o manipulador de intervalo.
+1.  **Incluir uma resposta no nível do nó**. A resposta no nível do nó não é executada até que todos os intervalos necessários sejam preenchidos. É possível incluir uma resposta que resuma as informações que você coletou. Por exemplo, `A $size pizza is scheduled for delivery at $time. Enjoy!`
 
-    특정 조건에 따라 다른 응답을 정의하려면, **사용자 정의**를 클릭한 다음 **다중 응답**을 클릭하여 **켜십시오**. 조건부 응답에 대한 정보는 [조건부 응답](dialog-overview.html#multiple)을 참조하십시오.
-1.  **슬롯 컨텍스트 변수를 재설정하는 로직을 추가하십시오**. 슬롯마다 사용자의 응답을 수집하므로 이 응답이 컨텍스트 변수에 저장됩니다. 컨텍스트 변수를 사용하여 다른 노드로 또는 사용할 애플리케이션이나 외부 서비스로 정보를 전달할 수 있습니다. 하지만 정보를 전달한 후 정보 수집을 다시 시작하려면 컨텍스트 변수를 널로 설정하여 노드를 재설정해야 합니다. 필수 슬롯이 채워질 때까지 서비스가 노드를 종료하지 않으므로 현재 노드 내에서 컨텍스트 변수를 널로 설정할 수 없습니다. 대신 다음 방법 중 하나를 사용할 것을 고려하십시오.
+    Se você deseja definir respostas diferentes com base em determinadas condições, clique em **Customizar** e, em seguida, clique na alternância **Múltiplas respostas** para **Ativar**. Para obter informações sobre respostas condicionais, veja [Respostas condicionais](dialog-overview.html#multiple).
+1.  **Incluir lógica que reconfigura as variáveis de contexto do intervalo**. À medida que você coleta respostas do usuário por intervalo, elas são salvas em variáveis de contexto. É possível usar as variáveis de contexto para passar as informações para outro nó ou para um aplicativo ou serviço externo para uso. No entanto, após passar as informações, deve-se configurar as variáveis de contexto para nulo para reconfigurar o nó para que ele possa começar a coletar informações novamente. Não é possível anular as variáveis de contexto dentro do nó atual porque o serviço não sairá do nó até que os intervalos necessários sejam preenchidos. Em vez disso, considere usar um dos métodos a seguir:
 
-    - 변수를 널로 설정하는 외부 애플리케이션에 처리를 추가하십시오.
-    - 변수를 널로 설정하는 하위 노드를 추가하십시오.
-    - 변수를 널로 설정하는 상위 노드를 삽입한 다음 슬롯이 있는 노드로 점프하십시오.
+    - Inclua processamento para o aplicativo externo que anule as variáveis.
+    - Inclua um nó filho que anule as variáveis.
+    - Insira um nó pai que anule as variáveis e, em seguida, vá para o nó com os intervalos.
 
-체험판을 사용해 보시기 바랍니다! 단계별 [튜토리얼](tutorial-slots.html)을 수행하십시오.
+Experimente! Siga o [tutorial](tutorial-slots.html) passo a passo.
 
-## 슬롯 사용 팁
+## Dicas de uso de intervalo
 {: #slots-tips}
 
-다음 슬롯 특성은 슬롯 컨텍스트 변수의 값을 확인하고 설정할 수 있도록 도와줍니다.
+As propriedades de intervalo a seguir podem ajudá-lo a verificar e configurar os valores das variáveis de contexto de intervalo.
 
-| 특성 이름          | 설명 |
+| Nome da propriedade          | Descrição |
 |------------------------|-------------|
-| `all_slots_filled`     | 노드의 모든 슬롯에 대한 모든 컨텍스트 변수가 설정된 경우에만 true로 평가됩니다. 사용법 예제는 [찾음 응답이 필요하지 않을 때 표시되지 않도록 방지](dialog-slots.html#slots-stifle-found-responses)를 참조하십시오.|
-| `event.current_value`  | 이 슬롯에 대한 컨텍스트 변수의 현재 값입니다. 이 특성 및 event.previous_value 특성에 관한 정보는 [슬롯 컨텍스트 변수 값 바꾸기](dialog-slots.html#slots-found-handler-event-properties)를 참조하십시오.|
-| `event.previous_value` | 이 슬롯에 대한 컨텍스트 변수의 이전 값입니다. |
-| `has_skipped_slots`    | 슬롯을 건너뛴 다음 단계 옵션으로 구성된 슬롯 또는 슬롯 처리기 중 하나라도 처리 된 경우 true입니다. 슬롯에 대한 다음 단계 옵션에 관한 자세한 정보는 [찾음 및 찾을 수 없음 응답에 대한 조건 추가](dialog-slots.html#slot-handler-next-steps)를 참조하고 슬롯 핸들러에 대한 다음 단계 옵션에 관한 자세한 정보는 [프로세스 종료 요청 핸들링](dialog-slots.html#slots-node-level-handler)을 참조하십시오. |
-| `slot_in_focus`        | 슬롯 조건을 현재 슬롯에만 강제로 적용합니다. 세부사항은 [확인](dialog-slots.html#slots-get-confirmation)을 참조하십시오. |
-{: caption="슬롯 특성" caption-side="top"}
+| `all_slots_filled`     | Avalia como true somente se todas as variáveis de contexto para todos os intervalos no nó foram configuradas. Veja [Evitando que uma resposta Localizado seja exibida quando ela não é necessária](dialog-slots.html#slots-stifle-found-responses) para um exemplo de uso. |
+| `event.current_value`  | O valor atual da variável de contexto para esse intervalo. Veja [Substituindo um valor da variável de contexto de intervalo](dialog-slots.html#slots-found-handler-event-properties) para um exemplo de uso para essa propriedade e a propriedade event.previous_value. |
+| `event.previous_value` | O valor anterior da variável de contexto para esse intervalo. |
+| `has_skipped_slots`    | True se algum dos intervalos ou manipuladores de intervalo configurados com uma opção de próxima etapa que ignora intervalos foi processado. Veja [Incluindo condições em respostas Localizado e Não localizado](dialog-slots.html#slot-handler-next-steps) para obter mais informações sobre opções de próxima etapa para intervalos e [Manipulando solicitações para sair de um processo](dialog-slots.html#slots-node-level-handler) para obter informações sobre as próximas opções de etapa para manipuladores de intervalo. |
+| `slot_in_focus`        | Força a condição do intervalo ser aplicada somente ao intervalo atual. Veja [Obtendo confirmação](dialog-slots.html#slots-get-confirmation) para obter mais detalhes. |
+{: caption="Propriedades de intervalo" caption-side="top"}
 
-공통 태스크 처리를 위해 이러한 접근법을 고려하십시오.
+Considere usar essas abordagens para manipular tarefas comuns.
 
-- [한 번에 모든 정보 요청](dialog-slots.html#slots-prompt-for-everything)
-- [다중 값 캡처](dialog-slots.html#slots-multiple-entity-values)
-- [값 재형식화](dialog-slots.html#slots-reformat-values)
-- [확인](dialog-slots.html#slots-get-confirmation)
-- [슬롯 컨텍스트 변수값 바꾸기](dialog-slots.html#slots-found-handler-event-properties)
-- [숫자 혼동 방지](dialog-slots.html#slots-avoid-number-confusion)
-- [찾음 및 찾을 수 없음 응답에 조건 추가](dialog-slots.html#slot-handler-next-steps)
-- [여러 번의 실패 후에 이동](dialog-slots.html#slots-stop-trying-after-3)
-- [필요하지 않으면 Found 응답이 표시되지 않도록 함](dialog-slots.html#slots-stifle-found-responses)
-- [프로세스 종료 요청 핸들링](dialog-slots.html#slots-node-level-handler)
+- [Pedindo tudo de uma vez](dialog-slots.html#slots-prompt-for-everything)
+- [Capturando diversos valores](dialog-slots.html#slots-multiple-entity-values)
+- [Reformatando valores](dialog-slots.html#slots-reformat-values)
+- [Obtendo confirmação](dialog-slots.html#slots-get-confirmation)
+- [Substituindo um valor de variável de contexto do intervalo](dialog-slots.html#slots-found-handler-event-properties)
+- [Evitar confusão de números](dialog-slots.html#slots-avoid-number-confusion)
+- [Incluindo condições para respostas Localizado e Não Localizado](dialog-slots.html#slot-handler-next-steps)
+- [Movendo-se após múltiplas tentativas com falha](dialog-slots.html#slots-stop-trying-after-3)
+- [Evitando que uma resposta Found seja exibida quando ela não é necessária](dialog-slots.html#slots-stifle-found-responses)
+- [Manipulando solicitações para sair de um processo](dialog-slots.html#slots-node-level-handler)
 
-### 한 번에 모든 정보 요청
+### Pedindo tudo de uma vez
 {: #slots-prompt-for-everything}
 
-전체 노드에서 사용자가 제공할 정보의 단위를 사용자에게 분명하게 알리는 초기 프롬프트를 포함하십시오. 이 프롬프트를 처음에 표시하면 사용자가 한 번에 모든 세부사항을 제공할 수 있으며 한 번에 하나씩 정보를 요청하는 프롬프트가 표시되기를 기다리지 않아도 됩니다.
+Inclua um prompt inicial para o nó inteiro que informe claramente aos usuários quais unidades de informações você deseja que eles forneçam. Exibir esse prompt primeiro dá aos usuários a oportunidade de fornecer todos os detalhes de uma vez e de não precisar esperar a solicitação de cada parte da informação uma de cada vez.
 
-예를 들어, 고객이 피자 주문을 원하여 노드가 트리거될 때 다음과 같은 예비 프롬프트에 응답할 수 있습니다. `I can take your pizza order. Tell me what size pizza you want and the time that you want it delivered.`
+Por exemplo, quando o nó é acionado porque um cliente deseja pedir uma pizza, é possível responder com o prompt preliminar: `I can take your pizza order. Tell me what size pizza you want and the time that you want it delivered.`
 
-사용자가 초기 요청에서 이 정보의 한 부분이라도 제공하면 프롬프트가 표시되지 않습니다. 예를 들어, 초기 입력이 `I want to order a large pizza.`일 수 있습니다. 서비스가 입력을 분석할 때 `large`를 피자 크기로 인식하고 **Size** 슬롯을 제공된 값으로 채웁니다. 슬롯 중 하나가 채워지므로 피자 크기 정보를 다시 요청하지 않도록 초기 프롬프트 표시를 건너뜁니다. 대신 정보가 누락된 나머지 슬롯에 대한 프롬프트를 표시합니다.
+Se o usuário fornecer uma parte dessas informações em seu pedido inicial, o prompt não será exibido. Por exemplo, a entrada inicial pode ser `I want to order a large pizza.` Quando o serviço analisa a entrada, ele reconhece `large` como o tamanho da pizza e preenche o intervalo **Size** com o valor fornecido. Como um dos intervalos foi preenchido, ele ignora a exibição do prompt inicial para evitar pedir as informações de tamanho da pizza novamente. Em vez disso, ele exibe os prompts para quaisquer intervalos restantes com informações ausentes.
 
-슬롯 기능을 사용한 사용자 정의 분할창에서 **모든 정보 프롬프트** 선택란을 선택하여 초기 프롬프트를 사용으로 설정하십시오. 이 설정은 **미리 채워진 슬롯이 없으면 먼저 이를 요청** 필드를 노드에 추가하고 여기서 사용자에게 모든 정보를 입력하라는 프롬프트를 표시하는 텍스트를 지정할 수 있습니다.
+Na área de janela Customizar na qual você ativou o recurso Intervalos, selecione a caixa de seleção **Solicitar tudo** para ativar o prompt inicial. Essa configuração inclui o campo **Se nenhum intervalo foi preenchido previamente, solicitar isso primeiro** no nó, em que é possível especificar o texto que solicita tudo ao usuário.
 
-### 다중 값 캡처
+### Capturando diversos valores
 {: #slots-multiple-entity-values}
 
-항목 목록을 요청하고 하나의 슬롯에 저장할 수 있습니다.
+É possível solicitar uma lista de itens e salvá-los em um intervalo.
 
-예를 들어, 피자에 토핑을 원하는지 여부를 사용자에게 물을 수 있습니다. 이렇게 하려면 엔티티(@toppings) 및 이 엔티티에 허용된 값(pepperoni, cheese, mushroom 등)을 정의하십시오. 사용자에게 토핑에 대해 묻는 슬롯을 추가하십시오. 엔티티 유형의 값 특성을 사용하여 여러 값을 캡처하십시오(제공되는 경우).
+Por exemplo, você pode desejar perguntar aos usuários se eles querem coberturas em suas pizzas. Para isso, defina uma entidade (@toppings) e os valores aceitos para ela (pepperoni, queijo, cogumelo, etc.). Inclua um intervalo que pergunte ao usuário sobre as coberturas. Use a propriedade values do tipo de entidade para capturar diversos valores, se fornecidos.
 
 <table>
-<caption>다중 값 슬롯</caption>
+<caption>Intervalo de múltiplos valores</caption>
 <tr>
-  <th>검사 대상</th>
-  <th>다른 이름으로 저장</th>
-  <th>프롬프트</th>
-  <th>발견한 경우 후속 문장</th>
-  <th>찾을 수 없는 경우 후속 문장</th>
+  <th>Verificar</th>
+  <th>Salvar como</th>
+  <th>Prompt</th>
+  <th>Acompanhar, se localizado</th>
+  <th>Acompanhar, se não localizado</th>
 </tr>
 <tr>
   <td>@toppings.values</td>
   <td>$toppings</td>
-  <td>Any toppings on that?</td>
-  <td>Great addition.</td>
-  <td>What toppings would you like? We offer ...</td>
+  <td>Qualquer recheio nisso?</td>
+  <td>Grande adição.</td>
+  <td>Quais coberturas você gostaria? Oferecemos...</td>
 </tr>
 </table>
 
-사용자 지정 토핑을 나중에 참조하려면 `<? $entity-name.join(',') ?>` 구문을 사용하여 토핑 배열에 각 항목을 나열하고 쉼표로 값을 구분하십시오. 예: `I am ordering you a $size pizza with <? $toppings.join(',') ?> for delivery by $time.`
+Para referenciar as coberturas especificadas pelo usuário mais tarde, use a sintaxe `<? $entity-name.join(',') ?>` para listar cada item na matriz de coberturas e separar os valores com uma vírgula. Por exemplo, `I am ordering you a $size pizza with <? $toppings.join(',') ?> for delivery by $time.`
 
-### 값 재형식화
+### Reformatando valores
 {: #slots-reformat-values}
 
-사용자에게 정보를 묻고 응답의 사용자 입력을 참조해야 하므로 익숙한 형식으로 표시할 수 있도록 값 재형식화를 고려하십시오.
+Como você está pedindo informações do usuário e precisa referenciar suas entradas nas respostas, considere reformatar os valores para que possa exibi-los em um formato mais amigável.
 
-예를 들어, 시간 값이 `hh:mm:ss` 형식으로 저장됩니다. `hour:minutes AM/PM` 형식을 사용하도록 시간 값을 저장할 때 슬롯에 JSON 편집기를 사용하여 이 시간 값을 재형식화할 수 있습니다.
+Por exemplo, os valores de horário são salvos no formato `hh:mm:ss`. É possível usar o editor JSON para o intervalo para reformatar o valor de horário à medida que você o salvar para que ele use o formato `hour:minutes AM/PM` ao invés:
 
 ```json
 {
@@ -237,42 +238,42 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-다른 재형식화 아이디어는 [값을 처리하는 방법](dialog-methods.html)을 참조하십시오.
+Consulte [Métodos para processar valores](dialog-methods.html) para obter outras ideias de reformatação.
 
-### 확인
+### Obtendo confirmação
 {: #slots-get-confirmation}
 
-사용자에게 수집한 정보가 정확하고 완전한지 확인하도록 요청하는 슬롯을 다른 슬롯 아래에 추가하십시오. 슬롯은 #yes 또는 #no 인텐트와 일치하는 응답을 검색할 수 있습니다. 
+Inclua um intervalo após os outros que peça ao usuário para confirmar que as informações coletadas estão precisas e completas. O intervalo pode procurar respostas que correspondam à intenção #yes ou #no.
 
 <table>
-<caption>슬롯 확인</caption>
+<caption>Intervalo de confirmação</caption>
 <tr>
-  <th>검사 대상</th>
-  <th>다른 이름으로 저장</th>
-  <th>프롬프트</th>
-  <th>발견한 경우 후속 문장</th>
-  <th>찾을 수 없는 경우 후속 문장</th>
+  <th>Verificar</th>
+  <th>Salvar como</th>
+  <th>Prompt</th>
+  <th>Acompanhar, se localizado</th>
+  <th>Acompanhar, se não localizado</th>
 </tr>
 <tr>
   <td>#yes || #no</td>
   <td>$confirmation</td>
-  <td>I'm going to order you a `$size` pizza for delivery at `$time`. Should I go ahead?</td>
-  <td>Your pizza is on its way!</td>
-  <td>see *Complex response*</td>
+  <td>Eu vou pedir uma pizza `$size` para entrega às `$time`. Devo prosseguir?</td>
+  <td>Sua pizza está a caminho!</td>
+  <td>veja *Resposta complexa*</td>
 </tr>
 </table>
 
-**복합 응답** 사용자는 대화(*Oh yes, we want the pizza delivered at 5pm* 또는 *no guests tonight, let's make it a small*) 중에 긍정 또는 부정적인 내용을 포함할 수 있으므로 `slot_in_focus` 특성을 사용하여 슬롯 조건에서 이 슬롯에 대한 프롬프트에 대해서만 Yes 또는 No 응답을 검색하십시오. 
+**Resposta complexa**: como os usuários podem incluir declarações afirmativas ou negativas em outros momentos durante o diálogo (*Sim, desejamos que a pizza seja entregue às 17h*) ou (*sem convidados hoje, vamos pegar uma pequena*), use a propriedade `slot_in_focus` para deixar claro na condição do intervalo que você está procurando uma resposta Sim ou Não ao prompt somente para esse intervalo.
 
 ```json
 (#yes || #no) && slot_in_focus
 ```
 {: codeblock}
 
-`slot_in_focus` 특성은 항상 부울(true 또는 false) 값으로 평가됩니다. 부울 결과를 원하는 조건에만 이 특성을 포함하십시오. 예를 들어, 엔티티 유형을 검사하는 슬롯 조건에는 사용하지 마십시오. 그런 다음 엔티티 값을 저장하십시오.
+A propriedade `slot_in_focus` sempre é avaliada para um valor Booleano (true ou false). Inclua-a apenas em uma condição para a qual você deseja um resultado booleano. Não a use em condições do intervalo que verificam um tipo de entidade e, em seguida, salvam o valor da entidade, por exemplo.
 {: tip}
 
-**찾을 수 없음** 프롬프트에서, 사용자가 Yes 또는 No 답변을 제공할 것으로 예상하는지 확인하십시오. 
+No prompt **Não localizado**, esclareça que você está esperando o usuário fornecer uma resposta Sim ou Não.
 
 ```json
 {
@@ -288,12 +289,11 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-**찾음** 프롬프트에서, 아니오 응답(#no)에 대해 검사하는 조건을 추가하십시오. 발견되면, 처음부터 다시 정보를 묻고 이전에 저장한 컨텍스트 변수를 재설정하십시오. 
+No prompt **Localizado**, inclua uma condição que verifique uma resposta Não (#no). Quando localizado, pergunte todas as informações novamente e reconfigure as variáveis de contexto que você salvou anteriormente.
 
 ```json
 {
-  "conditions": "#no",
-  "output":{
+  "condições": "#no", "output":{
     "text": {
       "values": [
         "Let's try this again. Tell me what size pizza you want and the time..."
@@ -309,17 +309,17 @@ lastupdated: "2018-02-16"
 ```
 {: codeblock}
 
-### 슬롯 컨텍스트 변수값 바꾸기
+### Substituindo um valor de variável de contexto do intervalo
 {: #slots-found-handler-event-properties}
 
-사용자가 슬롯이 있는 노드를 종료하기 전에 언제든 슬롯에 새 값을 제공하면, 새 값이 슬롯 컨텍스트 변수에 저장되며 이전에 지정된 값을 바꿉니다. 대화 상자는 찾음 조건에 정의된 특수 특성을 사용하여 이 바꾸기가 발생했음을 명시적으로 확인할 수 있습니다.
+Se, a qualquer momento antes de o usuário sair de um nó com intervalos, o usuário fornecer um novo valor para um intervalo, o novo valor será salvo na variável de contexto do intervalo, substituindo o valor especificado anteriormente. Seu diálogo pode reconhecer explicitamente que essa substituição ocorreu usando propriedades especiais que são definidas para a condição Localizado:
 
-- `event.previous_value`: 이 슬롯에 대한 컨텍스트 변수의 이전 값입니다.
-- `event.current_value`: 이 슬롯에 대한 컨텍스트 변수의 현재 값입니다.
+- `event.previous_value`: valor anterior da variável de contexto para esse intervalo.
+- `event.current_value`: valor atual da variável de contexto para esse intervalo.
 
-예를 들어, 대화 상자는 항공편 예약을 위해 목적지 도시를 묻습니다. 사용자는 `Paris`를 제공합니다. $destination 슬롯 컨텍스트 변수를 *Paris*로 설정합니다. 그런 다음 사용자는 `Oh wait. I want to fly to Madrid instead.`라고 대답합니다. Found 조건을 다음과 같이 설정하면 대화 상자가 이 유형의 변경을 처리할 수 있습니다.
+Por exemplo, seu diálogo pede uma cidade de destino para uma reserva de voo. O usuário fornece `Paris.` Você configura a variável de contexto de intervalo $destination como *Paris*. Em seguida, o usuário diz, `Oh, wait. I want to fly to Madrid instead.` Se você configurar a condição Found conforme a seguir, seu diálogo poderá lidar com esse tipo de mudança tranquilamente.
 
-사용자가 응답할때 @destination이 발견되는 경우:
+Quando o usuário responde, se @destination é localizado:
 
 ```json
 Condition: (event.previous_value != null) &&
@@ -330,65 +330,65 @@ Response: Ok, destination is $destination.
 ```
 {: codeblock}
 
-이 슬롯 구성을 사용하면 대화 상자가 `Ok, updating the destination from Paris to Madrid.`라고 대답하여 사용자의 목적지 변경에 반응할 수 있습니다.
+Essa configuração do intervalo permite que seu diálogo reaja à mudança do usuário no destino dizendo: `Ok, updating the destination from Paris to Madrid.`
 
-### 숫자 혼동 방지
+### Evitar confusão de números
 {: #slots-avoid-number-confusion}
 
-사용자가 제공하는 일부 값이 둘 이상의 엔티티 유형으로 식별될 수 있습니다.
+Alguns valores que são fornecidos pelos usuários podem ser identificados como mais de um tipo de entidade.
 
-예를 들어, 도착일과 출발일이라는 동일한 유형의 값을 저장하는 두 가지 슬롯이 있습니다. 로직을 슬롯 조건에 빌드하여 이와 같이 유사한 값을 구분하십시오.
+É possível ter dois intervalos que armazenam o mesmo tipo de valor, como uma data de chegada e uma data de partida, por exemplo. Construa a lógica para suas condições do intervalo para distinguir esses valores semelhantes um do outro.
 
-또한 서비스는 단일 사용자 입력에서 여러 엔티티 유형을 인식할 수 있습니다. 예를 들어, 사용자가 통화를 제공하면 @sys-currency와 @sys-number 엔티티 유형 두 가지로 인식됩니다. *연습* 분할창에서 몇 가지 테스트를 수행하여 시스템이 여러 사용자 입력을 해석하는 방법을 파악하고, 로직을 조건에 빌드하여 해석이 잘못되지 않도록 하십시오. 
+Além disso, o serviço pode reconhecer vários tipos de entidade em uma única entrada do usuário. Por exemplo, quando um usuário fornece uma moeda, ela é reconhecida como um tipo de entidade @sys-currency e @sys-number. Faça um teste na área de janela *Experimente* para entender como o sistema interpretará diferentes entradas do usuário e construa a lógica em suas condições para evitar possíveis interpretações errôneas.
 
-슬롯 기능에 고유한 로직의 경우 단일 사용자 입력에서 두 개의 엔티티가 인식되면 범위가 더 큰 엔티티가 사용됩니다. 예를 들어, 사용자가 *May 2*를 입력하면, {{site.data.keyword.conversationshort}} 서비스가 텍스트에서 @sys-date (05022017) 및 @sys-number (2) 엔티티를 둘 다 인식하더라도 범위가 더 큰 엔티티(@sys-date)만 등록되어 슬롯에 적용됩니다.
+Na lógica que é exclusiva para o recurso de intervalos, quando duas entidades são reconhecidas em uma única entrada do usuário, aquela com a maior extensão é usada. Por exemplo, se o usuário insere *2 de maio*, embora o serviço {{site.data.keyword.conversationshort}} reconheça ambas as entidades @sys-date (05022017) e @sys-number (2) no texto, somente a entidade com o maior período (@sys-date) é registrada e aplicada a um intervalo.
 {: tip}
 
-### 찾음 및 찾을 수 없음 응답에 조건 추가
+### Incluindo condições em respostas Localizado e Não localizado
 {: #slot-handler-next-steps}
 
-각 슬롯에 대하여, 조치와 연관된 조건부 응답을 사용하여 사용자에게 필요한 정보를 추출하는 데 도움이 됩니다. 이렇게 하려면 다음 단계를 수행하십시오.
+Para cada intervalo, é possível usar respostas condicionais com ações associadas para ajudar você a extrair as informações necessárias do usuário. Para fazer isso, siga estas etapas:
 
-1.  찾음 및 찾을 수 없음 응답에 조건을 추가하려면 **슬롯 편집** ![슬롯 편집](images/edit-slot.png) 아이콘을 클릭하십시오.
-1.  **추가** ![추가 아이콘](images/kabob.png) 메뉴에서, **조건부 응답 사용**을 선택하십시오.
-1.  조건이 충족될 경우, 표시할 조건과 응답을 입력하십시오. 
+1.  Clique no ícone **Editar intervalo** ![Editar intervalo](images/edit-slot.png) para o intervalo no qual você deseja incluir as respostas condicionais Localizado e Não localizado.
+1.  No menu **Mais** ![Ícone Mais](images/kabob.png), selecione **Ativar respostas condicionais**.
+1.  Insira a condição e a resposta a serem exibidas se a condição for atendida.
 
-    **찾음 예제**: 슬롯은 저녁 식사 예약을 예상하고 있습니다. *검사 대상* 필드의 @sys-time을 사용하여 캡처할 수 있습니다. 올바르지 않은 시간이 저장되는 것을 방지하려면, 제공된 시간이 식당의 마지막 예약 가능 시간보다 이전인지 여부를 확인하는 조건부 응답을 추가할 수 있습니다. 예: `@sys-time.after('21:00:00')` 해당하는 응답은 다음과 같습니다. *예약 가능한 마지막 시간은 오후 9시입니다.*
+    **Exemplo de Localizado**: O intervalo está esperando o horário para uma reserva de jantar. Você pode usar @sys-time no campo *Verificar* para capturar isso. Para evitar que um horário inválido seja salvo, é possível incluir uma resposta condicional que verifica se o horário fornecido é antes do último horário de assento do restaurante, por exemplo. `@sys-time.after('21:00:00')` A resposta correspondente pode ser algo como, *Nosso último assento é às 21h.*
 
-    **찾을 수 없음 예제**: 슬롯은 레스토랑 체인에 레스토랑이 있는 특정 도시 세트를 허용하는 @location 엔티티를 예상하고 있습니다. 찾을 수 없음 조건은 사용자가 유효한 도시를 지정하는 경우 @sys-location을 확인하지만 체인에 사이트가 없는 도시를 확인합니다. 해당하는 응답은 다음과 같습니다. *저희는 이 위치에 식당이 없습니다. *
+    **Exemplo de Não localizado**: O intervalo está esperando uma entidade @location que aceita um conjunto específico de cidades em que a cadeia de restaurantes tem restaurantes. A condição Não localizado pode verificar @sys-location caso o usuário especifique uma cidade válida, mas uma na qual a cadeia não tem sites. A resposta correspondente pode ser *Não temos restaurantes nesse local.*
 
-1.  조건이 충족되면 발생하는 사항을 사용자 정의하려는 경우, **응답 편집** ![응답 편집](images/edit-slot.png) 아이콘을 클릭하십시오.
+1.  Se você deseja customizar o que acontece em seguida se a condição é atendida, clique no ícone **Editar resposta** ![Editar resposta](images/edit-slot.png).
 
-    찾음 응답(검사 대상 필드에 지정된 값 유형과 일치하는 값을 제공할 때 표시되는)의 경우, 다음 조치 중 하나를 선택하여 다음을 수행할 수 있습니다.
+    Para respostas Localizado (que são exibidas quando o usuário fornece um valor que corresponde ao tipo de valor especificado no campo Verificar), é possível escolher uma destas ações para executar em seguida:
 
-      - **이동(기본값)**: 응답을 표시한 후 다음 빈 슬롯으로 이동하도록 서비스에 지시합니다. 관련 응답에서 사용자가 입력 내용을 이해했는지 확인하십시오. 예: *Ok. $date를 스케줄하려고 합니다.*
-      - **슬롯 및 프롬프트 다시 지우기**: 잘못된 값을 선택할 수 있는 *검사 대상* 필드에서 엔티티를 사용하는 경우 잘못된 해석을 검출하는 조건을 추가하고 이 조치를 사용하여 현재 슬롯 값을 지우고 올바른 값을 표시합니다. 
-      - **응답 건너뛰기**: 정의한 조건이 충족되면 더 이상 이 노드의 나머지 슬롯을 채울 필요가 없으면 이 조치를 선택하여 나머지 슬롯을 건너 뛰고 다음 노드 레벨 응답으로 바로 이동하십시오. 예를 들어 사용자의 나이가 16세 미만인지 여부를 확인하는 조건을 추가 할 수 있습니다. 그런 경우, 사용자의 운전 기록에 대해 질문하는 나머지 슬롯을 건너 뛸 수 있습니다. 
+      - **Mover-se (padrão)**: instrui o serviço a mover-se para o próximo intervalo vazio depois de exibir a resposta. Na resposta associada, assegure ao usuário que sua entrada foi compreendida. Por exemplo, *Ok. Você deseja planejar isso para $date.*
+      - **Limpar intervalo e solicitar novamente**: se você está usando uma entidade no campo *Verificar* que possa escolher o valor errado, inclua condições que capturem qualquer provável interpretação errônea e use essa ação para limpar o valor do intervalo atual e solicitar o valor correto.
+      - **Ignorar para resposta**: se não for mais necessário preencher qualquer um dos intervalos restantes neste nó quando a condição que você definir for atendida, escolha essa ação para ignorar os intervalos restantes e vá diretamente para a próxima resposta no nível do nó. Por exemplo, você poderia incluir uma condição que verifica se a idade do usuário é abaixo de 16. Se sim, você pode ignorar os intervalos restantes que fazem perguntas sobre registro de condução do usuário.
 
-    찾을 수 없음 응답(사용자가 유효한 값을 제공하지 않을 때 표시되는)의 경우 수행할 조치 중 하나를 선택할 수 있습니다.
+    Para respostas Não localizado (que são exibidas quando o usuário não fornece um valor válido), é possível escolher uma destas ações para executar:
 
-      - **사용자 입력 대기(기본값)**: 대화를 일시 중지하고 서비스가 사용자의 응답을 기다립니다. 가장 단순한 경우로, 사용자가 여기에 지정하는 텍스트는 제공해야 하는 정보 유형을 보다 명확하게 나타낼 수 있습니다. 조건부 응답과 함께 이 조치를 사용하는 경우 사용자 응답에 무엇이 잘못되었으며 무엇을 제공해야 하는지 명확하게 명시하도록 조건부 응답을 적어야 합니다.
-      - **다시 프롬프트**: 찾을 수 없음 응답을 표시한 후 서비스는 슬롯 프롬프트를 다시 반복하고 사용자의 응답을 대기합니다. 조건부 응답과 함께 이 조치를 사용하면 응답은 사용자가 제공한 대답에 대해 잘못된 사항을 설명할 수 있습니다. 슬롯 프롬프트에서 설명하기 때문에 사용자가 제공하려는 정보 유형을 반복해서 표시할 필요가 없습니다.
+      - **Aguardar entrada do usuário (padrão)**: pausa a conversa e o serviço aguarda o usuário responder. No caso mais simples, o texto que você especifica aqui pode indicar mais explicitamente o tipo de informação que o usuário precisa fornecer. Se você usa essa ação com uma resposta condicional, certifique-se de que escrever a resposta condicional de forma que indique claramente o que estava errado com a resposta do usuário e o que espera-se que ele forneça.
+      - **Solicitar novamente**: depois de exibir a resposta Não localizado, o serviço repete o prompt de intervalo novamente e aguarda o usuário responder. Se você usa essa ação com uma resposta condicional, a resposta pode apenas explicar o que estava errado sobre a resposta que o usuário forneceu. Não é necessário reiterar o tipo de informações que você deseja que o usuário forneça porque o prompt de intervalo geralmente explica isso.
 
-        이 옵션을 선택한 경우, 사용자가 동일한 텍스트를 두 번 이상 볼 수 없도록 찾을 수 없음 응답의 변형을 하나 이상 추가하는 것을 고려하십시오. 다른 단어를 사용하여 사용자에게 제공해야 하는 정보와 형식을 설명하십시오.
+        Se você escolhe essa opção, considere incluir pelo menos uma variação da resposta Não localizado para que o usuário não veja exatamente o mesmo texto mais de uma vez. Aproveite a oportunidade de usar palavras diferentes para explicar ao usuário as informações que você precisa que ele forneça e em qual formato.
         {: tip}
 
-      - **이 슬롯 건너뛰기**: 현재 슬롯을 채우는 것을 중지하고 대신 다음 빈 슬롯에 대한 프롬프트로 이동하도록 서비스에 지시합니다. 이 옵션은 슬롯을 선택적으로 설정하고 사용자에게 정보를 묻는 프롬프트를 표시하려는 슬롯에서 유용합니다. 예를 들어, *외부*, *벽난로 근처*, *비공개* 등과 같이 레스토랑 좌석 환경 설정을 캡처하는 @seating 엔티티가 있을 수 있습니다. 사용자에게 *Do you have any seating preferences?* 과 `@seating.values`를 확인하는 프롬프트를 표시하는 슬롯을 추가할 수 있습니다. 올바른 응답이 제공되면 환경 설정 정보를 `$seating_preferences`에 저장합니다. 그러나, 이 조치를 찾을 수 없음 응답의 다음 단계로 선택하면 사용자가 올바른 값을 제공하지 않으면 이 슬롯을 채우는 것을 중지하도록 서비스에 지시합니다. 
-      - **응답 건너뛰기**: 정의한 조건이 충족되면 더 이상 이 노드의 나머지 슬롯을 채울 필요가 없으면 이 조치를 선택하여 나머지 슬롯을 건너 뛰고 다음 노드 레벨 응답으로 바로 이동하십시오. 예를 들어, 편도 비행 정보를 캡처한 후 슬롯 프롬프트에 *Are you buying round trip tickets?*가 표시됩니다. 찾을 수 없음 조건은 #No를 확인할 수 있습니다. #No가 발견되면, 이 옵션을 사용하여 리턴 비행 정보를 캡처하는 나머지 슬롯을 건너 뛰고 대신 노드 레벨 응답으로 바로 이동합니다. 
+      - **Ignorar este intervalo**: instrui o serviço a parar de tentar preencher o intervalo atual e, em vez disso, mover-se para o prompt do próximo intervalo vazio. Essa opção é útil em um intervalo em que você deseja tanto tornar o intervalo opcional quanto exibir um prompt que solicita informações ao usuário. Por exemplo, você pode ter uma entidade @seating que captura as preferências de assentos de restaurante, como *fora*, *perto da lareira*, *privado* e assim por diante. É possível incluir um intervalo que solicita ao usuário *Você tem quaisquer preferências de assentos?* e verifica `@seating.values`. Se uma resposta válida é fornecida, ele salva as informações de preferência para `$seating_preferences`. No entanto, escolhendo essa ação como a próxima etapa da resposta Não localizado, você instrui o serviço a parar de tentar preencher esse intervalo se o usuário não fornece um valor válido.
+      - **Ir para resposta**: se não for mais necessário preencher qualquer um dos intervalos restantes neste nó quando a condição que você definir for atendida, escolha essa ação para ignorar os intervalos restantes e ir diretamente para a resposta no nível do nó em seguida. Por exemplo, se depois de capturar informações de voo só de ida, o prompt de intervalo é *Você está comprando passagens de ida e volta?*, a condição Não localizado pode verificar #No. Se #No for localizado, use essa opção para ignorar os intervalos restantes que capturam informações sobre o voo de retorno e vá direto para a resposta no nível do nó, como alternativa.
 
-    **뒤로**를 클릭하여 슬롯의 편집보기로 돌아갑니다.
-1.  다른 조건부 응답을 추가하려면, **응답 추가**를 클릭한 후, 조건이 충족되면 표시할 조건과 응답을 입력하십시오.
+    Clique em **Voltar** para retornar à visualização de edição do intervalo.
+1.  Para incluir outra resposta condicional, clique em **Incluir uma resposta** e, em seguida, insira a condição e a resposta a serem exibidas se a condição for atendida.
 
-    표시될 응답을 하나 이상 추가하십시오. 모든 응답을 표시하려면 조건 필드를 공백으로 둘 수 있습니다. 서비스는 자동으로 빈 조건 필드를 `true` 특수 조건으로 채웁니다.
+    Certifique-se de incluir pelo menos uma resposta que será exibida independentemente do que for. É possível deixar o campo de condição em branco para essa resposta catchall. O serviço preenche automaticamente o campo de condição vazio com a condição especial `true`.
 
-1.  **저장**을 클릭하여 변경사항을 저장하고 슬롯의 편집 보기를 닫은 다음 노드의 편집 보기로 돌아가십시오.
+1.  Clique em **Salvar** para salvar suas mudanças, fechar a visualização de edição do intervalo e retornar à visualização de edição do nó.
 
-### 여러 번의 실패 후에 이동
+### Movendo-se após múltiplas tentativas com falha
 {: #slots-stop-trying-after-3}
 
-찾을 수 없음 조건 응답을 사용하여 여러 번 시도한 후에도 올바르게 응답할 수 없는 경우 사용자가 슬롯을 종료할 수 있는 방법을 제공할 수 있습니다. catchall 응답에서 JSON 편집기를 열어 찾을 수 없는 응답이 리턴된 횟수를 추적하는 카운터 컨텍스트 변수를 추가합니다. 이전 노드에서는 초기 카운터 컨텍스트 변수 값을 0 으로 설정해야 합니다. 
+É possível fornecer aos usuários uma maneira de sair de um intervalo se eles não podem responder a ele corretamente depois de várias tentativas usando respostas condicionais Não localizado. Na resposta catchall, abra o editor JSON para incluir uma variável de contexto de contador que acompanhará o número de vezes que a resposta Não localizado for retornada. Em um nó anterior, certifique-se de configurar o valor da variável de contexto de contador inicial para 0.
 
-이 예에서, 서비스는 피자 크기를 문의합니다. 사용자가 변수에 크기(미디엄)를 적용하기 전에 사용자가 질문에 3 회 잘못 대답할 수 있습니다. (주문 정보를 확인하라는 메시지가 표시되면 사용자가 언제든지 크기를 수정할 수 있는 확인 슬롯을 포함할 수 있습니다.)
+Neste exemplo, o serviço pergunta o tamanho da pizza. Isso permite que o usuário responda incorretamente 3 vezes antes de aplicar um tamanho (médio) à variável. (É possível incluir um intervalo de confirmação em que os usuários podem sempre corrigir o tamanho quando eles são perguntados para confirmar as informações do pedido.)
 
 ```json
 Check for: @size
@@ -398,23 +398,22 @@ Catchall Not found condition:
   "output": {
     "text": {
       "values": [
-        "What size did you want? We have small, medium, and large."
+        "Qual tamanho você quer? Temos pequeno, médio e grande."
       ],
       "selection_policy": "sequential"
     }
   },
 "context": {
-    "counter": "<? context['counter'] + 1 ?>"
+    "contador": "<? context['counter'] + 1 ?>"
   }
 }
 ```
 {: codeblock}
 
-3 회 시도 후에 다르게 답변하려면 다음과 같은 다른 찾을 수 없음 조건을 추가하십시오. 
+Para responder de forma diferente após 3 tentativas, inclua outra condição Não localizado assim:
 ```json
 {
-  "conditions": "$counter > 1",
-  "output": {
+  "condições": "$counter > 1", "output": {
     "text": {
       "values": [
         "We will bring you a size medium pizza."
@@ -427,35 +426,35 @@ Catchall Not found condition:
   ```
   {: codeblock}
 
-이 조건은 catchall의 true 조건보다 더 정확하므로 원래 조건부 응답보다 먼저 나오거나 트리거되지 않습니다. 조건부 응답을 선택하고 화살표를 사용하여 위로 이동하십시오.
+Essa condição é mais precisa do que a condição verdadeira da resposta catchall, então deve-se mover essa resposta para que venha antes da resposta condicional original ou ela nunca será acionada. Selecione a resposta condicional e use a seta para cima para movê-la para cima.
 
-### 필요하지 않으면 Found 응답이 표시되지 않도록 함
+### Evitando que uma resposta Found seja exibida quando ela não é necessária
 {: #slots-stifle-found-responses}
 
-여러 슬롯에 Found 응답을 지정하면 사용자가 한 번에 여러 슬롯의 값을 제공하는 경우 하나 이상의 슬롯에 대한 Found 응답이 표시됩니다. 리턴할 모든 슬롯에 대한 Found 응답을 원하거나 어떤 슬롯에 대해서도 Found 응답을 원하지 않을 수 있습니다.
+Se você especificar respostas Found para múltiplos intervalos, se um usuário fornecer valores para múltiplos intervalos de uma vez, a resposta Found para pelo menos um dos intervalos será exibida. Você provavelmente deseja que a resposta Found para todos eles ou nenhum deles seja retornada.
 
-Found 응답을 표시하지 않기 위해 각 Found 응답에 대해 다음 중 하나를 수행할 수 있습니다.
+Para evitar que as respostas Found sejam exibidas, é possível executar um dos procedimentos a seguir para cada resposta Found:
 
-- 특정 슬롯이 채워지면 표시되지 않도록 하는 조건을 응답에 추가하십시오. 예를 들어, $size 및 $time 컨텍스트 변수가 둘 다 제공되는 경우 응답이 표시되지 않도록 하는 조건(예: `!($size && $time)`)을 추가할 수 있습니다.
-- 응답에 `!all_slots_filled` 조건을 추가하십시오. 이 설정은 모든 슬롯이 채워지면 응답이 표시되지 않도록 합니다. 확인 슬롯을 포함하는 경우에는 이 방식을 사용하지 마십시오. 확인 슬롯도 슬롯이며, 일반적으로 확인 슬롯 자체가 채워지기 전에 Found 응답이 표시되지 않도록 할 수 있습니다.
+- Inclua uma condição na resposta que evite que ela seja exibida se intervalos específicos forem preenchidos. Por exemplo, é possível incluir uma condição como `!($size && $time)`, que evita que a resposta seja exibida se ambas as variáveis de contexto $size e $time forem fornecidas.
+- Inclua a condição `!all_slots_filled` na resposta. Essa configuração evita que a resposta seja exibida se todos os intervalos forem preenchidos. Não use essa abordagem se você estiver incluindo um intervalo de confirmação. O intervalo de confirmação também é um intervalo e você geralmente deseja evitar que respostas Found sejam exibidas antes do próprio intervalo de confirmação ser preenchido.
 
-### 프로세스 종료 요청 핸들링
+### Manipulando solicitações para sair de um processo
 {: #slots-node-level-handler}
 
-사용자가 노드를 종료하려는 경우 인식할 수 있는 하나 이상의 슬롯 핸들러를 추가하십시오.
+Inclua pelo menos um manipulador de intervalo que possa reconhecer quando um usuário deseja sair do nó.
 
-예를 들어, 애완동물 미용 약속을 스케줄하기 위해 정보를 수집하는 노드에서 #cancel 인텐트에 대한 조건을 지정하는 슬롯 핸들러를 추가할 수 있으며, 이는 <q>Forget it. I changed my mind 와 같은 표현을 인식합니다. </q>
+Por exemplo, em um nó que coleta informações para planejar um compromisso de banho de animal de estimação, é possível incluir um manipulador de intervalo que condicione na intenção #cancel, que reconheça elocuções como: <q>Esqueça. Eu mudei de ideia.</q>
 
-1.  핸들러의 JSON 편집기에서 모든 슬롯 컨텍스트 변수를 더미 값으로 채워 노드가 누락된 슬롯을 요청하지 않도록 하십시오. 핸들러 응답에서, 다음과 같은 메시지를 추가하십시오. 예: `Ok, we'll stop there. No appointment will be scheduled.`
-1.  다음 옵션 중에서 서비스가 수행할 조치를 선택하십시오. 
+1.  No editor JSON para o manipulador, preencha todas as variáveis de contexto do intervalo com valores simulados para evitar que o nó continue pedindo alguma que esteja ausente. E na resposta do manipulador, inclua uma mensagem como `Ok, we´ll stop there. No appointment will be scheduled.`
+1.  Escolha qual ação você deseja que o serviço tome em seguida dentre as opções a seguir:
 
-    - **다시 프롬프트(기본값)**: 주제를 벗어난 질문을 하기 전에 사용자가 작업하고 있던 슬롯에 대한 프롬프트를 표시합니다. 
-    - **현재 슬롯 건너뛰기**: 주제를 벗어난 질문을 하기 전에 사용자가 작업하고 있던 슬롯 다음에 오는 슬롯과 관련된 프롬프트를 표시합니다. 그리고 이 서비스는 건너뛴 슬롯을 채우려는 시도를 하지 않습니다. 
-    - **응답 건너뛰기**: 주제를 벗어난 질문을 하기 전에 사용자가 작업한 슬롯을 포함하여 나머지 빈 슬롯에 대한 프롬프트를 건너뜁니다. 
+    - **Solicitar novamente (padrão)**: exibe o prompt para o intervalo com o qual o usuário estava trabalhando um pouco antes de fazer a pergunta fora do tópico.
+    - **Ignorar o intervalo atual**: exibe o prompt associado ao intervalo que vem após o intervalo com o qual o usuário estava trabalhando um pouco antes de fazer a pergunta fora do tópico. Além disso, o serviço não faz tentativas adicionais de preencher o intervalo ignorado.
+    - **Ir para resposta**: ignora os prompts para todos os intervalos vazios restantes, incluindo o intervalo com o qual o usuário estava trabalhando um pouco antes de fazer a pergunta fora do tópico.
 
-1.  노드 레벨 응답의 경우 슬롯 컨텍스트 변수 중 하나에서 더미 값을 검사하는 조건을 추가하십시오. 찾으면, 다음과 같은 최종 메시지가 표시됩니다. 예: `If you decide to make an appointment later, I'm here to help.` 찾을 수 없는 경우, 다음과 같은 노드의 표준 요약 메시지를 표시합니다. 예: `I am making a grooming appointment for your $animal at $time on $date.`
+1.  Na resposta no nível do nó, inclua uma condição que verifique se há um valor simulado em uma das variáveis de contexto do intervalo. Se localizado, mostre uma mensagem final como `If you decide to make an appointment later, I'm here to help.` Se não localizado, ele exibe a mensagem de resumo padrão para o nó, como `I am making a grooming appointment for your $animal at $time on $date.`
 
-다음은 피자 예제의 슬롯 핸들러를 정의하는 JSON 샘플입니다. 앞서 설명한 바와 같이, 컨텍스트 변수는 모두 더미 값으로 설정됩니다. `$size` 컨텍스트 변수는 `dummy`로 설정됩니다. $size 값은 노드 레벨 응답을 트리거하여 적절한 메시지를 표시하고 슬롯 노드를 종료합니다. 
+Aqui está uma amostra de JSON que define um manipulador de intervalo para o exemplo de pizza. Observe que, conforme descrito anteriormente, as variáveis de contexto estão sendo configuradas com valores simulados. Na verdade, a variável de contexto `$size` está sendo configurada para `dummy`. Esse valor $size aciona a resposta no nível do nó para mostrar a mensagem apropriada e sair do nó de intervalos.
 
 ```json
 {
@@ -477,44 +476,44 @@ Found 응답을 표시하지 않기 위해 각 Found 응답에 대해 다음 중
 ```
 {: codeblock}
 
-**중요**: 이 조건 이전에 평가된 조건에서 사용된 논리를 고려하여 고유한 조건을 작성할 수 있습니다. 사용자 입력이 수신되면 조건은 다음 순서로 평가됩니다.
+**Importante**: leve em conta a lógica usada em condições que são avaliadas antes desta para que seja possível construir condições distintas nelas. Quando uma entrada do usuário é recebida, as condições são avaliadas na ordem a seguir:
 
-- 현재 슬롯 레벨 찾음 조건. 
-- 나열된 순서의 슬롯 핸들러. 
-- 현재 슬롯 레벨 찾을 수 없음 조건. 
+- Condições Localizado de nível de intervalo atual.
+- Manipuladores de intervalo na ordem em que estão listados.
+- Condições Não localizado de nível de intervalo atual.
 
-슬롯 핸들러처럼 항상 true(예: `true` 또는 `anything_else`)인 조건을 추가할 때 주의하십시오. 슬롯 마다, 슬롯 핸들러가 true로 평가되는 경우, 찾을 수 없음 조건을 완전히 건너뜁니다. 따라서 항상 true로 평가되는 슬롯 핸들러를 사용하면 모든 슬롯에 대해 찾을 수 없음 조건이 평가되지 않도록 효과적으로 방지할 수 있습니다.
+Tenha cuidado com a inclusão de condições que sempre são avaliadas como true (como as condições especiais, `true` ou `anything_else`) como manipuladores de intervalo. Por intervalo, se o manipulador de intervalo é avaliado como true, a condição Não localizado é completamente ignorada. Portanto, usar um manipulador de intervalo que sempre é avaliado como true evita efetivamente que a condição Não localizado seja avaliada para cada intervalo.
 {: tip}
 
-예를 들어, 고양이를 제외한 모든 동물을 미용합니다. 동물 슬롯의 경우 다음 슬롯 조건을 사용하여 `cat`이 동물 슬롯에 저장되지 않도록 할 수 있습니다.
+Por exemplo, você dá banho em todos os animais, exceto gatos. Para o intervalo Animal, você pode ser levado a usar a condição do intervalo a seguir para evitar que `cat` seja salvo no intervalo Animal:
 
 ```json
 Check for @animal && !@animal:cat, then save it as $animal.
 ```
 {: codeblock}
 
-사용자가 고양이가 허용되지 않음을 알게 하려면 동물 슬롯의 찾을 수 없음 조건에 다음 값을 지정할 수 있습니다.
+E para permitir que os usuários saibam que você não aceita gatos, pode-se especificar o valor a seguir na condição Não localizado do intervalo Animal:
 
 ```json
 If @animal:cat then, "I'm sorry. We do not groom cats."
 ```
 {: codeblock}
 
-논리적인 상태이면, #exit 슬롯 핸들러를 정의하는 경우에도 조건 평가 순서를 고려할때 찾을 수 없음 조건이 트리거되지 않습니다. 대신 다음 슬롯 조건을 사용할 수 있습니다.
+Embora lógico, se você também define um manipulador de intervalo #exit, então, dada a ordem de avaliação de condição, essa condição Não localizado provavelmente nunca será acionada. Em vez disso, você poderá usar essa condição do intervalo:
 
 ```json
 Check for @animal, then save it as $animal.
 ```
 {: codeblock}
 
-가능한 `cat` 응답을 처리하려면 이 값을 Found 조건에 추가하십시오.
+E, para lidar com uma possível resposta `cat`, inclua esse valor na condição Found:
 
 ```json
 If @animal:cat then, "I'm sorry. We do not groom cats."
 ```
 {: codeblock}
 
-현재 고양이로 설정되어 있는 값은 설정되면 안되므로 Found 조건의 JSON 편집기에서 $animal 컨텍스트 변수값을 재설정하십시오.
+No editor JSON para a condição Found, reconfigure o valor da variável de contexto $animal porque ele está atualmente configurado para gato e não deve estar.
 
 ```json
 {
@@ -532,8 +531,8 @@ If @animal:cat then, "I'm sorry. We do not groom cats."
 ```
 {: codeblock}
 
-## 슬롯 예제
+## Exemplos de intervalos
 
-서로 다른 공통 슬롯 사용 시나리오를 구현하는 JSON 파일에 액세스하려면 GitHub의 커뮤니티 [대화 저장소(![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘"))](https://github.com/watson-developer-cloud/community/tree/master/conversation){: new_window}로 이동하십시오.
+Para acessar arquivos JSON que implementam diferentes cenários de uso de intervalo comum, acesse a comunidade [repositório de conversa ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://github.com/watson-developer-cloud/community/tree/master/conversation){: new_window} no GitHub.
 
-예제를 탐색하려면 예제 JSON 파일 중 하나를 다운로드한 다음 새 작업공간으로 가져오십시오. 대화 상자 탭에서 대화 상자 노드를 검토하여 여러 유스 케이스를 처리하도록 슬롯을 구현한 방법을 볼 수 있습니다.
+Para explorar um exemplo, faça download de um dos arquivos JSON de exemplo e, em seguida, importe-o como uma nova área de trabalho. Na guia Diálogo, é possível revisar os nós de diálogo para ver como os intervalos foram implementados para direcionar diferentes casos de uso.

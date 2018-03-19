@@ -17,53 +17,53 @@ lastupdated: "2018-02-13"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 카탈로그 사용
+# Usando catálogos
 
-***카탈로그***는 {{site.data.keyword.conversationshort}} 서비스 작업공간에 공통 인텐트를 추가하는 쉬운 방법을 제공합니다.
+Os ***Catálogos*** fornecem uma maneira fácil de incluir intenções comuns em sua área de trabalho do serviço {{site.data.keyword.conversationshort}}.
 {: shortdesc}
 
-## 작업공간에 카탈로그 추가
+## Incluindo um catálogo em sua área de trabalho
 {: #add-catalog}
 
-카탈로그를 추가하려면 {{site.data.keyword.conversationshort}} 도구를 사용하십시오.
+Use a ferramenta {{site.data.keyword.conversationshort}} para incluir catálogos.
 
-1.  {{site.data.keyword.conversationshort}} 도구에서 작업공간을 연 다음 탐색줄에서 **카탈로그** 탭을 선택하십시오. **카탈로그**가 표시되지 않으면 ![메뉴](images/Menu_16.png) 메뉴를 사용하여 페이지를 여십시오.
+1.  Na ferramenta {{site.data.keyword.conversationshort}}, abra a sua área de trabalho e, em seguida, selecione a guia **Catálogo** na barra de navegação. Se **Catálogo** não estiver visível, use o menu ![Menu](images/Menu_16.png) para abrir a página.
 
-1.  *청구*와 같은 카탈로그를 선택하여 함께 제공되는 인텐트를 확인하십시오.
+1.  Selecione um catálogo, como *Faturamento*, para ver as intenções que são fornecidas com ele.
 
-    ![사용 가능한 카탈로그를 표시하는 화면 캡처](images/catalog_overview.png)
+    ![Captura de tela mostrando os catálogos disponíveis](images/catalog_overview.png)
 
-    *청구* 카탈로그에서 정의된 인텐트에 관한 정보가 표시됩니다.
+    Você verá informações sobre as intenções que estão definidas na categoria *Faturamento*.
 
-    ![청구 카테고리 인텐트를 표시하는 화면 캡처](images/catalog_open.png)
+    ![Captura de tela mostrando as intenções da categoria Faturamento](images/catalog_open.png)
 
-    카탈로그에서 추가된 인텐트는 이름 지정 규칙에 따라 다른 인텐트와 구별할 수 있습니다. 예:`#Billing_ . . .`
+    As intenções que são incluídas de um catálogo são distinguíveis de outras intenções pela convenção de nomenclatura; nesse caso, `#Billing_. . .`
 
-1.  **카탈로그** 탭으로 돌아가려면, 선택하십시오.![닫기 화살표](images/close_arrow.png)
+1.  Selecione ![Seta de fechamento](images/close_arrow.png) para retornar à guia **Catálogo**.
 
-1.  다음으로, `봇에 추가` 단추를 클릭하여 작업공간에 *청구*를 추가하십시오. 작업공간에 *청구* 인텐트가 추가되었음을 나타내는 메시지가 표시됩니다.
+1.  Em seguida, inclua o catálogo *Faturamento* em sua área de trabalho clicando no botão `Add to Bot`. Você verá uma mensagem indicando que as intenções de *Faturamento* foram incluídas em sua área de trabalho.
 
-    ![봇에 추가 단추를 표시하는 화면 캡처](images/catalog_addtobot.png)
+    ![Captura de tela mostrando o botão Add to Bot](images/catalog_addtobot.png)
 
-1.  이제, **인텐트** 탭을 선택하여, 작업공간에 추가된 *청구* 인텐트를 확인하십시오.
+1.  Agora, selecione a guia **Intenções** e verifique se as intenções de *Faturamento* foram incluídas em sua área de trabalho.
 
-    ![인텐트 탭에 나열된 청구 인텐트를 표시하는 화면 캡처](images/catalog_intents.png)
+    ![Captura de tela mostrando as intenções de Faturamento listadas na guia Intenções](images/catalog_intents.png)
 
-### 결과
+### Resultados
 
-*청구* 카탈로그의 인텐트가 작업공간의 **인텐트** 탭에 추가되고 시스템이 새 데이터에 대해 자체 훈련을 시작합니다.
+Os intentos do catálogo *Faturamento* foram incluídas na guia **Intenções** de sua área de trabalho e o sistema inicia o próprio treinamento com os novos dados.
 
-## 카탈로그 예제 편집
+## Editando exemplos do catálogo
 
-다른 인텐트와 마찬가지로, *청구* 카탈로그의 인텐트가 작업공간에 추가되면 다음과 같이 변경할 수 있습니다.
+Como qualquer outra intenção, uma vez que as intenções do catálogo *Faturamento* foram incluídas em sua área de trabalho, é possível fazer as mudanças a seguir:
 
-- 인텐트의 이름을 바꿉니다.
-- 인텐트를 삭제합니다.
-- 예제를 추가하거나 편집하거나 삭제합니다.
-- 다른 인텐트로 예제를 이동합니다.
+- Renomear a intenção.
+- Excluir a intenção.
+- Incluir, editar ou excluir exemplos.
+- Mover um exemplo para uma intenção diferente.
 
-인텐트 이름에서 각 예제로 탭을 사용하여 이동할 수 있으며, 예제(선택하는 경우)를 편집할 수 있습니다.
+É possível usar a tecla tab do nome da intenção para cada exemplo, editando os exemplos, se você escolher.
 
-예제를 이동하거나 삭제하려면, 선택란을 선택하여 예제를 선택한 다음 **이동** 또는 **삭제**를 선택하십시오.
+Para mover ou excluir um exemplo, selecione o exemplo marcando a caixa de seleção e, em seguida, selecione **Mover** ou **Excluir**.
 
-  ![예제를 이동하거나 삭제하는 방법을 표시하는 화면 캡처](images/catalog_edit.png)
+  ![Captura de tela mostrando como mover ou excluir um exemplo](images/catalog_edit.png)

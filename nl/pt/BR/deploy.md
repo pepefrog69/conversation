@@ -17,14 +17,14 @@ lastupdated: "2018-01-24"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 배치 개요
+# Visão geral da implementação
 
-작업공간을 구성하고 작업 대화 상자를 빌드한 후, 고객이 사용할 인터페이스에 작업공간을 연결하여 애플리케이션을 배치할 수 있습니다. 또한 다른 서비스(기타 {{site.data.keyword.watson}} 서비스 포함)에 작업공간을 연결할 수 있습니다. 이를 수행할 수 있는 다양한 방법이 있습니다.
+Depois de ter configurado sua área de trabalho e construído um diálogo de trabalho, é possível implementar seu aplicativo conectando-se a área trabalho à interface que seus clientes irão usar. Também é possível conectar sua área de trabalho a outros serviços (incluindo outros serviços {{site.data.keyword.watson}}). Há várias maneiras de fazer isso.
 
-- [**Slack에서 테스트**](test-deploy.html): 테스트 배치 도구를 사용하여 작업공간과 사전빌드된 Slack 앱을 사용하여 Slack 채널에 채팅 봇을 신속하게 배치할 수 있습니다. 이 옵션은 작업공간을 테스트하는 가장 빠르고 쉬운 방법이지만 제한사항이 있습니다.
+- [**Testando no Slack**](test-deploy.html): é possível usar a ferramenta de implementação de teste para implementar rapidamente um robô de bate-papo em um canal do Slack, usando sua área de trabalho e um app Slack pré-construído. Essa opção é a maneira mais rápida e fácil de testar sua área de trabalho, mas tem limitações.
 
-- [**{{site.data.keyword.conversationshort}} 커넥터**를 사용하여 채널에 배치](conversation-connector.html): {{site.data.keyword.conversationshort}}커넥터를 사용하여 작업공간과 자신의 Slack 또는 Facebook 앱에 연결하여 Slack 또는 Facebook Messenger에 채팅 봇을 배치할 수 있습니다. 
+- [**Implementando em um canal com o conector do {{site.data.keyword.conversationshort}}**](conversation-connector.html): é possível usar o conector do {{site.data.keyword.conversationshort}} para implementar um robô de bate-papo no Slack ou Facebook Messenger, usando sua área de trabalho e seu próprio app Slack ou Facebook.
 
-- [**클라이언트 애플리케이션 빌드**](develop-app.html): 선택한 언어에 맞는 {{site.data.keyword.watson}} SDK를 사용하여 고유 애플리케이션을 프론트 엔드로 개발할 수 있습니다. 그러면 애플리케이션이 {{site.data.keyword.conversationshort}} API를 사용하여 써드파티 서비스 및 고유 비즈니스 시스템과 통합하고 서비스와 통신할 수 있습니다.
+- [**Construindo um aplicativo cliente**](develop-app.html): é possível usar o SDK {{site.data.keyword.watson}} para o idioma de sua escolha para desenvolver seu próprio aplicativo front-end. Seu aplicativo pode então usar as APIs do {{site.data.keyword.conversationshort}} para se comunicar com o serviço, enquanto também se integra aos serviços de terceiros e seus próprios sistemas de negócios.
 
-- [**Botkit으로 봇 빌드**](integrations.html): Botkit 프레임워크를 사용하여 소셜 미디어 및 메시징 채널과 작업공간을 통합할 수 있습니다.
+- [**Construindo um robô com Botkit**](integrations.html): é possível usar a estrutura Botkit para integrar sua área de trabalho com mídia social e canais de mensagens.

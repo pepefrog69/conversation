@@ -14,10 +14,10 @@ lastupdated: "2017-07-06"
 {:pre: .pre}
 {:table: .aria-labeledby="caption"}
 
-# 비디오: {{site.data.keyword.conversationshort}}에 대한 도구 개요
+# Vídeo: visão geral da ferramenta para {{site.data.keyword.conversationshort}}
 {: #tool-video}
 
-{{site.data.keyword.conversationshort}} 도구를 사용하면 {{site.data.keyword.conversationshort}} 작업공간을 작성하고 관리할 수 있습니다. 도구의 다른 영역에 대해 학습하려면 이 비디오를 시청하십시오.
+Com a ferramenta {{site.data.keyword.conversationshort}}, é possível criar e gerenciar sua área de trabalho do {{site.data.keyword.conversationshort}}. Assista a esse vídeo para aprender sobre diferentes áreas da ferramenta.
 
 <p>
   <div class="embed-responsive embed-responsive-16by9">

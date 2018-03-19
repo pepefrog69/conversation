@@ -17,14 +17,14 @@ lastupdated: "2017-12-06"
 {:python: .ph data-hd-programlang='python'}
 {:swift: .ph data-hd-programlang='swift'}
 
-# 피드백
+# Feedback
 {: #feedback}
 
-저희는 귀하의 의견을 소중히 여깁니다.
+Nós valorizamos sua opinião e desejamos ouvi-la.
 {: shortdesc}
 
-- {{site.data.keyword.conversationfull}} 서비스에 대한 새 기능을 제안하거나 아이디어를 공유하려면, [IBM Watson Ideas 포털![외부 링크 아이콘](../../icons/launch-glyph.svg "외부 링크 아이콘")](https://ibm-watson.ideas.aha.io/?project=WCS){: new_window}로 이동하십시오. 
+- Para compartilhar ideias ou sugerir novos recursos para o serviço {{site.data.keyword.conversationfull}}, acesse o [Portal do IBM Watson Ideias ![Ícone de link externo](../../icons/launch-glyph.svg "Ícone de link externo")](https://ibm-watson.ideas.aha.io/?project=WCS){: new_window}.
 
-- 문서에 대한 피드백을 제공하려면, 여러분이 읽고 의견을 주시려는 페이지의 가장자리에 따라 표시되는 **피드백** 단추를 클릭하십시오.
+- Para fornecer feedback sobre a documentação, clique no botão **FEEDBACK** que é exibido ao longo da borda da página que você está lendo e sobre a deseja comentar.
 
-  **참고**: **피드백** 단추는 모바일 기기에서 문서 사이트에 액세스하는 경우엔 사용할 수 없습니다.
+  **Nota**: o botão **FEEDBACK** não fica disponível ao acessar o site de documentação por meio de dispositivos móveis.
