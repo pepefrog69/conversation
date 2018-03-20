@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-16"
+lastupdated: "2018-03-20"
 
 ---
 
@@ -24,8 +24,8 @@ The Improve component of {{site.data.keyword.conversationshort}} provides a hist
 
 Sections of the **Improve** panel:
 
-* [Overview](logs_oview.html): A summary of interactions of users with an application.
-* [User conversations](logs_convo.html): A list of user utterances. You can update intents and entities while viewing an individual user utterance. **Note**: A single user conversation may consist of multiple utterances.
+* [Overview](logs_oview.html): A summary of conversations that users had with your application.
+* [User conversations](logs_convo.html): A list of individual user utterances. You can update intents and entities while viewing an individual user utterance. **Note**: A single user conversation may consist of multiple utterances.
 * [Recommendations](logs_recommend.html): Ways to improve your system. Available only to Premium users.
 
 ## Improving across applications
@@ -37,11 +37,11 @@ To understand how to use utterance data to make improvements across applications
 * ***Application/Bot***: An application - often referred to as a 'bot' - is one model of your {{site.data.keyword.conversationshort}} content.
 * ***User***: A user is anyone who interacts with your application; often these are your customers.
 * ***Utterance***: An utterance is a single message a user sends to the application.
-* ***Conversation***: A set of related exchanges (utterances and responses) that a user has with your application.
-* ***Conversation ID***: A unique identifier used to link related exchanges.
+* ***Conversation***: A set of utterances consisting of the messages that an individual user sends to your application, and the messages your application responds with.
+* ***Conversation ID***: A unique identifier used to link related exchanges. This identifier is sent using the `/message` API, by including the Conversation ID inside the metadata object in your [context ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/curl.html?curl#message).
 * ***Workspace ID***: The unique identifier of an application
-<!-- * ***Deployment ID***: Unique labels that are passed with user utterances to help identify the deployment environment that the utterances come from. -->
-* ***Customer ID***: A unique label that can identify a specific user of your application.
+* ***Deployment ID***: Unique labels that are passed with user utterances to help identify the deployment environment that the utterances come from.
+<!-- * ***Customer ID***: A unique label that can identify a specific user of your application. -->
 
 Creating an application is a very iterative process. While you develop your application, you use the *Try it out* pane to verify that your application recognizes the correct intents and entities in test inputs, and to make corrections as needed.
 
@@ -55,7 +55,7 @@ As an example, say you have a {{site.data.keyword.conversationshort}} instance n
 
 Any edits you then make within the Development application will only affect the Development application, even if you’re using Production application utterances. See [Selecting a data source](logs_convo.html#select-source) for additional information.
 
-To specify the deployment ID for an utterance sent using the `/message` API, include the deployment property inside the metadata object in your [context ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/conversation/api/v1/#send_message){: new_window}, as in this example:
+To specify the deployment ID for an utterance sent using the `/message` API, include the deployment property inside the metadata object in your [context ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/curl.html?curl#message){: new_window}, as in this example:
 
 ```
 "context" : {
@@ -69,9 +69,9 @@ To specify the deployment ID for an utterance sent using the `/message` API, inc
 ## Enabling user metrics
 {: #user_id}
 
-User metrics allow you to see, for example, the number of active users (unique users) who have engaged with your application/bot, or the average number of sessions per user over a given time interval on the [Overview page](logs_oview.html). User metrics are enabled by using a unique `User ID` parameter.
+User metrics allow you to see, for example, the number of unique users who have engaged with your application/bot, or the average number of conversations per user over a given time interval on the [Overview page](logs_oview.html). User metrics are enabled by using a unique `User ID` parameter.
 
-To specify the `User ID` for an utterance sent using the `/message` API, include the `user_id` property inside the metadata object in your [context ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/conversation/api/v1/#send_message){: new_window}, as in this example::
+To specify the `User ID` for an utterance sent using the `/message` API, include the `user_id` property inside the metadata object in your [context ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.ibm.com/watson/developercloud/assistant/api/v1/curl.html?curl#message){: new_window}, as in this example:
 
 ```
 "context" : {
