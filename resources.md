@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-20"
+lastupdated: "2018-03-22"
 
 ---
 
@@ -25,9 +25,6 @@ Links to resources, videos, tutorials, and articles that can help you to get sta
 ## Developer resources
 
 - [IBM Code Bot Asset Exchange ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/code/exchanges/bots/){: new_window}
-
-## Developer resources for building conversational skills
-
 - [Retail chat app ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/code/journey/create-cognitive-retail-chatbot/){: new_window}
 - [Investment management chat app ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/code/journey/create-an-investment-management-chatbot/){: new_window}
 - [Cognitive Banking chatbot ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://developer.ibm.com/code/journey/create-cognitive-banking-chatbot/){: new_window}
@@ -40,7 +37,7 @@ Links to resources, videos, tutorials, and articles that can help you to get sta
 
 From an IBM technical deep-dive series. These recordings provide step-by-step instructions and answers.
 
-**Note**: Excuse the references to the legacy service name (IBM Watson Conversation) that these videos use to refer to the service. The principles described in them remain true for the process of building conversational skills with {{site.data.keyword.conversationshort}}.
+**Note**: Excuse the references to the legacy service name (IBM Watson Conversation) that these videos use to refer to the service. The principles described in them remain true for {{site.data.keyword.conversationshort}}.
 
 - [Advanced integrations ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://youtu.be/0rnt54ONtQw){: new_window}
 - [Training the service to detect user intent ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://youtu.be/uYw4Tv1Y5tc){: new_window}
@@ -48,7 +45,7 @@ From an IBM technical deep-dive series. These recordings provide step-by-step in
 
 ## Other videos
 
-Additional videos created by IBMers. Again, these videos refer to the service by its former name, the Watson Conversation service. They remain relevant for {{site.data.keyword.conversationshort}} because they focus on conversational skill development.
+Additional videos created by IBMers. Again, these videos refer to the service by its former name, the Watson Conversation service. However, they continue to be relevant for {{site.data.keyword.conversationshort}}.
 
 - [Show me how to build conversational skills ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://youtu.be/tUkLIUOm550){: new_window}: A 3-minute overview of the service
 - [Walkthrough of the tool ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://youtu.be/ELwWhJGE2P8){: new_window}: A 14-minute technical walkthrough
@@ -71,7 +68,7 @@ Videos are embedded in the following pages of the product documentation.
 
 - [IBM Watson Conversation courses ![External link icon](../../icons/launch-glyph.svg "External link icon")](https://www.watson-academy.info/course/index.php?categoryid=29){: new_window}
 
-  **Note**: No {{site.data.keyword.conversationshort}} courses are available currently. Many of the principles covered in these courses apply to conversational skills, and so continue to be useful.
+  **Note**: No {{site.data.keyword.conversationshort}} courses are available currently. The principles covered in the Watson Conversation courses also apply to {{site.data.keyword.conversationshort}}.
 
 ## Simon Burns on Medium
 
