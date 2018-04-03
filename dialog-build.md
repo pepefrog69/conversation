@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-14"
+lastupdated: "2018-04-03"
 
 ---
 
@@ -154,6 +154,23 @@ As you make changes to your dialog, you can test it at any time to see how it re
 If you determine that the wrong intents or entities are being recognized, you might need to modify your intent or entity definitions.
 
 If the correct intents and entities are being recognized, but the wrong nodes are being triggered in your dialog, make sure your conditions are written properly.
+
+## Searching your dialog
+{: #search}
+
+You can search the dialog to find one or more dialog nodes that mention a given word or phrase.
+
+1.  Select the Search icon: ![Search icon](images/search_icon.png)
+
+1.  Enter a search term or phrase.
+
+    **Note**: The first time you search, an index is created. You might be asked to wait while the text in your dialog nodes is indexed.
+
+### Results
+
+Nodes containing your search term, with corresponding examples, are shown. Select any result to open it for editing.
+
+  ![Intent search return](images/search_dialog.png)
 
 ## Copying a dialog node
 {: #copy-node}
