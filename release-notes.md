@@ -51,7 +51,7 @@ The following new features and changes to the service are available.
 ### 4 April 2018
 {: #4April2018}
 
-- **Search dialogs**: The search feature now allows you to [search dialog nodes](dialog-build.html#search) for a given word or phrase.
+- **Search dialogs**: You can now [search dialog nodes](dialog-build.html#search) for a given word or phrase.
 
 ### 15 March 2018
 {: #15March2018}
