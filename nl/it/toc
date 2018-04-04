@@ -20,16 +20,25 @@ Watson Assistant
         intents-entities.md
         intents.md
         entities.md
-    dialog-build.md
-    dialog-api.md
+        catalog.md
+
+    {: .topicgroup}
+    Creazione di un dialogo
+        dialog-overview.md
+        dialog-runtime.md
+        dialog-build.md
+        dialog-slots.md
+        dialog-multimedia.md
+        dialog-actions.md
+        dialog-api.md
 
     {: .topicgroup}
     Distribuzione
         deploy.md
         test-deploy.md
+        conversation-connector.md
         develop-app.md
         integrations.md
-    tutorial.md
 
     {: .topicgroup}
     Miglioramento della comprensione
@@ -38,17 +47,19 @@ Watson Assistant
         logs_convo.md
         logs_recommend.md
 
-    plan-upgrade.md
+    upgrading.md
+
+    {: .topicgroup}
+    Esercitazioni
+        tutorial.md
+        tutorial-slots.md
+        tutorial-slots-complex.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
     [Riferimento API](https://www.ibm.com/watson/developercloud/conversation/api/v1/)
-
-    {: .topicgroup}
-    Linguaggio delle espressioni
-        expression-language.md
-        dialog-methods.md
-
+    dialog-methods.md
+    expression-language.md
     filter-reference.md
     sample-applications.md
     lang-support.md
@@ -58,20 +69,24 @@ Watson Assistant
         system-entities.md
         supported-timezones.md
 
-    [Repository GitHub Watson](https://github.com/watson-developer-cloud/)
-
     {: .topicgroup}
     SDK Watson
+        [SDK Android](https://github.com/watson-developer-cloud/android-sdk)
         [SDK Java](https://github.com/watson-developer-cloud/java-sdk)
         [SDK Node.js](https://github.com/watson-developer-cloud/node-sdk)
         [SDK Python](https://github.com/watson-developer-cloud/python-sdk)
         [SDK .NET](https://github.com/watson-developer-cloud/dotnet-standard-sdk)
-        [SDK Swift](https://github.com/watson-developer-cloud/ios-sdk)
+        [SDK OpenWhisk](https://github.com/watson-developer-cloud/openwhisk-sdk/)
+        [SDK Salesforce](https://github.com/watson-developer-cloud/salesforce-sdk)
+        [SDK Swift](https://github.com/watson-developer-cloud/swift-sdk)
         [SDK Unity](https://github.com/watson-developer-cloud/unity-sdk)
+
+    [Repository GitHub Watson](https://github.com/watson-developer-cloud/)
     {: .navgroup-end}
 
     {: .navgroup id="help"}
     release-notes.md
+    feedback.md
 
     {: .topicgroup}
     Community di sviluppatori
