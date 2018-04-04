@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-15"
+lastupdated: "2018-04-04"
 
 ---
 
@@ -47,6 +47,11 @@ Existing models that you have trained will not be immediately impacted, but expi
 {: #change-log}
 
 The following new features and changes to the service are available.
+
+### 4 April 2018
+{: #4April2018}
+
+- **Search dialogs**: You can now [search dialog nodes](dialog-build.html#search) for a given word or phrase.
 
 ### 15 March 2018
 {: #15March2018}
