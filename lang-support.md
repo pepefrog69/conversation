@@ -31,7 +31,7 @@ The first table shows the level of support for all features, except those relate
 
 **Table 1. Feature support details**
 
-| Language | **[Defining intents](intents.html)** and **[dialog](dialog-build.html)** | **[Absolute scoring and 'Mark as irrelevant'](intents.html#mark-irrelevant)** | **[Search intents](intents.html#searching-intents)** and **[dialog](dialog-build.html#search)**
+| Language | **[Defining intents](intents.html)** and **[dialog](dialog-build.html)** | **[Absolute scoring and 'Mark as irrelevant'](intents.html#mark-irrelevant)** | **Search**
 |:---|:---:|:---:|:---:|
 | **English (en)**                   | GA | GA | GA |
 | **Arabic (ar)**                    | GA | Beta | NA |
