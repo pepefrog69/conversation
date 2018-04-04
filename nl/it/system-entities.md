@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-07-06"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -84,7 +84,7 @@ L'entità di sistema `@sys-time` estrae citazioni come `2pm`, `at 4` o `15:30`. 
 
 ### Citazioni di data e ora
 
-Le citazioni di data e ora, come `now` o `two hours from now` vengono estratte come due citazioni di entità separate, una `@sys-date` e l'altra `@sys-time`. Queste due citazioni non sono collegate tra loro, tranne per il fatto che condividono la stessa stringa letterale che comprende la citazione data-ora completa. 
+Le citazioni di data e ora, come `now` o `two hours from now` vengono estratte come due citazioni di entità separate, una `@sys-date` e l'altra `@sys-time`. Queste due citazioni non sono collegate tra loro, tranne per il fatto che condividono la stessa stringa letterale che comprende la citazione data-ora completa.
 
 Le citazioni di data e ora con più parole, come `on Monday at 4pm` vengono anche estratte come due citazioni @sys-date e @sys-time. Se citate insieme consecutivamente, condividono anche una singola stringa letterale che comprende la citazione data-ora completa.
 
@@ -94,11 +94,11 @@ Le citazioni di un intervallo di date, come `the weekend`, `next week` o `from M
 
 ### Date e ore `Last` e `Next`
 
-In alcune locali, una frase come "last Monday" viene utilizzata solo per specificare il lunedì della settimana precedente. Al contrario, altre locali utilizzano "last Monday" per specificare l'ultimo giorno che era un lunedì, ma che potrebbe essere stato nella stessa settimana o nella settimana precedente. 
+In alcune locali, una frase come "last Monday" viene utilizzata solo per specificare il lunedì della settimana precedente. Al contrario, altre locali utilizzano "last Monday" per specificare l'ultimo giorno che era un lunedì, ma che potrebbe essere stato nella stessa settimana o nella settimana precedente.
 
 Ad esempio, per venerdì 16 giugno, in alcune locali "last Monday" potrebbe riferirsi al 12 giugno o al 5 giugno, mentre in altre locali si riferisce solo al 5 giugno (la settimana precedente). Questa stessa logica vale per una frase come "next Monday".
 
-Il servizio di conversazione considera le date "last" e "next" come il giorno di riferimento precedente o successivo più immediato, che può essere nella stessa settimana o in una settimana precedente. 
+Il servizio {{site.data.keyword.conversationshort}} considera le date "last" e "next" come il giorno di riferimento precedente o successivo più immediato, che può essere nella stessa settimana o in una settimana precedente. 
 
 Per frasi temporali come "for the last 3 days" o "in the next 4 hours", la logica è equivalente. Ad esempio, nel caso di "in the next 4 hours", questo comporta due entità `@sys-time`: una dell'ora corrente e una delle quattro ore più tardi rispetto all'ora corrente.
 
@@ -129,7 +129,7 @@ Quando viene fornita la variabile `$timezone`, i valori delle citazioni relative
 
 Per l'input `November 21` @sys-date restituisce questi valori:
 
-| Attributo                   | Tipo   | Valore restituito per `November 21` |
+| Attributo               | Tipo   | Valore restituito per `November 21` |
 |-------------------------|--------|---------------------------:|
 | @sys-date.literal       | stringa |                November 21 |
 | @sys-date               | stringa |                20xx-11-21 *|
@@ -141,7 +141,7 @@ Per l'input `November 21` @sys-date restituisce questi valori:
 
 Per l'input `at 6 pm` @sys-time restituisce questi valori:
 
-| Attributo                   | Tipo   | Valore restituito per `at 6 pm` |
+| Attributo               | Tipo   | Valore restituito per `at 6 pm` |
 |-------------------------|--------|-----------------------:|
 | @sys-time.literal       | stringa |                at 6 pm |
 | @sys-time               | stringa |               18:00:00 |
@@ -151,6 +151,7 @@ Per l'input `at 6 pm` @sys-time restituisce questi valori:
 - @sys-time restituisce l'ora sempre in questo formato: HH:mm:ss.
 
 Per informazioni sull'elaborazione dei valori di data e ora, vedi il riferimento al metodo [Data e ora](dialog-methods.html#date-time).
+{: tip}
 
 ## Entità @sys-location
 {: #sys-location}
@@ -164,6 +165,7 @@ Per informazioni sull'elaborazione dei valori di data e ora, vedi il riferimento
 - New South Wales
 
 Per informazioni sull'elaborazione dei valori Stringa, vedi il riferimento al metodo [Stringhe](dialog-methods.html#strings).
+{: tip}
 
 ## Entità @sys-number
 {: #sys-number}
@@ -213,6 +215,7 @@ Ottieni risultati equivalenti per le altre lingue supportate.
   Utilizza invece `@sys-number AND @sys-number<4`. Se non è presente alcun numero, la prima condizione viene valutata come false, il che porta a valutare correttamente l'intera condizione come false.
 
 Per informazioni sull'elaborazione dei valori di numero, vedi il riferimento al metodo [Numeri](dialog-methods.html#numbers).
+{: tip}
 
 ## Entità @sys-percentage
 {: #sys-percentage}
@@ -232,7 +235,7 @@ L'entità di sistema @sys-percentage rileva le percentuali indicate in un'espres
 
 Per l'input `1,234.56%`, @sys-percentage restituisce questi valori:
 
-| Attributo                   | Tipo   | Valore restituito per `1,234.56%` |
+| Attributo                     | Tipo   | Valore restituito per `1,234.56%` |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | stringa |                  1234.56 |
 | @sys-percentage.literal       | stringa |                1,234.56% |
@@ -241,7 +244,7 @@ Per l'input `1,234.56%`, @sys-percentage restituisce questi valori:
 
 Per l'input `1.234,56%`, in spagnolo, @sys-currency restituisce questi valori:
 
-| Attributo                   | Tipo   | Valore restituito per `1.234,56%` |
+| Attributo                     | Tipo   | Valore restituito per `1.234,56%` |
 |-------------------------------|--------|-------------------------:|
 | @sys-percentage               | stringa |                  1234.56 |
 | @sys-percentage.literal       | stringa |                1.234,56% |
@@ -270,3 +273,4 @@ Ottieni risultati equivalenti per le altre lingue supportate.
 - Vijay
 
 Per informazioni sull'elaborazione dei valori Stringa, vedi il riferimento al metodo [Stringhe](dialog-methods.html#strings).
+{: tip}

@@ -21,7 +21,7 @@ lastupdated: "2017-09-18"
 
 L'API REST del servizio {{site.data.keyword.conversationshort}} offre potenti funzioni di ricerca dei log tramite le query di filtro. Puoi utilizzare il parametro `filter` dell'API /logs per ricercare nel log dello spazio di lavoro gli eventi che corrispondono a una query specificata.
 
-Il parametro `filter` è una query di cache che limita i risultati a quelli corrispondenti al filtro specificato. Puoi applicare un filtro su qualsiasi oggetto che fa parte del modello di risposta JSON (ad esempio, il testo dell'input utente, gli intenti e le entità rilevati o il punteggio di affidabilità). 
+Il parametro `filter` è una query di cache che limita i risultati a quelli corrispondenti al filtro specificato. Puoi applicare un filtro su qualsiasi oggetto che fa parte del modello di risposta JSON (ad esempio, il testo dell'input utente, gli intenti e le entità rilevati o il punteggio di affidabilità).
 
 Per visualizzare degli esempi dei vari tipi di query di filtro, vedi [Esempi](#examples).
 
@@ -48,7 +48,7 @@ Il filtro per intento o entità richiede una sintassi leggermente diversa dal fi
 
 Nella query di filtro puoi utilizzare i seguenti operatori.
 
-| Operatore | Descrizione|
+| Operatore | Descrizione |
 |:-------------------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `:` | Operatore di query di corrispondenza fuzzy. Aggiungi il prefisso `:` al termine di query se vuoi trovare una corrispondenza con qualsiasi valore che contenga il termine di query o una variante grammaticale del termine di query. La corrispondenza fuzzy è disponibile per il testo dell'input utente, il testo di output della risposta e i valori di entità. |
 | `::` | Operatore di query di corrispondenza esatta. Aggiungi il prefisso `::` se vuoi trovare una corrispondenza solo con i valori esattamente uguali al termine di query. |
@@ -60,7 +60,7 @@ Nella query di filtro puoi utilizzare i seguenti operatori.
 | `~` | Corrispondenza approssimativa. Aggiungi questo operatore seguito da `1` o `2` alla fine del termine di query per specificare il numero consentito di differenze a carattere singolo tra la stringa di query e una corrispondenza nell'oggetto di risposta. Ad esempio, `car~1` può corrispondere a `car`, `cat` o `cars`, ma non può corrispondere a `cats`. Questo operatore non è valido quando si utilizza il filtro su `log_id` o su qualsiasi campo di data e ora oppure con la corrispondenza fuzzy. |
 | `*` | Operatore carattere jolly. Corrisponde a qualsiasi sequenza di zero o più caratteri. Questo operatore non è valido quando si utilizza il filtro su `log_id` o su qualsiasi campo di data e ora. |
 | `()`, `[]` | Operatori di raggruppamento. Da utilizzare per racchiudere un raggruppamento logico di più espressioni utilizzando operatori booleani. |
-| <code>&#124;</code> | Operatore booleano _or_. |
+| \| | Operatore booleano _or_. |
 | `,` | Operatore booleano _and_. |
 
 ### Filtro per intento o entità
@@ -103,7 +103,7 @@ Per filtrare su qualsiasi altro campo nei dati di log, specifica la posizione co
 
 I seguenti esempi illustrano vari tipi di query che utilizzano questa sintassi.
 
-| Descrizione| Query |
+| Descrizione | Query |
 |---------|-----------|
 | La data della risposta è nel mese di luglio 2017. | `response_timestamp>=2017-07-01,response_timestamp<2017-08-01` |
 | La data/ora della risposta è precedente a `2016-11-01T04:00:00.000Z`. | `response_timestamp<2016-11-01T04:00:00.000Z` |
@@ -118,6 +118,7 @@ I seguenti esempi illustrano vari tipi di query che utilizzano questa sintassi.
 | Il testo dell'input utente contiene una stringa composta da `comm`, seguito da zero o più caratteri aggiuntivi, seguiti da `s`. | `request.input.text:comm*s` |
 | L'ID distribuzione nel contesto corrisponde a `my_app`. | `request.context.metadata.deployment::my_app` |
 | Un'entità nella risposta ha un valore di affidabilità superiore a 0,8. | `response.intents:confidence>0.8` |
-| Un nome intento nella risposta corrisponde esattamente a `hello` o a `goodbye`. | <code>response.intents:intent::(hello&#124;goodbye)</code> |
+| Un nome intento nella risposta corrisponde esattamente a `hello` o a `goodbye`. | <code>response.intents:intent::(hello\|goodbye)</code> |
 | Un intento nella risposta ha il nome `hello` e un valore di affidabilità uguale o superiore a 0,8. | `response.intents:(intent:hello,confidence>=0.8)` |
 | Un nome intento nella risposta corrisponde esattamente a `order` e un nome entità nella risposta corrisponde esattamente a `beverage`. | `[response.intents:intent::order,response.entities:entity::beverage]` |
+<!-- -->

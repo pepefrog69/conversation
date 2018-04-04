@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-01-24"
 
 ---
 
@@ -38,15 +38,15 @@ Il completamento di questa esercitazione richiede circa 2 o 3 ore.
 
 Prima di iniziare, completa l'[Esercitazione introduttiva](getting-started.html). 
 
-Utilizzerai lo spazio di lavoro Esercitazione di conversazione che hai creato e aggiungerai dei nodi al semplice dialogo che hai costruito come parte dell'esercitazione iniziale.
+Utilizzerai lo spazio di lavoro dell'esercitazione {{site.data.keyword.conversationshort}} che hai creato e aggiungerai dei nodo al semplice dialogo come parte dell'esercitazione iniziale.
 
 ## Passo 1: aggiungi intenti ed esempi
 {: #intents}
 
 Aggiungi un intento alla scheda Intenti. Un intento è lo scopo o l'obiettivo espresso nell'input utente.
 
-1.  Nella pagina Intenti dello spazio di lavoro Esercitazione di conversazione, fai clic su **Crea nuovo**.
-1.  Aggiungi il seguente nome intento e premi Invio.
+1.  Sulla pagina Intenti dello spazio di lavoro dell'esercitazione {{site.data.keyword.conversationshort}}, fai clic su **Aggiungi intento**.
+1.  Aggiungi il seguente nome intento e poi fai clic su **Crea intento**:
 
     ```
     turn_on
@@ -54,7 +54,7 @@ Aggiungi un intento alla scheda Intenti. Un intento è lo scopo o l'obiettivo es
     {: codeblock}
 
     Un simbolo `#` viene anteposto al nome dell'intento specificato. L'intento `#turn_on` indica che l'utente desidera attivare un dispositivo come la radio, i tergicristalli o i fari.
-1.  Nel campo **Esempio utente**, immetti la seguente espressioni e premi Invio:
+1.  Nel campo **Aggiungi esempio utente**, immetti la seguente espressione e quindi fai clic su **Aggiungi esempio**:
 
     ```
     I need lights
@@ -73,9 +73,9 @@ Aggiungi un intento alla scheda Intenti. Un intento è lo scopo o l'obiettivo es
     ```
     {: codeblock}
 
-1.  Fai clic su **Fatto** per aggiungere l'intento.
+1.  Fai clic sull'icona **Chiudi** ![Freccia di chiusura](images/close_arrow.png) per completare l'aggiunta dell'intento `#turn_on`.
 
-Adesso hai tre intenti, `#turn_on`, `#greeting` e `#goodbye`, ognuno con istruzioni di esempio. Questi esempi aiutano ad addestrare Watson a riconoscere gli intenti nell'input utente.
+Ora hai tre intenti, l'intento `#turn_on` che hai appena aggiunto e gli intenti `#hello` e `#goodbye` che sono stati aggiunti nell'*Esercitazione introduttiva* che hai completato come passo prerequisito. Ciascun intento ha una serie di espressioni di esempio che ti consentono di addestrare Watson a riconoscere gli intenti nell'input utente. 
 
 ## Passo 2: aggiungi le entità
 {: #entities}
@@ -85,7 +85,7 @@ Una definizione di entità include un insieme di *valori* di entità che possono
 Crea le entità che potrebbero verificarsi nell'input utente che ha l'intento #turn_on per rappresentare ciò che l'utente desidera attivare.
 
 1.  Fai clic sulla scheda **Entità** per aprire la pagina Entità.
-1.  Fai clic su **Crea nuovo**.
+1.  Fai clic su **Aggiungi entità**.
 1.  Aggiungi il seguente nome entità e premi Invio.
 
     ```
@@ -94,9 +94,7 @@ Crea le entità che potrebbero verificarsi nell'input utente che ha l'intento #t
     {: codeblock}
 
     Un simbolo `@` viene anteposto al nome dell'entità specificato. L'entità `@appliance` rappresenta un dispositivo nell'automobile che un utente potrebbe voler attivare.
-1.  Fai clic sull'interruttore per **attivare** la corrispondenza fuzzy.
-    Questa impostazione aiuta il servizio a riconoscere i riferimenti alle entità nell'input utente anche quando l'entità viene specificata in un modo che non corrisponde esattamente alla sintassi che usi qui.
-1.  Aggiungi il seguente valore al campo **Valore**, ma non premere Invio:
+1.  Aggiungi il seguente valore al campo **Nome valore**:
 
     ```
     radio
@@ -104,7 +102,7 @@ Crea le entità che potrebbero verificarsi nell'input utente che ha l'intento #t
     {: codeblock}
 
     Il valore rappresenta uno specifico dispositivo che gli utenti potrebbero voler attivare.
-1.  Aggiungi altri modi per specificare l'entità del dispositivo radio nel campo **Sinonimi**. Premi il tasto Tab per attivare il campo e immetti quindi i seguenti sinonimi. Premi Invio dopo ogni sinonimo.
+1.  Aggiungi altri modi per specificare l'entità del dispositivo radio nel campo **Sinonimi**. Premi il tasto **Tab** per attivare il campo e immetti quindi i seguenti sinonimi. Premi **Invio** dopo ciascun sinonimo.
 
     ```
     music
@@ -112,11 +110,17 @@ Crea le entità che potrebbero verificarsi nell'input utente che ha l'intento #t
     ```
     {: codeblock}
 
-1.  Fai clic sull'icona **Aggiungi un nuovo valore** ![segno più](images/add.png) per aggiungere altri tipi di dispositivi.
+1.  Fai clic su **Aggiungi valore** per completare la definizione del valore `radio` per l'entità `@appliance`.
+1.  Aggiungi altri tipi di dispositivi. 
+
     - Valore: `headlights`. Sinonimo: `lights`.
     - Valore: `air conditioning`. Sinonimi: `air` e `AC`.
-1.  Fai clic su **Fatto** per aggiungere l'entità **@appliance**.
+
+1.  Fai clic sull'interruttore per **attivare** la corrispondenza fuzzy per l'entità `@appliance`.
+    Questa impostazione aiuta il servizio a riconoscere i riferimenti alle entità nell'input utente anche quando l'entità viene specificata in un modo che non corrisponde esattamente alla sintassi che usi qui.
+1.  Fai clic sull'icona **Chiudi** ![Freccia di chiusura](images/close_arrow.png) per completare l'aggiunta dell'entità `@appliance`.
 1.  Ripeti i passi 2-8 per creare l'entità @`genre` con la corrispondenza fuzzy attivata e i seguenti valori e sinonimi:
+
     - Valore: `classical`. Sinonimo: `symphonic`.
     - Valore: `rhythm and blues` Sinonimo: `r&b`.
     - Valore: `rock`. Sinonimo: `rock & roll`, `rock and roll` e `pop`.
@@ -130,10 +134,10 @@ Quando l'input dell'utente viene ricevuto, il servizio {{site.data.keyword.conve
 
 In questo dialogo complesso, creerai dei rami di dialogo che gestiscono l'intento #turn_on definito in precedenza.
 
-### Aggiungi un nodo di base per #turn_on
-Crea un ramo di dialogo per rispondere all'intento #turn_on. Inizia creando il nodo di base:
+### Aggiungi un nodo root per #turn_on
+Crea un ramo di dialogo per rispondere all'intento #turn_on. Inizia creando il nodo root:
 
-1.  Fai clic sull'icona Altro ![Altre opzioni](images/kabob.png) sul nodo **#greeting** e seleziona **Aggiungi nodo in basso**.
+1.  Fai clic sull'icona Altro ![Altre opzioni](images/kabob.png) sul nodo **#hello** e seleziona **Aggiungi nodo in basso**. 
 1.  Inizia a immettere `#turn_on` nel campo di condizione e quindi selezionala dall'elenco.
     Questa condizione viene attivata da qualsiasi input che corrisponde all'intento  #turn_on.
 1.  Non immettere una risposta in questo nodo. Fai clic su ![Chiudi](images/close.png) per chiudere la vista di modifica del nodo.
@@ -147,7 +151,7 @@ Ci sono tre possibili scenari, basati sugli intenti e le entità che hai definit
 
 **Scenario 2**: l'utente vuole attivare qualsiasi altro dispositivo valido, nel qual caso il bot ripete il nome del dispositivo richiesto in un messaggio che indica che verrà attivato.
 
-**Scenario 3**: l'utente non specifica un nome dispositivo riconoscibile, nel qual caso il bot deve chiedere un chiarimento. 
+**Scenario 3**: l'utente non specifica un nome dispositivo riconoscibile, nel qual caso il bot deve chiedere un chiarimento.
 
 Aggiungi i nodi che verificano queste condizioni di scenario in quest'ordine in modo che il dialogo valuti prima la condizione più specifica.
 
@@ -259,15 +263,13 @@ Ora aggiungi un nodo peer che viene attivato se l'utente non specifica un tipo d
 
     ![Mostra la scelta di un intento diverso e il riaddestramento](images/tut-change-intent.gif)
 
-#### Operazioni successive
-
-Facoltativamente, riesamina lo spazio di lavoro **Dashboard automobile - Esempio** per vedere questo stesso caso di utilizzo arricchito ancora di più con un dialogo più lungo e ulteriori funzionalità.
+Facoltativamente, puoi riesaminare lo spazio di lavoro **Dashboard automobile - Esempio** per vedere questo stesso caso di utilizzo arricchito ancora di più con un dialogo più lungo e ulteriori funzionalità. 
 
 1.  Fai clic sul pulsante **Torna a spazi di lavoro** ![Mostra il pulsante Torna a spazi di lavoro nel menu](images/workspaces-button.png) dal menu di navigazione.
 
 1.  Nel tile **Dashboard automobile - Esempio**, fai clic su **Modifica esempio**.
 
-## Passo 4: distribuisci lo spazio di lavoro dell'esercitazione
+## Passi successivi
 {: #deploy}
 
 Ora che hai creato e testato il tuo spazio di lavoro, puoi distribuirlo collegandolo a un'interfaccia utente. Ci sono diversi modi per farlo.
@@ -278,7 +280,7 @@ Puoi utilizzare lo strumento di distribuzione di test per [distribuire il tuo sp
 
 ### Crea la tua applicazione di front-end
 
-Puoi utilizzare gli SDK Watson per [creare la tua propria](develop-app.html) applicazione di front-end che si connette al tuo spazio di lavoro utilizzando l'API REST Conversation.
+Puoi utilizzare gli SDK Watson per [creare la tua](develop-app.html) applicazione di front-end che si connette al tuo spazio di lavoro utilizzando l'API REST {{site.data.keyword.conversationshort}}.
 
 ### Distribuisci a canali di social media e di messaggistica
 

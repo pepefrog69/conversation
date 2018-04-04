@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2017
-lastupdated: "2017-07-20"
+lastupdated: "2017-07-03"
 
 ---
 
@@ -22,7 +22,7 @@ lastupdated: "2017-07-20"
 Questo elenco di fusi orari supportati può essere utilizzato con le funzioni di fuso orario correlate alle [entità @sys-date e @sys-time](system-entities.html#sys-datetime).
 {: shortdesc}
 
-|            Fuso orario         |             Fuso orario          |
+|            Fuso orario           |             Fuso orario            |
 |:------------------------------:|:--------------------------------:|
 |         Africa/Abidjan         |           Africa/Accra           |
 |       Africa/Addis_Ababa       |          Africa/Algiers          |
@@ -233,24 +233,24 @@ Questo elenco di fusi orari supportati può essere utilizzato con le funzioni di
 |          Etc/Greenwich         |              Etc/UCT             |
 |             Etc/UTC            |           Etc/Universal          |
 |            Etc/Zulu            |         Europa/Amsterdam         |
-|         Europa/Andorra         |           Europa/Atene           |
+|         Europa/Andorra         |           Europa/Atene          |
 |         Europa/Belfast         |          Europa/Belgrado         |
-|          Europa/Berlino        |         Europa/Bratislava        |
-|         Europa/Bruxel          |         Europa/Bucarest          |
+|          Europa/Berlino         |         Europa/Bratislava        |
+|         Europa/Bruxel        |         Europa/Bucarest         |
 |         Europa/Budapest        |          Europa/Busingen         |
 |         Europa/Chisinau        |         Europa/Copenhagen        |
-|          Europa/Dublino        |         Europa/Gibilterra        |
+|          Europa/Dublino         |         Europa/Gibilterra         |
 |         Europa/Guernsey        |          Europa/Helsinki         |
 |       Europa/Isle_of_Man       |          Europa/Istanbul         |
 |          Europa/Jersey         |        Europa/Kaliningrad        |
-|           Europa/Kiev          |           Europa/Lisbona         |
-|        Europa/Lubiana          |           Europa/Londra          |
-|        Europa/Lussemburgo      |           Europa/Madrid          |
+|           Europa/Kiev          |           Europa/Lisbona          |
+|        Europa/Lubiana        |           Europa/Londra          |
+|        Europa/Lussemburgo       |           Europa/Madrid          |
 |          Europa/Malta          |         Europa/Mariehamn         |
 |          Europa/Minsk          |           Europa/Monaco          |
-|          Europa/Mosca          |          Europa/Nicosia          |
-|           Europa/Oslo          |           Europa/Parigi          |
-|        Europa/Podgorica        |           Europa/Praga           |
+|          Europa/Mosca         |          Europa/Nicosia          |
+|           Europa/Oslo          |           Europa/Parigi           |
+|        Europa/Podgorica        |           Europa/Praga          |
 |           Europa/Riga          |            Europa/Roma           |
 |          Europa/Samara         |         Europa/San_Marino        |
 |         Europa/Sarajevo        |         Europa/Simferopol        |
@@ -258,38 +258,38 @@ Questo elenco di fusi orari supportati può essere utilizzato con le funzioni di
 |        Europa/Stoccolma        |          Europa/Tallinn          |
 |          Europa/Tirana         |          Europa/Tiraspol         |
 |         Europa/Uzhgorod        |           Europa/Vaduz           |
-|         Europa/Vaticano        |           Europa/Vienna          |
+|         Europa/Vaticano         |           Europa/Vienna          |
 |         Europa/Vilnius         |         Europa/Volgograd         |
-|          Europa/Varsavia       |           Europa/Zagrabia        |
+|          Europa/Varsavia         |           Europa/Zagrabia          |
 |        Europa/Zaporozhye       |           Europa/Zurigo          |
-|               GB               |              GB-Irlanda          |
+|               GB               |              GB-Irlanda             |
 |               GMT              |               GMT0               |
 |            Greenwich           |             Hongkong             |
-|             Islanda            |        Indiano/Antananarivo      |
-|          Indiano/Chagos        |         Indiano/Christmas        |
-|          Indiano/Cocos         |           Indiano/Comoro         |
-|        Indiano/Kerguelen       |            Indiano/Mahe          |
-|         Indiano/Maldive        |         Indiano/Mauritius        |
-|         Indiano/Mayotte        |          Indiano/Reunion         |
-|              Iran              |              Israele             |
-|             Giamaica           |               Giappone           |
+|             Islanda            |        Indiano/Antananarivo       |
+|          Indiano/Chagos         |         Indiano/Christmas         |
+|          Indiano/Cocos          |           Indiano/Comoro          |
+|        Indiano/Kerguelen        |            Indiano/Mahe           |
+|         Indiano/Maldive        |         Indiano/Mauritius         |
+|         Indiano/Mayotte         |          Indiano/Reunion          |
+|              Iran              |              Israele              |
+|             Giamaica            |               Giappone              |
 |            Kwajalein           |               Libia              |
 |               MET              |              MST7MDT             |
-|        Messico/BajaNorte       |          Messico/BajaSur         |
-|         Messico/Generale       |                NZ                |
+|        Messico/BajaNorte        |          Messico/BajaSur          |
+|         Messico/Generale         |                NZ                |
 |             NZ-CHAT            |              Navajo              |
 |               PRC              |              PST8PDT             |
-|          Pacifico/Apia         |         Pacifico/Auckland        |
-|      Pacifico/Bougainville     |          Pacifico/Chatham        |
-|          Pacifico/Chuuk        |          Pacifico/Pasqua         |
-|          Pacifico/Efate        |         Pacifico/Enderbury       |
-|         Pacifico/Fakaofo       |           Pacifico/Fiji          |
+|          Pacifico/Apia          |         Pacifico/Auckland         |
+|      Pacifico/Bougainville      |          Pacifico/Chatham         |
+|          Pacifico/Chuuk         |          Pacifico/Pasqua          |
+|          Pacifico/Efate         |         Pacifico/Enderbury        |
+|         Pacifico/Fakaofo        |           Pacifico/Fiji           |
 |        Pacifico/Funafuti        |         Pacifico/Galapagos        |
 |         Pacifico/Gambier        |        Pacifico/Guadalcanal       |
 |          Pacifico/Guam          |         Pacifico/Honolulu         |
 |        Pacifico/Johnston        |        Pacifico/Kiritimati        |
 |         Pacifico/Kosrae         |         Pacifico/Kwajalein        |
-|         Pacifico/Majuro         |         Pacifico/Isole Marchesi |
+|         Pacifico/Majuro         |         Pacifico/Isole Marchesi        |
 |         Pacifico/Midway         |           Pacifico/Nauru          |
 |          Pacifico/Niue          |          Pacifico/Norfolk         |
 |         Pacifico/Noumea         |         Pacifico/Pago_Pago        |
@@ -300,7 +300,7 @@ Questo elenco di fusi orari supportati può essere utilizzato con le funzioni di
 |         Pacifico/Tahiti         |          Pacifico/Tarawa          |
 |        Pacifico/Tongatapu       |           Pacifico/Truk           |
 |          Pacifico/Wake          |          Pacifico/Wallis          |
-|           Pacifico/Yap          |              Polonia             |
+|           Pacifico/Yap          |              Polonia              |
 |            Portogallo            |                ROK               |
 |            Singapore           |           SystemV/AST4           |
 |         SystemV/AST4ADT        |           SystemV/CST6           |
@@ -312,10 +312,10 @@ Questo elenco di fusi orari supportati può essere utilizzato con le funzioni di
 |             Turchia             |                UCT               |
 |            US/Alaska           |            US/Aleutian           |
 |           US/Arizona           |            US/Centrale            |
-|         US/Indiana orientale   |            US/Orientale            |
+|         US/Indiana orientale        |            US/Orientale            |
 |            US/Hawaii           |         US/Indiana-Starke        |
 |           US/Michigan          |            US/Mountain           |
-|           US/Pacifico           |          US/uovo Pacifico       |
+|           US/Pacifico           |          US/uovo Pacifico          |
 |            US/Samoa            |                UTC               |
 |            Universal           |               W-SU               |
 |               WET              |               Zulu               |

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-16"
+  years: 2015, 2018
+lastupdated: "2018-02-13"
 
 ---
 
@@ -42,7 +42,7 @@ Questo suggerimento implica l'estrazione di singole frasi immesse dagli utenti, 
 Fai clic su **Avvia** per iniziare a identificare gli intenti.
 ![Pagina Migliora gli intenti esistenti](images/rec_improve_intent.png)
 
-Quando entri o esci dalla pagina **Migliora gli intenti esistenti**, la barra di avanzamento mostra su quante frasi sei intervenuto nella sessione corrente, rispetto alle frasi totali rimaste per la giornata. Nota che se esci e rientri, la barra di avanzamento inizierà di nuovo "vuota", ma ciò non significa che il tuo lavoro precedente è stato perso: semplicemente non verrà conteggiato nell'avanzamento della sessione corrente.
+Quando entri o esci dalla pagina **Migliora gli intenti esistenti**, la barra di avanzamento mostra su quante frasi sei intervenuto nella sessione corrente, rispetto alle frasi totali rimaste per la giornata. Nota che se esci e rientri, la barra di avanzamento inizierà di nuovo `vuota`, ma ciò non significa che il tuo lavoro precedente è stato perso: semplicemente non verrà conteggiato nell'avanzamento della sessione corrente. 
 
 Seleziona l'intento migliore per una frase dall'elenco fornito o seleziona *Contrassegna come irrilevante*. Le frasi vengono aggiunte agli intenti come esempi (aggiunte come dati di addestramento) non appena fai clic su **Salva**.
 

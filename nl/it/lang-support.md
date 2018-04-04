@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2015, 2017
-lastupdated: "2017-10-27"
+  years: 2015, 2018
+lastupdated: "2018-02-07"
 
 ---
 
@@ -27,23 +27,25 @@ Nella seguente tabella, il livello di supporto per lingua e funzione è indicato
 - **Beta** - La funzione è supportata solo come release Beta ed è ancora in fase di test prima di essere resa generalmente disponibile in questa lingua.
 - **Vuoto** - L'assenza di qualsiasi codice indica che una funzione non è disponibile in questa lingua.
 
-|                  | **[Definizione di intenti](intents.html)**, **[entità](entities.html)** e **[dialogo](dialog-build.html)** | **[Punteggio assoluto e 'Contrassegna come irrilevante'](intents.html#mark-irrelevant)** | **Entità di sistema ([numero](system-entities.html#sys-number), [valuta](system-entities.html#sys-currency), [percentuale](system-entities.html#sys-percentage), [data, ora](system-entities.html#sys-datetime))** | **[Corrispondenza fuzzy di entità](entities.html#fuzzy-matching)** | **[Entità basate sul modello](entities.html#pattern-entities)** |
-|:---|:---:|:---:|:---:|:---:|:---:|
-| **Inglese (en)**                   | GA | GA | GA </br> Beta ([posizione](system-entities.html#sys-location), [persona](system-entities.html#sys-person)) | Beta (Stemming, errore di ortografia e corrispondenza parziale) | Beta |
-| **Arabo (ar)**                    | GA | Beta | Beta | Beta (Solo errore di ortografia) | Beta |
-| **Cinese (semplificato) (zh-cn)**   | Beta | Beta | Beta |  | Beta |
-| **Cinese (tradizionale) (zh-tw)**  | Beta | Beta |  |  | Beta |
-| **Ceco (cs)**                     | Beta | Beta | Beta | Beta (Solo errore di ortografia) | Beta |
-| **Olandese (nl)**                     | Beta | Beta |  |  | Beta |
-| **Francese (fr)**                    | GA | GA | GA | Beta (Solo errore di ortografia) | Beta |
-| **Tedesco (de)**                    | GA | GA | GA | Beta (Solo errore di ortografia) | Beta |
-| **Italiano (it)**                   | GA | GA | GA | Beta (Solo errore di ortografia) | Beta |
-| **Giapponese (ja)**                  | GA | GA | GA | Beta (Solo errore di ortografia) | Beta |
-| **Coreano (ko)**                    | GA | GA | Beta | Beta (Solo errore di ortografia) | Beta |
-| **Portoghese (brasiliano) (pt-br)** | GA | GA | GA | Beta (Solo errore di ortografia) | Beta |
-| **Spagnolo (es)**                   | GA | GA | GA | Beta (Solo errore di ortografia) | Beta ||
+|                  | **[Definizione di intenti](intents.html)**, **[entità](entities.html)** e **[dialogo](dialog-build.html)** | **[Punteggio assoluto e 'Contrassegna come irrilevante'](intents.html#mark-irrelevant)** | **Entità di sistema ([numero](system-entities.html#sys-number), [valuta](system-entities.html#sys-currency), [percentuale](system-entities.html#sys-percentage), [data, ora](system-entities.html#sys-datetime))** | **[Corrispondenza fuzzy di entità](entities.html#fuzzy-matching)** |
+|:---|:---:|:---:|:---:|:---:|
+| **Inglese (en)**                   | GA | GA | GA </br> Beta ([posizione](system-entities.html#sys-location), [persona](system-entities.html#sys-person)) | Beta (Stemming, errore di ortografia e corrispondenza parziale) |
+| **Arabo (ar)**                    | GA | Beta | Beta | Beta (Solo errore di ortografia) |
+| **Cinese (semplificato) (zh-cn)**   | Beta | Beta | Beta |  |
+| **Cinese (tradizionale) (zh-tw)**  | Beta | Beta |  |  |
+| **Ceco (cs)**                     | Beta | Beta | Beta | Beta (Solo errore di ortografia) |
+| **Olandese (nl)**                     | Beta | Beta | Beta |  |
+| **Francese (fr)**                    | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Tedesco (de)**                    | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Italiano (it)**                   | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Giapponese (ja)**                  | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Coreano (ko)**                    | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Portoghese (brasiliano) (pt-br)** | GA | GA | GA | Beta (Solo errore di ortografia) |
+| **Spagnolo (es)**                   | GA | GA | GA | Beta (Solo errore di ortografia) ||
 
 **Nota:** il servizio {{site.data.keyword.conversationshort}} supporta più lingue come indicato, ma l'interfaccia degli strumenti stessa (descrizioni, etichette, ecc.) è in inglese. Tutte le lingue supportate possono essere inserite e addestrate attraverso l'interfaccia inglese.
+
+**Conformità GB18030**: GB18030 è uno standard cinese che specifica una code page estesa da utilizzare nel mercato cinese. Questo standard di code page è importante il settore software in quanto China National Information Technology Standardization Technical Committee ha ordinato che qualsiasi applicazione software rilasciata per il mercato cinese dopo il 1° settembre 2001, deve essere abilitata per GB18030. Il servizio {{site.data.keyword.conversationshort}} supporta questa codifica e viene certificato come conforme a GB18030. 
 
 ## Modifica di una lingua dello spazio di lavoro
 
@@ -63,7 +65,7 @@ Scegli tra le seguenti opzioni per il tuo spazio di lavoro:
 - **Direzione GUI**: specifica la direzione di layout degli elementi, come pulsanti o menu, nell'interfaccia utente grafica. Scegli `LTR` (da sinistra a destra) o `RTL` (da destra a sinistra). Se non specificato, lo strumento segue l'impostazione della direzione della GUI del browser Web.
 - **Direzione testo**: specifica la direzione del testo immesso. Scegli `LTR` (da sinistra a destra) o `RTL` (da destra a sinistra) oppure seleziona `Auto` che sceglierà automaticamente la direzione del testo in base alle impostazioni del tuo sistema. L'opzione `None` visualizzerà il testo da sinistra a destra.
 - **Forma numerica**: specifica quale forma di numeri utilizzare quando si presentano cifre regolari. Scegli tra `Nominal`, `Arabic-Indic` o `Arabic-European`. L'opzione `None` visualizzerà i numeri occidentali.
-- **Tipo di calendario**: specifica come scegli di filtrare le date nella IU dello spazio di lavoro. Scegli `Islamic-Civil`, `Islamic-Tabular`, `Islamic-Umm al-Qura` o `Gregorian`. **Nota**: questa impostazione non si applica al pannello "Provalo".
+- **Tipo di calendario**: specifica come scegli di filtrare le date nella IU dello spazio di lavoro. Scegli `Islamic-Civil`, `Islamic-Tabular`, `Islamic-Umm al-Qura` o `Gregorian`. **Nota**: questa impostazione non si applica al riquadro "Provalo".
 
 ![Opzioni bidi](images/bidi_opts.png)
 
@@ -72,7 +74,7 @@ Al termine delle selezioni, fai clic su **Aggiorna** per salvare e ritornare all
 ## Utilizzo di caratteri accentati
 {: #working-with-accents}
 
-In un contesto di conversazione, gli utenti possono utilizzare o meno accenti durante l'interazione con il servizio di conversazione. Di conseguenza, sia le versioni accentate che quelle non accentate delle parole possono essere trattate allo stesso modo per il rilevamento di intenti e il riconoscimento di entità.
+In un contesto di conversazione, gli utenti possono utilizzare o meno accenti durante l'interazione con il servizio {{site.data.keyword.conversationshort}}. Di conseguenza, sia le versioni accentate che quelle non accentate delle parole possono essere trattate allo stesso modo per il rilevamento di intenti e il riconoscimento di entità.
 
 Tuttavia per alcune lingue, come lo spagnolo, alcuni accenti possono modificare il significato dell'entità. Pertanto, per il rilevamento di entità, sebbene l'entità originale possa implicitamente avere un accento, il servizio può anche abbinare la versione non accentata della stessa entità, ma con un punteggio di affidabilità leggermente inferiore.
 
