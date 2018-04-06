@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-03-15"
+lastupdated: "2018-04-06"
 
 ---
 
@@ -77,6 +77,7 @@ A node condition determines whether that node is used in the conversation. Respo
 - [Condition artifacts](dialog-overview.html#condition-artifacts)
 - [Condition syntax details](dialog-overview.html#condition-syntax)
 - [Condition usage tips](dialog-overview.html#condition-tips)
+- [Special conditions](dialog-overview.html#special-conditions)
 
 ### Condition artifacts
 {: #condition-artifacts}
@@ -109,7 +110,10 @@ You can use one or more of the following artifacts in any combination to define 
 
   For more information about intents, see [Defining intents](intents.html).
 
-- **Special condition**: Conditions that are provided with the service that you can use to perform common dialog functions.
+- **Special condition**: Conditions that are provided with the service that you can use to perform common dialog functions. See the **Special conditions** table in the next section for details.
+
+### Special conditions
+{: #special-conditions}
 
 | Condition syntax     | Description |
 |----------------------|-------------|
