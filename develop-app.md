@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-01-29"
+lastupdated: "2018-04-10"
 
 ---
 
@@ -52,23 +52,23 @@ Interacting with the {{site.data.keyword.conversationshort}} service is simple. 
 // Example 1: sets up service wrapper, sends initial message, and 
 // receives response.
 
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 
-// Set up Conversation service wrapper.
-var conversation = new ConversationV1({
+// Set up Assistant service wrapper.
+var service = new AssistantV1({
   username: 'USERNAME', // replace with service username
   password: 'PASSWORD', // replace with service password
-  version_date: '2017-05-26'
+  version: '2018-02-16'
 });
 
 var workspace_id = 'WORKSPACE_ID'; // replace with workspace ID
 
 // Start conversation with empty message.
-conversation.message({
+service.message({
   workspace_id: workspace_id
   }, processResponse);
 
-// Process the conversation response.
+// Process the service response.
 function processResponse(err, response) {
   if (err) {
     console.error(err); // something went wrong
@@ -90,16 +90,16 @@ function processResponse(err, response) {
 
 import watson_developer_cloud
 
-# Set up Conversation service.
-conversation = watson_developer_cloud.ConversationV1(
-  username = 'USERNAME', # replace with username from service key
-  password = 'PASSWORD', # replace with password from service key
-  version = '2017-05-26'
+# Set up Assistant service.
+service = watson_developer_cloud.AssistantV1(
+  username = 'USERNAME', # replace with service username
+  password = 'PASSWORD', # replace with service password
+  version = '2018-02-16'
 )
 workspace_id = 'WORKSPACE_ID' # replace with workspace ID
 
 # Start conversation with empty message.
-response = conversation.message(
+response = service.message(
   workspace_id = workspace_id,
   input = {
     'text': ''
@@ -117,10 +117,10 @@ The first step is to create a wrapper for the {{site.data.keyword.conversationsh
 
 The wrapper is an object you will use to send input to, and receive output from, the service. When you create the service wrapper, specify the authentication credentials from the service key, as well as the version of the {{site.data.keyword.conversationshort}} API you are using.
 
-In this Node.js example, the wrapper is an instance of `ConversationV1`, stored in the variable `conversation`. The Watson SDKs for other languages provide equivalent mechanisms for instantiating a service wrapper.
+In this Node.js example, the wrapper is an instance of `AssistantV1`, stored in the variable `service`. The Watson SDKs for other languages provide equivalent mechanisms for instantiating a service wrapper.
 {: javascript}
 
-In this Python example, the wrapper is an instance of `watson_developer_cloud.ConversationV1`, stored in the variable `conversation`. The Watson SDKs for other languages provide equivalent mechanisms for instantiating a service wrapper.
+In this Python example, the wrapper is an instance of `watson_developer_cloud.AssistantV1`, stored in the variable `service`. The Watson SDKs for other languages provide equivalent mechanisms for instantiating a service wrapper.
 {: python}
 
 After creating the service wrapper, we use it to send a message to the {{site.data.keyword.conversationshort}} service. In this example, the message is empty; we just want to trigger the conversation_start node in the dialog, so we don't need any input text.
@@ -156,23 +156,23 @@ To be able to process user input, we need to add a user interface to our applica
 // Example 2: adds user input and detects intents.
 
 var prompt = require('prompt-sync')();
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 
-// Set up Conversation service wrapper.
-var conversation = new ConversationV1({
+// Set up Assistant service wrapper.
+var service = new AssistantV1({
   username: 'USERNAME', // replace with service username
-  password: 'PASWORD', // replace with service password
-  version_date: '2017-05-26'
+  password: 'PASSWORD', // replace with service password
+  version: '2018-02-16'
 });
 
 var workspace_id = 'WORKSPACE_ID'; // replace with workspace ID
 
 // Start conversation with empty message.
-conversation.message({
+service.message({
   workspace_id: workspace_id
   }, processResponse);
 
-// Process the conversation response.
+// Process the service response.
 function processResponse(err, response) {
   if (err) {
     console.error(err); // something went wrong
@@ -191,7 +191,7 @@ function processResponse(err, response) {
 
   // Prompt for the next round of input.
   var newMessageFromUser = prompt('>> ');
-  conversation.message({
+  service.message({
     workspace_id: workspace_id,
     input: { text: newMessageFromUser }
     }, processResponse)
@@ -205,11 +205,11 @@ function processResponse(err, response) {
 
 import watson_developer_cloud
 
-# Set up Conversation service.
-conversation = watson_developer_cloud.ConversationV1(
-  username = 'USERNAME', # replace with username from service key
-  password = 'PASSWORD', # replace with password from service key
-  version = '2017-05-26'
+# Set up Assistant service.
+service = watson_developer_cloud.AssistantV1(
+  username = 'USERNAME', # replace with service username
+  password = 'PASSWORD', # replace with service password
+  version = '2018-02-16'
 )
 workspace_id = 'WORKSPACE_ID' # replace with workspace ID
 
@@ -219,8 +219,8 @@ user_input = ''
 # Main input/output loop
 while True:
 
-  # Send message to Conversation service.
-  response = conversation.message(
+  # Send message to Assistant service.
+  response = service.message(
     workspace_id = workspace_id,
     input = {
       'text': user_input
@@ -282,23 +282,23 @@ In addition to maintaining our place in the conversation, the context can also b
 // Example 3: maintains state.
 
 var prompt = require('prompt-sync')();
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 
-// Set up Conversation service wrapper.
-var conversation = new ConversationV1({
+// Set up Assistant service wrapper.
+var service = new AssistantV1({
   username: 'USERNAME', // replace with service username
   password: 'PASSWORD', // replace with service password
-  version_date: '2017-05-26'
+  version: '2018-02-16'
 });
 
 var workspace_id = 'WORKSPACE_ID'; // replace with workspace ID
 
 // Start conversation with empty message.
-conversation.message({
+service.message({
   workspace_id: workspace_id
   }, processResponse);
 
-// Process the conversation response.
+// Process the service response.
 function processResponse(err, response) {
   if (err) {
     console.error(err); // something went wrong
@@ -309,7 +309,7 @@ function processResponse(err, response) {
   if (response.intents.length > 0) {
     console.log('Detected intent: #' + response.intents[0].intent);
   }
-  
+
   // Display the output from dialog, if any.
   if (response.output.text.length != 0) {
       console.log(response.output.text[0]);
@@ -318,7 +318,7 @@ function processResponse(err, response) {
   // Prompt for the next round of input.
     var newMessageFromUser = prompt('>> ');
     // Send back the context to maintain state.
-    conversation.message({
+    service.message({
       workspace_id: workspace_id,
       input: { text: newMessageFromUser },
       context : response.context,
@@ -333,11 +333,11 @@ function processResponse(err, response) {
 
 import watson_developer_cloud
 
-# Set up Conversation service.
-conversation = watson_developer_cloud.ConversationV1(
-  username = 'USERNAME', # replace with username from service key
-  password = 'PASSWORD', # replace with password from service key
-  version = '2017-05-26'
+# Set up Assistant service.
+service = watson_developer_cloud.AssistantV1(
+  username = 'USERNAME', # replace with service username
+  password = 'PASSWORD', # replace with service password
+  version = '2018-02-16'
 )
 workspace_id = 'WORKSPACE_ID' # replace with workspace ID
 
@@ -348,8 +348,8 @@ context = {}
 # Main input/output loop
 while True:
 
-  # Send message to Conversation service.
-  response = conversation.message(
+  # Send message to Assistant service.
+  response = service.message(
     workspace_id = workspace_id,
     input = {
       'text': user_input
@@ -378,7 +378,7 @@ The only change from the previous example is that with each round of the convers
 {: javascript }
 
 ```javascript
-    conversation.message({
+    service.message({
       input: { text: newMessageFromUser },
       context : response.context,
     }, processResponse)
@@ -390,7 +390,7 @@ The only change from the previous example is that we are now storing the context
 {: python }
 
 ```python
-  response = conversation.message(
+  response = service.message(
     workspace_id = workspace_id,
     input = {
       'text': user_input
@@ -434,23 +434,23 @@ But in our example, we're using a simple key/value pair that supports a single a
 // Example 4: implements app actions.
 
 var prompt = require('prompt-sync')();
-var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+var AssistantV1 = require('watson-developer-cloud/assistant/v1');
 
-// Set up Conversation service wrapper.
-var conversation = new ConversationV1({
+// Set up Assistant service wrapper.
+var service = new AssistantV1({
   username: 'USERNAME', // replace with service username
   password: 'PASSWORD', // replace with service password
-  version_date: '2017-05-26'
+  version: '2018-02-16'
 });
 
 var workspace_id = 'WORKSPACE_ID'; // replace with workspace ID
 
 // Start conversation with empty message.
-conversation.message({
+service.message({
   workspace_id: workspace_id
   }, processResponse);
 
-// Process the conversation response.
+// Process the service response.
 function processResponse(err, response) {
   if (err) {
     console.error(err); // something went wrong
@@ -458,11 +458,11 @@ function processResponse(err, response) {
   }
 
   var endConversation = false;
-  
+
   // Check for action flags.
   if (response.output.action === 'display_time') {
     // User asked what time it is, so we output the local system time.
-    console.log('The current time is ' + new Date().toLocaleTimeString());
+    console.log('The current time is ' + new Date().toLocaleTimeString() + '.');
   } else if (response.output.action === 'end_conversation') {
     // User said goodbye, so we're done.
     console.log(response.output.text[0]);
@@ -477,7 +477,7 @@ function processResponse(err, response) {
   // If we're not done, prompt for the next round of input.
   if (!endConversation) {
     var newMessageFromUser = prompt('>> ');
-    conversation.message({
+    service.message({
       workspace_id: workspace_id,
       input: { text: newMessageFromUser },
       // Send back the context to maintain state.
@@ -495,11 +495,11 @@ function processResponse(err, response) {
 import watson_developer_cloud
 import time
 
-# Set up Conversation service.
-conversation = watson_developer_cloud.ConversationV1(
-  username = 'USERNAME', # replace with username from service key
-  password = 'PASSWORD', # replace with password from service key
-  version = '2017-05-26'
+# Set up Assistant service.
+service = watson_developer_cloud.AssistantV1(
+  username = 'USERNAME', # replace with service username
+  password = 'PASSWORD', # replace with service password
+  version = '2018-02-16'
 )
 workspace_id = 'WORKSPACE_ID' # replace with workspace ID
 
@@ -511,8 +511,8 @@ current_action = ''
 # Main input/output loop
 while current_action != 'end_conversation':
 
-  # Send message to Conversation service.
-  response = conversation.message(
+  # Send message to Assistant service.
+  response = service.message(
     workspace_id = workspace_id,
     input = {
       'text': user_input
@@ -531,7 +531,7 @@ while current_action != 'end_conversation':
     current_action = response['output']['action']
   # User asked what time it is, so we output the local system time.
   if current_action == 'display_time':
-    print('The current time is ' + time.strftime('%I:%M:%S %p'))
+    print('The current time is ' + time.strftime('%I:%M:%S %p') + '.')
   # If we're not done, prompt for next round of input.
   if current_action != 'end_conversation':
     user_input = input('>> ')
@@ -560,4 +560,4 @@ Success! The application now uses the {{site.data.keyword.conversationshort}} se
 
 Of course, a real-world application would use a more sophisticated user interface, such as a web chat window. And it would implement more complex actions, possibly integrating with a customer database or other business systems. But the basic principles of how the application interacts with the {{site.data.keyword.conversationshort}} service would remain the same.
 
-For some more complex examples, take a look at the Sample apps in the Navigation pane.
+For some more complex examples, see [Sample apps](sample-applications.html).
