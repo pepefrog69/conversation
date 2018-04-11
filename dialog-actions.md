@@ -2,7 +2,7 @@
 
 copyright:
   years: 2015, 2018
-lastupdated: "2018-04-05"
+lastupdated: "2018-04-09"
 
 ---
 
@@ -172,7 +172,7 @@ To make a programmatic call from a dialog node, complete the following steps:
 
       To protect the credentials, do not store them in the {{site.data.keyword.conversationshort}} workspace. Instead, pass them from the client application as part of context. You can prevent the information from being stored in Watson logs by nesting your context variable within the $private section of the message context. For example: `$private.my_credentials`.
 
-      The credentials object that you define must contain the parameters `user` and `password`.
+      The credentials object that you define must contain parameters named `user` and `password`.
 
       ```json
       {
