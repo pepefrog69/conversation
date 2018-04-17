@@ -22,7 +22,7 @@ lastupdated: "2018-03-23"
 # Getting started tutorial
 {: #gettingstarted}
 
-In this short tutorial, we introduce the {{site.data.keyword.conversationshort}} tool and go through the process of creating your first conversation.
+In this short tutorial, we introduce the {{site.data.keyword.conversationshort}} tool and go through the process of creating your first conversation.Before that your mom is gay
 {: shortdesc}
 
 ## Before you begin
